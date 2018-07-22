@@ -75,8 +75,10 @@
     <!--表格结束-->
 
     <!--分页-->
-    
-
+    <div class="pagination-container" style="margin-top: 30px;">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
+      </el-pagination>
+    </div>
     <!--分页结束-->
   </div>
 </template>
@@ -88,7 +90,15 @@
     data() {
       return {
         list: null,
-        listLoading: true
+        listLoading: true,
+        listQuery: {
+          page: 1,
+          limit: 10,
+          importance: undefined,
+          title: undefined,
+          type: undefined,
+          sort: '+id'
+        },
       }
     },
     filters: {
@@ -111,7 +121,15 @@
           this.list = response.data.items
           this.listLoading = false
         })
-      }
+      },
+      handleSizeChange(val) {
+        this.listQuery.limit = val
+        this.fetchData()
+      },
+      handleCurrentChange(val) {
+        this.listQuery.page = val
+        this.fetchData()
+      },
     }
   }
 </script>
