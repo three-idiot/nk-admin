@@ -8,6 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const mockApi = require('../config/mock.api.js')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -59,6 +60,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
   ]
 })
+
+Object.assign(devWebpackConfig.devServer, mockApi);
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
