@@ -19,5 +19,14 @@ module.exports = {
                 data: {token:'abcdefg'} 
             });
         });
+        app.get('/table/order/list' ,function(req, res){
+            res.json({
+                code:200,
+                message:'ok',
+                data:{
+                    items:[{title:'title'}]
+                }
+            });
+        });
     }
 };
