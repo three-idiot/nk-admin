@@ -45,95 +45,139 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree', roles: ['admin'] }
-      }
-    ]
-  },
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Example',
+  //   meta: { title: 'Example', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: 'Table', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: 'Tree', icon: 'tree', roles: ['admin'] }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
 
   {
-    path: '/form',
+    path: '/user',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'nested',
+    alwaysShow: true,
+    redirect: '/user/list',
+    name: 'user',
     meta: {
-      title: 'nested',
-      icon: 'nested'
+      title: '用户管理',
+      icon: 'user'
+    },
+    children: [
+      // {
+      //   path: 'menu1',
+      //   component: () => import('@/views/nested/menu1/index'), // Parent router-view
+      //   name: 'menu1',
+      //   meta: { title: 'menu1' },
+      //   children: [
+      //     {
+      //       path: 'menu1-1',
+      //       component: () => import('@/views/nested/menu1/menu1-1'),
+      //       name: 'menu1-1',
+      //       meta: { title: 'menu1-1' }
+      //     },
+      //     {
+      //       path: 'menu1-2',
+      //       component: () => import('@/views/nested/menu1/menu1-2'),
+      //       name: 'menu1-2',
+      //       meta: { title: 'menu1-2' },
+      //       children: [
+      //         {
+      //           path: 'menu1-2-1',
+      //           component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+      //           name: 'menu1-2-1',
+      //           meta: { title: 'menu1-2-1' }
+      //         },
+      //         {
+      //           path: 'menu1-2-2',
+      //           component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+      //           name: 'menu1-2-2',
+      //           meta: { title: 'menu1-2-2' }
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       path: 'menu1-3',
+      //       component: () => import('@/views/nested/menu1/menu1-3'),
+      //       name: 'menu1-3',
+      //       meta: { title: 'menu1-3' }
+      //     }
+      //   ]
+      // },
+      {
+        path: 'list',
+        component: () => import('@/views/user/list'),
+        meta: { title: '用户列表' }
+      }
+    ]
+  },
+
+  {
+    path: '/order',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/order/list',
+    name: 'order',
+    meta: {
+      title: '订单管理',
+      icon: 'shopping'
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'menu1',
-        meta: { title: 'menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'menu1-1',
-            meta: { title: 'menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'menu1-2',
-            meta: { title: 'menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'menu1-2-1',
-                meta: { title: 'menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'menu1-2-2',
-                meta: { title: 'menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'menu1-3',
-            meta: { title: 'menu1-3' }
-          }
-        ]
+        path: 'list',
+        component: () => import('@/views/order/list'),
+        meta: { title: '订单列表' }
+      }
+    ]
+  },
+
+  {
+    path: '/visa',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/visa/list',
+    name: 'visa',
+    meta: {
+      title: '签证管理',
+      icon: 'visa'
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/visa/list'),
+        meta: { title: '签证列表' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'add',
+        component: () => import('@/views/visa/add'),
+        meta: { title: '新增签证' }
       }
     ]
   },
