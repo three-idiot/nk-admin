@@ -77,7 +77,7 @@
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center"  width="230" class-name="small-padding fixed-width">
+      <el-table-column align="center"  width="340" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">
             查看商品
