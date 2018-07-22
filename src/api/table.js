@@ -7,3 +7,11 @@ export function getOrderList(params) {
     params
   })
 }
+
+export function getVisaList(params) {
+  return request({
+    url: '/table/visa/list',
+    method: 'get',
+    params
+  })
+}
