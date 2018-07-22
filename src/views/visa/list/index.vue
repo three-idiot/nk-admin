@@ -5,7 +5,7 @@
     <el-table  :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
 
-      <el-table-column align="center"  width="65" label="序号">
+      <el-table-column align="center"  width="150" label="序号">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
@@ -13,14 +13,14 @@
 
       <el-table-column width="150px" align="center" label="商品名称">
         <template slot-scope="scope">
-          <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.title}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="150px" label="有效期(天)">
+      <el-table-column width="150px" label="有效期(天)">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row)">{{scope.row.title}}</span>
-          <el-tag>{{scope.row.type | typeFilter}}</el-tag>
+          <span class="link-type">{{scope.row.unitDay}}</span>
+          <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
 
@@ -32,7 +32,7 @@
 
       <el-table-column width="110px"  align="center" label="发布时间">
         <template slot-scope="scope">
-          <span style='color:red;'>{{scope.row.reviewer}}</span>
+          <span>{{new Date(scope.row.ctime)}}</span>
         </template>
       </el-table-column>
 
@@ -60,12 +60,11 @@
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">
             查看商品
           </el-button>
-          <el-button v-if="scope.row.status!='published'" size="mini" type="success">
+          <el-button  size="mini" type="success">
             修改分成
           </el-button>
-          <el-button v-if="scope.row.status!='draft'" size="mini" >
-          </el-button>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" >
+          <!--<el-button v-if="scope.row.status!='draft'" size="mini" ></el-button>-->
+          <el-button  size="mini" type="danger" >
             违规下架
           </el-button>
         </template>
@@ -76,7 +75,7 @@
 
     <!--分页-->
     <div class="pagination-container" style="margin-top: 30px;">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
       </el-pagination>
     </div>
     <!--分页结束-->
@@ -94,10 +93,6 @@
         listQuery: {
           page: 1,
           limit: 10,
-          importance: undefined,
-          title: undefined,
-          type: undefined,
-          sort: '+id'
         },
       }
     },
@@ -130,6 +125,16 @@
         this.listQuery.page = val
         this.fetchData()
       },
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() + ' ';
+        h = date.getHours() + ':';
+        m = date.getMinutes() + ':';
+        s = date.getSeconds();
+        return Y+M+D+h+m+s;
+      }
     }
   }
 </script>
