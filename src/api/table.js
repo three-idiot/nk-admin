@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getOrderList(params) {
   return request({
-    url: '/table/list',
+    url: '/table/order/list',
     method: 'get',
     params
   })
