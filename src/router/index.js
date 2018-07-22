@@ -83,6 +83,7 @@ export const asyncRouterMap = [
   {
     path: '/user',
     component: Layout,
+    alwaysShow: true,
     redirect: '/user/list',
     name: 'user',
     meta: {
@@ -134,6 +135,49 @@ export const asyncRouterMap = [
         path: 'list',
         component: () => import('@/views/user/list'),
         meta: { title: '用户列表' }
+      }
+    ]
+  },
+
+  {
+    path: '/order',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/order/list',
+    name: 'order',
+    meta: {
+      title: '订单管理',
+      icon: 'shopping'
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/order/list'),
+        meta: { title: '订单列表' }
+      }
+    ]
+  },
+
+  {
+    path: '/visa',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/visa/list',
+    name: 'visa',
+    meta: {
+      title: '签证管理',
+      icon: 'visa'
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/visa/list'),
+        meta: { title: '签证列表' }
+      },
+      {
+        path: 'add',
+        component: () => import('@/views/visa/add'),
+        meta: { title: '新增签证' }
       }
     ]
   },
