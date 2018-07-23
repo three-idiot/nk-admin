@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getOrderList(params) {
   return request({
-    url: '/table/order/list',
+    url: '/getuserlist',
     method: 'get',
     params
   })
