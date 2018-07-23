@@ -75,7 +75,7 @@
 
     <!--分页-->
     <div class="pagination-container" style="margin-top: 30px;">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="list.length">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
     <!--分页结束-->
@@ -88,6 +88,7 @@
   export default {
     data() {
       return {
+        total: 0,
         list: null,
         listLoading: true,
         listQuery: {
@@ -95,6 +96,9 @@
           limit: 10,
         },
       }
+    },
+    computed: {
+
     },
     filters: {
       statusFilter(status) {
@@ -113,7 +117,8 @@
       fetchData() {
         this.listLoading = true
         getVisaList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data.data;
+          this.total = this.list.length;
           this.listLoading = false
         })
       },
@@ -125,16 +130,6 @@
         this.listQuery.page = val
         this.fetchData()
       },
-      timestampToTime(timestamp) {
-        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        Y = date.getFullYear() + '-';
-        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        D = date.getDate() + ' ';
-        h = date.getHours() + ':';
-        m = date.getMinutes() + ':';
-        s = date.getSeconds();
-        return Y+M+D+h+m+s;
-      }
     }
   }
 </script>

@@ -10,7 +10,7 @@ export function getOrderList(params) {
 
 export function getVisaList(params) {
   return request({
-    url: '/table/visa/list',
+    url: '/goodslist',
     method: 'get',
     params
   })
