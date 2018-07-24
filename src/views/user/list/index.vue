@@ -2,6 +2,9 @@
   <div class="app-container">
     用户昵称&nbsp;&nbsp;<el-input placeholder="请输入用户昵称" v-model="filterNickName" style="width: 176px; margin-bottom:30px;"></el-input>
     <el-button type="primary" @click="handleSearch">查询</el-button>
+    <div></div>
+    用户总数：&nbsp;&nbsp;<span style="color: #0066CC;font-size: 18px;">{{ counts }}</span>&nbsp;个
+    <div style="margin: 20px 0;"></div>
     <el-table :data="users" v-loading="listLoading" element-loading-text="加载中" border fit highlight-current-row>
       <el-table-column align="center" label='序号' width="100">
         <template slot-scope="scope">
@@ -29,6 +32,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin: 20px 0; text-align: right;">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="200"
+        :page-size="20"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="counts">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -40,7 +54,10 @@ export default {
     return {
       users: null,
       listLoading: true,
-      filterNickName: ''
+      filterNickName: '',
+      counts: 0,
+      currentPage: 1,
+      pageCounts: 16
     }
   },
   filters: {
@@ -73,12 +90,15 @@ export default {
       getUserList(nickName, status, page, size).then(response => {
         // console.log('请求返回：', response)
         this.users = response.data.data
+        this.counts = response.data.data.length;
         this.listLoading = false
       })
     },
     handleSearch() {
       this.fetchData(this.filterNickName)
-    }
+    },
+    handleSizeChange() {},
+    handleCurrentChange() {}
   }
 }
 </script>
