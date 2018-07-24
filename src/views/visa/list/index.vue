@@ -21,11 +21,11 @@
 
       <span>商品状态：</span>
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
-        <el-option v-for="item in goodStatus" :key="item" :label="item" :value="item">
+        <el-option v-for="(val,key) in goodStatus" :key="key" :label="val" :value="key">
         </el-option>
       </el-select>
 
-      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="">查询</el-button>
+      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
     </div>
 
     <!--表格-->
@@ -169,6 +169,9 @@
         this.listQuery.page = val
         this.fetchData()
       },
+      handleFilter() {
+        console.log( this.listQuery );
+      }
     }
   }
 </script>
