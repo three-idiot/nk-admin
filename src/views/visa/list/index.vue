@@ -80,7 +80,7 @@
 
     <!--分页-->
     <div class="pagination-container" style="margin-top: 30px;">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[4,10,20,30,50]" :page-size="listQuery.size" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[4,10,20,30,50]" :page-size="listQuery.size" layout="total, sizes, prev, pager, next, jumper" :total="pagesStatus.total_count">
       </el-pagination>
     </div>
     <!--分页结束-->
@@ -96,6 +96,9 @@
         total: 0,
         list: null,
         listLoading: true,
+        pagesStatus: {
+          total_count: 0
+        },
         goodStatus: {
           0: '仓库中',
           1: '出售中',
@@ -128,8 +131,8 @@
         this.listLoading = true
         getVisaList(this.listQuery).then(response => {
           this.list = response.data.data;
-          console.log( response.data.data );
-          this.total = this.list.length;
+          console.log( response.data );
+          this.pagesStatus.total_count = response.data.total_count;
           this.listLoading = false
         })
       },
