@@ -1,35 +1,31 @@
 <template>
   <div class="app-container">
-    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
+    用户昵称&nbsp;&nbsp;<el-input placeholder="请输入用户昵称" v-model="filterNickName" style="width: 176px; margin-bottom:30px;"></el-input>
+    <el-button type="primary" @click="handleSearch">查询</el-button>
+    <el-table :data="users" v-loading="listLoading" element-loading-text="加载中" border fit highlight-current-row>
+      <el-table-column align="center" label='序号' width="100">
         <template slot-scope="scope">
-          {{scope.$index}}
+          {{scope.$index + 1}}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column label="昵称" align="center">
         <template slot-scope="scope">
-          {{scope.row.title}}
+          <span>{{scope.row.nickName}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+      <el-table-column label="性别" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.author}}</span>
+          {{scope.row.sex | sexFilter}}
         </template>
       </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
+      <el-table-column class-name="status-col" label="用户状态" align="center">
         <template slot-scope="scope">
-          {{scope.row.pageviews}}
+          {{scope.row.status | statusFilter}}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column label="注册时间" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span>{{scope.row.display_time}}</span>
+          {{scope.row.ctime | dateFilter}}
         </template>
       </el-table-column>
     </el-table>
@@ -37,35 +33,51 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { getUserList } from '@/api/userList'
 
 export default {
   data() {
     return {
-      list: null,
-      listLoading: true
+      users: null,
+      listLoading: true,
+      filterNickName: ''
     }
   },
   filters: {
+    sexFilter(sex) {
+      const sexMap = {
+        0: '未知',
+        1: '男',
+        2: '女'
+      }
+      return sexMap[sex]
+    },
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+        0: '正常',
+        1: '异常'
       }
       return statusMap[status]
+    },
+    dateFilter(dateStr) {
+      const dateObj = new Date(dateStr)
+      return dateStr ? dateObj.toLocaleString() : ''
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
-    fetchData() {
+    fetchData(nickName = '', status = 0, page = 1, size = 10000) {
       this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.list = response.data.data
+      getUserList(nickName, status, page, size).then(response => {
+        // console.log('请求返回：', response)
+        this.users = response.data.data
         this.listLoading = false
       })
+    },
+    handleSearch() {
+      this.fetchData(this.filterNickName)
     }
   }
 }
