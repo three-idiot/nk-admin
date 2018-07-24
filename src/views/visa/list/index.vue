@@ -17,16 +17,16 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="150px" label="有效期(天)">
+      <el-table-column width="150px"  align="center"  label="有效期(天)">
         <template slot-scope="scope">
-          <span class="link-type">{{scope.row.unitDay}}</span>
+          <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
           <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
 
       <el-table-column width="110px" align="center" label="签证价格(惠)">
-        <template slot-scope="scope">
-          <span>{{scope.row.author}}</span>
+        <template slot-scope="scope" >
+          <span>{{scope.row.lowVisaPrice/100}}元</span>
         </template>
       </el-table-column>
 
@@ -42,16 +42,21 @@
         <!--</template>-->
       <!--</el-table-column>-->
 
-      <el-table-column align="center"  width="95" label="分成比例">
+      <el-table-column align="center"  width="180" label="分成比例">
         <template slot-scope="scope">
-          <span v-if="scope.row.pageviews" class="link-type" @click='handleFetchPv(scope.row.pageviews)'>{{scope.row.pageviews}}</span>
-          <span v-else>0</span>
+          <span class="link-type">
+            <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
+            <p>渠道分成：{{  scope.row.channelRatio/100 }}%</p>
+            <p>平台分成：{{  scope.row.terraceRatio/100 }}%</p>
+          </span>
         </template>
       </el-table-column>
 
       <el-table-column class-name="status-col"  width="100" label="商品状态">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
+          <el-tag :type="scope.row.status | statusFilter">
+            {{ goodStatus[scope.row.status] }}
+          </el-tag>
         </template>
       </el-table-column>
 
@@ -91,6 +96,11 @@
         total: 0,
         list: null,
         listLoading: true,
+        goodStatus: {
+          0: '仓库中',
+          1: '出售中',
+          2: '违规下架'
+        },
         listQuery: {
           page: 1,
           limit: 10,
@@ -103,9 +113,9 @@
     filters: {
       statusFilter(status) {
         const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
+          1: 'success',
+          0: 'gray',
+          2: 'danger'
         }
         return statusMap[status]
       }
@@ -118,6 +128,7 @@
         this.listLoading = true
         getVisaList(this.listQuery).then(response => {
           this.list = response.data.data;
+          console.log( response.data.data );
           this.total = this.list.length;
           this.listLoading = false
         })
