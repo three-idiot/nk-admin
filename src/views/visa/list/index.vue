@@ -1,6 +1,33 @@
 <template>
   <div class="app-container">
 
+    <div class="filter-container" style="margin-bottom: 30px;">
+      <span>商品名称：</span>
+      <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
+      <!--时间选择器-->
+      <span class="demonstration">发布时间：</span>
+        <el-date-picker
+          v-model="listQuery.startTime"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      -
+        <el-date-picker
+          v-model="listQuery.endTime"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      <!--时间选择器-->
+
+      <span>商品状态：</span>
+      <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+        <el-option v-for="item in goodStatus" :key="item" :label="item" :value="item">
+        </el-option>
+      </el-select>
+
+      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="">查询</el-button>
+    </div>
+
     <!--表格-->
     <el-table  :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
@@ -35,12 +62,6 @@
           <span>{{new Date(scope.row.ctime)}}</span>
         </template>
       </el-table-column>
-
-      <!--<el-table-column width="80px" label="">-->
-        <!--<template slot-scope="scope">-->
-          <!--<svg-icon v-for="n in +scope.row.importance" icon-class="star" class="meta-item__icon" :key="n"></svg-icon>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
 
       <el-table-column align="center"  width="180" label="分成比例">
         <template slot-scope="scope">
@@ -107,6 +128,10 @@
         listQuery: {
           page: 1,
           size: 10,
+          title:'',
+          startTime: '',
+          endTime: '',
+          status: ''
         },
       }
     },
