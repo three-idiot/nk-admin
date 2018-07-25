@@ -1,7 +1,7 @@
 <template>
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
     <!--商品名称-->
-    <el-form-item label="商品名称" prop="name" style="width: 312px;">
+    <el-form-item label="商品名称" prop="title" style="width: 312px;">
       <el-input v-model="ruleForm.title"></el-input>
     </el-form-item>
     <!--商品图片-->
@@ -10,58 +10,61 @@
 
 
     <!--签证有效期-->
-    <el-form-item label="签证有效期" prop="region">
+    <el-form-item label="签证有效期" prop="unitDay">
       <el-select v-model="ruleForm.unitDay" placeholder="请选择">
         <el-option  v-for="(val,key) in unitDay"  :label="val" :value="key"></el-option>
       </el-select>
     </el-form-item>
     <!--入境次数-->
-    <el-form-item label="入境次数" prop="region">
+    <el-form-item label="入境次数" prop="intoType">
       <el-select v-model="ruleForm.intoType" placeholder="请选择">
         <el-option  v-for="(val,key) in intoType"  :label="val" :value="key"></el-option>
       </el-select>
     </el-form-item>
     <!--是否加急-->
-    <el-form-item label="是否加急" prop="resource">
+    <el-form-item label="是否加急" prop="isUrgent">
       <el-radio-group v-model="ruleForm.isUrgent">
         <el-radio v-for="(val,key) in isUrgent" :label="val" :value="key"  ></el-radio>
       </el-radio-group>
     </el-form-item>
     <!--是否面试-->
-    <el-form-item label="是否面试" prop="resource">
+    <el-form-item label="是否面试" prop="isInterview">
       <el-radio-group v-model="ruleForm.isInterview">
         <el-radio v-for="(val,key) in isInterview" :label="val" :value="key"  ></el-radio>
       </el-radio-group>
     </el-form-item>
     <!--签证费-->
-    <el-form-item label="签证费(元)" prop="name"  style="width: 312px;">
+    <el-form-item label="签证费(元)" prop="visaPrice"  style="width: 312px;">
       <el-input v-model="ruleForm.visaPrice"></el-input>
     </el-form-item>
     <!--签证优惠费-->
-    <el-form-item label="签证优惠费(元)" prop="name"  style="width: 312px;">
+    <el-form-item label="签证优惠费(元)" prop="lowVisaPrice"  style="width: 312px;">
       <el-input v-model="ruleForm.lowVisaPrice"></el-input>
     </el-form-item>
     <!--服务费-->
-    <el-form-item label="服务费(元)" prop="name"  style="width: 312px;">
+    <el-form-item label="服务费(元)" prop="helpPrice"  style="width: 312px;">
       <el-input v-model="ruleForm.helpPrice"></el-input>
     </el-form-item>
     <!--服务优惠费-->
-    <el-form-item label="服务优惠费(元)" prop="name"  style="width: 312px;">
+    <el-form-item label="服务优惠费(元)" prop="lowHelpPrice"  style="width: 312px;">
       <el-input v-model="ruleForm.lowHelpPrice"></el-input>
     </el-form-item>
     <!--停留时间-->
-    <el-form-item label="停留时间(天)" prop="name"  style="width: 312px;">
+    <el-form-item label="停留时间(天)" prop="stayDay"  style="width: 312px;">
       <el-input v-model="ruleForm.stayDay"></el-input>
     </el-form-item>
     <!--处理时间-->
-    <el-form-item label="处理时间(天)" prop="name"  style="width: 312px;">
+    <el-form-item label="处理时间(天)" prop="disposeDay"  style="width: 312px;">
       <el-input v-model="ruleForm.disposeDay"></el-input>
     </el-form-item>
     <!--续签费用-->
-    <el-form-item label="续签费用(元)" prop="name"  style="width: 312px;">
+    <el-form-item label="续签费用(元)" prop="renewPrice"  style="width: 312px;">
       <el-input v-model="ruleForm.renewPrice"></el-input>
     </el-form-item>
-
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      <el-button @click="resetForm('ruleForm')">重置</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
