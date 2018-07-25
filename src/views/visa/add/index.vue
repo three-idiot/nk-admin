@@ -75,6 +75,11 @@
 
 export default {
   data() {
+    let checkNum = (rule, value, callback) =>{
+      if( !/^[0-9]*$/.test(value) ) {
+        return callback(new Error('必须是数字'));
+      }
+    }
     return {
       imageUrl:'',
       unitDay: {
@@ -126,24 +131,32 @@ export default {
           {required: true,trigger: 'change',message: '请选择是否面试' }
         ],
         visaPrice: [
-          { required: true,trigger: 'blur',message: '请输入签证费' }
+          { required: true,trigger: 'blur',message: '请输入签证费' },
+          { validator: checkNum, trigger: 'blur' }
         ],
         lowVisaPrice: [
-          { required: true,trigger: 'blur',message: '请输入签证优惠费' }
+          { required: true,trigger: 'blur',message: '请输入签证优惠费' },
+          { validator: checkNum, trigger: 'blur' }
         ],
         helpPrice: [
-          { required: true,trigger: 'blur',message: '请输入服务费' }
+          { required: true,trigger: 'blur',message: '请输入服务费' },
+          { validator: checkNum, trigger: 'blur' }
         ],
         lowHelpPrice: [
-          { required: true,trigger: 'blur',message: '请输入服务优惠费' }
+          { required: true,trigger: 'blur',message: '请输入服务优惠费' },
+          { validator: checkNum, trigger: 'blur' }
         ],
         stayDay: [
-          { required: true,trigger: 'blur',message: '请输入停留时间' }
+          { required: true,trigger: 'blur',message: '请输入停留时间' },
+          { validator: checkNum, trigger: 'blur' }
         ],
         disposeDay: [
-          { required: true,trigger: 'blur',message: '请输入处理时间' }
+          { required: true,trigger: 'blur',message: '请输入处理时间' },
+          { validator: checkNum, trigger: 'blur' }
         ],
-        renewPrice:[],
+        renewPrice:[
+          { validator: checkNum, trigger: 'blur' }
+        ],
       }
     }
   },
