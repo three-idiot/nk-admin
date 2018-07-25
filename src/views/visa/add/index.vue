@@ -1,9 +1,12 @@
 <template>
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <!--商品名称-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="商品名称" prop="name" style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
+    <!--商品图片-->
+
+
     <!--签证有效期-->
     <el-form-item label="签证有效期" prop="region">
       <el-select v-model="ruleForm.region" placeholder="请选择">
@@ -17,43 +20,43 @@
       </el-select>
     </el-form-item>
     <!--是否加急-->
-    <el-form-item label="是否加急" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="请选择">
-        <el-option  v-for="(val,key) in isUrgent"  :label="val" :value="key"></el-option>
-      </el-select>
+    <el-form-item label="是否加急" prop="resource">
+      <el-radio-group v-model="ruleForm.resource">
+        <el-radio v-for="(val,key) in isUrgent" :label="val" :value="key"  ></el-radio>
+      </el-radio-group>
     </el-form-item>
     <!--是否面试-->
-    <el-form-item label="是否面试" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="请选择">
-        <el-option  v-for="(val,key) in isInterview"  :label="val" :value="key"></el-option>
-      </el-select>
+    <el-form-item label="是否面试" prop="resource">
+      <el-radio-group v-model="ruleForm.qq">
+        <el-radio v-for="(val,key) in isInterview" :label="val" :value="key"  ></el-radio>
+      </el-radio-group>
     </el-form-item>
     <!--签证费-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="签证费(元)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--签证优惠费-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="签证优惠费(元)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--服务费-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="服务费(元)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--服务优惠费-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="服务优惠费(元)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--停留时间-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="停留时间(天)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--处理时间-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="处理时间(天)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <!--续签费用-->
-    <el-form-item label="商品名称" prop="name">
+    <el-form-item label="续签费用(元)" prop="name"  style="width: 312px;">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
 
@@ -76,12 +79,12 @@ export default {
         1: '多次'
       },
       isUrgent: {
+        1: '是',
         0: '否',
-        1: '是'
       },
       isInterview :{
+        1: '是',
         0: '否',
-        1: '是'
       },
       ruleForm: {
         name: '',
@@ -129,7 +132,49 @@ export default {
       //   this.list = response.data.items
       //   this.listLoading = false
       // })
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+      // const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!');
+      // }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     }
   }
 }
 </script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+
+</style>
