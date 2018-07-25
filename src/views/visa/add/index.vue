@@ -78,6 +78,8 @@ export default {
     let checkNum = (rule, value, callback) =>{
       if( !/^[0-9]*$/.test(value) ) {
         return callback(new Error('必须是数字'));
+      } else {
+        callback();
       }
     }
     return {
