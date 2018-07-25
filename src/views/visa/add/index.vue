@@ -175,6 +175,8 @@ export default {
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
+        console.log('调试1',valid);
+        console.log('调试2',this.ruleForm);
         if (valid) {
           alert('submit!');
         } else {
