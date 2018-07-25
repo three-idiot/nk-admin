@@ -45,41 +45,6 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree', roles: ['admin'] }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/form',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     }
-  //   ]
-  // },
-
   {
     path: '/user',
     component: Layout,
@@ -91,46 +56,6 @@ export const asyncRouterMap = [
       icon: 'user'
     },
     children: [
-      // {
-      //   path: 'menu1',
-      //   component: () => import('@/views/nested/menu1/index'), // Parent router-view
-      //   name: 'menu1',
-      //   meta: { title: 'menu1' },
-      //   children: [
-      //     {
-      //       path: 'menu1-1',
-      //       component: () => import('@/views/nested/menu1/menu1-1'),
-      //       name: 'menu1-1',
-      //       meta: { title: 'menu1-1' }
-      //     },
-      //     {
-      //       path: 'menu1-2',
-      //       component: () => import('@/views/nested/menu1/menu1-2'),
-      //       name: 'menu1-2',
-      //       meta: { title: 'menu1-2' },
-      //       children: [
-      //         {
-      //           path: 'menu1-2-1',
-      //           component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-      //           name: 'menu1-2-1',
-      //           meta: { title: 'menu1-2-1' }
-      //         },
-      //         {
-      //           path: 'menu1-2-2',
-      //           component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-      //           name: 'menu1-2-2',
-      //           meta: { title: 'menu1-2-2' }
-      //         }
-      //       ]
-      //     },
-      //     {
-      //       path: 'menu1-3',
-      //       component: () => import('@/views/nested/menu1/menu1-3'),
-      //       name: 'menu1-3',
-      //       meta: { title: 'menu1-3' }
-      //     }
-      //   ]
-      // },
       {
         path: 'list',
         component: () => import('@/views/user/list'),
@@ -138,7 +63,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-
   {
     path: '/order',
     component: Layout,
@@ -152,8 +76,15 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'list',
+        name: 'order-list',
         component: () => import('@/views/order/list'),
         meta: { title: '订单列表' }
+      },
+      {
+        path: 'check/:id',
+        component: () => import('@/views/order/check'),
+        hidden: true,
+        name: 'order-check'
       }
     ]
   },
