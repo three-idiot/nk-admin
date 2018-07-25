@@ -8,7 +8,18 @@
       <!--商品图片-->
 
       <!--图片上传-->
-
+      <el-form-item label="商品图片" prop="111" style="width: 312px;">
+        <el-upload
+          class="avatar-uploader"
+          style="border:1px solid #000;width: 178px;height: 178px;"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
 
 
       <!--签证有效期-->
@@ -175,6 +186,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
+      console.log( this.imageUrl );
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -186,7 +198,7 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
-      return isJPG && isLt2M;
+      return  isLt2M;
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
