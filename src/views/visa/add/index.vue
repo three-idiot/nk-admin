@@ -1,63 +1,65 @@
 <template>
-  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
     <!--商品名称-->
     <el-form-item label="商品名称" prop="name" style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.title"></el-input>
     </el-form-item>
     <!--商品图片-->
+
+    <!--图片上传-->
 
 
     <!--签证有效期-->
     <el-form-item label="签证有效期" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="请选择">
+      <el-select v-model="ruleForm.unitDay" placeholder="请选择">
         <el-option  v-for="(val,key) in unitDay"  :label="val" :value="key"></el-option>
       </el-select>
     </el-form-item>
     <!--入境次数-->
     <el-form-item label="入境次数" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="请选择">
+      <el-select v-model="ruleForm.intoType" placeholder="请选择">
         <el-option  v-for="(val,key) in intoType"  :label="val" :value="key"></el-option>
       </el-select>
     </el-form-item>
     <!--是否加急-->
     <el-form-item label="是否加急" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
+      <el-radio-group v-model="ruleForm.isUrgent">
         <el-radio v-for="(val,key) in isUrgent" :label="val" :value="key"  ></el-radio>
       </el-radio-group>
     </el-form-item>
     <!--是否面试-->
     <el-form-item label="是否面试" prop="resource">
-      <el-radio-group v-model="ruleForm.qq">
+      <el-radio-group v-model="ruleForm.isInterview">
         <el-radio v-for="(val,key) in isInterview" :label="val" :value="key"  ></el-radio>
       </el-radio-group>
     </el-form-item>
     <!--签证费-->
     <el-form-item label="签证费(元)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.visaPrice"></el-input>
     </el-form-item>
     <!--签证优惠费-->
     <el-form-item label="签证优惠费(元)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.lowVisaPrice"></el-input>
     </el-form-item>
     <!--服务费-->
     <el-form-item label="服务费(元)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.helpPrice"></el-input>
     </el-form-item>
     <!--服务优惠费-->
     <el-form-item label="服务优惠费(元)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.lowHelpPrice"></el-input>
     </el-form-item>
     <!--停留时间-->
     <el-form-item label="停留时间(天)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.stayDay"></el-input>
     </el-form-item>
     <!--处理时间-->
     <el-form-item label="处理时间(天)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.disposeDay"></el-input>
     </el-form-item>
     <!--续签费用-->
     <el-form-item label="续签费用(元)" prop="name"  style="width: 312px;">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input v-model="ruleForm.renewPrice"></el-input>
     </el-form-item>
 
   </el-form>
@@ -68,6 +70,7 @@
 export default {
   data() {
     return {
+      imageUrl:'',
       unitDay: {
         30: '30天',
         60: '60天',
@@ -87,14 +90,18 @@ export default {
         0: '否',
       },
       ruleForm: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        title: '',
+        goodsNum: '',
+        unitDay: '',
+        intoType: '',
+        isUrgent: '',
+        isInterview: '',
+        lowVisaPrice: '',
+        helpPrice: '',
+        lowHelpPrice: '',
+        stayDay: '',
+        disposeDay: '',
+        renewPrice: ''
       },
       rules: {
         name: [
@@ -176,5 +183,6 @@ export default {
     height: 178px;
     display: block;
   }
+
 
 </style>
