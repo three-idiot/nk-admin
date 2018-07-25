@@ -12,7 +12,7 @@
         <el-upload
           class="avatar-uploader"
           style="border:1px solid #000;width: 178px;height: 178px;"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/image/uploadfile"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -83,8 +83,10 @@
 </template>
 
 <script>
+  import { uploadFile } from '@/api/upload'
 
-export default {
+
+  export default {
   data() {
     let checkNum = (rule, value, callback) =>{
       if( !/^[0-9]*$/.test(value) ) {
@@ -174,16 +176,8 @@ export default {
     }
   },
   created() {
-    this.fetchData()
   },
   methods: {
-    fetchData() {
-      // this.listLoading = true
-      // getList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.listLoading = false
-      // })
-    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       console.log( this.imageUrl );
