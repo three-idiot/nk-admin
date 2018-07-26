@@ -85,6 +85,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/order/check'),
         hidden: true,
         name: 'order-check'
+      },
+      {
+        path: 'edit/:id',
+        component: () => import('@/views/order/edit'),
+        hidden: true,
+        name: 'order-edit'
       }
     ]
   },

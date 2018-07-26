@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
-    <portrait-table :data="data"></portrait-table>
-     <!-- <el-table
+     <el-table
        :show-header=false
       :data="data"
       style="width: 100%">
@@ -17,14 +16,13 @@
             <p v-if="scope.row.type=='string'">{{scope.row.value}}</p>
           </template>
       </el-table-column>
-    </el-table> -->
+    </el-table>
     <el-button type="info" @click.native="$router.back()">返回</el-button>
   </div>
 </template>
 
 <script>
-import { getOrderDetail } from "@/api/table";
-import PortraitTable from "@/components/PortraitTable/index.vue";
+import { getOrderDetail, updateOrder } from "@/api/order";
 
 export default {
   data() {
@@ -251,9 +249,6 @@ export default {
       this.current_page = page;
       this.fetchData();
     }
-  },
-  components:{
-    PortraitTable
   }
 };
 </script>

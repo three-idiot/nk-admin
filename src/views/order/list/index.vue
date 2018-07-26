@@ -239,11 +239,10 @@ export default {
       this.fetchData();
     },
     check(index, row) {
-      console.log(index,row)
       this.$router.push({ name: 'order-check', params:{id:row.id} })
     },
-    edit() {
-      
+    edit(index, row) {
+      this.$router.push({ name: 'order-edit', params:{id:row.id} })
     },
     currentPageChange(page){
       this.current_page = page;
