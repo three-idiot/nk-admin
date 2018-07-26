@@ -183,6 +183,11 @@ export const asyncRouterMap = [
         path: 'detail',
         component: () => import('@/views/visa/detail'),
         hidden: true
+      },
+      {
+        path:'ratio',
+        component: () => import('@/views/visa/ratio-change'),
+        hidden: true
       }
     ]
   },
