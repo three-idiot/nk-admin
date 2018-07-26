@@ -15,3 +15,10 @@ export function getVisaList(params) {
     params
   })
 }
+
+export function getVisaDetail(url) {
+  return request({
+    url: url,
+    method: 'get'
+  })
+}
