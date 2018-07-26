@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { uploadFile } from '@/api/upload'
+  import { goodsratio } from '@/api/table'
 
 
   export default {
@@ -36,7 +36,7 @@
       }
       return {
         ruleForm: {
-          id: '',
+          id: this.$route.query.id,
           travelRatio: '',
           channelRatio: '',
           terraceRatio: ''
@@ -60,28 +60,17 @@
     created() {
     },
     methods: {
-      handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        console.log( this.imageUrl );
-      },
-      beforeAvatarUpload(file) {
-        // const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        // if (!isJPG) {
-        //   this.$message.error('上传头像图片只能是 JPG 格式!');
-        // }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return  isLt2M;
+      changeRatio(params) {
+        goodsratio(params).then( res => {
+          console.log(res);
+        })
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          console.log('调试1',valid);
-          console.log('调试2',this.ruleForm);
           if (valid) {
-            alert('submit!');
+            console.log('submit!');
+            console.log('调试2',this.ruleForm);
+            this.changeRatio();
           } else {
             console.log('error submit!!');
             return false;

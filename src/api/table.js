@@ -22,3 +22,11 @@ export function getVisaDetail(url) {
     method: 'get'
   })
 }
+
+export function goodsratio(params) {
+  return request({
+    url: '/goodsratio',
+    method: 'put',
+    params
+  })
+}
