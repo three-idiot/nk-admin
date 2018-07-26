@@ -31,3 +31,11 @@ export function goodsfoul(params) {
     params
   })
 }
+
+export function goodsfoulup(params) {
+  return request({
+    url: '/goodsfoulup',
+    method: 'get',
+    params
+  })
+}

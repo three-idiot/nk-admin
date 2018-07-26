@@ -83,14 +83,14 @@
 
       <el-table-column align="center"  width="340" class-name="small-padding fixed-width" label="操作">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)">
+          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看商品
           </el-button>
           <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
             修改分成
           </el-button>
-          <!--<el-button v-if="scope.row.status!='draft'" size="mini" ></el-button>-->
-          <el-button  size="mini" type="danger" @click="goUndercarriage(scope.row.id)">
+          <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">审核上架</el-button>
+          <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
             违规下架
           </el-button>
         </template>
@@ -110,6 +110,7 @@
 
 <script>
   import { getVisaList } from '@/api/visa'
+  import { goodsfoulup } from '@/api/visa'
 
   export default {
     data() {
@@ -180,6 +181,15 @@
       },
       goUndercarriage(id) {
         window.location.href = '#/visa/undercarriage?id=' + id;
+      },
+      shelf(id) {
+        goodsfoulup( {goodId: id} ).then( res => {
+          console.log( res );
+          if ( res.code == 200 ) {
+            alert('上架成功');
+            window.location.reload();
+          }
+        })
       }
     }
   }
