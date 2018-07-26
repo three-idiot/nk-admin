@@ -69,8 +69,13 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             console.log('submit!');
+            for( let p in this.ruleForm ) {
+              if( p!= 'id' ) {
+                this.ruleForm[p] *= 100;
+              }
+            }
             console.log('调试2',this.ruleForm);
-            this.changeRatio();
+            this.changeRatio(this.ruleForm);
           } else {
             console.log('error submit!!');
             return false;
