@@ -181,7 +181,8 @@ export const asyncRouterMap = [
       },
       {
         path: 'detail',
-        component: () => import('@/views/visa/detail')
+        component: () => import('@/views/visa/detail'),
+        hidden: true
       }
     ]
   },
