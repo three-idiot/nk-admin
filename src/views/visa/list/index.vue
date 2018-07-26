@@ -90,7 +90,7 @@
             修改分成
           </el-button>
           <!--<el-button v-if="scope.row.status!='draft'" size="mini" ></el-button>-->
-          <el-button  size="mini" type="danger" >
+          <el-button  size="mini" type="danger" @click="goUndercarriage(scope.row.id)">
             违规下架
           </el-button>
         </template>
@@ -177,6 +177,9 @@
       },
       goRatio(id) {
         window.location.href = '#/visa/ratio?id=' + id;
+      },
+      goUndercarriage(id) {
+        window.location.href = '#/visa/undercarriage?id=' + id;
       }
     }
   }
