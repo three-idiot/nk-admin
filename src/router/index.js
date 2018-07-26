@@ -178,6 +178,10 @@ export const asyncRouterMap = [
         path: 'add',
         component: () => import('@/views/visa/add'),
         meta: { title: '新增签证' }
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/visa/detail')
       }
     ]
   },
