@@ -23,3 +23,11 @@ export function goodsratio(params) {
     data: params
   })
 }
+
+export function goodsfoul(params) {
+  return request({
+    url: '/goodsfoul',
+    method: 'post',
+    params
+  })
+}

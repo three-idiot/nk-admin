@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import { uploadFile } from '@/api/upload'
+  import { goodsfoul } from '@/api/visa';
   export default {
     data() {
       return {
         ruleForm: {
           id: this.$route.query.id,
           foul: '',
-          userId: ''
+          // userId: ''
         },
         reason: [
           '发布广告信息',
@@ -47,12 +47,20 @@
     created() {
     },
     methods: {
+      goodsfoul( params ) {
+        goodsfoul( params ).then( res => {
+          if( res.code == 200 ) {
+            alert('下架成功');
+            history.back();
+          }
+        })
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          console.log('调试1',valid);
-          console.log('调试2',this.ruleForm);
           if (valid) {
-            alert('submit!');
+            console.log('submit!');
+            console.log('调试2',this.ruleForm);
+            this.goodsfoul( this.ruleForm );
           } else {
             console.log('error submit!!');
             return false;
