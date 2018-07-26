@@ -4,7 +4,7 @@
 
       <!--签证有效期-->
       <el-form-item label="违规下架理由" prop="foul">
-        <el-select v-model="ruleForm.unitDay" placeholder="请选择" class="foul">
+        <el-select v-model="ruleForm.foul" placeholder="请选择" class="foul">
           <el-option  v-for="(val,index) in reason"  :label="val" :value="val" :key="index"></el-option>
         </el-select>
       </el-form-item>
@@ -23,7 +23,9 @@
     data() {
       return {
         ruleForm: {
-          foul:''
+          id: this.$route.query.id,
+          foul: '',
+          userId: ''
         },
         reason: [
           '发布广告信息',
@@ -37,7 +39,7 @@
         ],
         rules: {
           foul: [
-            { required: true,trigger: 'blur',message: '请选择理由' }
+            { required: true,trigger: 'change',message: '请选择理由' }
           ],
         }
       }
