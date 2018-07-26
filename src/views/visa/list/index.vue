@@ -83,7 +83,7 @@
 
       <el-table-column align="center"  width="340" class-name="small-padding fixed-width" label="操作">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success">
+          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)">
             查看商品
           </el-button>
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">
@@ -171,6 +171,9 @@
       },
       handleFilter() {
         console.log( this.listQuery );
+      },
+      goDetail(id) {
+        window.location.href = '#/visa/detail?id=' + id;
       }
     }
   }
