@@ -188,7 +188,12 @@ export const asyncRouterMap = [
         path:'ratio',
         component: () => import('@/views/visa/ratio-change'),
         hidden: true
-      }
+      },
+      {
+        path:'undercarriage',
+        component: () => import('@/views/visa/undercarriage'),
+        hidden: true
+      },
     ]
   },
 
