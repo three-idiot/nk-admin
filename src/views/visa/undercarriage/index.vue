@@ -11,7 +11,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">取消</el-button>
+        <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -47,22 +47,6 @@
     created() {
     },
     methods: {
-      handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        console.log( this.imageUrl );
-      },
-      beforeAvatarUpload(file) {
-        // const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        // if (!isJPG) {
-        //   this.$message.error('上传头像图片只能是 JPG 格式!');
-        // }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return  isLt2M;
-      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           console.log('调试1',valid);
@@ -77,6 +61,9 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      goBack() {
+        history.back();
       }
     }
   }
