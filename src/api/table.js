@@ -27,6 +27,7 @@ export function goodsratio(params) {
   return request({
     url: '/goodsratio',
     method: 'put',
-    params
+    headers: {'Content-Type': 'application/json'},
+    data: params
   })
 }

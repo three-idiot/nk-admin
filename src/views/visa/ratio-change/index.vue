@@ -62,20 +62,24 @@
     methods: {
       changeRatio(params) {
         goodsratio(params).then( res => {
-          console.log(res);
+          if ( res.code == 200 ) {
+            alert('保存成功');
+            history.back();
+          }
         })
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             console.log('submit!');
-            for( let p in this.ruleForm ) {
+            let ruleForm = Object.assign({}, this.ruleForm);
+            for( let p in ruleForm ) {
               if( p!= 'id' ) {
-                this.ruleForm[p] *= 100;
+                ruleForm[p] *= 100;
               }
             }
-            console.log('调试2',this.ruleForm);
-            this.changeRatio(this.ruleForm);
+            console.log('调试2',ruleForm);
+            this.changeRatio(ruleForm);
           } else {
             console.log('error submit!!');
             return false;
