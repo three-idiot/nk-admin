@@ -86,7 +86,7 @@
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)">
             查看商品
           </el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
             修改分成
           </el-button>
           <!--<el-button v-if="scope.row.status!='draft'" size="mini" ></el-button>-->
@@ -174,6 +174,9 @@
       },
       goDetail(id) {
         window.location.href = '#/visa/detail?id=' + id;
+      },
+      goRatio(id) {
+        window.location.href = '#/visa/ratio?id=' + id;
       }
     }
   }
