@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import { getVisaDetail } from '@/api/table'
+    import { getVisaDetail } from '@/api/visa'
     import  transformData  from '../tools/data'
     let goodStatus = transformData.status;
     let auditStatus = transformData.auditStatus;

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { goodsratio } from '@/api/table'
+  import { goodsratio } from '@/api/visa'
 
 
   export default {

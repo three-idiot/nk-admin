@@ -109,7 +109,7 @@
 </template>
 
 <script>
-  import { getVisaList } from '@/api/table'
+  import { getVisaList } from '@/api/visa'
 
   export default {
     data() {
