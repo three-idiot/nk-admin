@@ -37,13 +37,13 @@
       <!--是否加急-->
       <el-form-item label="是否加急" prop="isUrgent">
         <el-radio-group v-model="ruleForm.isUrgent">
-          <el-radio v-for="(val,key) in isUrgent" :label="val" :value="key" :key="key" ></el-radio>
+          <el-radio v-for="(val,key) in isUrgent" :label="key"  :key="key" >{{ val }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <!--是否面试-->
       <el-form-item label="是否面试" prop="isInterview">
         <el-radio-group v-model="ruleForm.isInterview">
-          <el-radio v-for="(val,key) in isInterview" :label="val" :value="key" :key="key"></el-radio>
+          <el-radio v-for="(val,key) in isInterview" :label="key"  :key="key">{{ val }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <!--签证费-->
