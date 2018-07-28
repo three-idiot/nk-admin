@@ -50,7 +50,7 @@
         </el-form>
     </div>
     <p>订单总数<span>{{total_count}}</span>条 支付总额<span>{{priceCount}}</span>元</p>
-    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label='订单号'>
         <template slot-scope="scope">
           {{scope.row.orderNum}}
