@@ -59,7 +59,7 @@
 
       <el-table-column width="110px"  align="center" label="发布时间">
         <template slot-scope="scope">
-          <span>{{new Date(scope.row.ctime)}}</span>
+          <span>{{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
