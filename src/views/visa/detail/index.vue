@@ -1,6 +1,7 @@
 <template>
     <div class="visaDetail">
-      <h1>{{ processData }}</h1>
+      <!--<h1>{{ processData }}</h1>-->
+      <portrait-table :data="processData"></portrait-table>
     </div>
 </template>
 
@@ -13,6 +14,8 @@
     let intoType = transformData.intoType;
     let isUrgent = transformData.isUrgent;
     let isInterview = transformData.isInterview;
+    import PortraitTable from "@/components/PortraitTable/index.vue";
+
     export default {
       name: 'index',
       data() {
@@ -24,7 +27,7 @@
         processData () {
           let arr = [];
           if ( this.data ) {
-            arr.push( {key: '签证名称', value: this.data.title } );
+            arr.push( {key: '签证名称', value: this.data.title});
             arr.push( {key: '签证编码', value: this.data.goodsNum} );
             arr.push( {key: '签证照片', value: this.data.image[0].goodPath,type: 'image' } );
             arr.push( {key: '状态', value: goodStatus[this.data.status] } );
@@ -52,6 +55,9 @@
       created() {
         // console.log('吴志鹏', this.$route);
         this.fetchData()
+      },
+      components:{
+        PortraitTable
       },
       methods: {
         fetchData() {
