@@ -129,13 +129,13 @@
           2: '违规下架'
         },
         listQuery: {
-          // auditStatus: 0,
+          auditStatus: 0,
           page: 1,
           size: 10,
-          title:'',
-          startTime: '',
-          endTime: '',
-          status: '',
+          title:null,
+          startTime: null,
+          endTime: null,
+          status: null,
         },
       }
     },
@@ -153,12 +153,12 @@
       }
     },
     created() {
-      this.fetchData()
+      this.fetchData(this.listQuery)
     },
     methods: {
-      fetchData() {
+      fetchData(params) {
         this.listLoading = true
-        getVisaList(this.listQuery).then(response => {
+        getVisaList(params).then(response => {
           this.list = response.data.data;
           console.log( response.data );
           this.pagesStatus.total_count = response.data.total_count;
@@ -167,15 +167,19 @@
       },
       handleSizeChange(val) {
         this.listQuery.size = val
-        this.fetchData()
+        this.fetchData( this.listQuery )
       },
       handleCurrentChange(val) {
         this.listQuery.page = val
-        this.fetchData()
+        this.fetchData(this.listQuery)
       },
       handleFilter() {
         console.log( this.listQuery );
-        this.fetchData();
+        let finalQuery = Object.assign({}, this.listQuery);
+        if ( finalQuery['startTime'] ) {
+          finalQuery.timeType=0;
+        }
+        this.fetchData( finalQuery );
       },
       goDetail(id) {
         window.location.href = '#/visa/detail?id=' + id;
