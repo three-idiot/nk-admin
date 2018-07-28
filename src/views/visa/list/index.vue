@@ -9,12 +9,14 @@
         <el-date-picker
           v-model="listQuery.startTime"
           type="date"
+          value-format="yyyy-MM-dd"
           placeholder="选择日期">
         </el-date-picker>
       -
         <el-date-picker
           v-model="listQuery.endTime"
           type="date"
+          value-format="yyyy-MM-dd"
           placeholder="选择日期">
         </el-date-picker>
       <!--时间选择器-->
@@ -127,12 +129,13 @@
           2: '违规下架'
         },
         listQuery: {
+          // auditStatus: 0,
           page: 1,
           size: 10,
           title:'',
           startTime: '',
           endTime: '',
-          status: ''
+          status: '',
         },
       }
     },
@@ -172,6 +175,7 @@
       },
       handleFilter() {
         console.log( this.listQuery );
+        this.fetchData();
       },
       goDetail(id) {
         window.location.href = '#/visa/detail?id=' + id;
