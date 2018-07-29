@@ -84,6 +84,8 @@
 
 <script>
   import { addGoods } from '@/api/visa'
+  import axios from 'axios'
+
 
 
   export default {
