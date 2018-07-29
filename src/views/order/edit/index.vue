@@ -2,34 +2,34 @@
 <div class="app-container">
     <p class="title">设置签证状态</p>
     <hr/>
-    <portrait-table :data="data" key-width="80"></portrait-table>
-    <el-form :model="form" size="mini" class="form">
-        <el-form-item label="签证状态">
+    <portrait-table :data="data" :key-width=80></portrait-table>
+    <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form">
+        <el-form-item label="签证状态" prop="status">
             <el-radio-group v-model="form.status">
-                <el-radio label="已签发"></el-radio>
-                <el-radio label="拒签"></el-radio>
+                <el-radio label="40">已签发</el-radio>
+                <el-radio label="41">拒签</el-radio>
             </el-radio-group>
         </el-form-item>
         <el-form-item label="通知方式">
-            <el-radio-group v-model="form.info">
-                <el-radio label="短信通知"></el-radio>
-                <el-radio label="邮件通知"></el-radio>
-            </el-radio-group>
+            <el-checkbox-group v-model="info">
+                <el-checkbox label="短信通知"></el-checkbox>
+                <el-checkbox label="邮件通知"></el-checkbox>
+            </el-checkbox-group>
         </el-form-item>
         <el-form-item label="时间">
             <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
         </el-form-item>
-        <el-form-item label="上传电子签证">
+        <el-form-item label="上传电子签证" prop="visaPath">
             <!-- TODO 上线之后这里要把api前缀去掉 -->
-            <el-upload class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :file-list="fileList">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
+                <el-button v-show="!form.visaPath" size="small" type="primary">点击上传</el-button>
+                <div v-show="!!form.visaPath" slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
             </el-upload>
         </el-form-item>
-        <el-form-item size="large">
+        <el-form-item size="large" class="btn">
             <el-button type="info" @click.native="$router.back()">取消</el-button>
-            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -41,97 +41,41 @@ import {
     updateOrder
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-
+import orderMap from "@/map/order"
 export default {
     data() {
-        return {
-            list: null,
-            listLoading: true,
+        return Object.assign({}, orderMap, {
             form: {
                 status: null,
-                info: null
+                visaPath: null,
+                detatilId: null,
             },
-            fileList: [],
+            rules: {
+                visaPath: [{
+                    required: true,
+                    message: '请上传电子签证',
+                    trigger: 'change'
+                }],
+                status: [{
+                    required: true,
+                    message: '请选择签证状态',
+                    trigger: 'change'
+                }],
+            },
             daterange: [],
+            info: [],
             data: [],
-            isStamp: {
-                0: "否",
-                1: "是"
-            },
-            status: {
-                10: {
-                    msg: "待付款",
-                    color: "warning"
-                },
-                20: {
-                    msg: "办理中",
-                    color: "success"
-                },
-                30: {
-                    msg: "已送签",
-                    color: "success"
-                },
-                40: {
-                    msg: "已签发",
-                    color: "success"
-                },
-                41: {
-                    msg: "已拒签",
-                    color: "success"
-                },
-                50: {
-                    msg: "已登记",
-                    color: "warning"
-                },
-                60: {
-                    msg: "已过期",
-                    color: "warning"
-                },
-                70: {
-                    msg: "已取消",
-                    color: "warning"
-                }
-            },
-            payTypes: {
-                0: {
-                    msg: "未支付",
-                    color: "warning"
-                },
-                1: {
-                    msg: "微信支付",
-                    color: "success"
-                }
-            },
-            renewTypes: {
-                0: {
-                    msg: "正常订单",
-                    color: "success"
-                },
-                1: {
-                    msg: "续签订单",
-                    color: "primary"
-                }
-            }
-        };
+        });
     },
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
                 startTime: this.daterange[0],
                 endTime: this.daterange[1],
-                page: this.current_page,
-                size: this.page_size
+                informTypeInfo: this.info.indexOf('短信通知') > -1 ? 1 : 0,
+                informTypeEmail: this.info.indexOf('邮件通知') > -1 ? 1 : 0,
+                orderId: this.$route.params.id,
             });
-        }
-    },
-    filters: {
-        statusFilter(status) {
-            const statusMap = {
-                published: "success",
-                draft: "gray",
-                deleted: "danger"
-            };
-            return statusMap[status];
         }
     },
     created() {
@@ -139,9 +83,9 @@ export default {
     },
     methods: {
         fetchData() {
-            this.listLoading = true;
             getOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
+                this.form.detatilId = response.data.orderDetail[0].id;
                 this.data = [{
                         key: "订单编号",
                         value: resData.orderNum,
@@ -149,22 +93,22 @@ export default {
                     },
                     {
                         key: "订单总额",
-                        value: resData.orderMoney,
+                        value: resData.payMoney / 100,
                         type: "string"
                     },
                     {
                         key: "真实姓名",
-                        value: resData.linkName,
+                        value: resData.orderDetail[0].name,
                         type: "string"
                     },
                     {
                         key: "护照号",
-                        value: resData.passportNo,
+                        value: resData.orderDetail[0].passportNo,
                         type: "string"
                     },
                     {
                         key: "手机号码",
-                        value: resData.linkMobile,
+                        value: resData.orderDetail[0].mobile,
                         type: "string"
                     },
                     {
@@ -180,25 +124,41 @@ export default {
                     {
                         key: "付款时间",
                         value: resData.payTime,
-                        type: "string"
+                        type: "dateTime"
                     },
                     {
                         key: "支付方式",
-                        value: this.payTypes[resData.payType],
+                        value: this.payTypes[resData.payType].msg,
                         type: "string"
                     }
                 ];
-                this.listLoading = false;
             });
         },
-        onSubmit() {
-            this.fetchData();
+        onSubmit(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.update(this.listQuery);
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
         },
-        check() {},
-        edit() {},
-        currentPageChange(page) {
-            this.current_page = page;
-            this.fetchData();
+        imgUploaded(res, file) {
+            this.form.visaPath = res.data;
+        },
+        imgRemove(files, fileList) {
+            this.form.visaPath = null;
+        },
+        update(params) {
+            updateOrder(params).then(response => {
+                this.$alert('更新成功', '提示', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        this.$router.back();
+                    }
+                });
+            });
         }
     },
     components: {
@@ -217,7 +177,11 @@ export default {
     .form {
         margin-top: 30px;
         padding: 30px;
-        background:#F2F6FC;
+        padding-bottom: 5px;
+        background: #F2F6FC;
+        .btn {
+            margin-top: 30px;
+        }
     }
 }
 </style>
