@@ -40,7 +40,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="150px" align="center" label="商品名称">
+      <el-table-column width="200px" align="center" label="商品名称">
         <template slot-scope="scope">
           <span>{{scope.row.title}}</span>
         </template>
@@ -53,19 +53,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="110px" align="center" label="签证价格(惠)">
+      <el-table-column width="150px" align="center" label="签证价格(惠)">
         <template slot-scope="scope" >
           <span>{{scope.row.lowVisaPrice/100}}元</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="110px"  align="center" label="发布时间">
+      <el-table-column width="200px"  align="center" label="发布时间">
         <template slot-scope="scope">
           <span>{{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  width="180" label="分成比例">
+      <el-table-column align="center"  width="200" label="分成比例">
         <template slot-scope="scope">
           <span class="link-type">
             <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
@@ -75,7 +75,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col"  width="100" label="商品状态">
+      <el-table-column class-name="status-col"  width="150" label="商品状态" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">
             {{ goodStatus[scope.row.status] }}
@@ -83,7 +83,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  width="340" class-name="small-padding fixed-width" label="操作">
+      <el-table-column align="center"  width="360" class-name="small-padding fixed-width" label="操作">
         <template slot-scope="scope">
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看商品
@@ -202,3 +202,10 @@
     }
   }
 </script>
+
+
+<style lang="scss" scoped>
+   .app-container {
+       padding-left: 50px;
+   }
+</style>
