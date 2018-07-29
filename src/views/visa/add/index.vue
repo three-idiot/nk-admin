@@ -83,7 +83,7 @@
 </template>
 
 <script>
-  import { uploadFile } from '@/api/upload'
+  import { addGoods } from '@/api/visa'
 
 
   export default {
@@ -179,8 +179,10 @@
   },
   methods: {
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      console.log( this.imageUrl );
+        this.imageUrl = URL.createObjectURL(file.raw);
+        // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
+        console.log( file.response.data );
+        this.ruleForm.goodsNum = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -198,7 +200,10 @@
       this.$refs[formName].validate((valid) => {
         console.log('调试2',this.ruleForm);
         if (valid) {
-          alert('submit!');
+          console.log('submit!');
+          addGoods(this.ruleForm).then( res => {
+              console.log( res );
+          })
         } else {
           console.log('error submit!!');
           return false;

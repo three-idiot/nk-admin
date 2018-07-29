@@ -39,3 +39,13 @@ export function goodsfoulup(params) {
     params
   })
 }
+
+export function addGoods(params) {
+    return request({
+        url: '/addgoods',
+        method: 'post',
+        params
+    })
+}
+
+
