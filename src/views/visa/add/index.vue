@@ -206,7 +206,13 @@
         console.log('调试2',this.ruleForm);
         if (valid) {
           console.log('submit!');
-          addGoods(this.ruleForm).then( res => {
+          let ruleForm = Object.assign({}, this.ruleForm);
+          ruleForm['helpPrice'] *= 100;
+          ruleForm['lowHelpPrice'] *= 100;
+          ruleForm['lowVisaPrice'] *= 100;
+          ruleForm['renewPrice'] *= 100;
+          ruleForm['visaPrice'] *= 100;
+          addGoods(ruleForm).then( res => {
               if( res.code == 200 ) {
                   alert('新建成功');
                   history.back();
