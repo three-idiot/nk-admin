@@ -48,23 +48,23 @@
       </el-form-item>
       <!--签证费-->
       <el-form-item label="签证费(元)" prop="visaPrice"  style="width: 312px;">
-        <el-input v-model="ruleForm.visaPrice"></el-input>
+        <el-input v-model.number="ruleForm.visaPrice"></el-input>
       </el-form-item>
       <!--签证优惠费-->
       <el-form-item label="签证优惠费(元)" prop="lowVisaPrice"  style="width: 312px;">
-        <el-input v-model="ruleForm.lowVisaPrice"></el-input>
+        <el-input v-model.number="ruleForm.lowVisaPrice"></el-input>
       </el-form-item>
       <!--服务费-->
       <el-form-item label="服务费(元)" prop="helpPrice"  style="width: 312px;">
-        <el-input v-model="ruleForm.helpPrice"></el-input>
+        <el-input v-model.number="ruleForm.helpPrice"></el-input>
       </el-form-item>
       <!--服务优惠费-->
       <el-form-item label="服务优惠费(元)" prop="lowHelpPrice"  style="width: 312px;">
-        <el-input v-model="ruleForm.lowHelpPrice"></el-input>
+        <el-input v-model.number="ruleForm.lowHelpPrice"></el-input>
       </el-form-item>
       <!--停留时间-->
       <el-form-item label="停留时间(天)" prop="stayDay"  style="width: 312px;">
-        <el-input v-model="ruleForm.stayDay"></el-input>
+        <el-input v-model.number="ruleForm.stayDay"></el-input>
       </el-form-item>
       <!--处理时间-->
       <el-form-item label="处理时间(天)" prop="disposeDay"  style="width: 312px;">
@@ -72,7 +72,7 @@
       </el-form-item>
       <!--续签费用-->
       <el-form-item label="续签费用(元)" prop="renewPrice"  style="width: 312px;">
-        <el-input v-model="ruleForm.renewPrice"></el-input>
+        <el-input v-model.number="ruleForm.renewPrice"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
