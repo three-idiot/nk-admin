@@ -90,7 +90,7 @@
                 <el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="160">
             <template slot-scope="scope">
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>
                 <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
