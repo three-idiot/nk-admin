@@ -207,7 +207,10 @@
         if (valid) {
           console.log('submit!');
           addGoods(this.ruleForm).then( res => {
-              console.log( res );
+              if( res.code == 200 ) {
+                  alert('新建成功');
+                  history.back();
+              }
           })
         } else {
           console.log('error submit!!');
