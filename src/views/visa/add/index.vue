@@ -25,13 +25,13 @@
       <!--签证有效期-->
       <el-form-item label="签证有效期" prop="unitDay">
         <el-select v-model="ruleForm.unitDay" placeholder="请选择">
-          <el-option  v-for="(val,key) in unitDay"  :label="val" :value="key"></el-option>
+          <el-option  v-for="(val,key) in unitDay"  :label="val" :value="key" :key="key"></el-option>
         </el-select>
       </el-form-item>
       <!--入境次数-->
       <el-form-item label="入境次数" prop="intoType">
         <el-select v-model="ruleForm.intoType" placeholder="请选择">
-          <el-option  v-for="(val,key) in intoType"  :label="val" :value="key"></el-option>
+          <el-option  v-for="(val,key) in intoType"  :label="val" :value="key" :key="key"></el-option>
         </el-select>
       </el-form-item>
       <!--是否加急-->
