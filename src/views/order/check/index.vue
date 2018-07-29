@@ -4,7 +4,7 @@
     <hr/>
     <portrait-table :data="data"></portrait-table>
     <div class="btn-container">
-        <el-button type="info" @click.native="$router.back()">返回</el-button>
+        <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
 
 </div>
@@ -15,98 +15,12 @@ import {
     getOrderDetail
 } from "@/api/table";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-
+import orderMap from "@/map/order"
 export default {
     data() {
-        return {
-            list: null,
-            listLoading: true,
-            current_page: 1,
-            max_page: 0,
-            page_size: 20,
-            daterange: [],
-            total_count: null,
-            priceCount: null,
+        return Object.assign({}, orderMap, {
             data: [],
-            isStamp: {
-                0: '否',
-                1: '是'
-            },
-            status: {
-                10: {
-                    msg: "待付款",
-                    color: "warning"
-                },
-                20: {
-                    msg: "办理中",
-                    color: "success"
-                },
-                30: {
-                    msg: "已送签",
-                    color: "success"
-                },
-                40: {
-                    msg: "已签发",
-                    color: "success"
-                },
-                41: {
-                    msg: "已拒签",
-                    color: "success"
-                },
-                50: {
-                    msg: "已登记",
-                    color: "warning"
-                },
-                60: {
-                    msg: "已过期",
-                    color: "warning"
-                },
-                70: {
-                    msg: "已取消",
-                    color: "warning"
-                }
-            },
-            payTypes: {
-                0: {
-                    msg: "未支付",
-                    color: "warning"
-                },
-                1: {
-                    msg: "微信支付",
-                    color: "success"
-                }
-            },
-            renewTypes: {
-                0: {
-                    msg: "正常订单",
-                    color: "success"
-                },
-                1: {
-                    msg: "续签订单",
-                    color: "primary"
-                }
-            }
-        };
-    },
-    computed: {
-        listQuery() {
-            return Object.assign({}, this.form, {
-                startTime: this.daterange[0],
-                endTime: this.daterange[1],
-                page: this.current_page,
-                size: this.page_size
-            });
-        }
-    },
-    filters: {
-        statusFilter(status) {
-            const statusMap = {
-                published: "success",
-                draft: "gray",
-                deleted: "danger"
-            };
-            return statusMap[status];
-        }
+        });
     },
     created() {
         this.fetchData();
@@ -133,72 +47,72 @@ export default {
                     },
                     {
                         key: '姓名',
-                        value: resData.linkName,
+                        value: resData.orderDetail[0].name,
                         type: 'string'
                     },
                     {
                         key: '护照号',
-                        value: resData.passportNo,
+                        value: resData.orderDetail[0].passportNo,
                         type: 'string'
                     },
                     {
                         key: '手机号',
-                        value: resData.mobile,
+                        value: resData.orderDetail[0].mobile,
                         type: 'string'
                     },
                     {
                         key: '护照内页',
-                        value: resData.passportPath,
-                        type: 'string'
+                        value: resData.orderDetail[0].passportPath,
+                        type: 'image'
                     },
                     {
                         key: '个人简历',
-                        value: resData.resumePath,
-                        type: 'string'
+                        value: resData.orderDetail[0].resumePath,
+                        type: 'image'
                     },
                     {
                         key: '是否盖章',
-                        value: this.isStamp[resData.isStamp],
+                        value: this.isStamp[resData.orderDetail[0].isStamp],
                         type: 'string'
                     },
                     {
                         key: '买家留言',
-                        value: '',
+                        value: resData.orderDetail[0].remark,
                         type: 'string'
                     },
                     {
                         key: '下单时间',
                         value: resData.ctime,
-                        type: 'string'
+                        type: 'dateTime'
                     },
                     {
                         key: '付款时间',
                         value: resData.payTime,
-                        type: 'string'
+                        type: 'dateTime'
                     },
                     {
                         key: '送签时间',
                         value: resData.sendTime,
-                        type: 'string'
+                        type: 'dateTime'
                     },
                     {
                         key: '签发/拒签时间',
                         value: resData.signTime,
-                        type: 'string'
+                        type: 'dateTime'
                     },
                     {
                         key: '签证有效期',
-                        value: resData.unitDay,
+                        value: new Date(resData.orderDetail[0].startTime).Format("yyyy-MM-dd") + ' 至 ' + new Date(resData.orderDetail[0].endTime).Format("yyyy-MM-dd"),
                         type: 'string'
                     },
                     {
                         key: '取消时间',
                         value: resData.offTime,
-                        type: 'string'
+                        type: 'dateTime'
                     },
                     {
                         key: '支付方式',
-                        value: this.payTypes[resData.payType],
+                        value: this.payTypes[resData.payType].msg,
                         type: 'string'
                     },
                     {
@@ -218,28 +132,18 @@ export default {
                     },
                     {
                         key: '商品金额',
-                        value: resData.payMoney,
+                        value: resData.payMoney / 100,
                         type: 'string'
                     },
                     {
                         key: '订单金额',
-                        value: resData.orderMoney,
+                        value: resData.orderMoney / 100,
                         type: 'string'
                     },
 
                 ];
-                this.listLoading = false;
             });
         },
-        onSubmit() {
-            this.fetchData();
-        },
-        check() {},
-        edit() {},
-        currentPageChange(page) {
-            this.current_page = page;
-            this.fetchData();
-        }
     },
     components: {
         PortraitTable
