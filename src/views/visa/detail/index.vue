@@ -1,7 +1,11 @@
 <template>
     <div class="visaDetail">
-      <!--<h1>{{ processData }}</h1>-->
-      <portrait-table :data="processData"></portrait-table>
+        <p class="title">商品详情</p>
+        <hr/>
+        <portrait-table :data="processData"></portrait-table>
+        <div class="btn-container">
+            <el-button type="info" @click.native="$router.back()">返回</el-button>
+        </div>
     </div>
 </template>
 
@@ -71,6 +75,16 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .visaDetail {
+        padding-left: 50px;
+        .title {
+            font-size: 30px;
+            color: #606266;
+        }
+        .btn-container {
+            padding-top: 30px;
+            text-align: center;
+        }
+    }
 </style>
