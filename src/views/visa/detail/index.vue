@@ -50,7 +50,7 @@
             arr.push( {key: '旅行社分成(%)', value: this.data.travelRatio } );
             arr.push( {key: '渠道分成(%)', value: this.data.channelRatio } );
             arr.push( {key: '平台分成(%)', value: this.data.terraceRatio } );
-            arr.push( {key: '创建时间', value: this.data.ctime } );
+            arr.push( {key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss") } );
             return arr;
           }
 
