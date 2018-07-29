@@ -34,38 +34,38 @@
     <el-table  :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
 
-      <el-table-column align="center"  width="150" label="序号">
+      <el-table-column align="center"   label="序号" class="table-item">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="200px" align="center" label="商品名称">
+      <el-table-column  align="center" label="商品名称">
         <template slot-scope="scope">
           <span>{{scope.row.title}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="150px"  align="center"  label="有效期(天)">
+      <el-table-column  align="center"  label="有效期(天)" >
         <template slot-scope="scope">
           <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
           <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
 
-      <el-table-column width="150px" align="center" label="签证价格(惠)">
+      <el-table-column  align="center" label="签证价格(惠)" >
         <template slot-scope="scope" >
           <span>{{scope.row.lowVisaPrice/100}}元</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="200px"  align="center" label="发布时间">
+      <el-table-column   align="center" label="发布时间">
         <template slot-scope="scope">
           <span>{{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  width="200" label="分成比例">
+      <el-table-column align="center"  label="分成比例">
         <template slot-scope="scope">
           <span class="link-type">
             <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
@@ -75,7 +75,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col"  width="150" label="商品状态" align="center">
+      <el-table-column class-name="status-col"  label="商品状态" align="center" >
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">
             {{ goodStatus[scope.row.status] }}
@@ -83,7 +83,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  width="360" class-name="small-padding fixed-width" label="操作">
+      <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看商品
@@ -207,5 +207,6 @@
 <style lang="scss" scoped>
    .app-container {
        padding-left: 50px;
+       .item-btns {}
    }
 </style>
