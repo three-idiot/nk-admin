@@ -8,7 +8,7 @@
       <!--商品图片-->
 
       <!--图片上传-->
-      <el-form-item label="商品图片" prop="111" style="width: 312px;">
+      <el-form-item label="商品图片" prop="goodsNum" style="width: 312px;">
         <el-upload
           class="avatar-uploader"
           style="border:1px solid #000;width: 178px;height: 178px;"
@@ -132,6 +132,9 @@
         renewPrice: ''
       },
       rules: {
+          goodsNum: [
+              { required: true,trigger: 'change',message: '请上传图片' }
+          ],
         title: [
           { required: true,trigger: 'blur',message: '请输入商品名称' }
         ],
