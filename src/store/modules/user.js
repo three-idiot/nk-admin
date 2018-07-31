@@ -34,11 +34,7 @@ const user = {
           // const data = response.data
           // setToken(data.token)
           // commit('SET_TOKEN', data.token)
-          commit('SET_TOKEN', '')
-          //TODO
-          commit('SET_ROLES', [1,2,3])
-          commit('SET_NAME', 'test-name')
-          commit('SET_AVATAR', 'http://images2.fanpop.com/image/photos/9400000/avatar-avatar-2009-film-9474591-1280-960.jpg')
+          // commit('SET_TOKEN', '')
           resolve()
         }).catch(error => {
           reject(error)
