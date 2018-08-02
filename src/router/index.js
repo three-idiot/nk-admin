@@ -139,8 +139,8 @@ export const asyncRouterMap = [
         path: '/agent',
         component: Layout,
         alwaysShow: true,
-        redirect: '/order/list',
-        name: 'order',
+        redirect: '/agent/list',
+        name: 'agent',
         meta: {
             title: '代理商管理',
             icon: 'eye'
@@ -148,7 +148,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'list',
-                name: 'order-list',
+                name: 'agent-list',
                 component: () => import('@/views/agent/list'),
                 meta: { title: '订单列表' }
             },
