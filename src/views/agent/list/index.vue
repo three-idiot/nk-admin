@@ -2,8 +2,9 @@
 <div class="app-container">
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
+
             <el-form-item label="地区：">
-                <el-select v-model="form.renewType" placeholder="全国" clearable>
+                <el-select v-model="form.renewType" placeholder="全国" clearable class="address">
                     <el-option label="正常订单" value="0"></el-option>
                     <el-option label="续签订单" value="1"></el-option>
                 </el-select>
@@ -48,7 +49,9 @@
                     <el-option label="入境时间" value="3"></el-option>
                 </el-select>
             </el-form-item>
+            <div>
 
+            </div>
             <el-form-item label="代理商状态：">
                 <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
                     <el-option label="下单时间" value="0"></el-option>
@@ -79,57 +82,67 @@
 
         </el-form>
     </div>
-    <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
+    <p>代理商总数共 <span class="red">{{total_count}}</span> 条 </p>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label='订单号'>
+        <el-table-column align="center" label='代理商编号'>
             <template slot-scope="scope">
                 {{scope.row.orderNum}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label="买家姓名">
+        <el-table-column align="center" label="代理商角色">
             <template slot-scope="scope">
                 {{scope.row.linkName}}
             </template>
         </el-table-column>
-        <el-table-column label="手机号" align="center">
+        <el-table-column label="代理商名称" align="center">
             <template slot-scope="scope">
                 <span>{{scope.row.linkMobile}}</span>
             </template>
         </el-table-column>
-        <el-table-column label="下单时间" align="center">
+        <el-table-column label="地区" align="center">
             <template slot-scope="scope">
                 {{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
-        <el-table-column label="付款时间" align="center">
+        <el-table-column label="联系人" align="center">
             <template slot-scope="scope">
                 {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
-        <el-table-column label="订单总额" width="110" align="center">
+        <el-table-column label="电话" width="110" align="center">
             <template slot-scope="scope">
                 {{scope.row.orderMoney}}
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="支付方式" width="110" align="center">
+        <el-table-column class-name="status-col" label="地址" width="110" align="center">
             <template slot-scope="scope">
                 <el-tag :type="payTypes[scope.row.payType].color">{{payTypes[scope.row.payType].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
+        <el-table-column class-name="status-col" label="有效期" width="110" align="center">
             <template slot-scope="scope">
                 <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="订单类型" width="110" align="center">
+        <el-table-column class-name="status-col" label="代理商状态" width="110" align="center">
             <template slot-scope="scope">
                 <el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="160">
+        <el-table-column label="操作" width="340" align="center">
             <template slot-scope="scope">
-                <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>
-                <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                <!--<el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>-->
+                <!--<el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>-->
+                <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+                    查看商品
+                </el-button>
+                <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
+                    修改分成
+                </el-button>
+                <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">审核上架</el-button>
+                <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
+                    违规下架
+                </el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -163,6 +176,12 @@ export default {
                 status: null,
                 timeType: null
             },
+            form2 :{
+                province: '',
+                city: '',
+                county: '',
+                street: '',
+            }
         });
     },
     computed: {
