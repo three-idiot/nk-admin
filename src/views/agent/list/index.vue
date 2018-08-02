@@ -2,20 +2,15 @@
 <div class="app-container">
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
-            <el-form-item label="订单号">
-                <el-input v-model="form.orderNum" placeholder="请输入订单号"></el-input>
-            </el-form-item>
-            <el-form-item label="买家姓名">
-                <el-input v-model="form.linkName" placeholder="请输入姓名"></el-input>
-            </el-form-item>
-            <el-form-item label="订单类型">
-                <el-select v-model="form.renewType" placeholder="请选择" clearable>
+            <el-form-item label="地区：">
+                <el-select v-model="form.renewType" placeholder="全国" clearable>
                     <el-option label="正常订单" value="0"></el-option>
                     <el-option label="续签订单" value="1"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="订单状态">
-                <el-select v-model="form.status" placeholder="请选择" clearable>
+
+            <el-form-item label="">
+                <el-select v-model="form.status" placeholder="请选择市" clearable>
                     <el-option label="待付款" value="10"></el-option>
                     <el-option label="办理中" value="20"></el-option>
                     <el-option label="已送签" value="30"></el-option>
@@ -26,21 +21,62 @@
                     <el-option label="已取消" value="70"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="时间类型">
-                <el-select v-model="form.timeType" placeholder="请选择" clearable>
+
+            <el-form-item label="">
+                <el-select v-model="form.timeType" placeholder="请选择区县" clearable>
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
                     <el-option label="签证时间" value="2"></el-option>
                     <el-option label="入境时间" value="3"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="时间">
+
+            <el-form-item label="">
+                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                    <el-option label="下单时间" value="0"></el-option>
+                    <el-option label="付款时间" value="1"></el-option>
+                    <el-option label="签证时间" value="2"></el-option>
+                    <el-option label="入境时间" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="代理商角色：">
+                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                    <el-option label="下单时间" value="0"></el-option>
+                    <el-option label="付款时间" value="1"></el-option>
+                    <el-option label="签证时间" value="2"></el-option>
+                    <el-option label="入境时间" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="代理商状态：">
+                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                    <el-option label="下单时间" value="0"></el-option>
+                    <el-option label="付款时间" value="1"></el-option>
+                    <el-option label="签证时间" value="2"></el-option>
+                    <el-option label="入境时间" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="有效期：">
                 <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">查询</el-button>
+
+            <el-form-item label="联系人：">
+                <el-input v-model="form.orderNum" placeholder="请输入订单号"></el-input>
             </el-form-item>
+
+            <el-form-item label="电话：">
+                <el-input v-model="form.linkName" placeholder="请输入姓名"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">搜索</el-button>
+            </el-form-item>
+
+
+
         </el-form>
     </div>
     <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
