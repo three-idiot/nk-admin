@@ -150,7 +150,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'agent-list',
                 component: () => import('@/views/agent/list'),
-                meta: { title: '订单列表' }
+                meta: { title: '代理商列表' }
             },
             {
                 path: 'check/:id',
