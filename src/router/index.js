@@ -133,6 +133,32 @@ export const asyncRouterMap = [
       },
     ]
   },
+  /* 资讯管理 */
+  {
+    path: '/news',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/news/list',
+    name: 'news',
+    meta: {
+      title: '资讯管理',
+      icon: 'news'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'news-list',
+        component: () => import('@/views/news/list'),
+        meta: { title: '资讯列表' }
+      },
+      {
+        path: 'advertise',
+        component: () => import('@/views/news/advertise'),
+        meta: { title: '广告列表' },
+        name: 'advertise'
+      }
+    ]
+  },
 
   { path: '*', redirect: '/404', hidden: true }
 ]
