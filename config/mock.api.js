@@ -13,7 +13,7 @@ module.exports = {
             });
         });
 
-        app.get('/api/agent/list' ,function(req, res){
+        app.post('/api/agent/list' ,function(req, res){
             res.json({
                 code:200,
                 message:'ok',

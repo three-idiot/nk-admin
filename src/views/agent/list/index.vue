@@ -155,8 +155,8 @@
 
 <script>
 import {
-    getOrderList
-} from "@/api/table";
+    getAgentList
+} from "@/api/agent";
 import orderMap from "@/map/order"
 export default {
     data() {
@@ -200,7 +200,7 @@ export default {
     methods: {
         fetchData() {
             this.listLoading = true;
-            getOrderList(this.listQuery).then(response => {
+            getAgentList(this.listQuery).then(response => {
                 this.list = response.data.data;
                 this.priceCount = response.data.priceCount;
                 this.total_count = response.data.total_count;
