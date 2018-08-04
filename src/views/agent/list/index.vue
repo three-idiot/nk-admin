@@ -86,49 +86,67 @@
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='代理商编号'>
             <template slot-scope="scope">
-                {{scope.row.orderNum}}
+                {{scope.row.agent_no}}
             </template>
         </el-table-column>
+
         <el-table-column align="center" label="代理商角色">
             <template slot-scope="scope">
-                {{scope.row.linkName}}
+                {{scope.row.Role}}
             </template>
         </el-table-column>
+
         <el-table-column label="代理商名称" align="center">
             <template slot-scope="scope">
-                <span>{{scope.row.linkMobile}}</span>
+                <span>{{scope.row.name}}</span>
             </template>
         </el-table-column>
         <el-table-column label="地区" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{ scope.row.province }}
             </template>
         </el-table-column>
         <el-table-column label="联系人" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{ scope.row.contractor }}
             </template>
         </el-table-column>
+
         <el-table-column label="电话" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.orderMoney}}
+                {{scope.row.phone}}
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="地址" width="110" align="center">
+
+        <el-table-column label="地址"  align="center">
             <template slot-scope="scope">
-                <el-tag :type="payTypes[scope.row.payType].color">{{payTypes[scope.row.payType].msg}}</el-tag>
+                {{ scope.row.province }}
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="有效期" width="110" align="center">
+
+        <el-table-column label="有效期"  align="center">
             <template slot-scope="scope">
-                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
+                {{ scope.row.expireTime }}
             </template>
         </el-table-column>
+
+
+        <!--<el-table-column class-name="status-col" label="地址" width="110" align="center">-->
+            <!--<template slot-scope="scope">-->
+                <!--&lt;!&ndash;<el-tag :type="payTypes[scope.row.payType].color">{{payTypes[scope.row.payType].msg}}</el-tag>&ndash;&gt;-->
+            <!--</template>-->
+        <!--</el-table-column>-->
+        <!--<el-table-column class-name="status-col" label="有效期"  align="center">-->
+            <!--<template slot-scope="scope">-->
+                <!--&lt;!&ndash;<el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>&ndash;&gt;-->
+            <!--</template>-->
+        <!--</el-table-column>-->
         <el-table-column class-name="status-col" label="代理商状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>
+                <!--<el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>-->
             </template>
         </el-table-column>
+
         <el-table-column label="操作" width="340" align="center">
             <template slot-scope="scope">
                 <!--<el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>-->
@@ -207,6 +225,7 @@ export default {
                 this.current_page = response.data.current_page;
                 this.max_page = response.data.max_page;
                 this.listLoading = false;
+                console.log( this.list );
             });
         },
         onSubmit() {
