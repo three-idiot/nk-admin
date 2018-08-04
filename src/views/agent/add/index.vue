@@ -2,19 +2,36 @@
 <div class="app-container">
     <p class="title">新增代理商</p>
     <hr/>
-    <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form">
-        <!--商品名称-->
-        <el-form-item label="用户名" prop="title" style="width: 312px;">
+    <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form" label-width="130px">
+        <div class="small-title">登录账号：</div>
+        <el-form-item label="用户名：" prop="title" style="width: 400px;">
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="密码" prop="title" style="width: 312px;">
+        <el-form-item label="密码：" prop="title" style="width: 400px;">
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码" prop="title" style="width: 312px;">
+        <el-form-item label="确认密码：" prop="title" style="width: 400px;">
             <el-input ></el-input>
         </el-form-item>
+
+        <hr>
+
+        <div class="small-title" style="margin-top: 10px;">基本信息：</div>
+        <el-form-item label="代理商名称" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="密码" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="确认密码" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <hr>
 
 
 
@@ -189,9 +206,16 @@ export default {
         color: #606266;
     }
     .form {
+        .small-title {
+            font-size: 25px;
+            margin-bottom: 10px;
+            padding: 10px;
+            color: blue;
+        }
         margin-top: 30px;
-        padding: 30px;
+        /*padding: 30px;*/
         padding-bottom: 5px;
+        margin-right: 30px;
         background: #F2F6FC;
         .btn {
             margin-top: 30px;
