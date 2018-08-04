@@ -269,7 +269,8 @@ export default {
         line-height: 40px;
         .add-agent-button {
             font-size: 18px;
-            margin-left: 10px;
+            float: right;
+            margin-right: 40px;
         }
     }
     .red {
