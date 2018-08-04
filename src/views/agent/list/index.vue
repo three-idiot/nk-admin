@@ -1,5 +1,11 @@
 <template>
 <div class="app-container">
+    <p class="title">
+        代理商列表
+        <el-button  type="danger" class="add-agent-button">新增代理商+</el-button>
+    </p>
+    <hr/>
+
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
 
@@ -257,6 +263,15 @@ export default {
 
 <style lang="scss" scoped>
 .app-container {
+    .title {
+        font-size: 30px;
+        color: #606266;
+        line-height: 40px;
+        .add-agent-button {
+            font-size: 18px;
+            margin-left: 10px;
+        }
+    }
     .red {
         color: #F56C6C;
     }
@@ -264,5 +279,6 @@ export default {
         margin: 50px 0 30px;
         text-align: center;
     }
+
 }
 </style>
