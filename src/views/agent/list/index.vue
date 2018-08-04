@@ -136,20 +136,9 @@
             </template>
         </el-table-column>
 
-
-        <!--<el-table-column class-name="status-col" label="地址" width="110" align="center">-->
-            <!--<template slot-scope="scope">-->
-                <!--&lt;!&ndash;<el-tag :type="payTypes[scope.row.payType].color">{{payTypes[scope.row.payType].msg}}</el-tag>&ndash;&gt;-->
-            <!--</template>-->
-        <!--</el-table-column>-->
-        <!--<el-table-column class-name="status-col" label="有效期"  align="center">-->
-            <!--<template slot-scope="scope">-->
-                <!--&lt;!&ndash;<el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>&ndash;&gt;-->
-            <!--</template>-->
-        <!--</el-table-column>-->
         <el-table-column class-name="status-col" label="代理商状态" width="110" align="center">
             <template slot-scope="scope">
-                <!--<el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>-->
+                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
             </template>
         </el-table-column>
 
@@ -181,10 +170,10 @@
 import {
     getAgentList
 } from "@/api/agent";
-import orderMap from "@/map/order"
+import agentMap from "@/map/agent"
 export default {
     data() {
-        return Object.assign({}, orderMap, {
+        return Object.assign({}, agentMap, {
             list: null,
             listLoading: true,
             current_page: 1,
