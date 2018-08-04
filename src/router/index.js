@@ -159,8 +159,8 @@ export const asyncRouterMap = [
                 meta: { title: '代理商审核' }
             },
             {
-                path: 'edit/:id',
-                component: () => import('@/views/agent/edit'),
+                path: 'add/:id',
+                component: () => import('@/views/agent/add'),
                 name: 'order-edit',
                 meta: { title: '新增代理商' }
             }

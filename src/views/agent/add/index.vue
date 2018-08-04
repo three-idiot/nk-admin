@@ -1,9 +1,23 @@
 <template>
 <div class="app-container">
-    <p class="title">设置签证状态</p>
+    <p class="title">新增代理商</p>
     <hr/>
-    <portrait-table :data="data" :key-width=80></portrait-table>
     <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form">
+        <!--商品名称-->
+        <el-form-item label="用户名" prop="title" style="width: 312px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="密码" prop="title" style="width: 312px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="确认密码" prop="title" style="width: 312px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+
+
         <el-form-item label="签证状态" prop="status">
             <el-radio-group v-model="form.status">
                 <el-radio label="40">已签发</el-radio>
