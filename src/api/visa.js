@@ -1,18 +1,18 @@
-import request from '@/utils/request'
+import request from '@/utils/request';
 
 export function getVisaList(params) {
   return request({
     url: '/goodslist',
     method: 'get',
     params
-  })
+  });
 }
 
 export function getVisaDetail(url) {
   return request({
     url: url,
     method: 'get'
-  })
+  });
 }
 
 export function goodsratio(params) {
@@ -21,7 +21,7 @@ export function goodsratio(params) {
     method: 'put',
     headers: {'Content-Type': 'application/json'},
     data: params
-  })
+  });
 }
 
 export function goodsfoul(params) {
@@ -29,7 +29,7 @@ export function goodsfoul(params) {
     url: '/goodsfoul',
     method: 'post',
     params
-  })
+  });
 }
 
 export function goodsfoulup(params) {
@@ -37,7 +37,7 @@ export function goodsfoulup(params) {
     url: '/goodsfoulup',
     method: 'get',
     params
-  })
+  });
 }
 
 export function addGoods(params) {
@@ -45,7 +45,7 @@ export function addGoods(params) {
         url: '/addgoods',
         method: 'post',
         data: params
-    })
+    });
 }
 
 

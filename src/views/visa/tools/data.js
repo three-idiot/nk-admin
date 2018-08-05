@@ -5,9 +5,9 @@ const transformData = {
     2: '违规下架'
   },
   auditStatus: {
-    0:'审核中',
-    1:'审核通过',
-    2:'审核未通过'
+    0: '审核中',
+    1: '审核通过',
+    2: '审核未通过'
   },
   unitDay: {
     30: '30',
@@ -15,7 +15,7 @@ const transformData = {
     90: '90',
     0: '长期',
   },
-  intoType:{
+  intoType: {
     0: '单次',
     1: '多次'
   },
