@@ -39,27 +39,27 @@
         ],
         rules: {
           foul: [
-            { required: true,trigger: 'change',message: '请选择理由' }
+            { required: true, trigger: 'change', message: '请选择理由' }
           ],
         }
-      }
+      };
     },
     created() {
     },
     methods: {
       goodsfoul( params ) {
         goodsfoul( params ).then( res => {
-          if( res.code == 200 ) {
+          if ( res.code == 200 ) {
             alert('下架成功');
             history.back();
           }
-        })
+        });
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             console.log('submit!');
-            console.log('调试2',this.ruleForm);
+            console.log('调试2', this.ruleForm);
             this.goodsfoul( this.ruleForm );
           } else {
             console.log('error submit!!');
@@ -74,7 +74,7 @@
         history.back();
       }
     }
-  }
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

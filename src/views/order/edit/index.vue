@@ -41,7 +41,7 @@ import {
     updateOrder
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-import orderMap from "@/map/order"
+import orderMap from "@/map/order";
 export default {
     data() {
         return Object.assign({}, orderMap, {

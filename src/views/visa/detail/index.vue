@@ -10,14 +10,14 @@
 </template>
 
 <script>
-    import { getVisaDetail } from '@/api/visa'
-    import  transformData  from '../tools/data'
+    import { getVisaDetail } from '@/api/visa';
+    import transformData from '../tools/data';
     let goodStatus = transformData.status;
     let auditStatus = transformData.auditStatus;
     let unitDay = transformData.unitDay;
     let intoType = transformData.intoType;
     let isUrgent = transformData.isUrgent;
-    let isInterview = transformData.isInterview;
+    // let isInterview = transformData.isInterview;
     import PortraitTable from "@/components/PortraitTable/index.vue";
 
     export default {
@@ -25,7 +25,7 @@
       data() {
         return {
           data: '',
-        }
+        };
       },
       computed: {
         processData () {
@@ -33,7 +33,7 @@
           if ( this.data ) {
             arr.push( {key: '签证名称', value: this.data.title});
             arr.push( {key: '签证编码', value: this.data.goodsNum} );
-            arr.push( {key: '签证照片', value: this.data.image[0].goodPath,type: 'image' } );
+            arr.push( {key: '签证照片', value: this.data.image[0].goodPath, type: 'image' } );
             arr.push( {key: '状态', value: goodStatus[this.data.status] } );
             arr.push( {key: '审核状态', value: auditStatus[this.data.auditStatus] } );
             arr.push( {key: '签证价格(元)', value: this.data.visaPrice/100 } );
@@ -53,14 +53,13 @@
             arr.push( {key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss") } );
             return arr;
           }
-
         }
       },
       created() {
         // console.log('吴志鹏', this.$route);
-        this.fetchData()
+        this.fetchData();
       },
-      components:{
+      components: {
         PortraitTable
       },
       methods: {
@@ -69,10 +68,10 @@
           let url = '/gooddetail/' + id;
           getVisaDetail( url ).then( res => {
             this.data = res.data;
-          })
+          });
         }
       }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

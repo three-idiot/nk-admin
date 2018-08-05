@@ -83,29 +83,28 @@
 </template>
 
 <script>
-  import { addGoods } from '@/api/visa'
-  import axios from 'axios'
-
+  import { addGoods } from '@/api/visa';
+  // import axios from 'axios';
 
 
   export default {
   data() {
     let checkNum = (rule, value, callback) =>{
-      if( !/^[0-9]*$/.test(value) ) {
+      if ( !/^[0-9]*$/.test(value) ) {
         return callback(new Error('必须是数字'));
       } else {
         callback();
       }
-    }
+    };
     return {
-      imageUrl:'',
+      imageUrl: '',
       unitDay: {
         30: '30天',
         60: '60天',
         90: '90天',
         0: '长期',
       },
-      intoType:{
+      intoType: {
         0: '单次',
         1: '多次'
       },
@@ -113,7 +112,7 @@
         1: '是',
         0: '否',
       },
-      isInterview :{
+      isInterview: {
         1: '是',
         0: '否',
       },
@@ -133,52 +132,52 @@
       },
       rules: {
           goodsNum: [
-              { required: true,trigger: 'change',message: '请上传图片' }
+              { required: true, trigger: 'change', message: '请上传图片' }
           ],
         title: [
-          { required: true,trigger: 'blur',message: '请输入商品名称' }
+          { required: true, trigger: 'blur', message: '请输入商品名称' }
         ],
-        unitDay :[
-          {required: true,trigger: 'change',message: '请选择签证有效期' }
+        unitDay: [
+          {required: true, trigger: 'change', message: '请选择签证有效期' }
         ],
         intoType: [
-          {required: true,trigger: 'change',message: '请选择入境次数' }
+          {required: true, trigger: 'change', message: '请选择入境次数' }
         ],
         isUrgent: [
-          {required: true,trigger: 'change',message: '请选择是否加急' }
+          {required: true, trigger: 'change', message: '请选择是否加急' }
         ],
         isInterview: [
-          {required: true,trigger: 'change',message: '请选择是否面试' }
+          {required: true, trigger: 'change', message: '请选择是否面试' }
         ],
         visaPrice: [
-          { required: true,trigger: 'blur',message: '请输入签证费' },
+          { required: true, trigger: 'blur', message: '请输入签证费' },
           { validator: checkNum, trigger: 'blur' }
         ],
         lowVisaPrice: [
-          { required: true,trigger: 'blur',message: '请输入签证优惠费' },
+          { required: true, trigger: 'blur', message: '请输入签证优惠费' },
           { validator: checkNum, trigger: 'blur' }
         ],
         helpPrice: [
-          { required: true,trigger: 'blur',message: '请输入服务费' },
+          { required: true, trigger: 'blur', message: '请输入服务费' },
           { validator: checkNum, trigger: 'blur' }
         ],
         lowHelpPrice: [
-          { required: true,trigger: 'blur',message: '请输入服务优惠费' },
+          { required: true, trigger: 'blur', message: '请输入服务优惠费' },
           { validator: checkNum, trigger: 'blur' }
         ],
         stayDay: [
-          { required: true,trigger: 'blur',message: '请输入停留时间' },
+          { required: true, trigger: 'blur', message: '请输入停留时间' },
           { validator: checkNum, trigger: 'blur' }
         ],
         disposeDay: [
-          { required: true,trigger: 'blur',message: '请输入处理时间' },
+          { required: true, trigger: 'blur', message: '请输入处理时间' },
           { validator: checkNum, trigger: 'blur' }
         ],
-        renewPrice:[
+        renewPrice: [
           { validator: checkNum, trigger: 'blur' }
         ],
       }
-    }
+    };
   },
   created() {
   },
@@ -199,11 +198,11 @@
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
-      return  isLt2M;
+      return isLt2M;
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        console.log('调试2',this.ruleForm);
+        console.log('调试2', this.ruleForm);
         if (valid) {
           console.log('submit!');
           let ruleForm = Object.assign({}, this.ruleForm);
@@ -213,11 +212,11 @@
           ruleForm['renewPrice'] *= 100;
           ruleForm['visaPrice'] *= 100;
           addGoods(ruleForm).then( res => {
-              if( res.code == 200 ) {
+              if ( res.code == 200 ) {
                   alert('新建成功');
                   history.back();
               }
-          })
+          });
         } else {
           console.log('error submit!!');
           return false;
@@ -228,7 +227,7 @@
       this.$refs[formName].resetFields();
     }
   }
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
