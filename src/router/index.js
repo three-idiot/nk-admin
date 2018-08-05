@@ -135,37 +135,5 @@ export const asyncRouterMap = [
   },
 
 
-    {
-        path: '/agent',
-        component: Layout,
-        alwaysShow: true,
-        redirect: '/agent/list',
-        name: 'agent',
-        meta: {
-            title: '代理商管理',
-            icon: 'eye'
-        },
-        children: [
-            {
-                path: 'list',
-                name: 'agent-list',
-                component: () => import('@/views/agent/list'),
-                meta: { title: '代理商列表' }
-            },
-            {
-                path: 'check/:id',
-                component: () => import('@/views/agent/check'),
-                name: 'order-check',
-                meta: { title: '代理商审核' }
-            },
-            {
-                path: 'add/:id',
-                component: () => import('@/views/agent/add'),
-                name: 'order-edit',
-                meta: { title: '新增代理商' }
-            }
-        ]
-    },
-
   { path: '*', redirect: '/404', hidden: true }
 ]
