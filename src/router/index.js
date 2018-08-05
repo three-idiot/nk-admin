@@ -139,25 +139,67 @@ export const asyncRouterMap = [
         path: '/news',
         component: Layout,
         alwaysShow: true,
-        redirect: '/news/list',
+        redirect: '/news/newslist',
         name: 'news',
         meta: {
         title: '资讯管理',
         icon: 'news'
         },
         children: [
-        {
-            path: 'list',
-            name: 'news-list',
-            component: () => import('@/views/news/list'),
-            meta: { title: '资讯列表' }
-        },
-        {
-            path: 'advertise',
-            component: () => import('@/views/news/advertise'),
-            meta: { title: '广告列表' },
-            name: 'advertise'
-        }
+            {
+              path: 'newslist',
+              name: 'news-list',
+              component: () => import('@/views/news/newslist/list'),
+              meta: { title: '资讯列表' }
+            },
+            {
+              path: 'newsadd',
+              component: () => import('@/views/news/newslist/add'),
+              meta: { title: '新增资讯' },
+              hidden: true
+            },
+            {
+                path: 'newsedit',
+                component: () => import('@/views/news/newslist/edit'),
+                hidden: true
+            },
+            {
+              path: 'newsdetail',
+              component: () => import('@/views/news/newslist/detail'),
+              hidden: true
+            },
+            {
+              path: 'newsundercarriage',
+              component: () => import('@/views/news/newslist/undercarriage'),
+              hidden: true
+            },
+            {
+              path: 'adslist',
+              component: () => import('@/views/news/ads/list'),
+              meta: { title: '广告列表' },
+              name: 'ads'
+            },
+            {
+              path: 'adsadd',
+              component: () => import('@/views/news/ads/add'),
+              meta: { title: '新增广告' },
+              hidden: true
+            },
+            {
+              path: 'adsdetail',
+              component: () => import('@/views/news/ads/detail'),
+              hidden: true
+            },
+            {
+              path: 'adsedit',
+              component: () => import('@/views/news/ads/edit'),
+              hidden: true
+            },
+            {
+              path: 'adsundercarriage',
+              component: () => import('@/views/news/ads/undercarriage'),
+              hidden: true
+            },
         ]
     },
 

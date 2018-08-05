@@ -87,7 +87,7 @@
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
+          <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
           <el-button  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
@@ -178,14 +178,17 @@ export default {
       }
       this.fetchData( finalQuery );
     },
-    goDetail(id) {
-      window.location.href = '#/visa/detail?id=' + id;
+    add () {
+      window.location.href = '#/news/adsadd?id=' + id;
     },
-    goRatio(id) {
-      window.location.href = '#/visa/ratio?id=' + id;
+    goDetail(id) {
+      window.location.href = '#/news/adsdetail?id=' + id;
+    },
+    goEdit(id) {
+      window.location.href = '#/news/adsedit?id=' + id;
     },
     goUndercarriage(id) {
-      window.location.href = '#/visa/undercarriage?id=' + id;
+      window.location.href = '#/news/adsundercarriage?id=' + id;
     }
   }
 };
