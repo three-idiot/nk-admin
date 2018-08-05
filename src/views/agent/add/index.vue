@@ -8,12 +8,12 @@
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="密码：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+        <el-form-item label="密码：" prop="title" type="password" style="width: 400px;">
+            <el-input type="password"></el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+        <el-form-item label="确认密码：" prop="title"   style="width: 400px;">
+            <el-input type="password"></el-input>
         </el-form-item>
 
         <hr>
@@ -149,10 +149,10 @@ import {
     updateOrder
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-import orderMap from "@/map/order"
+import agentMap from "@/map/agent"
 export default {
     data() {
-        return Object.assign({}, orderMap, {
+        return Object.assign({}, agentMap, {
             form: {
                 status: null,
                 visaPath: null,

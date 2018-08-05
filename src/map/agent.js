@@ -13,6 +13,10 @@ export default {
             color: "warning"
         },
     },
+    type: {
+        1: '企业',
+        2: '个人'
+    },
     payTypes: {
         0: {
             msg: "未支付",
