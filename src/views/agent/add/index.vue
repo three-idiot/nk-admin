@@ -23,41 +23,118 @@
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="密码" prop="title" style="width: 400px;">
+        <el-form-item label="代理商角色" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+        <el-form-item label="代理商地区">
+            <el-select v-model="form.renewType" placeholder="全国" clearable class="address">
+                <el-option label="正常订单" value="0"></el-option>
+                <el-option label="续签订单" value="1"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="">
+            <el-select v-model="form.status" placeholder="请选择市" clearable>
+                <el-option label="待付款" value="10"></el-option>
+                <el-option label="办理中" value="20"></el-option>
+                <el-option label="已送签" value="30"></el-option>
+                <el-option label="已签发" value="40"></el-option>
+                <el-option label="已拒签" value="41"></el-option>
+                <el-option label="已登记" value="50"></el-option>
+                <el-option label="已过期" value="60"></el-option>
+                <el-option label="已取消" value="70"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="">
+            <el-select v-model="form.timeType" placeholder="请选择区县" clearable>
+                <el-option label="下单时间" value="0"></el-option>
+                <el-option label="付款时间" value="1"></el-option>
+                <el-option label="签证时间" value="2"></el-option>
+                <el-option label="入境时间" value="3"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="">
+            <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                <el-option label="下单时间" value="0"></el-option>
+                <el-option label="付款时间" value="1"></el-option>
+                <el-option label="签证时间" value="2"></el-option>
+                <el-option label="入境时间" value="3"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="联系人：" prop="title" style="width: 400px;">
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码" prop="title" style="width: 400px;">
-            <el-input ></el-input>
-        </el-form-item>
 
         <hr>
 
 
+        <div class="small-title" style="margin-top: 10px;">认证信息：</div>
 
-        <el-form-item label="签证状态" prop="status">
-            <el-radio-group v-model="form.status">
-                <el-radio label="40">已签发</el-radio>
-                <el-radio label="41">拒签</el-radio>
-            </el-radio-group>
+        <el-form-item label="代理商性质">
+            <el-select v-model="form.status" placeholder="请选择市" clearable>
+                <el-option label="待付款" value="10"></el-option>
+                <el-option label="办理中" value="20"></el-option>
+                <el-option label="已送签" value="30"></el-option>
+                <el-option label="已签发" value="40"></el-option>
+                <el-option label="已拒签" value="41"></el-option>
+                <el-option label="已登记" value="50"></el-option>
+                <el-option label="已过期" value="60"></el-option>
+                <el-option label="已取消" value="70"></el-option>
+            </el-select>
         </el-form-item>
-        <el-form-item label="通知方式">
-            <el-checkbox-group v-model="info">
-                <el-checkbox label="短信通知"></el-checkbox>
-                <el-checkbox label="邮件通知"></el-checkbox>
-            </el-checkbox-group>
+
+        <el-form-item label="营业执照代码：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
         </el-form-item>
-        <el-form-item label="时间">
-            <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-        </el-form-item>
-        <el-form-item label="上传电子签证" prop="visaPath">
+
+        <el-form-item label="营业执照副本" prop="visaPath">
             <!-- TODO 上线之后这里要把api前缀去掉 -->
             <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
                 <el-button v-show="!form.visaPath" size="small" type="primary">点击上传</el-button>
                 <div v-show="!!form.visaPath" slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
             </el-upload>
         </el-form-item>
+
+        <div class="small-title" style="margin-top: 10px;">银行账号：</div>
+
+        <el-form-item label="名称：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="开户行：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="联行号：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="账号：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <hr>
+
+        <div class="small-title" style="margin-top: 10px;">使用期限：</div>
+
+
+        <el-form-item label="时间">
+            <el-date-picker
+                v-model="listQuery.startTime"
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期">
+            </el-date-picker>
+        </el-form-item>
+
+        <el-form-item label="代理商标识码：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
         <el-form-item size="large" class="btn">
             <el-button type="info" @click.native="$router.back()">取消</el-button>
             <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
@@ -201,6 +278,7 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+    padding-bottom: 100px;
     .title {
         font-size: 30px;
         color: #606266;
