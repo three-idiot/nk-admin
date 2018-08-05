@@ -99,6 +99,43 @@
             </el-upload>
         </el-form-item>
 
+
+        <!--// 选择代理商性质为个人-->
+        <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
+            <el-input ></el-input>
+        </el-form-item>
+
+        <el-form-item label="身份证照片" prop="visaPath">
+            <!-- TODO 上线之后这里要把api前缀去掉 -->
+            <div class="pic-container">
+                <span class="picTitle">国徽面</span>
+                <el-upload
+                    class="avatar-uploader"
+                    style="border:1px solid #000;width: 178px;height: 178px;"
+                    action="/api/image/uploadfile"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+                <span class="picTitle">信息面</span>
+                <el-upload
+                    class="avatar-uploader"
+                    style="border:1px solid #000;width: 178px;height: 178px;"
+                    action="/api/image/uploadfile"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </div>
+        </el-form-item>
+
+
+
+
         <div class="small-title" style="margin-top: 10px;">银行账号：</div>
 
         <el-form-item label="名称：" prop="title" style="width: 400px;">
@@ -279,6 +316,42 @@ export default {
 .app-container {
     padding-left: 50px;
     padding-bottom: 100px;
+
+    .picTitle {
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+    }
+
+    .pic-container {
+        display: flex;
+
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+
     .title {
         font-size: 30px;
         color: #606266;
