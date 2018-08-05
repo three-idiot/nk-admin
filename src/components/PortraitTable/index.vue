@@ -39,12 +39,12 @@ export default {
             default: '30%'
         }
     },
-    computed:{
-        imgStyle(){
+    computed: {
+        imgStyle() {
             return "max-width:"+this.imgWidth;
         }
     }
-}
+};
 </script>
 
 <style lang="scss">

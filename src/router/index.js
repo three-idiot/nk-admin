@@ -1,13 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-// in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
+// in development-env not use lazy-loading,
+// because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
-Vue.use(Router)
+Vue.use(Router);
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import Layout from '../views/layout/Layout';
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -22,118 +23,119 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+    { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+    { path: '/404', component: () => import('@/views/404'), hidden: true },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
-  }
-]
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+        name: 'Dashboard',
+        hidden: true,
+        children: [{
+            path: 'dashboard',
+            component: () => import('@/views/dashboard/index')
+        }]
+    }
+];
 
 export default new Router({
-  // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
-})
+    // mode: 'history', //后端支持可开
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRouterMap
+});
 
 export const asyncRouterMap = [
-  {
-    path: '/user',
-    component: Layout,
-    alwaysShow: true,
-    redirect: '/user/list',
-    name: 'user',
-    meta: {
-      title: '用户管理',
-      icon: 'user'
+    {
+        path: '/user',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/user/list',
+        name: 'user',
+        meta: {
+            title: '用户管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/user/list'),
+                meta: { title: '用户列表' }
+            }
+        ]
     },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/user/list'),
-        meta: { title: '用户列表' }
-      }
-    ]
-  },
-  {
-    path: '/order',
-    component: Layout,
-    alwaysShow: true,
-    redirect: '/order/list',
-    name: 'order',
-    meta: {
-      title: '订单管理',
-      icon: 'shopping'
+    {
+        path: '/order',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/order/list',
+        name: 'order',
+        meta: {
+            title: '订单管理',
+            icon: 'shopping'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'order-list',
+                component: () => import('@/views/order/list'),
+                meta: { title: '订单列表' }
+            },
+            {
+                path: 'check/:id',
+                component: () => import('@/views/order/check'),
+                hidden: true,
+                name: 'order-check'
+            },
+            {
+                path: 'edit/:id',
+                component: () => import('@/views/order/edit'),
+                hidden: true,
+                name: 'order-edit'
+            }
+        ]
     },
-    children: [
-      {
-        path: 'list',
-        name: 'order-list',
-        component: () => import('@/views/order/list'),
-        meta: { title: '订单列表' }
-      },
-      {
-        path: 'check/:id',
-        component: () => import('@/views/order/check'),
-        hidden: true,
-        name: 'order-check'
-      },
-      {
-        path: 'edit/:id',
-        component: () => import('@/views/order/edit'),
-        hidden: true,
-        name: 'order-edit'
-      }
-    ]
-  },
 
-  {
-    path: '/visa',
-    component: Layout,
-    alwaysShow: true,
-    redirect: '/visa/list',
-    name: 'visa',
-    meta: {
-      title: '签证管理',
-      icon: 'visa'
+    {
+        path: '/visa',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/visa/list',
+        name: 'visa',
+        meta: {
+            title: '签证管理',
+            icon: 'visa'
+        },
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/visa/list'),
+                meta: { title: '签证列表' }
+            },
+            {
+                path: 'add',
+                component: () => import('@/views/visa/add'),
+                meta: { title: '新增签证' }
+            },
+            {
+                path: 'detail',
+                component: () => import('@/views/visa/detail'),
+                hidden: true
+            },
+            {
+                path: 'ratio',
+                component: () => import('@/views/visa/ratio-change'),
+                hidden: true
+            },
+            {
+                path: 'undercarriage',
+                component: () => import('@/views/visa/undercarriage'),
+                hidden: true
+            },
+        ]
     },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/visa/list'),
-        meta: { title: '签证列表' }
-      },
-      {
-        path: 'add',
-        component: () => import('@/views/visa/add'),
-        meta: { title: '新增签证' }
-      },
-      {
-        path: 'detail',
-        component: () => import('@/views/visa/detail'),
-        hidden: true
-      },
-      {
-        path:'ratio',
-        component: () => import('@/views/visa/ratio-change'),
-        hidden: true
-      },
-      {
-        path:'undercarriage',
-        component: () => import('@/views/visa/undercarriage'),
-        hidden: true
-      },
-    ]
-  },
 
 
-  { path: '*', redirect: '/404', hidden: true }
-]
+    { path: '*', redirect: '/404', hidden: true }
+];
+

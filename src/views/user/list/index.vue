@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getUserList } from '@/api/userList'
+import { getUserList } from '@/api/userList';
 
 export default {
   data() {
@@ -58,7 +58,7 @@ export default {
       counts: 0,
       currentPage: 1,
       pageCounts: 16
-    }
+    };
   },
   filters: {
     sexFilter(sex) {
@@ -66,39 +66,39 @@ export default {
         0: '未知',
         1: '男',
         2: '女'
-      }
-      return sexMap[sex]
+      };
+      return sexMap[sex];
     },
     statusFilter(status) {
       const statusMap = {
         0: '正常',
         1: '异常'
-      }
-      return statusMap[status]
+      };
+      return statusMap[status];
     },
     dateFilter(dateStr) {
-      const dateObj = new Date(dateStr)
-      return dateStr ? dateObj.toLocaleString() : ''
+      const dateObj = new Date(dateStr);
+      return dateStr ? dateObj.toLocaleString() : '';
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData(nickName = '', status = 0, page = 1, size = 10000) {
-      this.listLoading = true
+      this.listLoading = true;
       getUserList(nickName, status, page, size).then(response => {
         // console.log('请求返回：', response)
-        this.users = response.data.data
+        this.users = response.data.data;
         this.counts = response.data.data.length;
-        this.listLoading = false
-      })
+        this.listLoading = false;
+      });
     },
     handleSearch() {
-      this.fetchData(this.filterNickName)
+      this.fetchData(this.filterNickName);
     },
     handleSizeChange() {},
     handleCurrentChange() {}
   }
-}
+};
 </script>

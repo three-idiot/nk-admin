@@ -108,7 +108,7 @@
 import {
     getOrderList
 } from "@/api/table";
-import orderMap from "@/map/order"
+import orderMap from "@/map/order";
 export default {
     data() {
         return Object.assign({}, orderMap, {
@@ -163,7 +163,7 @@ export default {
                 params: {
                     id: row.id
                 }
-            })
+            });
         },
         edit(index, row) {
             this.$router.push({
@@ -171,7 +171,7 @@ export default {
                 params: {
                     id: row.id
                 }
-            })
+            });
         },
         currentPageChange(page) {
             this.current_page = page;

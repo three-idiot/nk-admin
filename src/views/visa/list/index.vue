@@ -111,8 +111,8 @@
 </template>
 
 <script>
-  import { getVisaList } from '@/api/visa'
-  import { goodsfoulup } from '@/api/visa'
+  import { getVisaList } from '@/api/visa';
+  import { goodsfoulup } from '@/api/visa';
 
   export default {
     data() {
@@ -132,12 +132,12 @@
           auditStatus: 0,
           page: 1,
           size: 10,
-          title:null,
+          title: null,
           startTime: null,
           endTime: null,
           status: null,
         },
-      }
+      };
     },
     computed: {
 
@@ -148,30 +148,30 @@
           1: 'success',
           0: 'gray',
           2: 'danger'
-        }
-        return statusMap[status]
+        };
+        return statusMap[status];
       }
     },
     created() {
-      this.fetchData(this.listQuery)
+      this.fetchData(this.listQuery);
     },
     methods: {
       fetchData(params) {
-        this.listLoading = true
+        this.listLoading = true;
         getVisaList(params).then(response => {
           this.list = response.data.data;
           console.log( response.data );
           this.pagesStatus.total_count = response.data.total_count;
-          this.listLoading = false
-        })
+          this.listLoading = false;
+        });
       },
       handleSizeChange(val) {
-        this.listQuery.size = val
-        this.fetchData( this.listQuery )
+        this.listQuery.size = val;
+        this.fetchData( this.listQuery );
       },
       handleCurrentChange(val) {
-        this.listQuery.page = val
-        this.fetchData(this.listQuery)
+        this.listQuery.page = val;
+        this.fetchData(this.listQuery);
       },
       handleFilter() {
         console.log( this.listQuery );
@@ -197,10 +197,10 @@
             alert('上架成功');
             window.location.reload();
           }
-        })
+        });
       }
     }
-  }
+  };
 </script>
 
 
