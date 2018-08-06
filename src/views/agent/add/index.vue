@@ -35,14 +35,8 @@
 
         <el-form-item label="">
             <el-select v-model="form.status" placeholder="请选择市" clearable>
-                <el-option label="待付款" value="10"></el-option>
-                <el-option label="办理中" value="20"></el-option>
-                <el-option label="已送签" value="30"></el-option>
-                <el-option label="已签发" value="40"></el-option>
-                <el-option label="已拒签" value="41"></el-option>
-                <el-option label="已登记" value="50"></el-option>
-                <el-option label="已过期" value="60"></el-option>
-                <el-option label="已取消" value="70"></el-option>
+                <el-option label="企业" value="1"></el-option>
+                <el-option label="个人" value="2"></el-option>
             </el-select>
         </el-form-item>
 
@@ -75,15 +69,8 @@
         <div class="small-title" style="margin-top: 10px;">认证信息：</div>
 
         <el-form-item label="代理商性质">
-            <el-select v-model="form.status" placeholder="请选择市" clearable>
-                <el-option label="待付款" value="10"></el-option>
-                <el-option label="办理中" value="20"></el-option>
-                <el-option label="已送签" value="30"></el-option>
-                <el-option label="已签发" value="40"></el-option>
-                <el-option label="已拒签" value="41"></el-option>
-                <el-option label="已登记" value="50"></el-option>
-                <el-option label="已过期" value="60"></el-option>
-                <el-option label="已取消" value="70"></el-option>
+            <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
+                <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
             </el-select>
         </el-form-item>
 
@@ -194,6 +181,7 @@ export default {
                 status: null,
                 visaPath: null,
                 detatilId: null,
+                type: '1'
             },
             rules: {
                 visaPath: [{
