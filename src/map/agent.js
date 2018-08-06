@@ -22,28 +22,4 @@ export default {
         2: '网点',
         3: '市县代理'
     },
-    payTypes: {
-        0: {
-            msg: "未支付",
-            color: "warning"
-        },
-        1: {
-            msg: "微信支付",
-            color: "success"
-        }
-    },
-    renewTypes: {
-        0: {
-            msg: "正常订单",
-            color: "success"
-        },
-        1: {
-            msg: "续签订单",
-            color: "primary"
-        }
-    },
-    isStamp: {
-        0: '否',
-        1: '是'
-    }
 }
