@@ -19,7 +19,7 @@ import orderMap from "@/map/order";
 export default {
     data() {
         return Object.assign({}, orderMap, {
-            data: [],
+            data: []
         });
     },
     created() {
@@ -52,7 +52,8 @@ export default {
                     },
                     {
                         key: '标题图片',
-                        value: resData.images,
+                        // value: resData.images,
+                        value: ['https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a919d7dfe524b899c13c7f385e071d59/d52a2834349b033bda94010519ce36d3d439bdd5.jpg', 'https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=01805b674b10b912a0c1f0fef3fcfcb5/42a98226cffc1e17461390ed4690f603728de9ba.jpg'],
                         type: 'images'
                     },
                     {
