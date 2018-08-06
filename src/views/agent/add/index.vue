@@ -88,37 +88,40 @@
 
 
         <!--// 选择代理商性质为个人-->
-        <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
-        </el-form-item>
+        <div v-if="form.type == 2">
+            <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
+                <el-input ></el-input>
+            </el-form-item>
 
-        <el-form-item label="身份证照片" prop="visaPath">
-            <!-- TODO 上线之后这里要把api前缀去掉 -->
-            <div class="pic-container">
-                <span class="picTitle">国徽面</span>
-                <el-upload
-                    class="avatar-uploader"
-                    style="border:1px solid #000;width: 178px;height: 178px;"
-                    action="/api/image/uploadfile"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-                <span class="picTitle">信息面</span>
-                <el-upload
-                    class="avatar-uploader"
-                    style="border:1px solid #000;width: 178px;height: 178px;"
-                    action="/api/image/uploadfile"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-            </div>
-        </el-form-item>
+            <el-form-item label="身份证照片" prop="visaPath">
+                <!-- TODO 上线之后这里要把api前缀去掉 -->
+                <div class="pic-container">
+                    <span class="picTitle">国徽面</span>
+                    <el-upload
+                        class="avatar-uploader"
+                        style="border:1px solid #000;width: 178px;height: 178px;"
+                        action="/api/image/uploadfile"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                    <span class="picTitle">信息面</span>
+                    <el-upload
+                        class="avatar-uploader"
+                        style="border:1px solid #000;width: 178px;height: 178px;"
+                        action="/api/image/uploadfile"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </div>
+            </el-form-item>
+        </div>
+
 
 
 
@@ -133,7 +136,7 @@
             <el-input ></el-input>
         </el-form-item>
 
-        <el-form-item label="联行号：" prop="title" style="width: 400px;">
+        <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
             <el-input ></el-input>
         </el-form-item>
 
