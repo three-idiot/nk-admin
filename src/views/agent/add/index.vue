@@ -188,10 +188,30 @@ export default {
     data() {
         return Object.assign({}, agentMap, {
             form: {
-                status: null,
-                visaPath: null,
-                detatilId: null,
-                type: '1'
+                name: null,
+                roleId: null,
+                province: null,
+                city: null,
+                county: null,
+                street: null,
+                contractor: null,
+                phone: null,
+                mail: null,
+                mail: null,
+                type: '1',
+                bizLicenseCode: null,
+                bizLicenseImagePath: null,
+                idCardNo: null,
+                idCardFrontImagePath: null,
+                idCardBackImagePath: null,
+                bankAccountName: null,
+                bankName: null,
+                bankCoupletNo: null,
+                bankAccountNo: null,
+                expireTime: null,
+                uniqueCode: null,
+                username: null,
+                pwd: null,
             },
             rules: {
                 visaPath: [{
