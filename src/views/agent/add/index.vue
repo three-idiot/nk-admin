@@ -82,7 +82,7 @@
         </el-form-item>
 
         <el-form-item label="营业执照代码：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.bizLicenseCode"></el-input>
         </el-form-item>
 
         <el-form-item label="营业执照副本" prop="visaPath">
@@ -97,7 +97,7 @@
         <!--// 选择代理商性质为个人-->
         <div v-if="form.type == 2">
             <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
-                <el-input ></el-input>
+                <el-input v-model="idCardNo"></el-input>
             </el-form-item>
 
             <el-form-item label="身份证照片" prop="visaPath">
@@ -136,19 +136,19 @@
         <div class="small-title" style="margin-top: 10px;">银行账号：</div>
 
         <el-form-item label="名称：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.bankAccountName"></el-input>
         </el-form-item>
 
         <el-form-item label="开户行：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.bankName"></el-input>
         </el-form-item>
 
         <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
-            <el-input ></el-input>
+            <el-input v-model="form.bankCoupletNo"></el-input>
         </el-form-item>
 
         <el-form-item label="账号：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.bankAccountNo"></el-input>
         </el-form-item>
 
         <hr>
@@ -158,7 +158,7 @@
 
         <el-form-item label="时间">
             <el-date-picker
-                v-model="listQuery.startTime"
+                v-model="form.expireTime"
                 type="date"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
@@ -166,7 +166,7 @@
         </el-form-item>
 
         <el-form-item label="代理商标识码：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="uniqueCode"></el-input>
         </el-form-item>
 
         <el-form-item size="large" class="btn">
