@@ -47,19 +47,14 @@
     </div>
     <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label='订单号'>
+        <el-table-column align="center" label='订单编号'>
             <template slot-scope="scope">
-                {{scope.row.orderNum}}
+                {{scope.row.goodsNo}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label="买家姓名">
+        <el-table-column align="center" label="下单用户">
             <template slot-scope="scope">
-                {{scope.row.linkName}}
-            </template>
-        </el-table-column>
-        <el-table-column label="手机号" align="center">
-            <template slot-scope="scope">
-                <span>{{scope.row.linkMobile}}</span>
+                <!-- {{scope.row.linkName}} -->
             </template>
         </el-table-column>
         <el-table-column label="下单时间" align="center">
@@ -109,7 +104,7 @@
 <script>
 import {
     getOrderList
-} from "@/api/table";
+} from "@/api/travel-order";
 import orderMap from "@/map/order";
 export default {
     data() {

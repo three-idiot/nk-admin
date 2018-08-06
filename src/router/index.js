@@ -71,7 +71,7 @@ export const asyncRouterMap = [
         redirect: '/order/list',
         name: 'order',
         meta: {
-            title: '订单管理',
+            title: '签证订单',
             icon: 'shopping'
         },
         children: [
@@ -95,7 +95,37 @@ export const asyncRouterMap = [
             }
         ]
     },
-
+    {
+        path: '/travel-order',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/travel-order/list',
+        name: 'travel-order',
+        meta: {
+            title: '旅游订单',
+            icon: 'shopping'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'travel-order-list',
+                component: () => import('@/views/travel-order/list'),
+                meta: { title: '订单列表' }
+            },
+            {
+                path: 'check/:id',
+                component: () => import('@/views/travel-order/check'),
+                hidden: true,
+                name: 'travel-order-check'
+            },
+            {
+                path: 'edit/:id',
+                component: () => import('@/views/travel-order/edit'),
+                hidden: true,
+                name: 'travel-order-edit'
+            }
+        ]
+    },
     {
         path: '/visa',
         component: Layout,
