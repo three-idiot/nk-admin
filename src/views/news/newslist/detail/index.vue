@@ -1,23 +1,17 @@
 <template>
     <div class="visaDetail">
-        <p class="title">商品详情</p>
+        <p class="title">查看广告详情</p>
         <hr/>
         <portrait-table :data="processData"></portrait-table>
         <div class="btn-container">
-            <el-button type="info" @click.native="$router.back()">返回</el-button>
+          <el-button type="info" @click.native="$router.back()">返回</el-button>
         </div>
     </div>
 </template>
 
 <script>
-    import { getVisaDetail } from '@/api/visa';
-    import transformData from '../tools/data';
-    let goodStatus = transformData.status;
-    let auditStatus = transformData.auditStatus;
-    let unitDay = transformData.unitDay;
-    let intoType = transformData.intoType;
-    let isUrgent = transformData.isUrgent;
-    // let isInterview = transformData.isInterview;
+    import { getNewsDetail } from '@/api/news';
+
     import PortraitTable from "@/components/PortraitTable/index.vue";
 
     export default {
@@ -51,12 +45,11 @@
             arr.push( {key: '渠道分成(%)', value: this.data.channelRatio } );
             arr.push( {key: '平台分成(%)', value: this.data.terraceRatio } );
             arr.push( {key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss") } );
-            return arr;
           }
+          return arr;
         }
       },
       created() {
-        // console.log('吴志鹏', this.$route);
         this.fetchData();
       },
       components: {
@@ -65,9 +58,9 @@
       methods: {
         fetchData() {
           let id = this.$route.query.id;
-          let url = '/gooddetail/' + id;
-          getVisaDetail( url ).then( res => {
-            this.data = res.data;
+          getNewsDetail(id).then(res => {
+            console.log('资讯详情：', res);
+            // this.data = res.data;
           });
         }
       }

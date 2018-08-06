@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getOrderList } from "@/api/table";
+import { getNewsList } from "@/api/news";
 
 export default {
   data() {
@@ -160,7 +160,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      getOrderList().then(response => {
+      getNewsList().then(response => {
         this.listLoading = false;
         console.log("资讯列表:", response);
       });
