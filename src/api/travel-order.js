@@ -4,7 +4,7 @@ export function getOrderList(params) {
     return request({
         url: '/travelOrder/list',
         method: 'post',
-        params
+        data: params
     });
 }
 
@@ -19,7 +19,7 @@ export function updateOrder(params) {
     return request({
         url: `/orderdetailupdte`,
         method: 'post',
-        params
+        data: params
     });
 }
 
