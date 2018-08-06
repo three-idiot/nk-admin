@@ -5,11 +5,11 @@
     <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form" label-width="130px">
         <div class="small-title">登录账号：</div>
         <el-form-item label="用户名：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.username"></el-input>
         </el-form-item>
 
         <el-form-item label="密码：" prop="title" type="password" style="width: 400px;">
-            <el-input type="password"></el-input>
+            <el-input type="password" v-model="form.pwd"></el-input>
         </el-form-item>
 
         <el-form-item label="确认密码：" prop="title"   style="width: 400px;">
@@ -20,12 +20,16 @@
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
         <el-form-item label="代理商名称" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.name"></el-input>
         </el-form-item>
 
-        <el-form-item label="代理商角色" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+
+        <el-form-item label="代理商角色">
+            <el-select v-model="form.roleId" placeholder="请选择代理商角色" clearable class="address">
+                <el-option :label="val" :value="key" :key="key" v-for="(val, key) in roleId"></el-option>
+            </el-select>
         </el-form-item>
+
         <el-form-item label="代理商地区">
             <el-select v-model="form.renewType" placeholder="全国" clearable class="address">
                 <el-option label="正常订单" value="0"></el-option>
