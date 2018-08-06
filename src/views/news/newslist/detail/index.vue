@@ -1,82 +1,105 @@
 <template>
-    <div class="visaDetail">
-        <p class="title">查看广告详情</p>
-        <hr/>
-        <portrait-table :data="processData"></portrait-table>
-        <div class="btn-container">
-          <el-button type="info" @click.native="$router.back()">返回</el-button>
-        </div>
+<div class="app-container">
+    <p class="title">查看资讯详情</p>
+    <hr/>
+    <portrait-table :data="data"></portrait-table>
+    <div class="btn-container">
+        <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
+
+</div>
 </template>
 
 <script>
-    import { getNewsDetail } from '@/api/news';
-
-    import PortraitTable from "@/components/PortraitTable/index.vue";
-
-    export default {
-      name: 'index',
-      data() {
-        return {
-          data: '',
-        };
-      },
-      computed: {
-        processData () {
-          let arr = [];
-          if ( this.data ) {
-            arr.push( {key: '签证名称', value: this.data.title});
-            arr.push( {key: '签证编码', value: this.data.goodsNum} );
-            arr.push( {key: '签证照片', value: this.data.image[0].goodPath, type: 'image' } );
-            arr.push( {key: '状态', value: goodStatus[this.data.status] } );
-            arr.push( {key: '审核状态', value: auditStatus[this.data.auditStatus] } );
-            arr.push( {key: '签证价格(元)', value: this.data.visaPrice/100 } );
-            arr.push( {key: '签证优惠价格(元)', value: this.data.lowVisaPrice/100 } );
-            arr.push( {key: '服务价格(元)', value: this.data.helpPrice/100 } );
-            arr.push( {key: '服务优惠价格(元)', value: this.data.lowHelpPrice/100 } );
-            arr.push( {key: '续签费用(元)', value: this.data.renewPrice/100 } );
-            arr.push( {key: '签证有效期(天)', value: unitDay[this.data.unitDay] } );
-            arr.push( {key: '停留时间(天)', value: this.data.stayDay} );
-            arr.push( {key: '处理时间(天)', value: this.data.disposeDay} );
-            arr.push( {key: '入境类型', value: intoType[this.data.intoType]} );
-            arr.push( {key: '是否加急', value: isUrgent[this.data.isUrgent]} );
-            arr.push( {key: '是否面试', value: isUrgent[this.data.isInterview]} );
-            arr.push( {key: '旅行社分成(%)', value: this.data.travelRatio } );
-            arr.push( {key: '渠道分成(%)', value: this.data.channelRatio } );
-            arr.push( {key: '平台分成(%)', value: this.data.terraceRatio } );
-            arr.push( {key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss") } );
-          }
-          return arr;
-        }
-      },
-      created() {
+import {
+    getNewsDetail
+} from "@/api/news";
+import PortraitTable from "@/components/PortraitTable/index.vue";
+import orderMap from "@/map/order";
+export default {
+    data() {
+        return Object.assign({}, orderMap, {
+            data: [],
+        });
+    },
+    created() {
         this.fetchData();
-      },
-      components: {
-        PortraitTable
-      },
-      methods: {
+    },
+    methods: {
         fetchData() {
-          let id = this.$route.query.id;
-          getNewsDetail(id).then(res => {
-            console.log('资讯详情：', res);
-            // this.data = res.data;
-          });
-        }
-      }
-    };
+            this.listLoading = true;
+            getNewsDetail(this.$route.params.id).then(response => {
+                const resData = response.data;
+                this.data = [{
+                        key: '资讯编码',
+                        value: resData.newsNo,
+                        type: 'string'
+                    },
+                    {
+                        key: '资讯标题',
+                        value: resData.title,
+                        type: 'string'
+                    },
+                    {
+                        key: '资讯状态',
+                        value: resData.status,
+                        type: 'string'
+                    },
+                    {
+                        key: '资讯关键字',
+                        value: resData.newsKey,
+                        type: 'string'
+                    },
+                    {
+                        key: '标题图片',
+                        value: resData.images,
+                        type: 'images'
+                    },
+                    {
+                        key: '资讯详情',
+                        value: resData.detail,
+                        type: 'string'
+                    },
+                    {
+                        key: '创建人',
+                        value: resData.publisher,
+                        type: 'string'
+                    },
+                    {
+                        key: '创建时间',
+                        value: resData.createTime,
+                        type: 'dateTime'
+                    },
+                    {
+                        key: '审核人',
+                        value: resData.approver,
+                        type: 'string'
+                    },
+                    {
+                        key: '审核时间',
+                        value: resData.approveTime,
+                        type: 'dateTime'
+                    }
+                ];
+            });
+        },
+    },
+    components: {
+        PortraitTable
+    }
+};
 </script>
 
 <style lang="scss" scoped>
-    .visaDetail {
-        padding-left: 50px;
-        .title {
-            font-size: 30px;
-            color: #606266;
-        }
-        .btn-container {
-            padding-top: 30px;
-            text-align: center;
-        }
+.app-container {
+    padding-left: 50px;
+    .title {
+        font-size: 30px;
+        color: #606266;
     }
+    .btn-container {
+        padding-top: 30px;
+        text-align: center;
+    }
+}
 </style>

@@ -3,8 +3,8 @@ import request from '@/utils/request';
 export function getNewsList(params) {
   return request({
     url: '/news/list',
-    method: 'get',
-    params
+    method: 'post',
+    data: params
   });
 }
 
