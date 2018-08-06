@@ -32,21 +32,21 @@
 
         <div class="address-container">
             <el-form-item label="代理商地区">
-                <el-select v-model="form.renewType" placeholder="请选择省" clearable>
+                <el-select v-model="form.province" placeholder="请选择省" clearable>
                     <el-option label="正常订单" value="0"></el-option>
                     <el-option label="续签订单" value="1"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0">
-                <el-select v-model="form.status" placeholder="请选择市" clearable class="address">
+                <el-select v-model="form.city" placeholder="请选择市" clearable class="address">
                     <el-option label="企业" value="1"></el-option>
                     <el-option label="个人" value="2"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0">
-                <el-select v-model="form.timeType" placeholder="请选择区县" clearable class="address">
+                <el-select v-model="form.county" placeholder="请选择区县" clearable class="address">
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
                     <el-option label="签证时间" value="2"></el-option>
@@ -55,7 +55,7 @@
             </el-form-item>
 
             <el-form-item label="" label-width="0">
-                <el-select v-model="form.timeType" placeholder="请选择街道" clearable class="address">
+                <el-select v-model="form.street" placeholder="请选择街道" clearable class="address">
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
                     <el-option label="签证时间" value="2"></el-option>
@@ -66,7 +66,7 @@
 
 
         <el-form-item label="联系人：" prop="title" style="width: 400px;">
-            <el-input ></el-input>
+            <el-input v-model="form.contractor"></el-input>
         </el-form-item>
 
 
@@ -332,7 +332,7 @@ export default {
 
     .pic-container {
         display: flex;
-
+        display: -webkit-flex;
     }
 
     .avatar-uploader .el-upload {
