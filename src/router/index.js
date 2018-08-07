@@ -119,10 +119,10 @@ export const asyncRouterMap = [
                 name: 'travel-order-check'
             },
             {
-                path: 'edit/:id',
-                component: () => import('@/views/travel-order/edit'),
+                path: 'detail/:id',
+                component: () => import('@/views/travel-order/detail'),
                 hidden: true,
-                name: 'travel-order-edit'
+                name: 'travel-order-detail'
             }
         ]
     },

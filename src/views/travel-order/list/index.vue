@@ -166,15 +166,15 @@ export default {
         },
         check(index, row) {
             this.$router.push({
-                name: 'order-check',
+                name: 'travel-order-check',
                 params: {
-                    id: row.id
+                    id: row.goodsNo
                 }
             });
         },
         edit(index, row) {
             this.$router.push({
-                name: 'order-edit',
+                name: 'travel-order-edit',
                 params: {
                     id: row.id
                 }

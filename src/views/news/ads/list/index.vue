@@ -163,12 +163,12 @@ export default {
       });
     },
     handleSizeChange(val) {
-      this.listQuery.size = val
-      this.fetchData( this.listQuery )
+      this.listQuery.size = val;
+      this.fetchData( this.listQuery );
     },
     handleCurrentChange(val) {
-      this.listQuery.page = val
-      this.fetchData(this.listQuery)
+      this.listQuery.page = val;
+      this.fetchData(this.listQuery);
     },
     handleFilter() {
       console.log( this.listQuery );
