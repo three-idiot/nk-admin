@@ -1,5 +1,6 @@
 <template>
 <div class="app-container">
+    <title-line txt="资讯列表"></title-line>
     <!-- 筛选 -->
     <div style="padding:20px;background:#F2F6FC;">
       <el-form :inline="true" :model="form" class="demo-form-inline">
@@ -108,6 +109,7 @@
 
 <script>
 import { getNewsList } from "@/api/news";
+import TitleLine from "@/components/TitleLine/index.vue";
 
 export default {
   data() {
@@ -181,6 +183,9 @@ export default {
     goUndercarriage(id) {
       window.location.href = "#/news/newsundercarriage?id=" + id;
     }
+  },
+  components: {
+    TitleLine
   }
 };
 </script>

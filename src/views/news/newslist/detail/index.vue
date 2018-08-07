@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-    <p class="title">查看资讯详情</p>
+    <title-line txt="查看资讯详情"></title-line>
     <hr/>
     <portrait-table :data="data"></portrait-table>
     <div class="btn-container">
@@ -15,6 +15,7 @@ import {
     getNewsDetail
 } from "@/api/news";
 import PortraitTable from "@/components/PortraitTable/index.vue";
+import TitleLine from "@/components/TitleLine/index.vue";
 import orderMap from "@/map/order";
 export default {
     data() {
@@ -86,7 +87,8 @@ export default {
         },
     },
     components: {
-        PortraitTable
+        PortraitTable,
+        TitleLine
     }
 };
 </script>
