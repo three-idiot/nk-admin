@@ -8,7 +8,7 @@
             <el-input v-model="form.username"></el-input>
         </el-form-item>
 
-        <el-form-item label="密码：" prop="title" type="password" style="width: 400px;">
+        <el-form-item label="密码：" prop="pwd" type="password" style="width: 400px;">
             <el-input type="password" v-model="form.pwd"></el-input>
         </el-form-item>
 
@@ -184,7 +184,7 @@ import {
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
-import { checkNum, checkUsername } from "@/rules";
+import { checkNum, checkUsername, checkPassword } from "@/rules";
 export default {
     data() {
         return Object.assign({}, agentMap, {
@@ -219,6 +219,10 @@ export default {
                     { required: true, trigger: 'blur', message: '请输入用户名' },
                     { validator: checkUsername, trigger: 'blur' }
                 ],
+                pwd: [
+                    { required: true, trigger: 'blur', message: '请输入密码' },
+                    { validator: checkPassword, trigger: 'blur' }
+                ]
             },
             daterange: [],
             info: [],

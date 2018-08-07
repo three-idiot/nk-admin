@@ -14,6 +14,14 @@ export function checkUsername (rule, value, callback) {
     }
 }
 
+export function checkPassword (rule, value, callback) {
+    if ( !/^.{8,16}$/.test(value) ) {
+        return callback(new Error('密码必须限制在8~16位'));
+    } else {
+        callback();
+    }
+}
+
 
 
 
