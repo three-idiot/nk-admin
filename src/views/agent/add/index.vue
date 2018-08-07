@@ -101,33 +101,21 @@
         <!--// 选择代理商性质为个人-->
         <div v-if="form.type == 2">
             <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
-                <el-input v-model="idCardNo"></el-input>
+                <el-input v-model="form.idCardNo"></el-input>
             </el-form-item>
 
             <el-form-item label="身份证照片">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
                 <div class="pic-container">
-                    <span class="picTitle">国徽面</span>
-                    <el-upload
-                        class="avatar-uploader"
-                        style="border:1px solid #000;width: 178px;height: 178px;"
-                        action="/api/image/uploadfile"
-                        :show-file-list="false"
-                        :on-success="imgUploaded"
-                        :before-upload="beforeAvatarUpload">
-                        <img v-if="form.idCardFrontImagePath" :src="form.idCardFrontImagePath" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <span class="picTitle">国徽面：</span>
+                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">
+                        <el-button type="primary">点击上传</el-button>
+                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                     </el-upload>
-                    <span class="picTitle">信息面</span>
-                    <el-upload
-                        class="avatar-uploader"
-                        style="border:1px solid #000;width: 178px;height: 178px;"
-                        action="/api/image/uploadfile"
-                        :show-file-list="false"
-                        :on-success="imgUploaded"
-                        :before-upload="beforeAvatarUpload">
-                        <img v-if="form.idCardBackImagePath" :src="form.idCardBackImagePath" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <span class="picTitle">信息面：</span>
+                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">
+                        <el-button type="primary">点击上传</el-button>
+                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                     </el-upload>
                 </div>
             </el-form-item>
@@ -369,8 +357,33 @@ export default {
         imgUploaded(res, file) {
             this.form.bizLicenseImagePath = res.data;
         },
+        idCardFrontImageUploaded (res, file) {
+            console.log( res.data );
+            this.form.idCardFrontImagePath = res.data;
+        },
+        idCardFrontImageRemove(files, fileList) {
+            this.form.idCardFrontImagePath = null;
+        },
+        idCardBackImageUploaded (res, file) {
+            console.log( res.data );
+            this.form.idCardBackImagePath = res.data;
+        },
+        idCardBackImageRemove(files, fileList) {
+            this.form.idCardBackImagePath = null;
+        },
         imgRemove(files, fileList) {
             this.form.bizLicenseImagePath = null;
+        },
+        beforeAvatarUpload(file) {
+            // const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            // if (!isJPG) {
+            //   this.$message.error('上传头像图片只能是 JPG 格式!');
+            // }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isLt2M;
         },
         update(params) {
             updateOrder(params).then(response => {
@@ -405,7 +418,10 @@ export default {
 
     .picTitle {
         display: inline-block;
-        width: 200px;
+        width: 100px;
+        font-size: 20px;
+        text-align: center;
+        color: orangered;
         text-align: center;
     }
 
