@@ -153,10 +153,10 @@ export const asyncRouterMap = [
                 meta: { title: '代理商列表' }
             },
             {
-                path: 'audit/:id',
-                component: () => import('@/views/agent/audit'),
-                name: 'order-audit',
-                meta: { title: '代理商审核' }
+                path: 'edit/:id',
+                component: () => import('@/views/agent/edit'),
+                name: 'order-edit',
+                meta: { title: '代理商编辑' }
             },
             {
                 path: 'add/:id',
