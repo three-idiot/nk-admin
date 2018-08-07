@@ -19,33 +19,33 @@
         <hr>
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
-        <el-form-item label="代理商名称" prop="title" style="width: 400px;">
+        <el-form-item label="代理商名称" prop="name" style="width: 400px;">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
 
 
-        <el-form-item label="代理商角色">
+        <el-form-item label="代理商角色" prop="roleId">
             <el-select v-model="form.roleId" placeholder="请选择代理商角色" clearable>
                 <el-option :label="val" :value="key" :key="key" v-for="(val, key) in roleId"></el-option>
             </el-select>
         </el-form-item>
 
         <div class="address-container">
-            <el-form-item label="代理商地区">
+            <el-form-item label="代理商地区" prop="province">
                 <el-select v-model="form.province" placeholder="请选择省" clearable>
                     <el-option label="正常订单" value="0"></el-option>
                     <el-option label="续签订单" value="1"></el-option>
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="" label-width="0">
+            <el-form-item label="" label-width="0" prop="city">
                 <el-select v-model="form.city" placeholder="请选择市" clearable class="address">
                     <el-option label="企业" value="1"></el-option>
                     <el-option label="个人" value="2"></el-option>
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="" label-width="0">
+            <el-form-item label="" label-width="0" prop="county">
                 <el-select v-model="form.county" placeholder="请选择区县" clearable class="address">
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
@@ -54,7 +54,7 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="" label-width="0">
+            <el-form-item label="" label-width="0" prop="street">
                 <el-select v-model="form.street" placeholder="请选择街道" clearable class="address">
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
@@ -65,7 +65,7 @@
         </div>
 
 
-        <el-form-item label="联系人：" prop="title" style="width: 400px;">
+        <el-form-item label="联系人：" prop="contractor" style="width: 400px;">
             <el-input v-model="form.contractor"></el-input>
         </el-form-item>
 
@@ -75,17 +75,17 @@
 
         <div class="small-title" style="margin-top: 10px;">认证信息：</div>
 
-        <el-form-item label="代理商性质">
+        <el-form-item label="代理商性质" prop="type">
             <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
                 <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
             </el-select>
         </el-form-item>
 
-        <el-form-item label="营业执照代码：" prop="title" style="width: 400px;">
+        <el-form-item label="营业执照代码："  style="width: 400px;">
             <el-input v-model="form.bizLicenseCode"></el-input>
         </el-form-item>
 
-        <el-form-item label="营业执照副本" prop="visaPath">
+        <el-form-item label="营业执照副本" >
             <!-- TODO 上线之后这里要把api前缀去掉 -->
             <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
                 <el-button v-show="!form.visaPath" size="small" type="primary">点击上传</el-button>
@@ -100,7 +100,7 @@
                 <el-input v-model="idCardNo"></el-input>
             </el-form-item>
 
-            <el-form-item label="身份证照片" prop="visaPath">
+            <el-form-item label="身份证照片">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
                 <div class="pic-container">
                     <span class="picTitle">国徽面</span>
@@ -135,11 +135,11 @@
 
         <div class="small-title" style="margin-top: 10px;">银行账号：</div>
 
-        <el-form-item label="名称：" prop="title" style="width: 400px;">
+        <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
             <el-input v-model="form.bankAccountName"></el-input>
         </el-form-item>
 
-        <el-form-item label="开户行：" prop="title" style="width: 400px;">
+        <el-form-item label="开户行：" prop="bankName" style="width: 400px;">
             <el-input v-model="form.bankName"></el-input>
         </el-form-item>
 
@@ -147,7 +147,7 @@
             <el-input v-model="form.bankCoupletNo"></el-input>
         </el-form-item>
 
-        <el-form-item label="账号：" prop="title" style="width: 400px;">
+        <el-form-item label="账号：" prop="bankAccountNo" style="width: 400px;">
             <el-input v-model="form.bankAccountNo"></el-input>
         </el-form-item>
 
@@ -156,7 +156,7 @@
         <div class="small-title" style="margin-top: 10px;">使用期限：</div>
 
 
-        <el-form-item label="时间">
+        <el-form-item label="时间" prop="expireTime">
             <el-date-picker
                 v-model="form.expireTime"
                 type="date"
@@ -165,7 +165,7 @@
             </el-date-picker>
         </el-form-item>
 
-        <el-form-item label="代理商标识码：" prop="title" style="width: 400px;">
+        <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
             <el-input v-model="form.uniqueCode"></el-input>
         </el-form-item>
 
