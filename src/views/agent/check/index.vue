@@ -69,6 +69,14 @@
             <el-input v-model="form.contractor"></el-input>
         </el-form-item>
 
+        <el-form-item label="联系电话：" prop="phone" style="width: 400px;">
+            <el-input v-model="form.phone"></el-input>
+        </el-form-item>
+
+        <el-form-item label="联系地址：" prop="mail" style="width: 400px;">
+            <el-input v-model="form.mail"></el-input>
+        </el-form-item>
+
 
         <hr>
 
