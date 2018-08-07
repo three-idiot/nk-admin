@@ -113,9 +113,9 @@
                         style="border:1px solid #000;width: 178px;height: 178px;"
                         action="/api/image/uploadfile"
                         :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
+                        :on-success="imgUploaded"
                         :before-upload="beforeAvatarUpload">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <img v-if="form.idCardFrontImagePath" :src="form.idCardFrontImagePath" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                     <span class="picTitle">信息面</span>
@@ -124,9 +124,9 @@
                         style="border:1px solid #000;width: 178px;height: 178px;"
                         action="/api/image/uploadfile"
                         :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
+                        :on-success="imgUploaded"
                         :before-upload="beforeAvatarUpload">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <img v-if="form.idCardBackImagePath" :src="form.idCardBackImagePath" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </div>
