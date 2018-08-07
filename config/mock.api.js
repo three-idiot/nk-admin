@@ -12,23 +12,23 @@ module.exports = {
                 }
             });
         });
-        // app.post('/api/travelOrder/list' ,function(req, res){
-        //     res.json({
-        //         code:200,
-        //         message:'ok',
-        //         data:[{
-        //             goodsNo:'1',
-        //             goodsName:'name',
-        //             goodsType:'type',
-        //             goodsUpDate:Date.now().toString(),
-        //             goodsCloseDate:Date.now().toString(),
-        //             peopleMinNum:1,
-        //             peopleMaxNum:10,
-        //             buyNum:3,
-        //             status:0
-        //         }]
-        //     });
-        // });
+        app.post('/api/travelOrder/list' ,function(req, res){
+            res.json({
+                code:200,
+                message:'ok',
+                data:[{
+                    goodsNo:'1',
+                    goodsName:'name',
+                    goodsType:'type',
+                    goodsUpDate:Date.now().toString(),
+                    goodsCloseDate:Date.now().toString(),
+                    peopleMinNum:1,
+                    peopleMaxNum:10,
+                    buyNum:3,
+                    status:10
+                }]
+            });
+        });
     }
 };
 
