@@ -19,6 +19,11 @@
         <hr>
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
+
+        <el-form-item label="代理商编码" prop="name" style="width: 400px;">
+            <el-input v-model="form.name"></el-input>
+        </el-form-item>
+
         <el-form-item label="代理商名称" prop="name" style="width: 400px;">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
