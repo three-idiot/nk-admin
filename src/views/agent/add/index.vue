@@ -232,7 +232,52 @@ export default {
                 ],
                 confirmPassword: [
                     { validator: validatePass2, trigger: 'blur' }
-                ]
+                ],
+                name:[
+                    { required: true, trigger: 'blur', message: '请输入代理商名称' },
+                ],
+                roleId: [
+                    { required: true, trigger: 'blur', message: '请输入角色' },
+                ],
+                province: [
+                    { required: true, trigger: 'blur', message: '请输入省' },
+                ],
+                city: [
+                    { required: true, trigger: 'blur', message: '请输入市区' },
+                ],
+                county: [
+                    { required: true, trigger: 'blur', message: '请输入市区' },
+                ],
+                street: [
+                    { required: true, trigger: 'blur', message: '请输入街道' },
+                ],
+                contractor: [
+                    { required: true, trigger: 'blur', message: '请输入联系人' },
+                ],
+                phone: [
+                    { required: true, trigger: 'blur', message: '请输入联系电话' },
+                ],
+                mail: [
+                    { required: true, trigger: 'blur', message: '请输入联系地址' },
+                ],
+                type: [
+                    { required: true, trigger: 'blur', message: '请选择代理商性质' },
+                ],
+                bankAccountName: [
+                    { required: true, trigger: 'blur', message: '请输入银行账户名称' },
+                ],
+                bankName: [
+                    { required: true, trigger: 'blur', message: '请输入开户行名称' },
+                ],
+                bankAccountNo: [
+                    { required: true, trigger: 'blur', message: '请输入银行账号' },
+                ],
+                expireTime: [
+                    { required: true, trigger: 'blur', message: '请输入有效时间' },
+                ],
+                uniqueCode: [
+                    { required: true, trigger: 'blur', message: '请输入代理标识码' },
+                ],
             },
             daterange: [],
             info: [],
