@@ -116,6 +116,7 @@ export default {
       current_page: 1,
       max_page: 0,
       page_size: 20,
+      total_count: null,
       daterange: [],
       form: {
         publisher: "",
@@ -157,6 +158,8 @@ export default {
       getNewsList(this.listQuery).then(response => {
         this.listLoading = false;
         console.log("资讯列表:", response);
+      }).catch((err) => {
+        console.error('', err);
       });
     },
     currentPageChange(page) {
