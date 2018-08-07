@@ -2,9 +2,9 @@
 <div class="app-container">
     <p class="title">新增代理商</p>
     <hr/>
-    <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form" label-width="130px">
+    <el-form ref="ruleForm" :model="form" :rules="rules"  class="form" label-width="130px">
         <div class="small-title">登录账号：</div>
-        <el-form-item label="用户名：" prop="title" style="width: 400px;">
+        <el-form-item label="用户名：" prop="username" style="width: 400px;">
             <el-input v-model="form.username"></el-input>
         </el-form-item>
 
@@ -166,7 +166,7 @@
         </el-form-item>
 
         <el-form-item label="代理商标识码：" prop="title" style="width: 400px;">
-            <el-input v-model="uniqueCode"></el-input>
+            <el-input v-model="form.uniqueCode"></el-input>
         </el-form-item>
 
         <el-form-item size="large" class="btn">
@@ -214,16 +214,9 @@ export default {
                 pwd: null,
             },
             rules: {
-                visaPath: [{
-                    required: true,
-                    message: '请上传电子签证',
-                    trigger: 'change'
-                }],
-                status: [{
-                    required: true,
-                    message: '请选择签证状态',
-                    trigger: 'change'
-                }],
+                goodsNum: [
+                    { required: true, trigger: 'blur', message: '请输入用户名' }
+                ],
             },
             daterange: [],
             info: [],
