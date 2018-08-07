@@ -12,8 +12,8 @@
             <el-input type="password" v-model="form.pwd"></el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码：" prop="title"   style="width: 400px;">
-            <el-input type="password"></el-input>
+        <el-form-item label="确认密码：" prop="confirmPassword"   style="width: 400px;">
+            <el-input type="password" v-model="confirmPassword"></el-input>
         </el-form-item>
 
         <hr>
@@ -187,6 +187,13 @@ import agentMap from "@/map/agent"
 import { checkNum, checkUsername, checkPassword } from "@/rules";
 export default {
     data() {
+        var validatePass2 = (rule, value, callback) => {
+            if (this.confirmPassword !== this.form.pwd) {
+                callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        };
         return Object.assign({}, agentMap, {
             form: {
                 name: null,
@@ -197,7 +204,6 @@ export default {
                 street: null,
                 contractor: null,
                 phone: null,
-                mail: null,
                 mail: null,
                 type: '1',
                 bizLicenseCode: null,
@@ -214,6 +220,7 @@ export default {
                 username: null,
                 pwd: null,
             },
+            confirmPassword: null,
             rules: {
                 username: [
                     { required: true, trigger: 'blur', message: '请输入用户名' },
@@ -222,6 +229,9 @@ export default {
                 pwd: [
                     { required: true, trigger: 'blur', message: '请输入密码' },
                     { validator: checkPassword, trigger: 'blur' }
+                ],
+                confirmPassword: [
+                    { validator: validatePass2, trigger: 'blur' }
                 ]
             },
             daterange: [],
