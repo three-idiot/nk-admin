@@ -1,9 +1,10 @@
 <template>
 <div class="app-container">
+    <title-line txt="订单列表"></title-line>
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
             <el-form-item label="商品名称">
-                <el-input v-model="form.goodsName" placeholder="请输入订单号"></el-input>
+                <el-input v-model="form.goodsName" placeholder="请输入商品名称"></el-input>
             </el-form-item>
             <el-form-item label="最低成团人数">
                 <el-select class="small-select" v-model="form.peopleMinRule" placeholder="">
@@ -31,11 +32,11 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="开始时间">
-                <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+                <el-date-picker v-model="startDaterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="起" end-placeholder="止">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="结束时间">
-                <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+                <el-date-picker v-model="endDaterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="起" end-placeholder="止">
                 </el-date-picker>
             </el-form-item>
             <el-row>
@@ -92,7 +93,7 @@
                 <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="160">
+        <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
                 <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">强制成团</el-button>
@@ -112,6 +113,7 @@ import {
     getOrderList
 } from "@/api/travel-order";
 import orderMap from "@/map/travel-order";
+import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
         return Object.assign({}, orderMap, {
@@ -120,7 +122,8 @@ export default {
             current_page: 1,
             max_page: 0,
             page_size: 20,
-            daterange: [],
+            startDaterange: [],
+            endDaterange: [],
             total_count: null,
             priceCount: null,
             form: {
@@ -134,10 +137,12 @@ export default {
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                startTime: this.daterange[0],
-                endTime: this.daterange[1],
-                page: this.current_page,
-                size: this.page_size,
+                sstartDate: this.startDaterange[0],
+                estartDate: this.startDaterange[1],
+                sendDate: this.endDaterange[0],
+                eendDate: this.endDaterange[1],
+                pageIndex: this.current_page,
+                pageSize: this.page_size,
             });
         }
     },
@@ -179,6 +184,9 @@ export default {
             this.current_page = page;
             this.fetchData();
         }
+    },
+    components: {
+        TitleLine
     }
 };
 </script>
@@ -191,6 +199,11 @@ export default {
     .block {
         margin: 50px 0 30px;
         text-align: center;
+    }
+    .title {
+        font-size: 20px;
+        color: #606266;
+        margin-bottom: -5px;
     }
     .small-select {
         width: 60px;
