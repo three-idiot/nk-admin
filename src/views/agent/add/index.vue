@@ -184,6 +184,7 @@ import {
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
+import { checkNum, checkUsername } from "@/rules";
 export default {
     data() {
         return Object.assign({}, agentMap, {
@@ -215,7 +216,8 @@ export default {
             },
             rules: {
                 username: [
-                    { required: true, trigger: 'blur', message: '请输入用户名' }
+                    { required: true, trigger: 'blur', message: '请输入用户名' },
+                    { validator: checkUsername, trigger: 'blur' }
                 ],
             },
             daterange: [],
