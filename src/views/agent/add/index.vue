@@ -214,7 +214,7 @@ export default {
                 pwd: null,
             },
             rules: {
-                goodsNum: [
+                username: [
                     { required: true, trigger: 'blur', message: '请输入用户名' }
                 ],
             },
@@ -235,7 +235,7 @@ export default {
         }
     },
     created() {
-        this.fetchData();
+        // this.fetchData();
     },
     methods: {
         fetchData() {
@@ -292,6 +292,7 @@ export default {
         },
         onSubmit(formName) {
             this.$refs[formName].validate((valid) => {
+                console.log( this.form );
                 if (valid) {
                     this.update(this.listQuery);
                 } else {
