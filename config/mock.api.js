@@ -66,6 +66,20 @@ module.exports = {
                         realPrice: 1,
                         leaveTime: 1
                     },
+                    travelOrder: {
+                        goodsNo: '1',
+                        name:'name',
+                        orderNo: 'orderNo',
+                        userId: 1,
+                        createTime: 1,
+                        payId: 1,
+                        payTime: 1,
+                        buyNum: 1,
+                        orderPrice: 1,
+                        status : 10,
+                        realPrice: 1,
+                        leaveTime: 1
+                    },
                     travelChildOrders: [
                         {
                             status: 10,

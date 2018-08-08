@@ -1,60 +1,73 @@
 <template>
 <div class="app-container">
-<title-line txt="商品订单详情"></title-line>
-        <portrait-table :key-width="80" :data="data"></portrait-table>
+    <title-line txt="商品订单详情"></title-line>
+    <portrait-table class="portrait-table" :key-width="80" :data="data"></portrait-table>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label='订单编号'>
+        <el-table-column align="center" label='商品编码'>
             <template slot-scope="scope">
-                {{scope.row.orderNo}}
+                {{scope.row.goodsNo}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label="下单用户">
+        <el-table-column align="center" label='商品名称'>
             <template slot-scope="scope">
-                {{scope.row.userId}}
+                {{scope.row.name}}
             </template>
         </el-table-column>
-        <el-table-column label="下单时间" align="center">
+        <el-table-column align="center" label='商品单价'>
             <template slot-scope="scope">
-                {{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{scope.row.realPrice}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label="支付单号">
-            <template slot-scope="scope">
-                {{scope.row.payId}}
-            </template>
-        </el-table-column>
-        <el-table-column label="支付" align="center">
-            <template slot-scope="scope">
-                {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
-            </template>
-        </el-table-column>
-        <el-table-column label="商品单价" width="110" align="center">
-            <template slot-scope="scope">
-                {{scope.row.salePrice}}
-            </template>
-        </el-table-column>
-        <el-table-column label="购买数量" width="110" align="center">
+        <el-table-column align="center" label='购买数量'>
             <template slot-scope="scope">
                 {{scope.row.buyNum}}
             </template>
         </el-table-column>
-        <el-table-column label="订单总额" width="110" align="center">
+        <el-table-column label="出行日期" align="center">
+            <template slot-scope="scope">
+                {{new Date(scope.row.leaveTime).Format("yyyy-MM-dd HH:mm:ss")}}
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label='总金额'>
             <template slot-scope="scope">
                 {{scope.row.orderPrice}}
             </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
-            <template slot-scope="scope">
-                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
-            </template>
-        </el-table-column>
-        <el-table-column label="操作" width="150" align="center">
-            <template slot-scope="scope">
-                <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
 
+    </el-table>
+    <hr class="hr">
+    <p class="subtitle">子订单和用户信息</p>
+    <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column align="center" label='子订单编号'>
+            <template slot-scope="scope">
+                {{'接口木有'}}
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label='姓名'>
+            <template slot-scope="scope">
+                {{scope.row.travelUserInfo.name}}
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label='身份证号'>
+            <template slot-scope="scope">
+                {{scope.row.travelUserInfo.cardId}}
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label='护照号'>
+            <template slot-scope="scope">
+                {{'接口木有'}}
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label='联系电话'>
+            <template slot-scope="scope">
+                {{scope.row.travelUserInfo.phone}}
+            </template>
+        </el-table-column>
+
+    </el-table>
+    <hr class="hr">
+    <p class="subtitle">发票信息</p>
+    <portrait-table class="portrait-table" :key-width="80" :data="invoiceData"></portrait-table>
     <div class="btn-container">
         <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
@@ -73,7 +86,9 @@ export default {
     data() {
         return Object.assign({}, orderMap, {
             list: null,
+            childList: null,
             data: [],
+            invoiceData: []
         });
     },
     created() {
@@ -99,104 +114,57 @@ export default {
                         value: 'null',
                         type: 'string'
                     },
-                    // {
-                    //     key: '姓名',
-                    //     value: resData.orderDetail[0].name,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '护照号',
-                    //     value: resData.orderDetail[0].passportNo,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '手机号',
-                    //     value: resData.orderDetail[0].mobile,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '护照内页',
-                    //     value: resData.orderDetail[0].passportPath,
-                    //     type: 'image'
-                    // },
-                    // {
-                    //     key: '个人简历',
-                    //     value: resData.orderDetail[0].resumePath,
-                    //     type: 'image'
-                    // },
-                    // {
-                    //     key: '是否盖章',
-                    //     value: this.isStamp[resData.orderDetail[0].isStamp],
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '买家留言',
-                    //     value: resData.orderDetail[0].remark,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '下单时间',
-                    //     value: resData.ctime,
-                    //     type: 'dateTime'
-                    // },
-                    // {
-                    //     key: '付款时间',
-                    //     value: resData.payTime,
-                    //     type: 'dateTime'
-                    // },
-                    // {
-                    //     key: '送签时间',
-                    //     value: resData.sendTime,
-                    //     type: 'dateTime'
-                    // },
-                    // {
-                    //     key: '签发/拒签时间',
-                    //     value: resData.signTime,
-                    //     type: 'dateTime'
-                    // },
-                    // {
-                    //     key: '签证有效期',
-                    //     /* eslint-disable max-len */
-                    //     value: new Date(resData.orderDetail[0].startTime).Format("yyyy-MM-dd") + ' 至 ' + new Date(resData.orderDetail[0].endTime).Format("yyyy-MM-dd"),
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '取消时间',
-                    //     value: resData.offTime,
-                    //     type: 'dateTime'
-                    // },
-                    // {
-                    //     key: '支付方式',
-                    //     value: this.payTypes[resData.payType].msg,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '商品名称',
-                    //     value: resData.title,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '商品编码',
-                    //     value: resData.goodsNum,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '订单数量',
-                    //     value: resData.buyNum,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '商品金额',
-                    //     value: resData.payMoney / 100,
-                    //     type: 'string'
-                    // },
-                    // {
-                    //     key: '订单金额',
-                    //     value: resData.orderMoney / 100,
-                    //     type: 'string'
-                    // },
+                    {
+                        key: '订单编号',
+                        value: resData.travelOrder.orderNo,
+                        type: 'string'
+                    },
+                    {
+                        key: '下单时间',
+                        value: resData.travelOrder.createTime,
+                        type: 'dateTime'
+                    },
+                    {
+                        key: '支付单号',
+                        value: resData.travelOrder.payId,
+                        type: 'string'
+                    },
+                    {
+                        key: '支付时间',
+                        value: resData.travelOrder.payTime,
+                        type: 'dateTime'
+                    },
 
                 ];
+                this.invoiceData = [{
+                        key: '发票抬头',
+                        value: resData.invoice.title,
+                        type: 'string'
+                    },
+                    {
+                        key: '纳税识别号',
+                        value: resData.invoice.taxNo,
+                        type: 'string'
+                    },
+                    {
+                        key: '电子邮箱',
+                        value: '接口木有',
+                        type: 'string'
+                    },
+                    {
+                        key: '地址',
+                        value: resData.invoice.address,
+                        type: 'string'
+                    },
+                    {
+                        key: '电话',
+                        value: resData.invoice.phone,
+                        type: 'string'
+                    },
+                ];
+                this.list = [resData.travelOrder];
+                this.childList = resData.travelChildOrders;
+                this.listLoading = false;
             });
         },
     },
@@ -217,6 +185,18 @@ export default {
     .btn-container {
         padding-top: 30px;
         text-align: center;
+    }
+    .portrait-table {
+        margin-bottom: 20px;
+    }
+    .hr {
+        margin-top: 40px;
+        color: #ebeef5;
+    }
+    .subtitle {
+        color: #444;
+        font-size: 20px;
+        font-weight: bold;
     }
 }
 </style>
