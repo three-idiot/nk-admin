@@ -28,3 +28,10 @@ export function getTravelOrderDetail(id) {
     });
 }
 
+export function getRefundOrderList(params) {
+    return request({
+        url: `/travelOrder/refundOrderList`,
+        method: 'post',
+        data: params
+    });
+}

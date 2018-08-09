@@ -103,7 +103,7 @@ export const asyncRouterMap = [
         name: 'travel-order',
         meta: {
             title: '旅游订单',
-            icon: 'shopping'
+            icon: 'travel-shopping'
         },
         children: [
             {
@@ -111,6 +111,12 @@ export const asyncRouterMap = [
                 name: 'travel-order-list',
                 component: () => import('@/views/travel-order/list'),
                 meta: { title: '订单列表' }
+            },
+            {
+                path: 'refund-order',
+                name: 'travel-order-refund-order',
+                component: () => import('@/views/travel-order/refund-order'),
+                meta: { title: '退款订单列表' }
             },
             {
                 path: 'check/:id',
@@ -232,6 +238,36 @@ export const asyncRouterMap = [
             },
         ]
     },
-
+    {
+        path: '/permission',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/permission/list',
+        name: 'permission',
+        meta: {
+            title: '角色和权限',
+            icon: 'permission'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'permission-list',
+                component: () => import('@/views/permission/list'),
+                meta: { title: '角色管理' }
+            },
+            {
+                path: 'check/:id',
+                component: () => import('@/views/travel-order/check'),
+                hidden: true,
+                name: 'travel-order-check'
+            },
+            {
+                path: 'detail/:id',
+                component: () => import('@/views/travel-order/detail'),
+                hidden: true,
+                name: 'travel-order-detail'
+            }
+        ]
+    },
     { path: '*', redirect: '/404', hidden: true }
 ];

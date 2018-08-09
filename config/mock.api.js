@@ -108,6 +108,45 @@ module.exports = {
                 }
             });
         });
+        app.post('/api/travelOrder/refundOrderList', function (req, res) {
+            res.json({
+                code: 200,
+                message: 'ok',
+                data: [
+                    {
+                        refundNo: 1,
+                        userName: 'userName',
+                        goodsNo: 1,
+                        provinceId: 1,
+                        cityId: 1,
+                        createTime: 1,
+                        orderFee: 1,
+                        refundReason: '',
+                        status: 10,
+                        refundId: 1,
+                    }
+                ]
+            });
+        });
+        app.get('/api/role/list', function (req, res) {
+            res.json({
+                code: 200,
+                message: 'ok',
+                data: {
+                    data:[{
+                        id: 1,
+                        name: 'name',
+                        remark: 'remark',
+                        level: 1,
+                        status: 1,
+                        createTime: 1,
+                        createUser: 1,
+                        updateTime: 11,
+                        updateUser: 1,
+                    }]
+                }
+            });
+        });
         
     }
 };
