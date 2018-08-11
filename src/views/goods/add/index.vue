@@ -95,6 +95,16 @@
         </el-form-item>
         <hr>
 
+        <el-form-item label="设置上架日期" prop="isUrgent">
+            <el-radio-group >
+                <el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>
+            </el-radio-group>
+            <el-date-picker style="margin-left: 5px;"
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期">
+            </el-date-picker>
+        </el-form-item>
 
 
 
@@ -133,6 +143,12 @@
         editorSetting:{
             width:600,
             height:400,
+        },
+        // 上架状态radio
+        upStatus: {
+            '立即上架': 2,
+            '在库中': 1,
+            '固定时间上架': 1
         },
         imageUrl: '',
         ruleForm: {
