@@ -181,12 +181,12 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/goods/list'),
-                meta: { title: '签证列表' }
+                meta: { title: '商品列表' }
             },
             {
                 path: 'add',
                 component: () => import('@/views/goods/add'),
-                meta: { title: '新增签证' }
+                meta: { title: '新增商品' }
             },
             {
                 path: 'detail',
