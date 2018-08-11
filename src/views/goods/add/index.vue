@@ -1,5 +1,6 @@
 <template>
   <div class="addVisa-form">
+      <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <!--商品名称-->
       <el-form-item label="商品名称" prop="title" style="width: 312px;">
@@ -90,11 +91,13 @@
   import { addGoods } from '@/api/visa';
   // import axios from 'axios';
   import goodsMap from "@/map/goods"
+  import editor from '@/components/editor'
+
 
 
 
   export default {
-  data() {
+      data() {
     let checkNum = (rule, value, callback) =>{
       if ( !/^[0-9]*$/.test(value) ) {
         return callback(new Error('必须是数字'));
@@ -103,25 +106,11 @@
       }
     };
     return Object.assign({},goodsMap,{
+        content:'我是富文本编辑器的内容',
+        editorSetting:{
+            height:400,
+        },
         imageUrl: '',
-        unitDay: {
-            30: '30天',
-            60: '60天',
-            90: '90天',
-            0: '长期',
-        },
-        intoType: {
-            0: '单次',
-            1: '多次'
-        },
-        isUrgent: {
-            1: '是',
-            0: '否',
-        },
-        isInterview: {
-            1: '是',
-            0: '否',
-        },
         ruleForm: {
             title: '',
             goodsNum: '',
@@ -187,6 +176,9 @@
   },
   created() {
   },
+      components:{
+          editor
+      },
   methods: {
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
