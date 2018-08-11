@@ -12,6 +12,7 @@ module.exports = {
                 }
             });
         });
+
         app.post('/api/travelOrder/list', function (req, res) {
             res.json({
                 code: 200,
@@ -260,6 +261,142 @@ module.exports = {
                 }
             });
         });
+
+        // app.post('/api/travelOrder/list', function (req, res) {
+        //     res.json({
+        //         code: 200,
+        //         message: 'ok',
+        //         data: [{
+        //             goodsNo: '1',
+        //             goodsName: 'name',
+        //             goodsType: 'type',
+        //             goodsUpDate: Date.now().toString(),
+        //             goodsCloseDate: Date.now().toString(),
+        //             peopleMinNum: 1,
+        //             peopleMaxNum: 10,
+        //             buyNum: 3,
+        //             status: 10
+        //         }]
+        //     });
+        // });
+        // app.post('/api/travelOrder/groupOrderDetail', function (req, res) {
+        //     res.json({
+        //         code: 200,
+        //         message: 'ok',
+        //         data: {
+        //             travelGoods: {
+        //                 goodsNo: '1',
+        //                 name: 'name',
+        //                 status: 10,
+        //             },
+        //             travelOrders: [
+        //                 {
+        //                     orderNo: 'orderNo',
+        //                     userId: 1,
+        //                     createTime: 1,
+        //                     payId: 1,
+        //                     payTime: 1,
+        //                     salePrice: 1,
+        //                     buyNum :1,
+        //                     orderPrice: 1,
+        //                     status: 10
+        //                 }
+        //             ]
+        //         }
+        //     });
+        // });
+        // app.post('/api/travelOrder/travelOrderDetail', function (req, res) {
+        //     res.json({
+        //         code: 200,
+        //         message: 'ok',
+        //         data: {
+        //             travelGoods: {
+        //                 goodsNo: '1',
+        //                 name:'name',
+        //                 realPrice: 1,
+        //                 leaveTime: 1
+        //             },
+        //             travelOrder: {
+        //                 goodsNo: '1',
+        //                 name:'name',
+        //                 orderNo: 'orderNo',
+        //                 userId: 1,
+        //                 createTime: 1,
+        //                 payId: 1,
+        //                 payTime: 1,
+        //                 buyNum: 1,
+        //                 orderPrice: 1,
+        //                 status : 10,
+        //                 realPrice: 1,
+        //                 leaveTime: 1
+        //             },
+        //             travelChildOrders: [
+        //                 {
+        //                     status: 10,
+        //                     userType: 1,
+        //                     unitPrice: 1,
+        //                     travelUserInfo: {
+        //                         name: 'name',
+        //                         cardType: 1,
+        //                         cardId: 'cardId',
+        //                         phone: 'phone'
+        //                     }
+        //                 }
+        //             ],
+        //             invoice: {
+        //                 title: 1,
+        //                 taxNo: 'taxNo',
+        //                 phone: 'phone',
+        //                 address: 'address',
+        //                 content: 'content'
+        //             },
+        //             user: {
+        //                 nickName: 'nickName',
+        //                 proId: 'proId',
+        //                 cityId: 'cityId'
+        //             }
+        //         }
+        //     });
+        // });
+        // app.post('/api/travelOrder/refundOrderList', function (req, res) {
+        //     res.json({
+        //         code: 200,
+        //         message: 'ok',
+        //         data: [
+        //             {
+        //                 refundNo: 1,
+        //                 userName: 'userName',
+        //                 goodsNo: 1,
+        //                 provinceId: 1,
+        //                 cityId: 1,
+        //                 createTime: 1,
+        //                 orderFee: 1,
+        //                 refundReason: '',
+        //                 status: 10,
+        //                 refundId: 1,
+        //             }
+        //         ]
+        //     });
+        // });
+        // app.get('/api/role/list', function (req, res) {
+        //     res.json({
+        //         code: 200,
+        //         message: 'ok',
+        //         data: {
+        //             data:[{
+        //                 id: 1,
+        //                 name: 'name',
+        //                 remark: 'remark',
+        //                 level: 1,
+        //                 status: 1,
+        //                 createTime: 1,
+        //                 createUser: 1,
+        //                 updateTime: 11,
+        //                 updateUser: 1,
+        //             }]
+        //         }
+        //     });
+        // });
 
     }
 };

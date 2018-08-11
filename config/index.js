@@ -13,6 +13,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://47.93.3.67:8086',
+        // target: 'http://admin.le-99.xyz',
         changeOrigin: true,
         // logLevel:'debug',
         pathRewrite: {
