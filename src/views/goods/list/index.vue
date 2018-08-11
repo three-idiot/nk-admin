@@ -57,13 +57,13 @@
 
       <el-table-column align="center"   label="商品编号" class="table-item">
         <template slot-scope="scope">
-          <span>{{scope.row.id}}</span>
+          <span>{{scope.row.goodsNo}}</span>
         </template>
       </el-table-column>
 
       <el-table-column  align="center" label="商品名称">
         <template slot-scope="scope">
-          <span>{{scope.row.title}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
 
@@ -82,7 +82,7 @@
 
       <el-table-column   align="center" label="上架日期">
         <template slot-scope="scope">
-          <span>{{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{new Date(scope.row.upStartTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
@@ -202,7 +202,7 @@
         this.listLoading = true;
           getGoodsList(params).then(response => {
           // this.list = response.data.data;
-          // console.log( response.data );
+          console.log( response.data );
             this.goodsList = response.data.data;
             // this.pagesStatus.total_count = response.data.total_count;
           this.listLoading = false;
