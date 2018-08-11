@@ -8,18 +8,30 @@ export function getOrderList(params) {
     });
 }
 
-export function getOrderDetail(id) {
+export function getGroupOrderDetail(id) {
     return request({
-        url: `/orderdetail/${id}`,
-        method: 'get'
+        url: `/travelOrder/groupOrderDetail`,
+        method: 'post',
+        data: {
+            groupOrderId: id
+        }
     });
 }
 
-export function updateOrder(params) {
+export function getTravelOrderDetail(id) {
     return request({
-        url: `/orderdetailupdte`,
+        url: `/travelOrder/travelOrderDetail`,
+        method: 'post',
+        data: {
+            orderId: id
+        }
+    });
+}
+
+export function getRefundOrderList(params) {
+    return request({
+        url: `/travelOrder/refundOrderList`,
         method: 'post',
         data: params
     });
 }
-
