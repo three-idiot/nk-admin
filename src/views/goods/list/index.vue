@@ -52,10 +52,10 @@
     </div>
 
     <!--表格-->
-    <el-table  :data="list" v-loading="listLoading" border fit highlight-current-row
+    <el-table  :data="goodsList" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
 
-      <el-table-column align="center"   label="序号" class="table-item">
+      <el-table-column align="center"   label="商品编号" class="table-item">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
@@ -67,26 +67,26 @@
         </template>
       </el-table-column>
 
-      <el-table-column  align="center"  label="有效期(天)" >
+      <el-table-column  align="center"  label="商品类别" >
         <template slot-scope="scope">
           <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
           <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
 
-      <el-table-column  align="center" label="签证价格(惠)" >
+      <el-table-column  align="center" label="发布日期" >
         <template slot-scope="scope" >
           <span>{{scope.row.lowVisaPrice/100}}元</span>
         </template>
       </el-table-column>
 
-      <el-table-column   align="center" label="发布时间">
+      <el-table-column   align="center" label="上架日期">
         <template slot-scope="scope">
           <span>{{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  label="分成比例">
+      <el-table-column align="center"  label="截止日期">
         <template slot-scope="scope">
           <span class="link-type">
             <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
@@ -96,7 +96,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col"  label="商品状态" align="center" >
+      <el-table-column class-name="status-col"  label="发布人" align="center" >
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">
             {{ goodStatus[scope.row.status] }}
@@ -174,7 +174,11 @@
               0: '=',
               1:'>',
               '-1' :'<'
-          }
+          },
+          goodsParams:{
+
+          },
+          goodsList: null
       };
     },
     computed: {
@@ -191,19 +195,16 @@
       }
     },
     created() {
-      this.fetchData(this.listQuery);
-        getGoodsList( ).then( res => {
-            console.log('测试测试');
-            console.log( res );
-        })
+      this.fetchData(this.goodsParams);
     },
     methods: {
       fetchData(params) {
         this.listLoading = true;
-        getVisaList(params).then(response => {
-          this.list = response.data.data;
-          console.log( response.data );
-          this.pagesStatus.total_count = response.data.total_count;
+          getGoodsList(params).then(response => {
+          // this.list = response.data.data;
+          // console.log( response.data );
+            this.goodsList = response.data.data;
+            // this.pagesStatus.total_count = response.data.total_count;
           this.listLoading = false;
         });
       },
