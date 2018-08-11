@@ -37,12 +37,12 @@
         </div>
 
         <div>
-            <span>行程介绍</span>
+            <p>行程介绍</p>
             <editor class="editor" :value="content1"  :setting="editorSetting" @input="(content)=> content = content"></editor>
         </div>
 
         <div>
-            <span>费用与须知</span>
+            <p >费用与须知</p>
             <editor class="editor" :value="content2"  :setting="editorSetting" @input="(content)=> content = content"></editor>
         </div>
 
@@ -131,7 +131,7 @@
         content1:'我是富文本编辑器的内容',
         content2:'我是富文本编辑器的内容',
         editorSetting:{
-            width:400,
+            width:600,
             height:400,
         },
         imageUrl: '',
@@ -285,6 +285,7 @@
   }
   .addVisa-form {
     margin-top: 20px;
+      padding-left: 30px;
   }
 
 
