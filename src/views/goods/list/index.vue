@@ -21,7 +21,7 @@
       </el-select>
 
         <!--时间选择器-->
-        <span class="demonstration">发布时间：</span>
+        <span class="demonstration">发布日期：</span>
         <el-date-picker
             v-model="listQuery.startTime"
             type="date"
@@ -37,7 +37,18 @@
         </el-date-picker>
         <!--时间选择器-->
 
-      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
+        <div class="goodPrice" style="margin-top: 10px;">
+            <span>商品价格：</span>
+            <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+                <el-option v-for="(val,key) in salePriceRule" :key="key" :label="val" :value="key">
+                </el-option>
+            </el-select>
+            <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
+            <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
+        </div>
+
+
+
     </div>
 
     <!--表格-->
