@@ -7,18 +7,21 @@
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!--资讯图片-->
-
-      <!--图片上传-->
       <el-form-item label="资讯图片" prop="newsPic">
-        <el-upload
+         <img class="news-img"
+                 v-for="(img, index) in ruleForm.newsPic" 
+                 :key="index" 
+                 :src="img.url" 
+                 alt="图片" />
+         <el-upload
           class="avatar-uploader"
-          style="border:1px solid #000;width: 120px;height: 120px;"
-          action="/api/image/uploadfile"
+          :multiple="true"
+          :with-credentials="true"
           :show-file-list="false"
+          :action="action"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
 
@@ -29,7 +32,6 @@
 
       <!--资讯详情-->
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
-        <!-- <tinymce :height="300" v-model="content"></tinymce> -->
         <el-input v-model="ruleForm.detail"></el-input>
       </el-form-item>
 
@@ -49,18 +51,18 @@
 
 <script>
   import { addNews } from '@/api/news';
-  import Tinymce from "@/components/Tinymce";
   import TitleLine from "@/components/TitleLine/index.vue";
 
   export default {
   data() {
     return {
-      imageUrl: '',
+      action: '/api/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
         title: '',
         newsPic: [
-          {name: 'test', url: 'hhh'},
-          {name: 'test', url: 'hhh'}
+          {name: 'test1', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'},
+          {name: 'test2', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'}
         ],
         newsKey: '',
         detail: '',
@@ -89,10 +91,11 @@
   },
   methods: {
     handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+      console.log(res, file);
+        // this.imageUrl = URL.createObjectURL(file.raw);
         // this.ruleForm.newsPic = URL.createObjectURL(file.raw);
         // console.log( file.response.data );
-        this.ruleForm.newsPic = file.response.data;
+        // this.ruleForm.newsPic = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -107,14 +110,12 @@
       return isLt2M;
     },
     submitForm(formName) {
+      console.log('---------', this.ruleForm);
       this.$refs[formName].validate((valid) => {
-        console.log('调试2', this.ruleForm);
         if (valid) {
-          console.log('submit!');
           let ruleForm = Object.assign({}, this.ruleForm);
           addNews(ruleForm).then( res => {
               if ( res.code == 200 ) {
-                  alert('新建成功');
                   history.back();
               }
           });
@@ -129,7 +130,6 @@
     }
   },
   components: {
-    Tinymce,
     TitleLine
   }
 };
@@ -174,5 +174,11 @@
     width: 120px;
     height: 120px;
     display: block;
+  }
+  .news-img {
+    width: 120px;
+    height: 120px;
+    float: left;
+    margin: 0 10px 10px 0;
   }
 </style>

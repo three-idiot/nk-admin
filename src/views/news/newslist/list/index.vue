@@ -123,7 +123,8 @@ export default {
       form: {
         publisher: "",
         title: "",
-        status: ""
+        status: "",
+        top: 0
       },
       list: [
         {
