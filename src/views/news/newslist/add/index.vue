@@ -7,12 +7,14 @@
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!--资讯图片-->
-      <el-form-item label="资讯图片" prop="newsPic">
-         <img class="news-img"
-                 v-for="(img, index) in ruleForm.newsPic" 
-                 :key="index" 
-                 :src="img.url" 
+      <el-form-item label="资讯图片" prop="images">
+        <span class="news-img"
+                 v-for="(img, index) in ruleForm.images" 
+                 :key="index">
+          <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
+          <img :src="img.url" 
                  alt="图片" />
+        </span>
          <el-upload
           class="avatar-uploader"
           :multiple="true"
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-  import { addNews } from '@/api/news';
+  import { addNews, getNewsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
 
   export default {
@@ -60,7 +62,7 @@
       // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
         title: '',
-        newsPic: [
+        images: [
           {name: 'test1', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'},
           {name: 'test2', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'}
         ],
@@ -69,7 +71,7 @@
         top: false
       },
       rules: {
-        newsPic: [
+        images: [
             { required: true, trigger: 'change', message: '请上传图片' }
         ],
         title: [
@@ -87,15 +89,35 @@
       }
     };
   },
-  created() {
+  mounted() {
+    let id = this.$route.params.id;
+    // console.log('add mounted:', id);
+    if (id) {
+      this.fetchData();
+    }
   },
   methods: {
+    fetchData() {
+        this.listLoading = true;
+        getNewsDetail(this.$route.params.id).then(response => {
+          this.listLoading = false;
+          console.log('获取编辑数据：', response);
+          if (response.data) {
+            this.ruleForm = Object.assign({}, this.ruleForm, response.data);
+            console.log(this.ruleForm);
+          }
+        });
+    },
+    handleDelImg (img, index) {
+      // console.log('要删除的图片上是：', img, index);
+      this.ruleForm.images.splice(index);
+    },
     handleAvatarSuccess(res, file) {
       console.log(res, file);
         // this.imageUrl = URL.createObjectURL(file.raw);
-        // this.ruleForm.newsPic = URL.createObjectURL(file.raw);
+        // this.ruleForm.images = URL.createObjectURL(file.raw);
         // console.log( file.response.data );
-        // this.ruleForm.newsPic = file.response.data;
+        // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -136,49 +158,61 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .app-container {
-    padding-left: 50px;
-    .title {
-      font-size: 30px;
-      color: #606266;
-    }
-    .form {
+.app-container {
+  padding-left: 50px;
+  .title {
+    font-size: 30px;
+    color: #606266;
+  }
+  .form {
+    margin-top: 30px;
+    padding: 30px;
+    padding-bottom: 5px;
+    background: #f2f6fc;
+    .btn {
       margin-top: 30px;
-      padding: 30px;
-      padding-bottom: 5px;
-      background: #F2F6FC;
-      .btn {
-        margin-top: 30px;
-      }
     }
   }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.news-img {
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin: 0 10px 10px 0;
+  position: relative;
+  .del-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 20px;
   }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 120px;
-    height: 120px;
-    line-height: 120px;
-    text-align: center;
-  }
-  .avatar {
-    width: 120px;
-    height: 120px;
+  img {
+    width: 100%;
+    height: 100%;
     display: block;
   }
-  .news-img {
-    width: 120px;
-    height: 120px;
-    float: left;
-    margin: 0 10px 10px 0;
-  }
+}
 </style>

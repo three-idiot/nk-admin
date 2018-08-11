@@ -160,7 +160,10 @@ export default {
       this.listLoading = true;
       getNewsList(this.listQuery).then(response => {
         this.listLoading = false;
-        console.log("资讯列表:", response);
+        // console.log("资讯列表:", response);
+        if (response.code == 200) {
+          this.list = response.data.data;
+        }
       }).catch((err) => {
         console.error('', err);
       });
@@ -176,13 +179,28 @@ export default {
       window.location.href = "#/news/newsadd";
     },
     goDetail(id) {
-      window.location.href = "#/news/newsdetail?id=" + id;
+      this.$router.push({
+        name: 'news-detail',
+        params: {
+            id: id
+        }
+      });
     },
     goEdit(id) {
-      window.location.href = "#/news/newsedit?id=" + id;
+      this.$router.push({
+        name: 'news-edit',
+        params: {
+            id: id
+        }
+      });
     },
     goUndercarriage(id) {
-      window.location.href = "#/news/newsundercarriage?id=" + id;
+      this.$router.push({
+        name: 'news-undercarriage',
+        params: {
+            id: id
+        }
+      });
     }
   },
   components: {
