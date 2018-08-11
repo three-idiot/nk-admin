@@ -21,20 +21,14 @@
         </el-form-item>
 
 
+        <el-form-item label="添加图片" prop="visaPath">
+            <!-- TODO 上线之后这里要把api前缀去掉 -->
+            <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div  slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
+            </el-upload>
+        </el-form-item>
 
-      <!--图片上传-->
-      <el-form-item label="商品图片" prop="goodsNum" style="width: 312px;">
-        <el-upload
-          class="avatar-uploader"
-          style="border:1px solid #000;width: 178px;height: 178px;"
-          action="/api/image/uploadfile"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
 
 
       <!--签证有效期-->
@@ -217,6 +211,12 @@
       }
       return isLt2M;
     },
+      imgUploaded(res, file) {
+          this.form.visaPath = res.data;
+      },
+      imgRemove(files, fileList) {
+          this.form.visaPath = null;
+      },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         console.log('调试2', this.ruleForm);
