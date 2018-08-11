@@ -113,6 +113,7 @@
 <script>
   import { getVisaList } from '@/api/visa';
   import { goodsfoulup } from '@/api/visa';
+  import { getGoodsList } from '@/api/goods';
 
   export default {
     data() {
@@ -154,6 +155,10 @@
     },
     created() {
       this.fetchData(this.listQuery);
+        getGoodsList( ).then( res => {
+            console.log('测试测试');
+            console.log( res );
+        })
     },
     methods: {
       fetchData(params) {
