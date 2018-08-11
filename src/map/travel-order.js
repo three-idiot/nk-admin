@@ -1,10 +1,10 @@
 export default {
     status: {
-        10: {
+        1: {
             msg: "待付款",
             color: "warning"
         },
-        20: {
+        10: {
             msg: "办理中",
             color: "primary"
         },
@@ -34,11 +34,11 @@ export default {
         }
     },
     reFundDtatus: {
-        10: {
+        1: {
             msg: "待付款",
             color: "warning"
         },
-        20: {
+        10: {
             msg: "办理中",
             color: "primary"
         },

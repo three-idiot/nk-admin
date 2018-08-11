@@ -277,5 +277,78 @@ export const asyncRouterMap = [
             }
         ]
     },
+
+    {
+        path: '/agent',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/agent/list',
+        name: 'agent',
+        meta: {
+            title: '代理商管理',
+            icon: 'eye'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'agent-list',
+                component: () => import('@/views/agent/list'),
+                meta: { title: '代理商列表' }
+            },
+            {
+                path: 'edit/:id',
+                component: () => import('@/views/agent/edit'),
+                name: 'order-edit',
+                meta: { title: '代理商编辑' }
+            },
+            {
+                path: 'add/:id',
+                component: () => import('@/views/agent/add'),
+                name: 'order-edit',
+                meta: { title: '新增代理商' }
+            }
+        ]
+    },
+
+
+    {
+        path: '/goods',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/goods/list',
+        name: 'goods',
+        meta: {
+            title: '商品管理',
+            icon: 'visa'
+        },
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/goods/list'),
+                meta: { title: '商品列表' }
+            },
+            {
+                path: 'add',
+                component: () => import('@/views/goods/add'),
+                meta: { title: '新增商品' }
+            },
+            {
+                path: 'detail',
+                component: () => import('@/views/goods/detail'),
+                hidden: true
+            },
+            {
+                path: 'ratio',
+                component: () => import('@/views/goods/ratio-change'),
+                hidden: true
+            },
+            {
+                path: 'undercarriage',
+                component: () => import('@/views/goods/undercarriage'),
+                hidden: true
+            },
+        ]
+    },
     { path: '*', redirect: '/404', hidden: true }
 ];
+
