@@ -5,7 +5,22 @@
       <el-form-item label="商品名称" prop="title" style="width: 312px;">
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
-      <!--商品图片-->
+
+        <el-form-item label="商品概要" prop="title" style="width: 312px;">
+            <el-input v-model="ruleForm.title"></el-input>
+        </el-form-item>
+
+        <el-form-item label="商品分类" prop="intoType">
+            <el-select v-model="ruleForm.intoType" placeholder="请选择">
+                <el-option  v-for="(val,key) in type"  :label="val" :value="key" :key="key"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="日期和地点" prop="title" style="width: 312px;">
+            <el-input v-model="ruleForm.title"></el-input>
+        </el-form-item>
+
+
 
       <!--图片上传-->
       <el-form-item label="商品图片" prop="goodsNum" style="width: 312px;">
@@ -85,6 +100,8 @@
 <script>
   import { addGoods } from '@/api/visa';
   // import axios from 'axios';
+  import goodsMap from "@/map/goods"
+
 
 
   export default {
@@ -96,88 +113,88 @@
         callback();
       }
     };
-    return {
-      imageUrl: '',
-      unitDay: {
-        30: '30天',
-        60: '60天',
-        90: '90天',
-        0: '长期',
-      },
-      intoType: {
-        0: '单次',
-        1: '多次'
-      },
-      isUrgent: {
-        1: '是',
-        0: '否',
-      },
-      isInterview: {
-        1: '是',
-        0: '否',
-      },
-      ruleForm: {
-        title: '',
-        goodsNum: '',
-        unitDay: '',
-        intoType: '',
-        isUrgent: '',
-        isInterview: '',
-        lowVisaPrice: '',
-        helpPrice: '',
-        lowHelpPrice: '',
-        stayDay: '',
-        disposeDay: '',
-        renewPrice: ''
-      },
-      rules: {
-          goodsNum: [
-              { required: true, trigger: 'change', message: '请上传图片' }
-          ],
-        title: [
-          { required: true, trigger: 'blur', message: '请输入商品名称' }
-        ],
-        unitDay: [
-          {required: true, trigger: 'change', message: '请选择签证有效期' }
-        ],
-        intoType: [
-          {required: true, trigger: 'change', message: '请选择入境次数' }
-        ],
-        isUrgent: [
-          {required: true, trigger: 'change', message: '请选择是否加急' }
-        ],
-        isInterview: [
-          {required: true, trigger: 'change', message: '请选择是否面试' }
-        ],
-        visaPrice: [
-          { required: true, trigger: 'blur', message: '请输入签证费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        lowVisaPrice: [
-          { required: true, trigger: 'blur', message: '请输入签证优惠费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        helpPrice: [
-          { required: true, trigger: 'blur', message: '请输入服务费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        lowHelpPrice: [
-          { required: true, trigger: 'blur', message: '请输入服务优惠费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        stayDay: [
-          { required: true, trigger: 'blur', message: '请输入停留时间' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        disposeDay: [
-          { required: true, trigger: 'blur', message: '请输入处理时间' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        renewPrice: [
-          { validator: checkNum, trigger: 'blur' }
-        ],
-      }
-    };
+    return Object.assign({},goodsMap,{
+        imageUrl: '',
+        unitDay: {
+            30: '30天',
+            60: '60天',
+            90: '90天',
+            0: '长期',
+        },
+        intoType: {
+            0: '单次',
+            1: '多次'
+        },
+        isUrgent: {
+            1: '是',
+            0: '否',
+        },
+        isInterview: {
+            1: '是',
+            0: '否',
+        },
+        ruleForm: {
+            title: '',
+            goodsNum: '',
+            unitDay: '',
+            intoType: '',
+            isUrgent: '',
+            isInterview: '',
+            lowVisaPrice: '',
+            helpPrice: '',
+            lowHelpPrice: '',
+            stayDay: '',
+            disposeDay: '',
+            renewPrice: ''
+        },
+        rules: {
+            goodsNum: [
+                { required: true, trigger: 'change', message: '请上传图片' }
+            ],
+            title: [
+                { required: true, trigger: 'blur', message: '请输入商品名称' }
+            ],
+            unitDay: [
+                {required: true, trigger: 'change', message: '请选择签证有效期' }
+            ],
+            intoType: [
+                {required: true, trigger: 'change', message: '请选择入境次数' }
+            ],
+            isUrgent: [
+                {required: true, trigger: 'change', message: '请选择是否加急' }
+            ],
+            isInterview: [
+                {required: true, trigger: 'change', message: '请选择是否面试' }
+            ],
+            visaPrice: [
+                { required: true, trigger: 'blur', message: '请输入签证费' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            lowVisaPrice: [
+                { required: true, trigger: 'blur', message: '请输入签证优惠费' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            helpPrice: [
+                { required: true, trigger: 'blur', message: '请输入服务费' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            lowHelpPrice: [
+                { required: true, trigger: 'blur', message: '请输入服务优惠费' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            stayDay: [
+                { required: true, trigger: 'blur', message: '请输入停留时间' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            disposeDay: [
+                { required: true, trigger: 'blur', message: '请输入处理时间' },
+                { validator: checkNum, trigger: 'blur' }
+            ],
+            renewPrice: [
+                { validator: checkNum, trigger: 'blur' }
+            ],
+        }
+    });
   },
   created() {
   },
