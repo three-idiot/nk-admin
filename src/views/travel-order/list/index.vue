@@ -59,7 +59,7 @@
         </el-table-column>
         <el-table-column label="商品分类" align="center">
             <template slot-scope="scope">
-                {{scope.row.goodsType}}
+                <el-tag :type="type[scope.row.goodsType].color">{{type[scope.row.goodsType].msg}}</el-tag>
             </template>
         </el-table-column>
         <el-table-column label="开始时间" align="center">
@@ -84,7 +84,7 @@
         </el-table-column>
         <el-table-column label="已报人数" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.buyNum}}
+                {{scope.row.enrollNum}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
@@ -116,7 +116,7 @@ import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
         return Object.assign({}, orderMap, {
-            list: null,
+            list: [],
             listLoading: true,
             current_page: 1,
             max_page: 0,
@@ -126,10 +126,6 @@ export default {
             total_count: null,
             priceCount: null,
             form: {
-                goodsName: null,
-                peopleMinRule: "1",
-                peopleMaxRule: "1",
-                status: '10'
             },
         });
     },
@@ -152,11 +148,11 @@ export default {
         fetchData() {
             this.listLoading = true;
             getOrderList(this.listQuery).then(response => {
-                this.list = response.data;
-                // this.priceCount = response.data.priceCount;
-                // this.total_count = response.data.total_count;
-                // this.current_page = response.data.current_page;
-                // this.max_page = response.data.max_page;
+                this.list = response.data.data;
+                this.priceCount = response.data.priceCount;
+                this.total_count = response.data.total_count;
+                this.current_page = response.data.current_page;
+                this.max_page = response.data.max_page;
                 this.listLoading = false;
             });
         },
@@ -167,7 +163,7 @@ export default {
             this.$router.push({
                 name: 'travel-order-check',
                 params: {
-                    id: row.goodsNo
+                    id: row.groupOrderId
                 }
             });
         },

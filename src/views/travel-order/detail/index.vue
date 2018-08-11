@@ -15,12 +15,12 @@
         </el-table-column>
         <el-table-column align="center" label='商品单价'>
             <template slot-scope="scope">
-                {{scope.row.realPrice}}
+                {{scope.row.realPrice/100}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='购买数量'>
             <template slot-scope="scope">
-                {{scope.row.buyNum}}
+                {{scope.row.saleNum}}
             </template>
         </el-table-column>
         <el-table-column label="出行日期" align="center">
@@ -28,19 +28,13 @@
                 {{new Date(scope.row.leaveTime).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label='总金额'>
-            <template slot-scope="scope">
-                {{scope.row.orderPrice}}
-            </template>
-        </el-table-column>
-
     </el-table>
     <hr class="hr">
     <p class="subtitle">子订单和用户信息</p>
     <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='子订单编号'>
             <template slot-scope="scope">
-                {{'接口木有'}}
+                {{scope.row.travelUserInfo.childOrderNo}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='姓名'>
@@ -55,7 +49,7 @@
         </el-table-column>
         <el-table-column align="center" label='护照号'>
             <template slot-scope="scope">
-                {{'接口木有'}}
+                {{scope.row.travelUserInfo.passport}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='联系电话'>
@@ -67,7 +61,7 @@
     </el-table>
     <hr class="hr">
     <p class="subtitle">发票信息</p>
-    <portrait-table class="portrait-table" :key-width="80" :data="invoiceData"></portrait-table>
+    <portrait-table class="portrait-table" :key-width="90" :data="invoiceData"></portrait-table>
     <div class="btn-container">
         <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
@@ -99,7 +93,8 @@ export default {
             this.listLoading = true;
             getTravelOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
-                this.data = [{
+                this.data = [
+                    {
                         key: '买家名称',
                         value: resData.user.nickName,
                         type: 'string'
@@ -111,7 +106,7 @@ export default {
                     },
                     {
                         key: '订单状态',
-                        value: 'null',
+                        value: this.status[resData.travelOrder.status].msg,
                         type: 'string'
                     },
                     {
@@ -133,6 +128,11 @@ export default {
                         key: '支付时间',
                         value: resData.travelOrder.payTime,
                         type: 'dateTime'
+                    },
+                                        {
+                        key: '总金额',
+                        value: resData.travelOrder.orderPrice/100,
+                        type: 'string'
                     },
 
                 ];
@@ -162,7 +162,7 @@ export default {
                         type: 'string'
                     },
                 ];
-                this.list = [resData.travelOrder];
+                this.list = [resData.travelGoods];
                 this.childList = resData.travelChildOrders;
                 this.listLoading = false;
             });

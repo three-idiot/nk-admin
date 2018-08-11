@@ -18,12 +18,12 @@ export function getGroupOrderDetail(id) {
     });
 }
 
-export function getTravelOrderDetail(id) {
+export function getTravelOrderDetail(orderId) {
     return request({
         url: `/travelOrder/travelOrderDetail`,
-        method: 'post',
-        data: {
-            orderId: id
+        method: 'get',
+        params: {
+            orderId
         }
     });
 }

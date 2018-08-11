@@ -256,16 +256,10 @@ export const asyncRouterMap = [
                 meta: { title: '角色管理' }
             },
             {
-                path: 'check/:id',
-                component: () => import('@/views/travel-order/check'),
+                path: 'edit/:new',
+                component: () => import('@/views/permission/edit'),
                 hidden: true,
-                name: 'travel-order-check'
-            },
-            {
-                path: 'detail/:id',
-                component: () => import('@/views/travel-order/detail'),
-                hidden: true,
-                name: 'travel-order-detail'
+                name: 'permission-edit'
             }
         ]
     },
