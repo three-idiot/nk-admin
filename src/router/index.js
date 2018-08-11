@@ -71,7 +71,7 @@ export const asyncRouterMap = [
         redirect: '/order/list',
         name: 'order',
         meta: {
-            title: '订单管理',
+            title: '签证订单',
             icon: 'shopping'
         },
         children: [
@@ -95,7 +95,43 @@ export const asyncRouterMap = [
             }
         ]
     },
-
+    {
+        path: '/travel-order',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/travel-order/list',
+        name: 'travel-order',
+        meta: {
+            title: '旅游订单',
+            icon: 'travel-shopping'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'travel-order-list',
+                component: () => import('@/views/travel-order/list'),
+                meta: { title: '订单列表' }
+            },
+            {
+                path: 'refund-order',
+                name: 'travel-order-refund-order',
+                component: () => import('@/views/travel-order/refund-order'),
+                meta: { title: '退款订单列表' }
+            },
+            {
+                path: 'check/:id',
+                component: () => import('@/views/travel-order/check'),
+                hidden: true,
+                name: 'travel-order-check'
+            },
+            {
+                path: 'detail/:id',
+                component: () => import('@/views/travel-order/detail'),
+                hidden: true,
+                name: 'travel-order-detail'
+            }
+        ]
+    },
     {
         path: '/visa',
         component: Layout,
@@ -134,6 +170,105 @@ export const asyncRouterMap = [
             },
         ]
     },
+    /* 资讯管理 */
+    {
+        path: '/news',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/news/newslist',
+        name: 'news',
+        meta: {
+        title: '资讯管理',
+        icon: 'news'
+        },
+        children: [
+            {
+              path: 'newslist',
+              name: 'news-list',
+              component: () => import('@/views/news/newslist/list'),
+              meta: { title: '资讯列表' }
+            },
+            {
+              path: 'newsadd',
+              component: () => import('@/views/news/newslist/add'),
+              meta: { title: '新增资讯' },
+              hidden: true
+            },
+            {
+                path: 'newsedit',
+                component: () => import('@/views/news/newslist/edit'),
+                hidden: true
+            },
+            {
+              path: 'newsdetail',
+              component: () => import('@/views/news/newslist/detail'),
+              hidden: true
+            },
+            {
+              path: 'newsundercarriage',
+              component: () => import('@/views/news/newslist/undercarriage'),
+              hidden: true
+            },
+            {
+              path: 'adslist',
+              component: () => import('@/views/news/ads/list'),
+              meta: { title: '广告列表' },
+              name: 'ads'
+            },
+            {
+              path: 'adsadd',
+              component: () => import('@/views/news/ads/add'),
+              meta: { title: '新增广告' },
+              hidden: true
+            },
+            {
+              path: 'adsdetail',
+              component: () => import('@/views/news/ads/detail'),
+              hidden: true
+            },
+            {
+              path: 'adsedit',
+              component: () => import('@/views/news/ads/edit'),
+              hidden: true
+            },
+            {
+              path: 'adsundercarriage',
+              component: () => import('@/views/news/ads/undercarriage'),
+              hidden: true
+            },
+        ]
+    },
+    {
+        path: '/permission',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/permission/list',
+        name: 'permission',
+        meta: {
+            title: '角色和权限',
+            icon: 'permission'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'permission-list',
+                component: () => import('@/views/permission/list'),
+                meta: { title: '角色管理' }
+            },
+            {
+                path: 'check/:id',
+                component: () => import('@/views/travel-order/check'),
+                hidden: true,
+                name: 'travel-order-check'
+            },
+            {
+                path: 'detail/:id',
+                component: () => import('@/views/travel-order/detail'),
+                hidden: true,
+                name: 'travel-order-detail'
+            }
+        ]
+    },
 
     {
         path: '/agent',
@@ -166,6 +301,7 @@ export const asyncRouterMap = [
             }
         ]
     },
+
 
     {
         path: '/goods',
@@ -205,10 +341,6 @@ export const asyncRouterMap = [
             },
         ]
     },
-
-
-
-
     { path: '*', redirect: '/404', hidden: true }
 ];
 

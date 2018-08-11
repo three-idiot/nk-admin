@@ -38,9 +38,11 @@
                 <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">查询</el-button>
-            </el-form-item>
+            <el-row>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                </el-form-item>
+            </el-row>
         </el-form>
     </div>
     <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
