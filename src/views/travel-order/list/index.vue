@@ -1,7 +1,7 @@
 <template>
 <div class="app-container">
     <title-line txt="订单列表"></title-line>
-    <div style="padding:30px;background:#F2F6FC;">
+    <div style="padding:30px;background:#F2F6FC;margin-bottom:30px;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
             <el-form-item label="商品名称">
                 <el-input v-model="form.goodsName" placeholder="请输入商品名称"></el-input>
@@ -46,7 +46,6 @@
             </el-row>
         </el-form>
     </div>
-    <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='商品编号'>
             <template slot-scope="scope">
@@ -193,6 +192,9 @@ export default {
 
 <style lang="scss" scoped>
 .app-container {
+    .form {
+        margin-bottom: 50px;
+    }
     .red {
         color: #F56C6C;
     }
