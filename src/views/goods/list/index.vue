@@ -2,30 +2,40 @@
   <div class="app-container">
 
     <div class="filter-container" style="margin-bottom: 30px;">
+        <span>商品类别：</span>
+        <el-select clearable style="width: 200px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+            <el-option v-for="(val,key) in type" :key="key" :label="val" :value="key">
+            </el-option>
+        </el-select>
+
       <span>商品名称：</span>
       <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
-      <!--时间选择器-->
-      <span class="demonstration">发布时间：</span>
-        <el-date-picker
-          v-model="listQuery.startTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期">
-        </el-date-picker>
-      -
-        <el-date-picker
-          v-model="listQuery.endTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期">
-        </el-date-picker>
-      <!--时间选择器-->
+
+        <span>发布人：</span>
+        <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
 
       <span>商品状态：</span>
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
-        <el-option v-for="(val,key) in goodStatus" :key="key" :label="val" :value="key">
+        <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
         </el-option>
       </el-select>
+
+        <!--时间选择器-->
+        <span class="demonstration">发布时间：</span>
+        <el-date-picker
+            v-model="listQuery.startTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+        </el-date-picker>
+        -
+        <el-date-picker
+            v-model="listQuery.endTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+        </el-date-picker>
+        <!--时间选择器-->
 
       <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
     </div>
@@ -138,6 +148,17 @@
           endTime: null,
           status: null,
         },
+          type: {
+              1: '一般',
+              2: '推荐'
+          },
+          status :{
+              1: '库存中',
+              2: '已上架',
+              3: '已下架',
+              4: '审核中',
+              5: '审核拒绝'
+          }
       };
     },
     computed: {
