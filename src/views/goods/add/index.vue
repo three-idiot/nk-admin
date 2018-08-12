@@ -31,7 +31,7 @@
 
         <el-form-item label="推荐商品" prop="recommend">
             <el-radio-group v-model="ruleForm.recommend">
-                <el-radio v-for="(val,key) in recommend" :label="val" :value="key"  :key="key" >{{ val }}</el-radio>
+                <el-radio v-for="(val,key) in recommend" :label="key" :value="key"  :key="key" >{{ val }}</el-radio>
             </el-radio-group>
         </el-form-item>
 
@@ -275,6 +275,14 @@
         console.log('调试2', this.ruleForm);
         if (valid) {
           console.log('submit!');
+          console.log( this.upType );
+          if ( this.upType == 1 ) {
+
+          } else if (this.upType == 2) {
+
+          } else {
+
+          }
           // addGoods(ruleForm).then( res => {
           //     if ( res.code == 200 ) {
           //         alert('新建成功');
