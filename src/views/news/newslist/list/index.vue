@@ -25,18 +25,23 @@
         <el-row style="height: 40px;">
           <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button class="add-item" type="danger"  icon="el-icon-add" @click.native="add">新增资讯</el-button>
+            <el-button class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增资讯</el-button>
+            <el-button class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
       </el-form>
     </div>
     <!--表格-->
     <el-table :data="list" v-loading="listLoading" border fit highlight-current-row
-              style="width: 100%;">
-      <el-table-column align="center" width="50"  label="" class="table-item">
+              style="width: 100%;" @selection-change="handleSelectionChange">
+      <!-- <el-table-column align="center" width="50"  label="" class="table-item">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.checked"></el-checkbox>
         </template>
+      </el-table-column> -->
+      <el-table-column
+              type="selection"
+              width="35">
       </el-table-column>
       <el-table-column align="center"   label="资讯编号" class="table-item">
         <template slot-scope="scope">
@@ -108,9 +113,10 @@
 </template>
 
 <script>
-import { getNewsList } from "@/api/news";
+import { getNewsList, stickNews } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
+import { Message, MessageBox } from 'element-ui';
 
 export default {
   data() {
@@ -140,8 +146,21 @@ export default {
           top: true,
           id: "000001",
           checked: false
+        },
+        {
+          newsNo: "001",
+          title: "资讯二",
+          publisher: "唐先森",
+          createTime: 20180102,
+          approver: "小李",
+          approveTime: 20180101,
+          status: "1",
+          top: true,
+          id: "000001",
+          checked: false
         }
-      ]
+      ],
+      selectedLists: []
     };
   },
   computed: {
@@ -160,7 +179,7 @@ export default {
     }
   },
   created() {
-    this.fetchData();
+    // this.fetchData();
   },
   methods: {
     fetchData() {
@@ -210,6 +229,32 @@ export default {
             id: id
         }
       });
+    },
+    handleSelectionChange (val) {
+      // console.log('选择的行变化了：', val);
+      this.selectedLists = val;
+    },
+    stick () {
+      console.log('置顶');
+      let ids = [];
+      this.selectedLists.map((item, index) => {
+        ids.push(item.id);
+      });
+      let params = {
+        newsIds: ids,
+        top: true
+      }
+      stickNews(params).then((res) => {
+        if (res.code == 200) {
+          console.log('置顶成功');
+          this.$message({
+            message: '置顶成功',
+            type: 'success'
+          });
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
     }
   },
   components: {

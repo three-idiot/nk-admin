@@ -1,9 +1,7 @@
 <template>
   <div class="undercarriage-form">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
-
-      <!--签证有效期-->
-      <el-form-item label="违规下架理由" prop="foul">
+      <el-form-item label="下架理由" prop="foul">
         <el-select v-model="ruleForm.foul" placeholder="请选择" class="foul">
           <el-option  v-for="(val,index) in reason"  :label="val" :value="val" :key="index"></el-option>
         </el-select>

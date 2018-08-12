@@ -39,4 +39,12 @@ export function changeNewsStatus(params) {
   });
 }
 
+export function stickNews(params) {
+  return request({
+      url: '/news/topNews',
+      method: 'post',
+      data: params
+  });
+}
+
 
