@@ -105,11 +105,11 @@
         </el-form-item>
         <hr>
 
-        <el-form-item label="设置上架日期" prop="status">
-            <el-radio-group v-model="ruleForm.status">
+        <el-form-item label="设置上架日期">
+            <el-radio-group v-model="upType">
                 <el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>
             </el-radio-group>
-            <el-date-picker style="margin-left: 5px;"
+            <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
                 v-model="ruleForm.upTime"
                 type="date"
                 value-format="yyyy-MM-dd"
@@ -151,11 +151,17 @@
             width:600,
             height:400,
         },
+        upType:null,
         // 上架状态radio
+        // upStatus: {
+        //     '立即上架': 2,
+        //     '在库中': 1,
+        //     '固定时间上架': 2
+        // },
         upStatus: {
             '立即上架': 2,
             '在库中': 1,
-            '固定时间上架': 1
+            '固定时间上架': 3
         },
         imageUrl: '',
         ruleForm: {
