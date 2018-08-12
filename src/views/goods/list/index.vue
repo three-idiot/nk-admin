@@ -128,33 +128,6 @@
         </el-table-column>
 
 
-      <!--<el-table-column  align="center"  label="商品类别" >-->
-        <!--<template slot-scope="scope">-->
-          <!--<span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>-->
-          <!--&lt;!&ndash;<el-tag>{{scope.row.type | typeFilter}}</el-tag>&ndash;&gt;-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-
-      <!--<el-table-column  align="center" label="发布日期" >-->
-        <!--<template slot-scope="scope" >-->
-          <!--<span>{{scope.row.lowVisaPrice/100}}元</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-
-
-
-      <!--<el-table-column align="center"  label="截止日期">-->
-        <!--<template slot-scope="scope">-->
-          <!--<span class="link-type">-->
-            <!--<p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>-->
-            <!--<p>渠道分成：{{  scope.row.channelRatio/100 }}%</p>-->
-            <!--<p>平台分成：{{  scope.row.terraceRatio/100 }}%</p>-->
-          <!--</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-
-
-
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
