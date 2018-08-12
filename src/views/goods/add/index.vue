@@ -130,7 +130,6 @@
 
 <script>
   import { addGoods } from '@/api/visa';
-  // import axios from 'axios';
   import goodsMap from "@/map/goods"
   import editor from '@/components/editor'
   import App from "../../../App";
@@ -148,9 +147,6 @@
       }
     };
     return Object.assign({},goodsMap,{
-        content:'我是富文本编辑器的内容',
-        content1:'我是富文本编辑器的内容',
-        content2:'我是富文本编辑器的内容',
         editorSetting:{
             width:600,
             height:400,
@@ -184,20 +180,6 @@
             upTime: null,
             images: null
         },
-        // ruleForm: {
-        //     title: '',
-        //     goodsNum: '',
-        //     unitDay: '',
-        //     intoType: '',
-        //     isUrgent: '',
-        //     isInterview: '',
-        //     lowVisaPrice: '',
-        //     helpPrice: '',
-        //     lowHelpPrice: '',
-        //     stayDay: '',
-        //     disposeDay: '',
-        //     renewPrice: ''
-        // },
         rules: {
             goodsNum: [
                 { required: true, trigger: 'change', message: '请上传图片' }
@@ -249,10 +231,10 @@
   },
   created() {
   },
-      components:{
-          App,
-          editor
-      },
+  components:{
+      App,
+      editor
+  },
   methods: {
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
