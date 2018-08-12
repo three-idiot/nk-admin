@@ -163,21 +163,7 @@
   export default {
     data() {
       return {
-        total: 0,
-        list: null,
         listLoading: true,
-        pagesStatus: {
-          total_count: 0
-        },
-        listQuery: {
-          auditStatus: 0,
-          page: 1,
-          size: 10,
-          title: null,
-          startTime: null,
-          endTime: null,
-          status: null,
-        },
           type: {
               1: '一般',
               2: '推荐'
