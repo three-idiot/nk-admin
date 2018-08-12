@@ -1,5 +1,5 @@
 <template>
-    <textarea :id="id" :value="value"></textarea>
+    <textarea :class="id" :value="value"></textarea>
 </template>
 <script>
     // Import TinyMCE
@@ -39,7 +39,7 @@
             const _this = this;
             const setting =
                 {
-                    selector:'#'+_this.id,
+                    selector:'.'+_this.id,
                     language:"zh_CN",
                     init_instance_callback:function(editor) {
                         EDITOR = editor;

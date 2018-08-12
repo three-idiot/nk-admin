@@ -1,6 +1,5 @@
 <template>
   <div class="addVisa-form">
-      <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <!--商品名称-->
       <el-form-item label="商品名称" prop="title" style="width: 312px;">
@@ -29,6 +28,27 @@
                 <div  slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
             </el-upload>
         </el-form-item>
+
+
+        <p>商品描述：</p>
+        <div>
+            <span>线路特色：</span>
+            <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+        </div>
+
+        <div>
+            <p>行程介绍</p>
+            <editor class="editor" :value="content1"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+        </div>
+
+        <div>
+            <p >费用与须知</p>
+            <editor class="editor" :value="content2"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+        </div>
+
+
+
+
 
         <hr>
         <el-form-item label="报名截止时间" prop="visaPath">
@@ -92,6 +112,7 @@
   // import axios from 'axios';
   import goodsMap from "@/map/goods"
   import editor from '@/components/editor'
+  import App from "../../../App";
 
 
 
@@ -107,7 +128,10 @@
     };
     return Object.assign({},goodsMap,{
         content:'我是富文本编辑器的内容',
+        content1:'我是富文本编辑器的内容',
+        content2:'我是富文本编辑器的内容',
         editorSetting:{
+            width:600,
             height:400,
         },
         imageUrl: '',
@@ -177,6 +201,7 @@
   created() {
   },
       components:{
+          App,
           editor
       },
   methods: {
@@ -260,7 +285,9 @@
   }
   .addVisa-form {
     margin-top: 20px;
+      padding-left: 30px;
   }
+
 
 
 </style>
