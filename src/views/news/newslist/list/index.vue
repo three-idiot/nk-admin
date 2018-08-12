@@ -25,7 +25,7 @@
         <el-row style="height: 40px;">
           <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button class="add-item" type="danger"  icon="el-icon-add" @click.native="add">新增广告</el-button>
+            <el-button class="add-item" type="danger"  icon="el-icon-add" @click.native="add">新增资讯</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -76,7 +76,7 @@
 
       <el-table-column   align="center" label="资讯状态">
         <template slot-scope="scope">
-          <span>{{scope.row.status}}</span>
+          <span :class="statusEnum.status[scope.row.status].color">{{scope.row.status | statusFilter}}</span>
         </template>
       </el-table-column>
 
@@ -109,11 +109,13 @@
 
 <script>
 import { getNewsList } from "@/api/news";
+import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
 export default {
   data() {
     return {
+      statusEnum: statusEnum,
       listLoading: false,
       current_page: 1,
       max_page: 0,
@@ -152,6 +154,11 @@ export default {
       });
     }
   },
+  filters: {
+    statusFilter (value) {
+      return statusEnum.status[value].msg;
+    }
+  },
   created() {
     this.fetchData();
   },
@@ -160,7 +167,7 @@ export default {
       this.listLoading = true;
       getNewsList(this.listQuery).then(response => {
         this.listLoading = false;
-        // console.log("资讯列表:", response);
+        console.log("资讯列表:", response);
         if (response.code == 200) {
           this.list = response.data.data;
         }
@@ -176,7 +183,9 @@ export default {
       this.fetchData();
     },
     add() {
-      window.location.href = "#/news/newsadd";
+      this.$router.push({
+        name: 'news-add'
+      });
     },
     goDetail(id) {
       this.$router.push({
@@ -219,6 +228,9 @@ export default {
   .btn-container {
     padding-top: 30px;
     text-align: center;
+  }
+  span.danger {
+    color: red;
   }
 }
 </style>

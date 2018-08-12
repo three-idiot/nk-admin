@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <title-line txt="新建资讯"></title-line>
+    <title-line :txt="ruleForm.id ? '编辑资讯':'新建资讯'"></title-line>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
       <!--资讯名称-->
       <el-form-item label="资讯标题" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+        <el-input v-model="ruleForm.title" :disabled="ruleForm.id?true:false"></el-input>
       </el-form-item>
       <!--资讯图片-->
       <el-form-item label="资讯图片" prop="images">
@@ -34,7 +34,11 @@
 
       <!--资讯详情-->
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
-        <el-input v-model="ruleForm.detail"></el-input>
+        <!-- <el-input v-model="ruleForm.detail"></el-input> -->
+        <editor class="editor" 
+                :value="ruleForm.detail"
+                :setting="editorSetting"
+                @input="(content)=> ruleForm.detail = content"></editor>
       </el-form-item>
 
       <!--是否置顶-->
@@ -54,6 +58,11 @@
 <script>
   import { addNews, getNewsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
+  import editor from '@/components/editor'
+
+  let testImgs = [
+    'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
+  ];
 
   export default {
   data() {
@@ -61,11 +70,9 @@
       action: '/api/image/uploadfile',
       // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
+        id: '',
         title: '',
-        images: [
-          {name: 'test1', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'},
-          {name: 'test2', url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'}
-        ],
+        images: [],
         newsKey: '',
         detail: '',
         top: false
@@ -86,25 +93,31 @@
         detail: [
           { required: true, trigger: 'blur', message: '请添加资讯详情' }
         ]
+      },
+      editorSetting: {
+        width:600,
+        height:400
       }
     };
   },
   mounted() {
     let id = this.$route.params.id;
+    console.log('资讯id：', this.ruleForm.id);
     // console.log('add mounted:', id);
     if (id) {
+      this.ruleForm.id = id;
       this.fetchData();
     }
   },
   methods: {
     fetchData() {
         this.listLoading = true;
-        getNewsDetail(this.$route.params.id).then(response => {
+        getNewsDetail(this.ruleForm.id).then(response => {
           this.listLoading = false;
           console.log('获取编辑数据：', response);
           if (response.data) {
             this.ruleForm = Object.assign({}, this.ruleForm, response.data);
-            console.log(this.ruleForm);
+            // this.ruleForm.images = testImgs;
           }
         });
     },
@@ -113,11 +126,11 @@
       this.ruleForm.images.splice(index);
     },
     handleAvatarSuccess(res, file) {
-      console.log(res, file);
-        // this.imageUrl = URL.createObjectURL(file.raw);
-        // this.ruleForm.images = URL.createObjectURL(file.raw);
-        // console.log( file.response.data );
-        // this.ruleForm.images = file.response.data;
+      console.log('图片上传返回：', res, file);
+      // this.imageUrl = URL.createObjectURL(file.raw);
+      this.ruleForm.images.push(res.data);
+      // console.log( file.response.data );
+      // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -127,18 +140,20 @@
       //   this.$message.error('上传头像图片只能是 JPG 格式!');
       // }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isLt2M;
     },
     submitForm(formName) {
-      console.log('---------', this.ruleForm);
+      console.log('---------提交表单：', this.ruleForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
           addNews(ruleForm).then( res => {
               if ( res.code == 200 ) {
-                  history.back();
+                  this.$router.push({
+                    name: 'news-list'
+                  });
               }
           });
         } else {
@@ -152,7 +167,8 @@
     }
   },
   components: {
-    TitleLine
+    TitleLine,
+    editor
   }
 };
 </script>
@@ -191,6 +207,7 @@
   height: 120px;
   line-height: 120px;
   text-align: center;
+  background: #fff;
 }
 .avatar {
   width: 120px;
