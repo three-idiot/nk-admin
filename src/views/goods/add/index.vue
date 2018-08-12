@@ -272,18 +272,27 @@
       },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        console.log('调试2', this.ruleForm);
         if (valid) {
           console.log('submit!');
           console.log( this.upType );
-          if ( this.upType == 1 ) {
-
-          } else if (this.upType == 2) {
-
+          if ( this.upType == 2 ) {
+              // 立即上架
+              this.ruleForm.status = 2;
+              this.ruleForm.upTime = new Date();
+          } else if (this.upType == 1) {
+              // 在库中
+              this.ruleForm.status = 1;
+              this.ruleForm.upTime = null;
           } else {
-
+              // 固定时间上架
+              this.ruleForm.status = 1;
+              if ( !this.ruleForm.upTime ) {
+                  alert('请输入上架时间');
+                  return;
+              }
           }
-          // addGoods(ruleForm).then( res => {
+          console.log('调试2', this.ruleForm);
+            // addGoods(ruleForm).then( res => {
           //     if ( res.code == 200 ) {
           //         alert('新建成功');
           //         history.back();
