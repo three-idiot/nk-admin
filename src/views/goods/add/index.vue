@@ -275,12 +275,12 @@
           ruleForm['lowVisaPrice'] *= 100;
           ruleForm['renewPrice'] *= 100;
           ruleForm['visaPrice'] *= 100;
-          addGoods(ruleForm).then( res => {
-              if ( res.code == 200 ) {
-                  alert('新建成功');
-                  history.back();
-              }
-          });
+          // addGoods(ruleForm).then( res => {
+          //     if ( res.code == 200 ) {
+          //         alert('新建成功');
+          //         history.back();
+          //     }
+          // });
         } else {
           console.log('error submit!!');
           return false;
