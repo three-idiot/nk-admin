@@ -116,7 +116,6 @@
 import { getNewsList, stickNews } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
-import { Message, MessageBox } from 'element-ui';
 
 export default {
   data() {
