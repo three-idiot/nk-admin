@@ -122,7 +122,7 @@
         <el-table-column class-name="status-col"  label="商品状态" align="center" >
             <template slot-scope="scope">
                 <el-tag :type="scope.row.status | statusFilter">
-                    {{ goodStatus[scope.row.status] }}
+                    {{ status[scope.row.status] }}
                 </el-tag>
             </template>
         </el-table-column>
@@ -196,11 +196,6 @@
         pagesStatus: {
           total_count: 0
         },
-        goodStatus: {
-          0: '仓库中',
-          1: '出售中',
-          2: '违规下架'
-        },
         listQuery: {
           auditStatus: 0,
           page: 1,
@@ -239,8 +234,10 @@
       statusFilter(status) {
         const statusMap = {
           1: 'success',
-          0: 'gray',
-          2: 'danger'
+          2: 'success',
+          3: 'danger',
+          4: 'warning',
+          5: 'danger',
         };
         return statusMap[status];
       }
