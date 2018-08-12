@@ -31,7 +31,7 @@
 
         <el-form-item label="推荐商品" prop="recommend">
             <el-radio-group v-model="ruleForm.recommend">
-                <el-radio v-for="(val,key) in recommend" :label="val"  :key="key" >{{ val }}</el-radio>
+                <el-radio v-for="(val,key) in recommend" :label="val" :value="key"  :key="key" >{{ val }}</el-radio>
             </el-radio-group>
         </el-form-item>
 
@@ -129,7 +129,7 @@
 </template>
 
 <script>
-  import { addGoods } from '@/api/visa';
+  import { addTravelGoods } from '@/api/goods';
   import goodsMap from "@/map/goods"
   import editor from '@/components/editor'
   import App from "../../../App";
@@ -275,12 +275,6 @@
         console.log('调试2', this.ruleForm);
         if (valid) {
           console.log('submit!');
-          let ruleForm = Object.assign({}, this.ruleForm);
-          ruleForm['helpPrice'] *= 100;
-          ruleForm['lowHelpPrice'] *= 100;
-          ruleForm['lowVisaPrice'] *= 100;
-          ruleForm['renewPrice'] *= 100;
-          ruleForm['visaPrice'] *= 100;
           // addGoods(ruleForm).then( res => {
           //     if ( res.code == 200 ) {
           //         alert('新建成功');

@@ -9,3 +9,11 @@ export function getGoodsList(params) {
         data: params
     })
 }
+
+export function addTravelGoods(params) {
+    return request({
+        url: '/travelGoods/addTravelGoods',
+        method: 'post',
+        data: params
+    })
+}
