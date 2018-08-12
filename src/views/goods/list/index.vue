@@ -67,42 +67,93 @@
         </template>
       </el-table-column>
 
-      <el-table-column  align="center"  label="商品类别" >
-        <template slot-scope="scope">
-          <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
-          <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
-        </template>
-      </el-table-column>
+        <el-table-column  align="center" label="商品类别">
+            <template slot-scope="scope">
+                <span>{{type[scope.row.type]}}</span>
+            </template>
+        </el-table-column>
 
-      <el-table-column  align="center" label="发布日期" >
-        <template slot-scope="scope" >
-          <span>{{scope.row.lowVisaPrice/100}}元</span>
-        </template>
-      </el-table-column>
+        <el-table-column   align="center" label="发布日期">
+            <template slot-scope="scope">
+                <span>{{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+            </template>
+        </el-table-column>
 
-      <el-table-column   align="center" label="上架日期">
-        <template slot-scope="scope">
-          <span>{{new Date(scope.row.upStartTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
-        </template>
-      </el-table-column>
+        <el-table-column   align="center" label="上架日期">
+            <template slot-scope="scope">
+                <span>{{new Date(scope.row.upTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+            </template>
+        </el-table-column>
 
-      <el-table-column align="center"  label="截止日期">
-        <template slot-scope="scope">
-          <span class="link-type">
-            <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
-            <p>渠道分成：{{  scope.row.channelRatio/100 }}%</p>
-            <p>平台分成：{{  scope.row.terraceRatio/100 }}%</p>
-          </span>
-        </template>
-      </el-table-column>
+        <el-table-column   align="center" label="截止日期">
+            <template slot-scope="scope">
+                <span>{{new Date(scope.row.closeDate).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+            </template>
+        </el-table-column>
 
-      <el-table-column class-name="status-col"  label="发布人" align="center" >
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">
-            {{ goodStatus[scope.row.status] }}
-          </el-tag>
-        </template>
-      </el-table-column>
+        <el-table-column  align="center" label="发布人">
+            <template slot-scope="scope">
+                <span>{{scope.row.publisher}}</span>
+            </template>
+        </el-table-column>
+
+        <el-table-column  align="center" label="门市价格">
+            <template slot-scope="scope">
+                <span>{{scope.row.realPrice/100}}元</span>
+            </template>
+        </el-table-column>
+
+        <el-table-column  align="center" label="商品价格">
+            <template slot-scope="scope">
+                <span>{{scope.row.salePrice/100}}元</span>
+            </template>
+        </el-table-column>
+
+        <el-table-column align="center"  label="分成比例">
+            <template slot-scope="scope">
+                <span class="link-type">
+                <p>省代 :{{  scope.row.provinceDividePrice/100 }}%</p>
+                <p>市县代：{{  scope.row.cityDividePrice/100 }}%</p>
+                <p>网点：{{  scope.row.pointDividePrice/100 }}%</p>
+                </span>
+            </template>
+        </el-table-column>
+
+        <el-table-column class-name="status-col"  label="商品状态" align="center" >
+            <template slot-scope="scope">
+                <el-tag :type="scope.row.status | statusFilter">
+                    {{ goodStatus[scope.row.status] }}
+                </el-tag>
+            </template>
+        </el-table-column>
+
+
+      <!--<el-table-column  align="center"  label="商品类别" >-->
+        <!--<template slot-scope="scope">-->
+          <!--<span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>-->
+          <!--&lt;!&ndash;<el-tag>{{scope.row.type | typeFilter}}</el-tag>&ndash;&gt;-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+
+      <!--<el-table-column  align="center" label="发布日期" >-->
+        <!--<template slot-scope="scope" >-->
+          <!--<span>{{scope.row.lowVisaPrice/100}}元</span>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+
+
+
+      <!--<el-table-column align="center"  label="截止日期">-->
+        <!--<template slot-scope="scope">-->
+          <!--<span class="link-type">-->
+            <!--<p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>-->
+            <!--<p>渠道分成：{{  scope.row.channelRatio/100 }}%</p>-->
+            <!--<p>平台分成：{{  scope.row.terraceRatio/100 }}%</p>-->
+          <!--</span>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+
+
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
