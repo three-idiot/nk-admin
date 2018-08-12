@@ -148,7 +148,7 @@
 
     <!--分页-->
     <div class="pagination-container" style="margin-top: 30px;">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[4,10,20,30,50]" :page-size="listQuery.size" layout="total, sizes, prev, pager, next, jumper" :total="pagesStatus.total_count">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="goodsParams.pageIndex" :page-sizes="[4,10,20,30,50]" :page-size="goodsParams.pageSize" layout="sizes, prev, pager, next, jumper" >
       </el-pagination>
     </div>
     <!--分页结束-->
@@ -203,8 +203,8 @@
               upEndTime: null,
               salePrice: null,
               salePriceRule: null,
-              pageIndex: null,
-              pageSize: null
+              pageIndex: 1,
+              pageSize: 20
           },
           goodsList: null
       };
@@ -239,12 +239,12 @@
         });
       },
       handleSizeChange(val) {
-        this.listQuery.size = val;
-        this.fetchData( this.listQuery );
+        this.goodsParams.pageSize = val;
+        this.fetchData( this.goodsParams );
       },
       handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.fetchData(this.listQuery);
+        this.goodsParams.pageIndex = val;
+        this.fetchData(this.goodsParams);
       },
       handleFilter() {
         console.log( this.goodsParams );
