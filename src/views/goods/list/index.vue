@@ -3,19 +3,19 @@
 
     <div class="filter-container" style="margin-bottom: 30px;">
         <span>商品类别：</span>
-        <el-select clearable style="width: 200px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+        <el-select clearable style="width: 200px" class="filter-item" v-model="goodsParams.type" placeholder="请选择">
             <el-option v-for="(val,key) in type" :key="key" :label="val" :value="key">
             </el-option>
         </el-select>
 
       <span>商品名称：</span>
-      <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
+      <el-input style="width: 200px;" v-model="goodsParams.name"></el-input>
 
         <span>发布人：</span>
-        <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
+        <el-input style="width: 200px;" v-model="goodsParams.publisher"></el-input>
 
       <span>商品状态：</span>
-      <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+      <el-select clearable style="width: 90px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
         <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
         </el-option>
       </el-select>
@@ -23,14 +23,14 @@
         <!--时间选择器-->
         <span class="demonstration">发布日期：</span>
         <el-date-picker
-            v-model="listQuery.startTime"
+            v-model="goodsParams.upStartTime"
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="选择日期">
         </el-date-picker>
         -
         <el-date-picker
-            v-model="listQuery.endTime"
+            v-model="goodsParams.upEndTime"
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="选择日期">
@@ -39,11 +39,11 @@
 
         <div class="goodPrice" style="margin-top: 10px;">
             <span>商品价格：</span>
-            <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.status" placeholder="请选择">
+            <el-select clearable style="width: 90px" class="filter-item" v-model="goodsParams.salePriceRule" placeholder="请选择">
                 <el-option v-for="(val,key) in salePriceRule" :key="key" :label="val" :value="key">
                 </el-option>
             </el-select>
-            <el-input style="width: 200px;" v-model="listQuery.title"></el-input>
+            <el-input style="width: 200px;" v-model="goodsParams.salePrice"></el-input>
             <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
         </div>
 
@@ -195,7 +195,16 @@
               '-1' :'<'
           },
           goodsParams:{
-
+              type: null,
+              name: null,
+              publisher: null,
+              status: null,
+              upStartTime: null,
+              upEndTime: null,
+              salePrice: null,
+              salePriceRule: null,
+              pageIndex: null,
+              pageSize: null
           },
           goodsList: null
       };
@@ -238,12 +247,8 @@
         this.fetchData(this.listQuery);
       },
       handleFilter() {
-        console.log( this.listQuery );
-        let finalQuery = Object.assign({}, this.listQuery);
-        if ( finalQuery['startTime'] ) {
-          finalQuery.timeType=0;
-        }
-        this.fetchData( finalQuery );
+        console.log( this.goodsParams );
+        this.fetchData( this.goodsParams );
       },
       goDetail(id) {
         window.location.href = '#/visa/detail?id=' + id;
