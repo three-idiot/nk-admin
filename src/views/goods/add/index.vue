@@ -20,6 +20,12 @@
             <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
 
+        <el-form-item label="推荐商品" prop="isUrgent">
+            <el-radio-group >
+                <el-radio v-for="(val,key) in recommend" :label="val"  :key="key" >{{ val }}</el-radio>
+            </el-radio-group>
+        </el-form-item>
+
 
         <el-form-item label="添加图片" prop="visaPath">
             <!-- TODO 上线之后这里要把api前缀去掉 -->
