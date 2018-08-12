@@ -16,20 +16,29 @@
             </el-select>
         </el-form-item>
 
-        <el-form-item label="日期和地点" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="出发日期" prop="leaveTime">
+            <el-date-picker v-model="ruleForm.leaveTime"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+            </el-date-picker>
         </el-form-item>
 
-        <el-form-item label="推荐商品" prop="isUrgent">
-            <el-radio-group >
+
+        <el-form-item label="出发地点" prop="leaveAddress" style="width: 312px;">
+            <el-input v-model="ruleForm.leaveAddress"></el-input>
+        </el-form-item>
+
+        <el-form-item label="推荐商品" prop="recommend">
+            <el-radio-group v-model="ruleForm.recommend">
                 <el-radio v-for="(val,key) in recommend" :label="val"  :key="key" >{{ val }}</el-radio>
             </el-radio-group>
         </el-form-item>
 
 
-        <el-form-item label="添加图片" prop="visaPath">
+        <el-form-item label="添加图片" prop="images">
             <!-- TODO 上线之后这里要把api前缀去掉 -->
-            <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
+            <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="5" :on-success="imgUploaded" :on-remove="imgRemove">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <div  slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
             </el-upload>
@@ -39,17 +48,17 @@
         <p>商品描述：</p>
         <div>
             <span>线路特色：</span>
-            <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.lineDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
         </div>
 
         <div>
             <p>行程介绍</p>
-            <editor class="editor" :value="content1"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.tripDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
         </div>
 
         <div>
             <p >费用与须知</p>
-            <editor class="editor" :value="content2"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.costDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
         </div>
 
 
@@ -268,7 +277,11 @@
       return isLt2M;
     },
       imgUploaded(res, file) {
-          this.form.visaPath = res.data;
+        if ( Object.prototype.toString.call( this.ruleForm.images ) !=  '[object Array]') {
+            this.ruleForm.images = [];
+        }
+        this.ruleForm.images.push( res.data );
+        console.log( this.ruleForm.images );
       },
       imgRemove(files, fileList) {
           this.form.visaPath = null;
