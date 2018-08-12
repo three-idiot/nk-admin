@@ -2,16 +2,16 @@
   <div class="addVisa-form">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <!--商品名称-->
-      <el-form-item label="商品名称" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+      <el-form-item label="商品名称" prop="name" style="width: 312px;">
+        <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
 
-        <el-form-item label="商品概要" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="商品概要" prop="outline" style="width: 312px;">
+            <el-input v-model="ruleForm.outline"></el-input>
         </el-form-item>
 
-        <el-form-item label="商品分类" prop="intoType">
-            <el-select v-model="ruleForm.intoType" placeholder="请选择">
+        <el-form-item label="商品分类" prop="type">
+            <el-select v-model="ruleForm.type" placeholder="请选择">
                 <el-option  v-for="(val,key) in type"  :label="val" :value="key" :key="key"></el-option>
             </el-select>
         </el-form-item>
@@ -158,19 +158,41 @@
         },
         imageUrl: '',
         ruleForm: {
-            title: '',
-            goodsNum: '',
-            unitDay: '',
-            intoType: '',
-            isUrgent: '',
-            isInterview: '',
-            lowVisaPrice: '',
-            helpPrice: '',
-            lowHelpPrice: '',
-            stayDay: '',
-            disposeDay: '',
-            renewPrice: ''
+            name: null,
+            outline: null,
+            type: null,
+            leaveTime: null,
+            leaveAddress: null,
+            lineDescribe: null,
+            tripDescribe: null,
+            costDescribe: null,
+            closeDate: null,
+            peopleMinNum: null,
+            peopleMaxNum: null,
+            realPrice: null,
+            salePrice: null,
+            childPrice: null,
+            provinceDividePrice: null,
+            cityDividePrice: null,
+            pointDividePrice: null,
+            status: null,
+            upTime: null,
+            images: null
         },
+        // ruleForm: {
+        //     title: '',
+        //     goodsNum: '',
+        //     unitDay: '',
+        //     intoType: '',
+        //     isUrgent: '',
+        //     isInterview: '',
+        //     lowVisaPrice: '',
+        //     helpPrice: '',
+        //     lowHelpPrice: '',
+        //     stayDay: '',
+        //     disposeDay: '',
+        //     renewPrice: ''
+        // },
         rules: {
             goodsNum: [
                 { required: true, trigger: 'change', message: '请上传图片' }
