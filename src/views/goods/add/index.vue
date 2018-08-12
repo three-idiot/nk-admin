@@ -47,15 +47,15 @@
 
         <p>商品描述：</p>
         <el-form-item label="线路特色" prop="lineDescribe">
-            <editor class="editor" :value="ruleForm.lineDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.lineDescribe"  :setting="editorSetting" @input="(content)=> ruleForm.lineDescribe = content"></editor>
         </el-form-item>
 
         <el-form-item label="行程介绍" prop="tripDescribe">
-            <editor class="editor" :value="ruleForm.tripDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.tripDescribe"  :setting="editorSetting" @input="(content)=> ruleForm.tripDescribe = content"></editor>
         </el-form-item>
 
          <el-form-item label="费用与须知" prop="costDescribe">
-            <editor class="editor" :value="ruleForm.costDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <editor class="editor" :value="ruleForm.costDescribe"  :setting="editorSetting" @input="(content)=> ruleForm.costDescribe = content"></editor>
         </el-form-item>
 
 
