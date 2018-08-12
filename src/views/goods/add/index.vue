@@ -46,75 +46,71 @@
 
 
         <p>商品描述：</p>
-        <div>
-            <span>线路特色：</span>
+        <el-form-item label="线路特色" prop="lineDescribe">
             <editor class="editor" :value="ruleForm.lineDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
-        </div>
+        </el-form-item>
 
-        <div>
-            <p>行程介绍</p>
+        <el-form-item label="行程介绍" prop="tripDescribe">
             <editor class="editor" :value="ruleForm.tripDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
-        </div>
+        </el-form-item>
 
-        <div>
-            <p >费用与须知</p>
+         <el-form-item label="费用与须知" prop="costDescribe">
             <editor class="editor" :value="ruleForm.costDescribe"  :setting="editorSetting" @input="(content)=> content = content"></editor>
-        </div>
-
-
-
+        </el-form-item>
 
 
         <hr>
-        <el-form-item label="报名截止时间" prop="visaPath">
+        <el-form-item label="报名截止时间" prop="closeDate">
             <el-date-picker
+                v-model="ruleForm.closeDate"
                 type="date"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
             </el-date-picker>
         </el-form-item>
 
-        <el-form-item label="最低成团人数(人)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
+            <el-input v-model="ruleForm.peopleMinNum"></el-input>
         </el-form-item>
 
-        <el-form-item label="成团人数上限(人)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
+            <el-input v-model="ruleForm.peopleMaxNum"></el-input>
         </el-form-item>
         <hr>
 
-        <el-form-item label="设置商品价格(￥)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
+            <el-input v-model="ruleForm.realPrice"></el-input>
         </el-form-item>
 
-        <el-form-item label="设置门市价格(￥)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
+            <el-input v-model="ruleForm.salePrice"></el-input>
         </el-form-item>
 
-        <el-form-item label="设置儿童价格(￥)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
+            <el-input v-model="ruleForm.childPrice"></el-input>
         </el-form-item>
 
         <span>设置商品分成：</span>
 
-        <el-form-item label="省代(元)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="省代(元)" prop="provinceDividePrice" style="width: 312px;">
+            <el-input v-model="ruleForm.provinceDividePrice"></el-input>
         </el-form-item>
 
-        <el-form-item label="市县代(元)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="市县代(元)" prop="cityDividePrice" style="width: 312px;">
+            <el-input v-model="ruleForm.cityDividePrice"></el-input>
         </el-form-item>
 
-        <el-form-item label="网点(元)" prop="title" style="width: 312px;">
-            <el-input v-model="ruleForm.title"></el-input>
+        <el-form-item label="网点(元)" prop="pointDividePrice" style="width: 312px;">
+            <el-input v-model="ruleForm.pointDividePrice"></el-input>
         </el-form-item>
         <hr>
 
-        <el-form-item label="设置上架日期" prop="isUrgent">
-            <el-radio-group >
+        <el-form-item label="设置上架日期" prop="status">
+            <el-radio-group v-model="ruleForm.status">
                 <el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>
             </el-radio-group>
             <el-date-picker style="margin-left: 5px;"
+                v-model="ruleForm.upTime"
                 type="date"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
