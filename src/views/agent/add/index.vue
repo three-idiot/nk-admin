@@ -165,9 +165,13 @@
             </el-date-picker>
         </el-form-item>
 
-        <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
-            <el-input v-model="form.uniqueCode"></el-input>
+        <el-form-item label="代理商标识码：" prop="uniqueCode">
+            <el-input v-model="form.uniqueCode" style="width: 270px;float: left;"></el-input>
+            <el-button type="primary" style="float: left;margin-left: 20px;">点击生成代理商标识码</el-button>
         </el-form-item>
+
+
+
 
         <el-form-item size="large" class="btn">
             <el-button type="info" @click.native="$router.back()">取消</el-button>
