@@ -17,10 +17,15 @@
         </el-form-item>
 
         <el-form-item label="出发日期" prop="leaveTime">
-            <el-date-picker v-model="ruleForm.leaveTime"
-                            type="date"
-                            value-format="yyyy-MM-dd"
-                            placeholder="选择日期">
+            <!--<el-date-picker v-model="ruleForm.leaveTime"-->
+                            <!--type="date"-->
+                            <!--value-format="yyyy-MM-dd"-->
+                            <!--placeholder="选择日期">-->
+            <!--</el-date-picker>-->
+            <el-date-picker
+                v-model="ruleForm.leaveTime"
+                type="datetime"
+                placeholder="选择出发日期">
             </el-date-picker>
         </el-form-item>
 
@@ -61,11 +66,16 @@
 
         <hr>
         <el-form-item label="报名截止时间" prop="closeDate">
+            <!--<el-date-picker-->
+                <!--v-model="ruleForm.closeDate"-->
+                <!--type="date"-->
+                <!--value-format="yyyy-MM-dd"-->
+                <!--placeholder="选择日期">-->
+            <!--</el-date-picker>-->
             <el-date-picker
                 v-model="ruleForm.closeDate"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择报名截止时间">
             </el-date-picker>
         </el-form-item>
 
