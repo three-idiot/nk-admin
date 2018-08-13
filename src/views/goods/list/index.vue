@@ -131,14 +131,14 @@
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
           <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
-            查看商品
+            查看详情
           </el-button>
           <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
-            修改分成
+            编辑
           </el-button>
           <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">审核上架</el-button>
           <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
-            违规下架
+            下架
           </el-button>
         </template>
       </el-table-column>
