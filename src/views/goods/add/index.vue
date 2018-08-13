@@ -104,19 +104,60 @@
             <el-input v-model="ruleForm.childPrice"></el-input>
         </el-form-item>
 
-        <span>设置商品分成：</span>
+        <p>设置商品分成：</p>
 
-        <el-form-item label="省代(元)" prop="provinceDividePrice" style="width: 312px;">
-            <el-input v-model="ruleForm.provinceDividePrice"></el-input>
-        </el-form-item>
+        <table class="divide-table">
+            <tr>
+                <th class="tableTitle">分成设置(元)</th>
+                <th class="tableTitle">省代</th>
+                <th class="tableTitle">市县代</th>
+                <th class="tableTitle">网点</th>
+                <th class="tableTitle">第三方</th>
+            </tr>
+            <tr>
+                <td class="tableTitle">成人：</td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableTitle">儿童：</td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+                <td>
+                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                </td>
+            </tr>
+        </table>
 
-        <el-form-item label="市县代(元)" prop="cityDividePrice" style="width: 312px;">
-            <el-input v-model="ruleForm.cityDividePrice"></el-input>
-        </el-form-item>
 
-        <el-form-item label="网点(元)" prop="pointDividePrice" style="width: 312px;">
-            <el-input v-model="ruleForm.pointDividePrice"></el-input>
-        </el-form-item>
+        <!--<el-form-item label="省代(元)" prop="provinceDividePrice" style="width: 312px;">-->
+            <!--<el-input v-model="ruleForm.provinceDividePrice"></el-input>-->
+        <!--</el-form-item>-->
+
+        <!--<el-form-item label="市县代(元)" prop="cityDividePrice" style="width: 312px;">-->
+            <!--<el-input v-model="ruleForm.cityDividePrice"></el-input>-->
+        <!--</el-form-item>-->
+
+        <!--<el-form-item label="网点(元)" prop="pointDividePrice" style="width: 312px;">-->
+            <!--<el-input v-model="ruleForm.pointDividePrice"></el-input>-->
+        <!--</el-form-item>-->
         <hr>
 
         <el-form-item label="设置上架日期">
@@ -354,7 +395,19 @@
   .addVisa-form {
     margin-top: 20px;
       padding-left: 30px;
+      .divide-table {
+          /*margin-left: 50px;*/
+      }
+      .tableTitle {
+          background: #409EFF;
+          min-width: 150px;
+          line-height: 30px;
+          text-align: center;
+          color: #FFFFFF;
+      }
   }
+
+
 
 
 
