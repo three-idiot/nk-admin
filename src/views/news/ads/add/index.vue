@@ -1,79 +1,76 @@
 <template>
-  <div class="addVisa-form">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
-      <!--商品名称-->
-      <el-form-item label="商品名称" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+  <div class="app-container">
+    <title-line :txt="ruleForm.id ? '编辑广告':'新建广告'"></title-line>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
+      <!--资讯名称-->
+      <el-form-item label="广告标题" prop="title" style="width: 312px;">
+        <el-input v-model="ruleForm.title" :disabled="ruleForm.id?true:false"></el-input>
       </el-form-item>
-      <!--商品图片-->
-
-      <!--图片上传-->
-      <el-form-item label="商品图片" prop="goodsNum" style="width: 312px;">
-        <el-upload
+      <!--资讯图片-->
+      <el-form-item label="广告图片" prop="images">
+        <span class="news-img"
+                 v-for="(img, index) in ruleForm.images" 
+                 :key="index">
+          <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
+          <img :src="img.url" 
+                 alt="图片" />
+        </span>
+         <el-upload
           class="avatar-uploader"
-          style="border:1px solid #000;width: 178px;height: 178px;"
-          action="/api/image/uploadfile"
+          :multiple="true"
+          :with-credentials="true"
           :show-file-list="false"
+          :action="action"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
-
-
-      <!--签证有效期-->
-      <el-form-item label="签证有效期" prop="unitDay">
-        <el-select v-model="ruleForm.unitDay" placeholder="请选择">
-          <el-option  v-for="(val,key) in unitDay"  :label="val" :value="key" :key="key"></el-option>
+      <!-- 链接url -->
+      <el-form-item label="链接URL地址" prop="url" style="width: 312px;">
+        <el-input v-model="ruleForm.url"></el-input>
+      </el-form-item>
+      <!-- 广告位宽度 -->
+      <el-form-item label="广告位宽度" prop="width" style="width: 312px;">
+        <el-input v-model="ruleForm.width"></el-input>
+      </el-form-item>
+      <!-- 广告位高度 -->
+      <el-form-item label="广告位高度" prop="height" style="width: 312px;">
+        <el-input v-model="ruleForm.height"></el-input>
+      </el-form-item>
+      <!-- 广告位位置 -->
+      <el-form-item label="选择广告位置" prop="sort" style="width: 312px;">
+        <el-select v-model="ruleForm.sort" placeholder="请选择" clearable>
+          <el-option label="首页第一广告位" value="1"></el-option>
+          <el-option label="首页第二广告位" value="2"></el-option>
+          <el-option label="首页第三广告位" value="3"></el-option>
+          <el-option label="资讯页随机广告" value="99"></el-option>
         </el-select>
       </el-form-item>
-      <!--入境次数-->
-      <el-form-item label="入境次数" prop="intoType">
-        <el-select v-model="ruleForm.intoType" placeholder="请选择">
-          <el-option  v-for="(val,key) in intoType"  :label="val" :value="key" :key="key"></el-option>
-        </el-select>
+      <!-- 广告有效期 -->
+      <el-form-item label="广告有效期" prop="validTime" style="width: 312px;">
+        <el-date-picker
+          v-model="ruleForm.validTime"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
-      <!--是否加急-->
-      <el-form-item label="是否加急" prop="isUrgent">
-        <el-radio-group v-model="ruleForm.isUrgent">
-          <el-radio v-for="(val,key) in isUrgent" :label="key"  :key="key" >{{ val }}</el-radio>
-        </el-radio-group>
+
+      <!--资讯详情-->
+      <el-form-item label="广告详情" prop="details" style="width: 312px;">
+        <!-- <el-input v-model="ruleForm.detail"></el-input> -->
+        <editor class="editor" 
+                :value="ruleForm.detail"
+                :setting="editorSetting"
+                @input="(content)=> ruleForm.detail = content"></editor>
       </el-form-item>
-      <!--是否面试-->
-      <el-form-item label="是否面试" prop="isInterview">
-        <el-radio-group v-model="ruleForm.isInterview">
-          <el-radio v-for="(val,key) in isInterview" :label="key"  :key="key">{{ val }}</el-radio>
-        </el-radio-group>
+
+      <!--是否置顶-->
+      <el-form-item label="是否置顶" prop="top" style="width: 312px;">
+        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
+        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
       </el-form-item>
-      <!--签证费-->
-      <el-form-item label="签证费(元)" prop="visaPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.visaPrice"></el-input>
-      </el-form-item>
-      <!--签证优惠费-->
-      <el-form-item label="签证优惠费(元)" prop="lowVisaPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.lowVisaPrice"></el-input>
-      </el-form-item>
-      <!--服务费-->
-      <el-form-item label="服务费(元)" prop="helpPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.helpPrice"></el-input>
-      </el-form-item>
-      <!--服务优惠费-->
-      <el-form-item label="服务优惠费(元)" prop="lowHelpPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.lowHelpPrice"></el-input>
-      </el-form-item>
-      <!--停留时间-->
-      <el-form-item label="停留时间(天)" prop="stayDay"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.stayDay"></el-input>
-      </el-form-item>
-      <!--处理时间-->
-      <el-form-item label="处理时间(天)" prop="disposeDay"  style="width: 312px;">
-        <el-input v-model="ruleForm.disposeDay"></el-input>
-      </el-form-item>
-      <!--续签费用-->
-      <el-form-item label="续签费用(元)" prop="renewPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.renewPrice"></el-input>
-      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -83,110 +80,97 @@
 </template>
 
 <script>
-  import { addGoods } from '@/api/visa';
-  // import axios from 'axios';
+  import { addAds, getAdsDetail } from '@/api/news';
+  import TitleLine from "@/components/TitleLine/index.vue";
+  import editor from '@/components/editor'
 
+  // let testImgs = [
+  //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
+  // ];
 
   export default {
   data() {
-    let checkNum = (rule, value, callback) =>{
-      if ( !/^[0-9]*$/.test(value) ) {
-        return callback(new Error('必须是数字'));
-      } else {
-        callback();
-      }
-    };
     return {
-      imageUrl: '',
-      unitDay: {
-        30: '30天',
-        60: '60天',
-        90: '90天',
-        0: '长期',
-      },
-      intoType: {
-        0: '单次',
-        1: '多次'
-      },
-      isUrgent: {
-        1: '是',
-        0: '否',
-      },
-      isInterview: {
-        1: '是',
-        0: '否',
-      },
+      action: '/api/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
+        id: '',
         title: '',
-        goodsNum: '',
-        unitDay: '',
-        intoType: '',
-        isUrgent: '',
-        isInterview: '',
-        lowVisaPrice: '',
-        helpPrice: '',
-        lowHelpPrice: '',
-        stayDay: '',
-        disposeDay: '',
-        renewPrice: ''
+        images: ['"images/67881534175081340.jpg'],
+        detail: '',
+        top: '0',
+        url: '',
+        width: '',
+        height: '',
+        sort: '',
+        validTime: ''
       },
       rules: {
-          goodsNum: [
-              { required: true, trigger: 'change', message: '请上传图片' }
-          ],
+        images: [
+            { type: 'array', required: true, trigger: 'change', message: '请上传图片' }
+        ],
         title: [
-          { required: true, trigger: 'blur', message: '请输入商品名称' }
+          { required: true, trigger: 'blur', message: '请输入资讯标题' }
         ],
-        unitDay: [
-          {required: true, trigger: 'change', message: '请选择签证有效期' }
+        top: [
+          { required: true, trigger: 'blur', message: '请选择是否置顶' }
         ],
-        intoType: [
-          {required: true, trigger: 'change', message: '请选择入境次数' }
+        detail: [
+          { required: true, trigger: 'blur', message: '请添加资讯详情' }
         ],
-        isUrgent: [
-          {required: true, trigger: 'change', message: '请选择是否加急' }
+        url: [
+          { required: true, trigger: 'blur', message: '请配置链接URL地址' }
         ],
-        isInterview: [
-          {required: true, trigger: 'change', message: '请选择是否面试' }
+        width: [
+          { required: true, trigger: 'blur', message: '请输入广告位宽度' }
         ],
-        visaPrice: [
-          { required: true, trigger: 'blur', message: '请输入签证费' },
-          { validator: checkNum, trigger: 'blur' }
+        height: [
+          { required: true, trigger: 'blur', message: '请输入广告位高度' }
         ],
-        lowVisaPrice: [
-          { required: true, trigger: 'blur', message: '请输入签证优惠费' },
-          { validator: checkNum, trigger: 'blur' }
+        sort: [
+          { required: true, trigger: 'change', message: '请选择广告位置' }
         ],
-        helpPrice: [
-          { required: true, trigger: 'blur', message: '请输入服务费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        lowHelpPrice: [
-          { required: true, trigger: 'blur', message: '请输入服务优惠费' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        stayDay: [
-          { required: true, trigger: 'blur', message: '请输入停留时间' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        disposeDay: [
-          { required: true, trigger: 'blur', message: '请输入处理时间' },
-          { validator: checkNum, trigger: 'blur' }
-        ],
-        renewPrice: [
-          { validator: checkNum, trigger: 'blur' }
-        ],
+        validTime: [
+          { required: true, trigger: 'change', message: '请选择有效期' }
+        ]
+      },
+      editorSetting: {
+        width:600,
+        height:400
       }
     };
   },
-  created() {
+  mounted() {
+    let id = this.$route.params.id;
+    console.log('资讯id：', this.ruleForm.id);
+    // console.log('add mounted:', id);
+    if (id) {
+      this.ruleForm.id = id;
+      this.fetchData();
+    }
   },
   methods: {
+    fetchData() {
+        this.listLoading = true;
+        getAdsDetail(this.ruleForm.id).then(response => {
+          this.listLoading = false;
+          console.log('获取编辑数据：', response);
+          if (response.data) {
+            this.ruleForm = Object.assign({}, this.ruleForm, response.data);
+            // this.ruleForm.images = testImgs;
+          }
+        });
+    },
+    handleDelImg (img, index) {
+      // console.log('要删除的图片上是：', img, index);
+      this.ruleForm.images.splice(index);
+    },
     handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-        console.log( file.response.data );
-        this.ruleForm.goodsNum = file.response.data;
+      console.log('图片上传返回：', res, file);
+      // this.imageUrl = URL.createObjectURL(file.raw);
+      this.ruleForm.images.push(res.data);
+      console.log('图片数组：', this.ruleForm.images);
+      // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -196,25 +180,26 @@
       //   this.$message.error('上传头像图片只能是 JPG 格式!');
       // }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isLt2M;
     },
     submitForm(formName) {
+      console.log('---------提交表单：', this.ruleForm);
       this.$refs[formName].validate((valid) => {
-        console.log('调试2', this.ruleForm);
         if (valid) {
-          console.log('submit!');
           let ruleForm = Object.assign({}, this.ruleForm);
-          ruleForm['helpPrice'] *= 100;
-          ruleForm['lowHelpPrice'] *= 100;
-          ruleForm['lowVisaPrice'] *= 100;
-          ruleForm['renewPrice'] *= 100;
-          ruleForm['visaPrice'] *= 100;
-          addGoods(ruleForm).then( res => {
+          addAds(ruleForm).then( res => {
               if ( res.code == 200 ) {
-                  alert('新建成功');
-                  history.back();
+                  this.$message({
+                    message: '添加成功',
+                    type: 'success'
+                  });
+                  setTimeout(() => {
+                    this.$router.push({
+                      name: 'news-list'
+                    });
+                  }, 1000);
               }
           });
         } else {
@@ -226,37 +211,71 @@
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  components: {
+    TitleLine,
+    editor
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+.app-container {
+  padding-left: 50px;
+  .title {
+    font-size: 30px;
+    color: #606266;
   }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
+  .form {
+    margin-top: 30px;
+    padding: 30px;
+    padding-bottom: 5px;
+    background: #f2f6fc;
+    .btn {
+      margin-top: 30px;
+    }
   }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  background: #fff;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.news-img {
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin: 0 10px 10px 0;
+  position: relative;
+  .del-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 20px;
   }
-  .avatar {
-    width: 178px;
-    height: 178px;
+  img {
+    width: 100%;
+    height: 100%;
     display: block;
   }
-  .addVisa-form {
-    margin-top: 20px;
-  }
-
-
+}
 </style>

@@ -43,8 +43,8 @@
 
       <!--是否置顶-->
       <el-form-item label="是否置顶" prop="top" style="width: 312px;">
-        <el-radio v-model="ruleForm.top" label="1">是</el-radio>
-        <el-radio v-model="ruleForm.top" label="0">否</el-radio>
+        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
+        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
       </el-form-item>
 
       <el-form-item>
@@ -72,14 +72,14 @@
       ruleForm: {
         id: '',
         title: '',
-        images: [],
+        images: ['"images/67881534175081340.jpg'],
         newsKey: '',
         detail: '',
-        top: false
+        top: '0'
       },
       rules: {
         images: [
-            { required: true, trigger: 'change', message: '请上传图片' }
+            { type: 'array', required: true, trigger: 'change', message: '请上传图片' }
         ],
         title: [
           { required: true, trigger: 'blur', message: '请输入资讯标题' }
@@ -129,7 +129,7 @@
       console.log('图片上传返回：', res, file);
       // this.imageUrl = URL.createObjectURL(file.raw);
       this.ruleForm.images.push(res.data);
-      // console.log( file.response.data );
+      console.log('图片数组：', this.ruleForm.images);
       // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
@@ -151,9 +151,15 @@
           let ruleForm = Object.assign({}, this.ruleForm);
           addNews(ruleForm).then( res => {
               if ( res.code == 200 ) {
-                  this.$router.push({
-                    name: 'news-list'
+                  this.$message({
+                    message: '添加成功',
+                    type: 'success'
                   });
+                  setTimeout(() => {
+                    this.$router.push({
+                      name: 'news-list'
+                    });
+                  }, 1000);
               }
           });
         } else {

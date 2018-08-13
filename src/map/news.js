@@ -2,7 +2,7 @@ export default {
     status: {
         '1': {
             msg: "正常",
-            color: "warning"
+            color: "normal"
         },
         '2': {
             msg: "失效",
@@ -10,11 +10,29 @@ export default {
         },
         '3': {
             msg: "待审核",
-            color: "warning"
+            color: "normal"
         },
         '4': {
             msg: "审核拒绝",
             color: "danger"
+        },
+    },
+    sort: {
+        '1': {
+            msg: "首页第一广告位",
+            color: "normal"
+        },
+        '2': {
+            msg: "首页第二广告位",
+            color: "normal"
+        },
+        '3': {
+            msg: "首页第三广告位",
+            color: "normal"
+        },
+        '4': {
+            msg: "资讯页随机广告",
+            color: "normal"
         },
     }
 };

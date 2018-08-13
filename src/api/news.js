@@ -46,5 +46,51 @@ export function stickNews(params) {
       data: params
   });
 }
+/* 下面是广告的 */
+export function getAdsList(params) {
+  return request({
+    url: '/adInfo/list',
+    method: 'post',
+    data: params
+  });
+}
 
+export function getAdsDetail(id) {
+  return request({
+    url: '/adInfo/' + id,
+    method: 'get'
+  });
+}
+
+export function editAds(params) {
+  return request({
+    url: '/adInfo/updateAdInfo',
+    method: 'post',
+    data: params
+  });
+}
+
+export function addAds(params) {
+  return request({
+      url: '/adInfo/addAdInfo',
+      method: 'post',
+      data: params
+  });
+}
+
+export function changeAdsStatus(params) {
+  return request({
+      url: '/adInfo/changeStatus',
+      method: 'post',
+      data: params
+  });
+}
+
+export function stickAds(params) {
+  return request({
+      url: '/news/topAds',
+      method: 'post',
+      data: params
+  });
+}
 

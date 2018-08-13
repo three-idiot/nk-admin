@@ -10,16 +10,16 @@
         <el-form-item label="发布人">
           <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
-        <el-form-item label="发布时间">
+        <el-form-item label="发布日期">
           <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="资讯状态">
           <el-select v-model="form.status" placeholder="请选择" clearable>
-            <el-option label="正常" value="10"></el-option>
-            <el-option label="待审核" value="20"></el-option>
-            <el-option label="失效" value="30"></el-option>
-            <el-option label="审核拒绝" value="40"></el-option>
+            <el-option label="正常" value="1"></el-option>
+            <el-option label="失效" value="2"></el-option>
+            <el-option label="待审核" value="3"></el-option>
+            <el-option label="审核拒绝" value="4"></el-option>
           </el-select>
         </el-form-item>
         <el-row style="height: 40px;">
@@ -31,6 +31,7 @@
         </el-row>
       </el-form>
     </div>
+    <div class="total">资讯总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
     <el-table :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;" @selection-change="handleSelectionChange">
@@ -143,8 +144,7 @@ export default {
           approveTime: 20180101,
           status: "1",
           top: true,
-          id: "000001",
-          checked: false
+          id: "000001"
         },
         {
           newsNo: "001",
@@ -155,8 +155,7 @@ export default {
           approveTime: 20180101,
           status: "1",
           top: true,
-          id: "000001",
-          checked: false
+          id: "000001"
         }
       ],
       selectedLists: []
@@ -178,7 +177,7 @@ export default {
     }
   },
   created() {
-    // this.fetchData();
+    this.fetchData();
   },
   methods: {
     fetchData() {
@@ -241,7 +240,7 @@ export default {
       });
       let params = {
         newsIds: ids,
-        top: true
+        top: 1
       }
       stickNews(params).then((res) => {
         if (res.code == 200) {
@@ -275,6 +274,12 @@ export default {
   }
   span.danger {
     color: red;
+  }
+  .total {
+    margin: 5px 0;
+    span {
+      color: red;
+    }
   }
 }
 </style>

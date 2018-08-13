@@ -14,10 +14,9 @@ import {
 } from "@/api/news";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import TitleLine from "@/components/TitleLine/index.vue";
-import orderMap from "@/map/order";
 export default {
     data() {
-        return Object.assign({}, orderMap, {
+        return Object.assign({}, {
             data: []
         });
     },

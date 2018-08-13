@@ -235,7 +235,7 @@ export const asyncRouterMap = [
             {
               path: 'adsedit/:id',
               name: 'ads-edit',
-              component: () => import('@/views/news/ads/edit'),
+              component: () => import('@/views/news/ads/add'),
               hidden: true
             },
             {
