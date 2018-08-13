@@ -207,6 +207,18 @@
             height:400,
         },
         upType:null,
+        travelGoodsDividePrices: {
+            child: {
+                agentType: null,
+                userType: null,
+                price: null
+            },
+            adult: {
+                agentType: null,
+                userType: null,
+                price: null
+            }
+        },
         // 上架状态radio
         // upStatus: {
         //     '立即上架': 2,
@@ -395,6 +407,7 @@
   .addVisa-form {
     margin-top: 20px;
       padding-left: 30px;
+      padding-bottom: 100px;
       .divide-table {
           /*margin-left: 50px;*/
       }
