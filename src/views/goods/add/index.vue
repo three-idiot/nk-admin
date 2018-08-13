@@ -25,7 +25,9 @@
             <el-date-picker
                 v-model="ruleForm.leaveTime"
                 type="datetime"
-                placeholder="选择出发日期">
+                placeholder="选择出发日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
         </el-form-item>
 
@@ -75,7 +77,9 @@
             <el-date-picker
                 v-model="ruleForm.closeDate"
                 type="datetime"
-                placeholder="选择报名截止时间">
+                placeholder="选择报名截止时间"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
         </el-form-item>
 
@@ -302,6 +306,7 @@
               }
           }
           console.log('调试2', this.ruleForm);
+          // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
           addTravelGoods(this.ruleForm).then( res => {
               console.log('掉借口了', res);
               // if ( res.code == 200 ) {
