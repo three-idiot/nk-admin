@@ -70,13 +70,8 @@
 
 
         <hr>
+
         <el-form-item label="报名截止时间" prop="closeDate">
-            <!--<el-date-picker-->
-                <!--v-model="ruleForm.closeDate"-->
-                <!--type="date"-->
-                <!--value-format="yyyy-MM-dd"-->
-                <!--placeholder="选择日期">-->
-            <!--</el-date-picker>-->
             <el-date-picker
                 v-model="ruleForm.closeDate"
                 type="datetime"
@@ -84,6 +79,7 @@
                 value-format="yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
+            <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible1 = true">点击修改</el-button>
         </el-form-item>
 
         <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
@@ -93,6 +89,49 @@
         <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
             <el-input v-model="ruleForm.peopleMaxNum"></el-input>
         </el-form-item>
+
+
+
+        <!--弹层1号-->
+        <el-dialog
+            title="修改期限和人数"
+            :visible.sync="dialogVisible1"
+            width="30%"
+            :before-close="handleClose">
+            <el-form-item label="修改商品期限" prop="peopleMinNum">
+                <el-radio-group>
+                    <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
+                    <el-radio label="1">长期有效</el-radio>
+                    <el-radio label="2">固定年限</el-radio>
+                </el-radio-group>
+                <el-date-picker style="margin-left: 5px;"
+                                v-model="ruleForm.upTime"
+                                type="date"
+                                value-format="yyyy-MM-dd"
+                                placeholder="选择日期">
+                </el-date-picker>
+            </el-form-item>
+
+            <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
+                <el-input v-model="ruleForm.peopleMinNum"></el-input>
+
+            </el-form-item>
+
+            <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
+                <el-input v-model="ruleForm.peopleMaxNum"></el-input>
+            </el-form-item>
+
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
+
+
+
+
         <hr>
 
         <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
@@ -164,6 +203,8 @@
       }
     };
     return Object.assign({},goodsMap,{
+        dialogVisible1: false,
+        dialogVisible2: false,
         editorSetting:{
             width:600,
             height:400,
@@ -359,6 +400,7 @@
       padding-left: 30px;
       padding-bottom: 300px;
   }
+
 
 
 
