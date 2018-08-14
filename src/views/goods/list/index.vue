@@ -157,7 +157,7 @@
             <textarea name="" id="" cols="50" style="width: 100%;" rows="10" v-model="remark"></textarea>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="undercarriage = false">取 消</el-button>
-                <el-button type="primary" @click="">确 定</el-button>
+                <el-button type="primary" @click="changeStatus(3)">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -264,7 +264,7 @@
                 this.undercarriage = true;
                 this.id = id;
             },
-            goUndercarriage() {
+            changeStatus(status) {
 
             },
             shelf(id) {
