@@ -137,33 +137,25 @@
             编辑
           </el-button>
           <el-button  size="mini" type="success" v-if="scope.row.status != 2" @click="shelf(scope.row.id)">上架</el-button>
-          <el-button  size="mini" type="danger" v-if="scope.row.status == 2"  @click="goUndercarriage(scope.row.id)">
+          <el-button  size="mini" type="danger" v-if="scope.row.status == 2"  @click="undercarriageShow(scope.row.id)">
             下架
           </el-button>
         </template>
       </el-table-column>
-
-        <div class="mask">
-            <!--下架弹窗-->
-            <el-dialog
-                title="修改期限和人数"
-                :visible.sync="undercarriage"
-                width="30%"
-                :before-close="handleClose">
-
-
-
-                <span slot="footer" class="dialog-footer">
-                    <el-button @click="dialogVisible1 = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
-                </span>
-            </el-dialog>
-
-
-        </div>
-
     </el-table>
     <!--表格结束-->
+
+      <!--下架弹窗-->
+      <el-dialog
+          title="提示"
+          :visible.sync="undercarriage"
+          width="30%">
+          <span>这是一段信息</span>
+          <span slot="footer" class="dialog-footer">
+                <el-button @click="undercarriage = false">取 消</el-button>
+                <el-button type="primary" @click="">确 定</el-button>
+            </span>
+      </el-dialog>
 
     <!--分页-->
     <div class="pagination-container" style="margin-top: 30px;">
@@ -182,6 +174,9 @@
   export default {
     data() {
       return {
+          id: null,
+          undercarriage: false,
+          remark: null,
         listLoading: true,
           type: {
               1: '一般',
@@ -261,8 +256,11 @@
       goRatio(id) {
         window.location.href = '#/visa/ratio?id=' + id;
       },
-      goUndercarriage(id) {
-        // window.location.href = '#/visa/undercarriage?id=' + id;
+        undercarriageShow(id) {
+            this.undercarriage = true;
+            this.id = id;
+        },
+      goUndercarriage() {
 
       },
       shelf(id) {
