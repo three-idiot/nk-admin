@@ -276,9 +276,9 @@
             realPrice: null,
             salePrice: null,
             childPrice: null,
-            provinceDividePrice: null,
-            cityDividePrice: null,
-            pointDividePrice: null,
+            // provinceDividePrice: null,
+            // cityDividePrice: null,
+            // pointDividePrice: null,
             status: null,
             upTime: null,
             images: null
