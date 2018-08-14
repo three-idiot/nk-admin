@@ -134,8 +134,9 @@
 
         <hr>
 
-        <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
-            <el-input v-model="ruleForm.realPrice"></el-input>
+        <el-form-item label="设置商品价格(￥)" prop="realPrice" >
+            <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+            <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
         </el-form-item>
 
         <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
@@ -145,6 +146,75 @@
         <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
             <el-input v-model="ruleForm.childPrice"></el-input>
         </el-form-item>
+
+        <!--弹层2号-->
+        <el-dialog
+            title="修改期限和人数"
+            :visible.sync="dialogVisible2"
+            width="50%"
+            :before-close="handleClose">
+            <el-form-item label="设置商品价格(￥)" prop="realPrice" >
+                <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
+            </el-form-item>
+
+            <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
+                <el-input v-model="ruleForm.salePrice"></el-input>
+            </el-form-item>
+
+            <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
+                <el-input v-model="ruleForm.childPrice"></el-input>
+            </el-form-item>
+
+            <p>设置商品分成：</p>
+            <table class="divide-table">
+                <tr>
+                    <th class="tableTitle">分成设置(元)</th>
+                    <th class="tableTitle">省代</th>
+                    <th class="tableTitle">市县代</th>
+                    <th class="tableTitle">网点</th>
+                    <th class="tableTitle">第三方</th>
+                </tr>
+                <tr>
+                    <td class="tableTitle">成人：</td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableTitle">儿童：</td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
+                    </td>
+                    <td>
+                        <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
+                    </td>
+                </tr>
+            </table>
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible2 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
+
+
 
         <p>设置商品分成：</p>
 
