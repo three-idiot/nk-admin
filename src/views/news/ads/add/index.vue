@@ -32,19 +32,19 @@
       </el-form-item>
       <!-- 广告位宽度 -->
       <el-form-item label="广告位宽度" prop="width" style="width: 312px;">
-        <el-input v-model="ruleForm.width"></el-input>
+        <el-input type="number" v-model.number="ruleForm.width"></el-input>
       </el-form-item>
       <!-- 广告位高度 -->
       <el-form-item label="广告位高度" prop="height" style="width: 312px;">
-        <el-input v-model="ruleForm.height"></el-input>
+        <el-input type="number" v-model.number="ruleForm.height"></el-input>
       </el-form-item>
       <!-- 广告位位置 -->
       <el-form-item label="选择广告位置" prop="sort" style="width: 312px;">
         <el-select v-model="ruleForm.sort" placeholder="请选择" clearable>
-          <el-option label="首页第一广告位" value="1"></el-option>
-          <el-option label="首页第二广告位" value="2"></el-option>
-          <el-option label="首页第三广告位" value="3"></el-option>
-          <el-option label="资讯页随机广告" value="99"></el-option>
+          <el-option label="首页第一广告位" :value="1"></el-option>
+          <el-option label="首页第二广告位" :value="2"></el-option>
+          <el-option label="首页第三广告位" :value="3"></el-option>
+          <el-option label="资讯页随机广告" :value="99"></el-option>
         </el-select>
       </el-form-item>
       <!-- 广告有效期 -->
@@ -82,7 +82,7 @@
 <script>
   import { addAds, getAdsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
-  import editor from '@/components/editor'
+  import editor from '@/components/editor';
 
   // let testImgs = [
   //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
@@ -96,7 +96,7 @@
       ruleForm: {
         id: '',
         title: '',
-        images: ['"images/67881534175081340.jpg'],
+        images: [],
         detail: '',
         top: '0',
         url: '',
@@ -135,8 +135,8 @@
         ]
       },
       editorSetting: {
-        width:600,
-        height:400
+        width: 600,
+        height: 400
       }
     };
   },

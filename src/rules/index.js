@@ -23,5 +23,3 @@ export function checkPassword (rule, value, callback) {
 }
 
 
-
-

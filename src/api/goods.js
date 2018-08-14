@@ -1,5 +1,4 @@
-import request from '@/utils/request'
-
+import request from '@/utils/request';
 
 
 export function getGoodsList(params) {
@@ -7,5 +6,5 @@ export function getGoodsList(params) {
         url: '/travelGoods/list',
         method: 'post',
         data: params
-    })
+    });
 }

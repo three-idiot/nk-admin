@@ -58,7 +58,7 @@
 <script>
   import { addNews, getNewsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
-  import editor from '@/components/editor'
+  import editor from '@/components/editor';
 
   // let testImgs = [
   //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
@@ -95,8 +95,8 @@
         ]
       },
       editorSetting: {
-        width:600,
-        height:400
+        width: 600,
+        height: 400
       }
     };
   },

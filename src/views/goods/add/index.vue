@@ -110,11 +110,9 @@
 <script>
   import { addGoods } from '@/api/visa';
   // import axios from 'axios';
-  import goodsMap from "@/map/goods"
-  import editor from '@/components/editor'
+  import goodsMap from "@/map/goods";
+  import editor from '@/components/editor';
   import App from "../../../App";
-
-
 
 
   export default {
@@ -126,13 +124,13 @@
         callback();
       }
     };
-    return Object.assign({},goodsMap,{
-        content:'我是富文本编辑器的内容',
-        content1:'我是富文本编辑器的内容',
-        content2:'我是富文本编辑器的内容',
-        editorSetting:{
-            width:600,
-            height:400,
+    return Object.assign({}, goodsMap, {
+        content: '我是富文本编辑器的内容',
+        content1: '我是富文本编辑器的内容',
+        content2: '我是富文本编辑器的内容',
+        editorSetting: {
+            width: 600,
+            height: 400,
         },
         imageUrl: '',
         ruleForm: {
@@ -200,7 +198,7 @@
   },
   created() {
   },
-      components:{
+      components: {
           App,
           editor
       },

@@ -45,7 +45,7 @@
     </div>
     <div class="total">广告总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
-    <el-table :data="list" v-loading="listLoading" border fit highlight-current-row
+    <el-table :data="list" ref="adsTable" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;" @selection-change="handleSelectionChange">
       <!-- <el-table-column align="center" width="50"  label="" class="table-item">
         <template slot-scope="scope">
@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import { getAdsList, stickAds } from "@/api/news";
+import { getAdsList, stickAds, changeAdsStatus } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -161,7 +161,7 @@ export default {
         sort: "",
       },
       list: [
-        {       	
+        {
           adNo: "001",
           title: "广告一",
           publisher: "唐先森",
@@ -199,7 +199,7 @@ export default {
     }
   },
   created() {
-    // this.fetchData();
+    this.fetchData();
   },
   methods: {
     fetchData() {
@@ -244,38 +244,78 @@ export default {
       });
     },
     goUndercarriage(id) {
-      this.$router.push({
-        name: 'ads-undercarriage',
-        params: {
-            id: id
-        }
+      this.$confirm('是否下架本条广告?', '广告下架', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        changeAdsStatus({
+          adId: id,
+          status: 2,
+          remark: ''
+        }).then((res) => {
+          if (res.code == 200) {
+            this.$message({
+              message: '下架成功',
+              type: 'success'
+            });
+            this.fetchData();
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            });
+          }
+        });
+      }).catch(() => {
       });
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.adsTable.toggleRowSelection(row);
+        });
+      }
     },
     handleSelectionChange (val) {
       // console.log('选择的行变化了：', val);
-      this.selectedLists = val;
+      if (val && val.length <= 3) {
+        this.selectedLists = val;
+      } else {
+        this.toggleSelection([val[3]]);
+        this.$message({
+          message: '最多只能选择3条广告来置顶',
+          type: 'warning'
+        });
+      }
     },
     stick () {
-      console.log('置顶');
-      let ids = [];
-      this.selectedLists.map((item, index) => {
-        ids.push(item.id);
+      this.$confirm(`已选择${this.selectedLists.length}条广告，是否对广告置顶?`, '广告置顶', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info'
+      }).then(() => { // 确定操作
+        let ids = [];
+        this.selectedLists.map((item, index) => {
+          ids.push(item.id);
+        });
+        let params = {
+          adsIds: ids,
+          top: 1
+        };
+        stickAds(params).then((res) => {
+          if (res.code == 200) {
+            this.$message({
+              message: '置顶成功',
+              type: 'success'
+            });
+            this.fetchData();
+          } else {
+            this.$message.error(res.msg);
+          }
+        });
+      }).catch(() => { // 取消操作
       });
-      let params = {
-        newsIds: ids,
-        top: 1
-      }
-      stickAds(params).then((res) => {
-        if (res.code == 200) {
-          console.log('置顶成功');
-          this.$message({
-            message: '置顶成功',
-            type: 'success'
-          });
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
     }
   },
   components: {

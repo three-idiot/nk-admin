@@ -208,12 +208,6 @@ export const asyncRouterMap = [
               hidden: true
             },
             {
-              path: 'newsundercarriage/:id',
-              name: 'news-undercarriage',
-              component: () => import('@/views/news/newslist/undercarriage'),
-              hidden: true
-            },
-            {
               path: 'adslist',
               component: () => import('@/views/news/ads/list'),
               meta: { title: '广告列表' },
@@ -237,13 +231,7 @@ export const asyncRouterMap = [
               name: 'ads-edit',
               component: () => import('@/views/news/ads/add'),
               hidden: true
-            },
-            {
-              path: 'adsundercarriage/:id',
-              name: 'ads-undercarriage',
-              component: () => import('@/views/news/ads/undercarriage'),
-              hidden: true
-            },
+            }
         ]
     },
     {

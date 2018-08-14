@@ -163,7 +163,7 @@
               1: '一般',
               2: '推荐'
           },
-          status :{
+          status: {
               1: '库存中',
               2: '已上架',
               3: '已下架',
@@ -171,9 +171,9 @@
               5: '审核拒绝'
           },
           salePriceRule: {
-              0: '=',
-              1:'>',
-              '-1' :'<'
+              "0": '=',
+              "1": '>',
+              '-1': '<'
           }
       };
     },
@@ -195,7 +195,7 @@
         getGoodsList( ).then( res => {
             console.log('测试测试');
             console.log( res );
-        })
+        });
     },
     methods: {
       fetchData(params) {

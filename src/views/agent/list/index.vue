@@ -170,7 +170,7 @@
 import {
     getAgentList
 } from "@/api/agent";
-import agentMap from "@/map/agent"
+import agentMap from "@/map/agent";
 export default {
     data() {
         return Object.assign({}, agentMap, {
@@ -189,7 +189,7 @@ export default {
                 status: null,
                 timeType: null
             },
-            form2 :{
+            form2: {
                 province: '',
                 city: '',
                 county: '',
@@ -232,7 +232,7 @@ export default {
                 params: {
                     id: row.id
                 }
-            })
+            });
         },
         edit(index, row) {
             this.$router.push({
@@ -240,7 +240,7 @@ export default {
                 params: {
                     id: row.id
                 }
-            })
+            });
         },
         currentPageChange(page) {
             this.current_page = page;

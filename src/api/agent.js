@@ -1,5 +1,4 @@
-import request from '@/utils/request'
-
+import request from '@/utils/request';
 
 
 export function getAgentList(params) {
@@ -7,5 +6,5 @@ export function getAgentList(params) {
         url: '/agent/list',
         method: 'post',
         data: params
-    })
+    });
 }

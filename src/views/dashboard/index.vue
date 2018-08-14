@@ -165,12 +165,12 @@ export default {
         ])
     },
     mounted() {
-        this.chartInit()
+        this.chartInit();
     },
     methods: {
         chartInit() {
             this.chart = echarts.init(this.$refs.chart);
-            this.setChart()
+            this.setChart();
         },
         setChart() {
             this.chart.setOption({

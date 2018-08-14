@@ -183,11 +183,11 @@ import {
     updateOrder
 } from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-import agentMap from "@/map/agent"
+import agentMap from "@/map/agent";
 import { checkNum, checkUsername, checkPassword } from "@/rules";
 export default {
     data() {
-        var validatePass2 = (rule, value, callback) => {
+        let validatePass2 = (rule, value, callback) => {
             if (this.confirmPassword !== this.form.pwd) {
                 callback(new Error('两次输入密码不一致!'));
             } else {
@@ -233,7 +233,7 @@ export default {
                 confirmPassword: [
                     { validator: validatePass2, trigger: 'blur' }
                 ],
-                name:[
+                name: [
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
                 ],
                 roleId: [
