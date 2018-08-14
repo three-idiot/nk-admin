@@ -143,6 +143,25 @@
         </template>
       </el-table-column>
 
+        <div class="mask">
+            <!--下架弹窗-->
+            <el-dialog
+                title="修改期限和人数"
+                :visible.sync="undercarriage"
+                width="30%"
+                :before-close="handleClose">
+
+
+
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible1 = false">取 消</el-button>
+                    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+                </span>
+            </el-dialog>
+
+
+        </div>
+
     </el-table>
     <!--表格结束-->
 
@@ -243,7 +262,8 @@
         window.location.href = '#/visa/ratio?id=' + id;
       },
       goUndercarriage(id) {
-        window.location.href = '#/visa/undercarriage?id=' + id;
+        // window.location.href = '#/visa/undercarriage?id=' + id;
+
       },
       shelf(id) {
         goodsfoulup( {goodId: id} ).then( res => {
