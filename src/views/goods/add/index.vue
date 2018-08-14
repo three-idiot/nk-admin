@@ -117,31 +117,31 @@
             <tr>
                 <td class="tableTitle">成人：</td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
                 </td>
             </tr>
             <tr>
                 <td class="tableTitle">儿童：</td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
                 </td>
                 <td>
-                    <el-input v-model="ruleForm.provinceDividePrice" placeholder="￥0.00"></el-input>
+                    <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
                 </td>
             </tr>
         </table>
@@ -207,18 +207,48 @@
             height:400,
         },
         upType:null,
-        travelGoodsDividePrices: {
-            child: {
-                agentType: null,
-                userType: null,
-                price: null
-            },
-            adult: {
-                agentType: null,
-                userType: null,
-                price: null
-            }
-        },
+        travelGoodsDividePrices: [
+                {
+                    agentType: 1,
+                    userType: 2,
+                    price: null
+                },
+                {
+                    agentType: 2,
+                    userType: 2,
+                    price: null
+                },
+                {
+                    agentType: 3,
+                    userType: 2,
+                    price: null
+                },
+                {
+                    agentType: 4,
+                    userType: 2,
+                    price: null
+                },
+                {
+                    agentType: 1,
+                    userType: 1,
+                    price: null
+                },
+                {
+                    agentType: 2,
+                    userType: 1,
+                    price: null
+                },
+                {
+                    agentType: 3,
+                    userType: 1,
+                    price: null
+                },
+                {
+                    agentType: 4,
+                    userType: 1,
+                    price: null
+                }
+            ],
         // 上架状态radio
         // upStatus: {
         //     '立即上架': 2,
@@ -342,6 +372,7 @@
         if (valid) {
           console.log('submit!');
           console.log( this.upType );
+          console.log('测试', this.travelGoodsDividePrices);
           if ( this.upType == 2 ) {
               // 立即上架
               this.ruleForm.status = 2;
