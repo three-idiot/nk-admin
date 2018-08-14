@@ -361,7 +361,12 @@
         if ( Object.prototype.toString.call( this.ruleForm.images ) !=  '[object Array]') {
             this.ruleForm.images = [];
         }
-        this.ruleForm.images.push( res.data );
+        let obj = {
+            goodPath: res.data,
+            sort: this.ruleForm.images.length? this.ruleForm.images.length : 0
+        }
+
+        this.ruleForm.images.push( obj );
         console.log( this.ruleForm.images );
       },
       imgRemove(files, fileList) {
