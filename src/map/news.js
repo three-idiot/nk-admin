@@ -30,7 +30,7 @@ export default {
             msg: "首页第三广告位",
             color: "normal"
         },
-        '4': {
+        '99': {
             msg: "资讯页随机广告",
             color: "normal"
         },

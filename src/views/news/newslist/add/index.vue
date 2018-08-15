@@ -12,7 +12,7 @@
                  v-for="(img, index) in ruleForm.images" 
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.url" 
+          <img :src="img.localPath || img.goodPath" 
                  alt="图片" />
         </span>
          <el-upload
@@ -72,7 +72,7 @@
       ruleForm: {
         id: '',
         title: '',
-        images: ['"images/67881534175081340.jpg'],
+        images: [],
         newsKey: '',
         detail: '',
         top: '0'
@@ -128,8 +128,11 @@
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);
       // this.imageUrl = URL.createObjectURL(file.raw);
-      this.ruleForm.images.push(res.data);
-      console.log('图片数组：', this.ruleForm.images);
+      this.ruleForm.images.push({
+        goodPath: res.data,
+        localPath: URL.createObjectURL(file.raw)
+      });
+      // console.log('图片数组：', this.ruleForm.images);
       // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {

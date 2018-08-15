@@ -11,7 +11,7 @@
           <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
         <el-form-item label="发布日期">
-          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="资讯状态">
@@ -132,31 +132,9 @@ export default {
         publisher: "",
         title: "",
         status: "",
-        top: 0
+        top: ''
       },
       list: [
-        {
-          newsNo: "001",
-          title: "资讯一",
-          publisher: "唐先森",
-          createTime: 20180102,
-          approver: "小李",
-          approveTime: 20180101,
-          status: "1",
-          top: true,
-          id: "000001"
-        },
-        {
-          newsNo: "001",
-          title: "资讯二",
-          publisher: "唐先森",
-          createTime: 20180102,
-          approver: "小李",
-          approveTime: 20180101,
-          status: "1",
-          top: true,
-          id: "000001"
-        }
       ],
       selectedLists: []
     };

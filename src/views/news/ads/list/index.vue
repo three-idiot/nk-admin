@@ -47,18 +47,13 @@
     <!--表格-->
     <el-table :data="list" ref="adsTable" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;" @selection-change="handleSelectionChange">
-      <!-- <el-table-column align="center" width="50"  label="" class="table-item">
-        <template slot-scope="scope">
-          <el-checkbox v-model="scope.row.checked"></el-checkbox>
-        </template>
-      </el-table-column> -->
       <el-table-column
               type="selection"
               width="35">
       </el-table-column>
       <el-table-column align="center"   label="广告编号" class="table-item">
         <template slot-scope="scope">
-          <span>{{scope.row.id}}</span>
+          <span>{{scope.row.adNo}}</span>
         </template>
       </el-table-column>
 
@@ -118,7 +113,7 @@
           <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
         </template>
@@ -161,19 +156,6 @@ export default {
         sort: "",
       },
       list: [
-        {
-          adNo: "001",
-          title: "广告一",
-          publisher: "唐先森",
-          createTime: 20180102,
-          approver: "小李子哇",
-          approveTime: 20180101,
-          sort: '2',
-          validTime: 20180506,
-          status: "1",
-          id: "000001",
-          images: []
-        }
       ],
       selectedLists: []
     };
@@ -192,10 +174,10 @@ export default {
   },
   filters: {
     statusFilter (value) {
-      return statusEnum.status[value].msg;
+      return statusEnum.status[value] && statusEnum.status[value].msg || '';
     },
     sortFilter (value) {
-      return statusEnum.sort[value].msg;
+      return statusEnum.sort[value] && statusEnum.sort[value].msg || '';
     }
   },
   created() {

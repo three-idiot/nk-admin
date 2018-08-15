@@ -12,7 +12,7 @@
                  v-for="(img, index) in ruleForm.images" 
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.url" 
+          <img :src="img.localPath" 
                  alt="图片" />
         </span>
          <el-upload
@@ -52,6 +52,7 @@
         <el-date-picker
           v-model="ruleForm.validTime"
           type="date"
+          value-format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
@@ -168,8 +169,11 @@
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);
       // this.imageUrl = URL.createObjectURL(file.raw);
-      this.ruleForm.images.push(res.data);
-      console.log('图片数组：', this.ruleForm.images);
+      this.ruleForm.images.push({
+        goodPath: res.data,
+        localPath: URL.createObjectURL(file.raw)
+      });
+      // console.log('图片数组：', this.ruleForm.images);
       // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
@@ -197,7 +201,7 @@
                   });
                   setTimeout(() => {
                     this.$router.push({
-                      name: 'news-list'
+                      name: 'ads-list'
                     });
                   }, 1000);
               }
