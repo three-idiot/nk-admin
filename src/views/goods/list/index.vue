@@ -290,14 +290,9 @@
                     }
                 })
             },
-            shelf(id) {
-                goodsfoulup({goodId: id}).then(res => {
-                    console.log(res);
-                    if (res.code == 200) {
-                        alert('上架成功');
-                        window.location.reload();
-                    }
-                });
+            shelfShow(id) {
+                this.shelfDialog = true;
+                this.id = id;
             }
         }
     };
