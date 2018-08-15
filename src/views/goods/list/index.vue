@@ -138,7 +138,7 @@
                     <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
                         编辑
                     </el-button>
-                    <el-button size="mini" type="success" v-if="scope.row.status != 2" @click="shelf(scope.row.id)">上架
+                    <el-button size="mini" type="success" v-if="scope.row.status == 1" @click="shelf(scope.row.id)">上架
                     </el-button>
                     <el-button size="mini" type="danger" v-if="scope.row.status == 2"
                                @click="undercarriageShow(scope.row.id)">
