@@ -327,7 +327,8 @@ export const asyncRouterMap = [
             {
                 path: 'edit',
                 component: () => import('@/views/goods/edit'),
-                meta: { title: '编辑商品' }
+                meta: { title: '编辑商品' },
+                hidden: true
             },
             {
                 path: 'detail',

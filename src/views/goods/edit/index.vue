@@ -2,7 +2,7 @@
     <div class="addVisa-form">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
             <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
-                <el-input v-model="ruleForm.id"></el-input>
+                <el-input v-model="ruleForm.goodsNo" disabled></el-input>
             </el-form-item>
             <!--商品名称-->
             <el-form-item label="商品名称" prop="name" style="width: 312px;">
