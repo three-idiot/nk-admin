@@ -296,7 +296,7 @@
 </template>
 
 <script>
-  import { addTravelGoods } from '@/api/goods';
+    import { addTravelGoods,getGoodsList } from '@/api/goods';
   import goodsMap from "@/map/goods"
   import editor from '@/components/editor'
   import App from "../../../App";
@@ -453,6 +453,9 @@
       editor
   },
   methods: {
+          fetchData() {
+
+          },
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
         // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
