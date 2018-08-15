@@ -276,12 +276,10 @@
             realPrice: null,
             salePrice: null,
             childPrice: null,
-            // provinceDividePrice: null,
-            // cityDividePrice: null,
-            // pointDividePrice: null,
             status: null,
             upTime: null,
-            images: null
+            images: null,
+            travelGoodsDividePrices:null
         },
         rules: {
             goodsNum: [
@@ -395,7 +393,7 @@
               }
           }
           console.log('调试2', this.ruleForm);
-          // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+          this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
           addTravelGoods(this.ruleForm).then( res => {
               console.log('掉借口了', res);
               // if ( res.code == 200 ) {
