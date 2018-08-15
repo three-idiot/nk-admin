@@ -290,7 +290,7 @@
 </template>
 
 <script>
-    import {addTravelGoods, getGoodsList} from '@/api/goods';
+    import {addTravelGoods, getGoodsList,travelGoods} from '@/api/goods';
     import goodsMap from "@/map/goods"
     import editor from '@/components/editor'
     import App from "../../../App";
@@ -306,18 +306,6 @@
                 }
             };
             return Object.assign({}, goodsMap, {
-                listParams: {
-                    type: null,
-                    name: null,
-                    publisher: null,
-                    status: null,
-                    upStartTime: null,
-                    upEndTime: null,
-                    salePrice: null,
-                    salePriceRule: null,
-                    pageIndex: 1,
-                    pageSize: 20
-                },
                 goodsList: null,
                 good: null,
                 dialogVisible1: false,
@@ -461,17 +449,10 @@
         },
         methods: {
             fetchData() {
-                getGoodsList(this.listParams).then(response => {
-                    this.goodsList = response.data.data;
-                    let id = this.$route.query.id;
-                    console.log( this.goodsList );
-                    for (let i=0;i<this.goodsList.length;i++) {
-                        let item = this.goodsList[i];
-                        if( item.id == id ) {
-                            this.ruleForm = item;
-                        }
-                    }
-                    console.log('测试', this.ruleForm);
+                let id = this.$route.query.id;
+                travelGoods({ id: id}).then(response => {
+                    this.ruleForm = response.data;
+                    console.log('测试',this.ruleForm)
                 });
             },
             handleAvatarSuccess(res, file) {

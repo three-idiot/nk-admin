@@ -25,3 +25,9 @@ export function changeStatus(params) {
         params
     })
 }
+export function travelGoods(params) {
+    return request({
+        url: '/travelGoods/' + params.id,
+        method: 'get',
+    })
+}
