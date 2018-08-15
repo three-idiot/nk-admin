@@ -1,8 +1,8 @@
 <template>
     <div class="addVisa-form">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
-            <el-form-item label="商品编号" prop="name" style="width: 312px;">
-                <el-input v-model="ruleForm.name"></el-input>
+            <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
+                <el-input v-model="ruleForm.id"></el-input>
             </el-form-item>
             <!--商品名称-->
             <el-form-item label="商品名称" prop="name" style="width: 312px;">
@@ -99,8 +99,7 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible1"
-                width="30%"
-                :before-close="handleClose">
+                width="30%">
                 <el-form-item label="修改商品期限" prop="peopleMinNum">
                     <el-radio-group>
                         <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
@@ -151,8 +150,7 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible2"
-                width="50%"
-                :before-close="handleClose">
+                width="50%">
                 <el-form-item label="设置商品价格(￥)" prop="realPrice">
                     <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
                     <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
@@ -308,6 +306,18 @@
                 }
             };
             return Object.assign({}, goodsMap, {
+                listParams: {
+                    type: null,
+                    name: null,
+                    publisher: null,
+                    status: null,
+                    upStartTime: null,
+                    upEndTime: null,
+                    salePrice: null,
+                    salePriceRule: null,
+                    pageIndex: 1,
+                    pageSize: 20
+                },
                 goodsList: null,
                 good: null,
                 dialogVisible1: false,
@@ -451,8 +461,16 @@
         },
         methods: {
             fetchData() {
-                getGoodsList(params).then(response => {
+                getGoodsList(this.listParams).then(response => {
                     this.goodsList = response.data.data;
+                    let id = this.$route.query.id;
+                    console.log( this.goodsList );
+                    for (let i=0;i<this.goodsList.length;i++) {
+                        let item = this.goodsList[i];
+                        if( item.id == id ) {
+                            this.ruleForm = item;
+                        }
+                    }
                 });
             },
             handleAvatarSuccess(res, file) {
