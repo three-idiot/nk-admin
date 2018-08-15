@@ -471,6 +471,7 @@
                             this.ruleForm = item;
                         }
                     }
+                    console.log('测试', this.ruleForm);
                 });
             },
             handleAvatarSuccess(res, file) {
