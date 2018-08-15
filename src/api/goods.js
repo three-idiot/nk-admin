@@ -17,3 +17,11 @@ export function addTravelGoods(params) {
         data: params
     })
 }
+
+export function changeStatus(params) {
+    return request({
+        url: '/travelGoods/changeStatus',
+        method: 'get',
+        params
+    })
+}

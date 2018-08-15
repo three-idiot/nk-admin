@@ -157,7 +157,7 @@
             <textarea name="" id="" cols="50" style="width: 100%;" rows="10" v-model="remark"></textarea>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="undercarriage = false">取 消</el-button>
-                <el-button type="primary" @click="changeStatus(3)">确 定</el-button>
+                <el-button type="primary" @click="changeStatusApi(3)">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -175,7 +175,7 @@
 <script>
     import {getVisaList} from '@/api/visa';
     import {goodsfoulup} from '@/api/visa';
-    import {getGoodsList} from '@/api/goods';
+    import {getGoodsList, changeStatus} from '@/api/goods';
 
     export default {
         data() {
@@ -264,8 +264,14 @@
                 this.undercarriage = true;
                 this.id = id;
             },
-            changeStatus(status) {
-
+            changeStatusApi(status) {
+                let params = {
+                    goodsId: this.id,
+                    status: status
+                }
+                changeStatus( params ).then( res => {
+                    console.log( res );
+                })
             },
             shelf(id) {
                 goodsfoulup({goodId: id}).then(res => {
