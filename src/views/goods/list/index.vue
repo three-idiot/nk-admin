@@ -160,6 +160,18 @@
                 <el-button type="primary" @click="changeStatusApi(3)">确 定</el-button>
             </span>
         </el-dialog>
+        <!--上架弹窗-->
+        <el-dialog
+            title="上架"
+            :visible.sync="shelfDialog"
+            width="30%">
+            <span>将此商品自己上架</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="shelfDialog = false">取 消</el-button>
+                <el-button type="primary" @click="changeStatusApi(2)">确 定</el-button>
+            </span>
+        </el-dialog>
+
 
         <!--分页-->
         <div class="pagination-container" style="margin-top: 30px;">
@@ -182,6 +194,7 @@
             return {
                 id: null,
                 undercarriage: false,
+                shelfDialog: false,
                 remark: null,
                 listLoading: true,
                 type: {
