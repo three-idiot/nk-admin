@@ -271,6 +271,10 @@
                 }
                 changeStatus( params ).then( res => {
                     console.log( res );
+                    if ( res.code == 200 ) {
+                        alert('下架成功');
+                        window.location.reload();
+                    }
                 })
             },
             shelf(id) {
