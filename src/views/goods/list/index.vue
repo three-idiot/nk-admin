@@ -135,7 +135,7 @@
                     <el-button size="mini" type="success" @click="goDetail(scope.row.id)" plain>
                         查看详情
                     </el-button>
-                    <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
+                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
                         编辑
                     </el-button>
                     <el-button size="mini" type="success" v-if="scope.row.status == 1" @click="shelf(scope.row.id)">上架
@@ -270,8 +270,8 @@
             goDetail(id) {
                 window.location.href = '#/visa/detail?id=' + id;
             },
-            goRatio(id) {
-                window.location.href = '#/visa/ratio?id=' + id;
+            goEdit(id) {
+                window.location.href = '#/goods/edit?id=' + id;
             },
             undercarriageShow(id) {
                 this.undercarriage = true;
