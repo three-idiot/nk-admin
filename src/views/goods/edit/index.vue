@@ -270,16 +270,24 @@
 
 
             <div class="status-container">
-                <div><span>商品状态</span><span>{{ status[this.ruleForm.status] }}</span></div>
-                <div><span>商品上架时间</span><span>{{ this.ruleForm.upTime }}</span></div>
-                <el-button type="primary" style="float: left;" @click="dialogVisible3 = true">点击修改</el-button>
+                <div class="status">
+                    <span>商品状态：</span>
+                    <el-tag :type="ruleForm.status | statusFilter" style="float: left">
+                        {{ status[this.ruleForm.status] }}
+                    </el-tag>
+                    <el-button  style="margin-left: 100px;" type="primary" class="change" @click="dialogVisible3 = true">点击修改</el-button>
+                </div>
+                <div class="time">
+                    <span>商品上架时间：</span>
+                    <span>{{ this.ruleForm.upTime }}</span>
+                </div>
             </div>
+
 
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible3"
                 width="30%">
-
                 <el-form-item label="设置上架日期">
                     <el-radio-group v-model="upType">
                         <el-radio v-for="(val,key) in upStatus" :label="val" :key="key">{{ key }}</el-radio>
@@ -291,17 +299,11 @@
                                     placeholder="选择日期">
                     </el-date-picker>
                 </el-form-item>
-
-
                 <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible3 = false">取 消</el-button>
             <el-button type="primary" @click="dialogVisible3 = false">确 定</el-button>
             </span>
             </el-dialog>
-
-
-
-
 
 
             <el-form-item>
@@ -339,6 +341,13 @@
                     height: 400,
                 },
                 upType: null,
+                statusMap: {
+                    1: 'success',
+                    2: 'success',
+                    3: 'danger',
+                    4: 'warning',
+                    5: 'danger',
+                },
                 travelGoodsDividePrices: [
                     {
                         agentType: 1,
@@ -596,7 +605,23 @@
     }
     .status-container {
         line-height: 40px;
-        display: flex;
+        /*display: flex;*/
+        padding-top: 10px;
+        .status {
+            span {
+                float: left;
+            }
+            display: block;
+            overflow: hidden;
+            line-height: 40px;
+        }
+        .time {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .change {
+            float: left;
+        }
     }
 
 
