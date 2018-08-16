@@ -493,39 +493,35 @@
                     for( let i = 0;i<images.length;i++ ) {
                         let obj = {};
                         let item = images[i];
-                        obj.name = item.goodsId;
+                        obj.name = item.id;
                         obj.url = item.goodPath;
                         this.fileList.push( obj );
                     }
+                    this.ruleForm.images = [];
+                    for( let i=0;i<images.length;i++ ) {
+                        let obj = {};
+                        let item = images[i];
+                        obj.goodPath = item.goodPath;
+                        obj.sort = i;
+                        this.ruleForm.images.push( obj );
+                    }
                 });
-            },
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
-                // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-                console.log(file.response.data);
-                this.ruleForm.goodsNum = file.response.data;
-            },
-            beforeAvatarUpload(file) {
-                // const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                // if (!isJPG) {
-                //   this.$message.error('上传头像图片只能是 JPG 格式!');
-                // }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isLt2M;
             },
             imgUploaded(res, file) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
                     this.ruleForm.images = [];
                 }
-                this.ruleForm.images.push(res.data);
+                console.log('测试测试', file);
+                console.log('测试测试2', this.fileList);
+                let obj = {
+                    goodPath: res.data,
+                    sort: this.ruleForm.images.length ? this.ruleForm.images.length : 0
+                }
+                this.ruleForm.images.push(obj);
                 console.log(this.ruleForm.images);
             },
             imgRemove(files, fileList) {
-                this.form.visaPath = null;
+                console.log( fileList );
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
