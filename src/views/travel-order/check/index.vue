@@ -29,11 +29,6 @@
                 {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
-        <el-table-column label="商品单价" width="110" align="center">
-            <template slot-scope="scope">
-                {{scope.row.salePrice}}
-            </template>
-        </el-table-column>
         <el-table-column label="购买数量" width="110" align="center">
             <template slot-scope="scope">
                 {{scope.row.buyNum}}
@@ -41,7 +36,7 @@
         </el-table-column>
         <el-table-column label="订单总额" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.orderPrice}}
+                {{scope.row.orderPrice/100}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
@@ -95,21 +90,25 @@ export default {
         fetchData() {
             this.listLoading = true;
             getGroupOrderDetail(this.$route.params.id).then(response => {
-                const resData = response.data.travelGoods;
-                this.list = response.data.travelOrders;
+                const resData = response.data;
+                this.priceCount = resData.travelOrders.priceCount;
+                this.total_count = resData.travelOrders.total_count;
+                this.current_page = resData.travelOrders.current_page;
+                this.max_page = resData.travelOrders.max_page;
+                this.list = resData.travelOrders.data;
                 this.data = [{
                         key: '商品编号',
-                        value: resData.goodsNo,
+                        value: resData.travelGoods.goodsNo,
                         type: 'string'
                     },
                     {
                         key: '商品名称',
-                        value: resData.name,
+                        value: resData.travelGoods.name,
                         type: 'string'
                     },
                     {
                         key: '商品状态',
-                        value: this.status[resData.status].msg,
+                        value: this.status[resData.travelGoods.status].msg,
                         type: 'string'
                     },
                 ];
@@ -120,7 +119,7 @@ export default {
             this.$router.push({
                 name: 'travel-order-detail',
                 params: {
-                    id: row.orderNo
+                    id: row.id
                 }
             });
         },

@@ -40,10 +40,6 @@ export default {
             total_count: null,
             priceCount: null,
             form: {
-                goodsName: null,
-                peopleMinRule: "1",
-                peopleMaxRule: "1",
-                status: '10'
             },
         });
     },

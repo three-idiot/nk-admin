@@ -23,12 +23,13 @@
                 <el-input-number v-model="form.peopleMaxNum" :min="1" :max="100" label="成团人数上限"></el-input-number>
             </el-form-item>
             <el-form-item label="订单状态">
-                <el-select v-model="form.status">
-                    <el-option label="全部" value="10"></el-option>
-                    <el-option label="报名中" value="20"></el-option>
-                    <el-option label="已取消" value="30"></el-option>
-                    <el-option label="已成团" value="40"></el-option>
-                    <el-option label="已结束" value="41"></el-option>
+                <el-select v-model="form.status" clearable placeholder="全部">
+                    <el-option label="报名中" value="1"></el-option>
+                    <el-option label="组团失败" value="2"></el-option>
+                    <el-option label="已成团" value="3"></el-option>
+                    <el-option label="已结束" value="4"></el-option>
+                    <el-option label="强制成团" value="5"></el-option>
+                    <el-option label="退款" value="6"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="开始时间">
@@ -59,7 +60,7 @@
         </el-table-column>
         <el-table-column label="商品分类" align="center">
             <template slot-scope="scope">
-                {{scope.row.goodsType}}
+                <el-tag :type="type[scope.row.goodsType].color">{{type[scope.row.goodsType].msg}}</el-tag>
             </template>
         </el-table-column>
         <el-table-column label="开始时间" align="center">
@@ -84,18 +85,18 @@
         </el-table-column>
         <el-table-column label="已报人数" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.buyNum}}
+                {{scope.row.enrollNum}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
+                <el-tag :type="groupStatus[scope.row.status].color">{{groupStatus[scope.row.status].msg}}</el-tag>
             </template>
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">强制成团</el-button>
+                <el-button size="mini" type="primary" @click="force(scope.$index, scope.row)">强制成团</el-button>
                 <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">退款</el-button>
             </template>
         </el-table-column>
@@ -109,14 +110,15 @@
 
 <script>
 import {
-    getOrderList
+    getOrderList,
+    forceSuccess
 } from "@/api/travel-order";
 import orderMap from "@/map/travel-order";
 import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
         return Object.assign({}, orderMap, {
-            list: null,
+            list: [],
             listLoading: true,
             current_page: 1,
             max_page: 0,
@@ -125,12 +127,7 @@ export default {
             endDaterange: [],
             total_count: null,
             priceCount: null,
-            form: {
-                goodsName: null,
-                peopleMinRule: "1",
-                peopleMaxRule: "1",
-                status: '10'
-            },
+            form: {},
         });
     },
     computed: {
@@ -152,11 +149,11 @@ export default {
         fetchData() {
             this.listLoading = true;
             getOrderList(this.listQuery).then(response => {
-                this.list = response.data;
-                // this.priceCount = response.data.priceCount;
-                // this.total_count = response.data.total_count;
-                // this.current_page = response.data.current_page;
-                // this.max_page = response.data.max_page;
+                this.list = response.data.data;
+                this.priceCount = response.data.priceCount;
+                this.total_count = response.data.total_count;
+                this.current_page = response.data.current_page;
+                this.max_page = response.data.max_page;
                 this.listLoading = false;
             });
         },
@@ -167,17 +164,24 @@ export default {
             this.$router.push({
                 name: 'travel-order-check',
                 params: {
-                    id: row.goodsNo
+                    id: row.groupOrderId
                 }
             });
         },
-        edit(index, row) {
-            this.$router.push({
-                name: 'travel-order-edit',
-                params: {
-                    id: row.id
-                }
-            });
+        force(index, row) {
+            this.$confirm('确定强制成团?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                forceSuccess(row.groupOrderId).then(response => {
+                    this.$message({
+                        type: 'success',
+                        message: '成团成功!'
+                    });
+                    this.fetchData();
+                });
+            }).catch(() => {});
         },
         currentPageChange(page) {
             this.current_page = page;

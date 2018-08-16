@@ -13,7 +13,7 @@
 <script>
 import {
     getOrderDetail
-} from "@/api/table";
+} from "@/api/order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import orderMap from "@/map/order";
 export default {

@@ -89,12 +89,12 @@
         </el-table-column>
         <el-table-column label="付款金额" align="center">
             <template slot-scope="scope">
-                {{scope.row.orderFee}}
+                {{scope.row.orderFee/100}}
             </template>
         </el-table-column>
         <el-table-column label="退款金额" align="center">
             <template slot-scope="scope">
-                {{scope.row.refundFee}}
+                {{scope.row.refundFee/100}}
             </template>
         </el-table-column>
         <el-table-column label="退款原因" align="center">
@@ -158,11 +158,11 @@ export default {
         fetchData() {
             this.listLoading = true;
             getRefundOrderList(this.listQuery).then(response => {
-                this.list = response.data;
-                // this.priceCount = response.data.priceCount;
-                // this.total_count = response.data.total_count;
-                // this.current_page = response.data.current_page;
-                // this.max_page = response.data.max_page;
+                this.list = response.data.data;
+                this.priceCount = response.data.priceCount;
+                this.total_count = response.data.total_count;
+                this.current_page = response.data.current_page;
+                this.max_page = response.data.max_page;
                 this.listLoading = false;
             });
         },
@@ -171,9 +171,9 @@ export default {
         },
         check(index, row) {
             this.$router.push({
-                name: 'travel-order-check',
+                name: 'travel-order-refund-detail',
                 params: {
-                    id: row.goodsNo
+                    id: row.refundId
                 }
             });
         },

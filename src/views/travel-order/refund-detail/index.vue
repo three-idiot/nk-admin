@@ -1,7 +1,7 @@
 <template>
 <div class="app-container">
-    <title-line txt="商品订单详情"></title-line>
-    <portrait-table class="portrait-table" :key-width="80" :data="data"></portrait-table>
+    <title-line txt="退款详情"></title-line>
+    <portrait-table class="portrait-table" :key-width="100" :data="data"></portrait-table>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='商品编码'>
             <template slot-scope="scope">
@@ -15,34 +15,35 @@
         </el-table-column>
         <el-table-column align="center" label='商品单价'>
             <template slot-scope="scope">
-                {{scope.row.realPrice}}
+                {{scope.row.realPrice/100}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='购买数量'>
             <template slot-scope="scope">
-                {{scope.row.buyNum}}
+                {{scope.row.saleNum}}
             </template>
         </el-table-column>
-        <el-table-column label="出行日期" align="center">
+        <el-table-column label="报名截止日期" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.leaveTime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{new Date(scope.row.closeDate).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label='总金额'>
+        <el-table-column label="距截至日期时长" align="center">
             <template slot-scope="scope">
-                {{scope.row.orderPrice}}
+                <span v-if="Math.floor(scope.row.duration/1000/3600/24)">{{`${Math.floor(scope.row.duration/1000/3600/24)}天`}}</span>
+                <span v-if="Math.floor((scope.row.duration/1000/3600)%24)">{{`${Math.floor((scope.row.duration/1000/3600)%24)}小时`}}</span>
+                <span v-if="Math.floor(scope.row.duration/1000/60%60)">{{`${Math.floor(scope.row.duration/1000/60%60)}分钟`}}</span>
             </template>
         </el-table-column>
-
+        <el-table-column align="center" label='支付金额'>
+            <template slot-scope="scope">
+                {{'木有'}}
+            </template>
+        </el-table-column>
     </el-table>
     <hr class="hr">
-    <p class="subtitle">子订单和用户信息</p>
+    <p class="subtitle">出行用户信息</p>
     <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label='子订单编号'>
-            <template slot-scope="scope">
-                {{'接口木有'}}
-            </template>
-        </el-table-column>
         <el-table-column align="center" label='姓名'>
             <template slot-scope="scope">
                 {{scope.row.travelUserInfo.name}}
@@ -55,7 +56,7 @@
         </el-table-column>
         <el-table-column align="center" label='护照号'>
             <template slot-scope="scope">
-                {{'接口木有'}}
+                {{scope.row.travelUserInfo.passport}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='联系电话'>
@@ -66,8 +67,8 @@
 
     </el-table>
     <hr class="hr">
-    <p class="subtitle">发票信息</p>
-    <portrait-table class="portrait-table" :key-width="80" :data="invoiceData"></portrait-table>
+    <p class="subtitle">审核信息</p>
+    <portrait-table class="portrait-table" :key-width="90" :data="checkData"></portrait-table>
     <div class="btn-container">
         <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
@@ -77,7 +78,7 @@
 
 <script>
 import {
-    getTravelOrderDetail
+    getRefundOrderDetail
 } from "@/api/travel-order";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import TitleLine from "@/components/TitleLine/index.vue";
@@ -88,7 +89,7 @@ export default {
             list: null,
             childList: null,
             data: [],
-            invoiceData: []
+            checkData: []
         });
     },
     created() {
@@ -97,76 +98,78 @@ export default {
     methods: {
         fetchData() {
             this.listLoading = true;
-            getTravelOrderDetail(this.$route.params.id).then(response => {
+            getRefundOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
                 this.data = [{
-                        key: '买家名称',
+                        key: "买家名称",
                         value: resData.user.nickName,
-                        type: 'string'
+                        type: "string"
                     },
                     {
-                        key: '地区',
+                        key: "地区",
                         value: `${resData.user.proId}/${resData.user.cityId}`,
-                        type: 'string'
+                        type: "string"
                     },
                     {
-                        key: '订单状态',
-                        value: 'null',
-                        type: 'string'
+                        key: "退款状态",
+                        value: this.reFundDtatus[resData.refundOrder.status].msg,
+                        type: "string"
                     },
                     {
-                        key: '订单编号',
-                        value: resData.travelOrder.orderNo,
-                        type: 'string'
+                        key: "退款订单编号",
+                        value: resData.refundOrder.refundNo,
+                        type: "string"
                     },
                     {
-                        key: '下单时间',
-                        value: resData.travelOrder.createTime,
-                        type: 'dateTime'
+                        key: "申请时间",
+                        value: resData.refundOrder.createTime,
+                        type: "dateTime"
                     },
                     {
-                        key: '支付单号',
-                        value: resData.travelOrder.payId,
-                        type: 'string'
+                        key: "退款支付单号",
+                        value: resData.refundOrder.refundPayNo,
+                        type: "string"
                     },
                     {
-                        key: '支付时间',
-                        value: resData.travelOrder.payTime,
-                        type: 'dateTime'
+                        key: "退款到帐时间",
+                        value: resData.refundOrder.finishTime,
+                        type: "dateTime"
                     },
-
+                    {
+                        key: "退款金额",
+                        value: resData.refundOrder.refundFee / 100,
+                        type: "string"
+                    }
                 ];
-                this.invoiceData = [{
-                        key: '发票抬头',
-                        value: resData.invoice.title,
-                        type: 'string'
+                this.checkData = [{
+                        key: "审核人",
+                        value: resData.refundOrder.approver,
+                        type: "string"
                     },
                     {
-                        key: '纳税识别号',
-                        value: resData.invoice.taxNo,
-                        type: 'string'
+                        key: "审核时间",
+                        value: resData.refundOrder.approveTime,
+                        type: "dateTime"
                     },
                     {
-                        key: '电子邮箱',
-                        value: '接口木有',
-                        type: 'string'
+                        key: "审核意见",
+                        value: resData.refundOrder.approveOpinion,
+                        type: "string"
                     },
                     {
-                        key: '地址',
-                        value: resData.invoice.address,
-                        type: 'string'
-                    },
-                    {
-                        key: '电话',
-                        value: resData.invoice.phone,
-                        type: 'string'
-                    },
+                        key: "备注",
+                        value: resData.refundOrder.approveRemark,
+                        type: "string"
+                    }
                 ];
-                this.list = [resData.travelOrder];
+                this.list = [Object.assign({},resData.travelGoods,{
+                    duration:new Date(resData.travelGoods.closeDate) - new Date(resData.refundOrder.createTime),
+                    money:'接口木有'
+                })];
                 this.childList = resData.travelChildOrders;
                 this.listLoading = false;
             });
-        },
+        }
     },
     components: {
         PortraitTable,

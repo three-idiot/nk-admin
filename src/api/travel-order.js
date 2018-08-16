@@ -18,12 +18,12 @@ export function getGroupOrderDetail(id) {
     });
 }
 
-export function getTravelOrderDetail(id) {
+export function getTravelOrderDetail(orderId) {
     return request({
         url: `/travelOrder/travelOrderDetail`,
-        method: 'post',
-        data: {
-            orderId: id
+        method: 'get',
+        params: {
+            orderId
         }
     });
 }
@@ -33,5 +33,23 @@ export function getRefundOrderList(params) {
         url: `/travelOrder/refundOrderList`,
         method: 'post',
         data: params
+    });
+}
+
+export function getRefundOrderDetail(refundOrderId) {
+    return request({
+        url: `/travelOrder/refundOrderDetail`,
+        method: 'get',
+        params: {
+            refundOrderId
+        }
+    });
+}
+
+export function forceSuccess(groupOrderId) {
+    return request({
+        url: `/travelOrder/modifyGroupOrder`,
+        method: 'get',
+        params: { groupOrderId, status: 5 }
     });
 }
