@@ -49,7 +49,7 @@
             <el-form-item label="修改图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
                 <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="5"
-                           :on-success="imgUploaded" :on-remove="imgRemove">
+                           :on-success="imgUploaded" :on-remove="imgRemove" :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                 </el-upload>
@@ -331,6 +331,7 @@
                 }
             };
             return Object.assign({}, goodsMap, {
+                fileList: [],
                 goodsList: null,
                 good: null,
                 dialogVisible1: false,
@@ -487,6 +488,15 @@
                     this.ruleForm = response.data;
                     console.log('测试',this.ruleForm);
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
+                    let images = this.ruleForm.images;
+                    this.fileList = [];
+                    for( let i = 0;i<images.length;i++ ) {
+                        let obj = {};
+                        let item = images[i];
+                        obj.name = item.goodsId;
+                        obj.url = item.goodPath;
+                        this.fileList.push( obj );
+                    }
                 });
             },
             handleAvatarSuccess(res, file) {
@@ -540,13 +550,13 @@
                         }
                         console.log('调试2', this.ruleForm);
                         // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
-                        addTravelGoods(this.ruleForm).then(res => {
-                            console.log('掉借口了', res);
-                            // if ( res.code == 200 ) {
-                            //     alert('新建成功');
-                            //     history.back();
-                            // }
-                        });
+                        // addTravelGoods(this.ruleForm).then(res => {
+                        //     console.log('掉借口了', res);
+                        //     // if ( res.code == 200 ) {
+                        //     //     alert('新建成功');
+                        //     //     history.back();
+                        //     // }
+                        // });
                     } else {
                         console.log('error submit!!');
                         return false;
