@@ -18,6 +18,14 @@ export function addTravelGoods(params) {
     })
 }
 
+export function updateTravelGoods(params) {
+    return request({
+        url: '/travelGoods/updateTravelGoods',
+        method: 'post',
+        data: params
+    })
+}
+
 export function changeStatus(params) {
     return request({
         url: '/travelGoods/changeStatus',

@@ -315,7 +315,7 @@
 </template>
 
 <script>
-    import {addTravelGoods, getGoodsList,travelGoods} from '@/api/goods';
+    import {travelGoods,updateTravelGoods} from '@/api/goods';
     import goodsMap from "@/map/goods"
     import editor from '@/components/editor'
     import App from "../../../App";
@@ -391,12 +391,6 @@
                         price: null
                     }
                 ],
-                // 上架状态radio
-                // upStatus: {
-                //     '立即上架': 2,
-                //     '在库中': 1,
-                //     '固定时间上架': 2
-                // },
                 upStatus: {
                     '立即上架': 2,
                     '在库中': 1,
@@ -563,14 +557,14 @@
                             }
                         }
                         console.log('调试2', this.ruleForm);
-                        // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
-                        // addTravelGoods(this.ruleForm).then(res => {
-                        //     console.log('掉借口了', res);
-                        //     // if ( res.code == 200 ) {
-                        //     //     alert('新建成功');
-                        //     //     history.back();
-                        //     // }
-                        // });
+                        this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+                        updateTravelGoods(this.ruleForm).then(res => {
+                            console.log('掉借口了', res);
+                            // if ( res.code == 200 ) {
+                            //     alert('新建成功');
+                            //     history.back();
+                            // }
+                        });
                     } else {
                         console.log('error submit!!');
                         return false;
