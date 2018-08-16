@@ -35,3 +35,21 @@ export function getRefundOrderList(params) {
         data: params
     });
 }
+
+export function getRefundOrderDetail(refundOrderId) {
+    return request({
+        url: `/travelOrder/refundOrderDetail`,
+        method: 'get',
+        params: {
+            refundOrderId
+        }
+    });
+}
+
+export function forceSuccess(groupOrderId) {
+    return request({
+        url: `/travelOrder/modifyGroupOrder`,
+        method: 'get',
+        params: { groupOrderId, status: 5 }
+    });
+}

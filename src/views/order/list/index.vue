@@ -109,7 +109,7 @@
 <script>
 import {
     getOrderList
-} from "@/api/table";
+} from "@/api/order";
 import orderMap from "@/map/order";
 export default {
     data() {

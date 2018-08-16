@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { getOrderList } from "@/api/table";
+import { getOrderList } from "@/api/order";
 
 export default {
   data() {
