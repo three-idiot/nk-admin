@@ -1,34 +1,50 @@
 <template>
-  <div class="addVisa-form">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+  <div class="app-container">
+    <title-line :txt="ruleForm.id ? '编辑资讯':'新建资讯'"></title-line>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
       <!--资讯名称-->
       <el-form-item label="资讯标题" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+        <el-input v-model="ruleForm.title" :disabled="ruleForm.id?true:false"></el-input>
       </el-form-item>
       <!--资讯图片-->
-
-      <!--图片上传-->
-      <el-form-item label="商品图片" prop="goodsNum" style="width: 312px;">
-        <el-upload
+      <el-form-item label="资讯图片" prop="images">
+        <span class="news-img"
+                 v-for="(img, index) in ruleForm.images" 
+                 :key="index">
+          <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
+          <img :src="img.localPath || img.goodPath" 
+                 alt="图片" />
+        </span>
+         <el-upload
           class="avatar-uploader"
-          style="border:1px solid #000;width: 178px;height: 178px;"
-          action="/api/image/uploadfile"
+          :multiple="true"
+          :with-credentials="true"
           :show-file-list="false"
+          :action="action"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
 
       <!--资讯关键字-->
-      <el-form-item label="资讯关键字" prop="keywords" style="width: 312px;">
-        <el-input v-model="ruleForm.keywords"></el-input>
+      <el-form-item label="资讯关键字" prop="newsKey" style="width: 312px;">
+        <el-input v-model="ruleForm.newsKey"></el-input>
       </el-form-item>
 
       <!--资讯详情-->
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
-        富文本编辑器
+        <!-- <el-input v-model="ruleForm.detail"></el-input> -->
+        <editor class="editor" 
+                :value="ruleForm.detail"
+                :setting="editorSetting"
+                @input="(content)=> ruleForm.detail = content"></editor>
+      </el-form-item>
+
+      <!--是否置顶-->
+      <el-form-item label="是否置顶" prop="top" style="width: 312px;">
+        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
+        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
       </el-form-item>
 
       <el-form-item>
@@ -40,47 +56,84 @@
 </template>
 
 <script>
-  import { addGoods } from '@/api/visa';
-  // import axios from 'axios';
+  import { addNews, getNewsDetail } from '@/api/news';
+  import TitleLine from "@/components/TitleLine/index.vue";
+  import editor from '@/components/editor';
 
+  // let testImgs = [
+  //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
+  // ];
 
   export default {
   data() {
-    let checkNum = (rule, value, callback) =>{
-      if ( !/^[0-9]*$/.test(value) ) {
-        return callback(new Error('必须是数字'));
-      } else {
-        callback();
-      }
-    };
     return {
-      imageUrl: '',
+      action: '/api/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
+        id: '',
         title: '',
-        goodsNum: '',
-        keywords: ''
+        images: [],
+        newsKey: '',
+        detail: '',
+        top: '0'
       },
       rules: {
-        goodsNum: [
-            { required: true, trigger: 'change', message: '请上传图片' }
+        images: [
+            { type: 'array', required: true, trigger: 'change', message: '请上传图片' }
         ],
         title: [
           { required: true, trigger: 'blur', message: '请输入资讯标题' }
         ],
-        keywords: [
+        newsKey: [
           { required: true, trigger: 'blur', message: '请输入关键字' }
         ],
+        top: [
+          { required: true, trigger: 'blur', message: '请选择是否置顶' }
+        ],
+        detail: [
+          { required: true, trigger: 'blur', message: '请添加资讯详情' }
+        ]
+      },
+      editorSetting: {
+        width: 600,
+        height: 400
       }
     };
   },
-  created() {
+  mounted() {
+    let id = this.$route.params.id;
+    console.log('资讯id：', this.ruleForm.id);
+    // console.log('add mounted:', id);
+    if (id) {
+      this.ruleForm.id = id;
+      this.fetchData();
+    }
   },
   methods: {
+    fetchData() {
+        this.listLoading = true;
+        getNewsDetail(this.ruleForm.id).then(response => {
+          this.listLoading = false;
+          console.log('获取编辑数据：', response);
+          if (response.data) {
+            this.ruleForm = Object.assign({}, this.ruleForm, response.data);
+            // this.ruleForm.images = testImgs;
+          }
+        });
+    },
+    handleDelImg (img, index) {
+      // console.log('要删除的图片上是：', img, index);
+      this.ruleForm.images.splice(index);
+    },
     handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-        console.log( file.response.data );
-        this.ruleForm.goodsNum = file.response.data;
+      console.log('图片上传返回：', res, file);
+      // this.imageUrl = URL.createObjectURL(file.raw);
+      this.ruleForm.images.push({
+        goodPath: res.data,
+        localPath: URL.createObjectURL(file.raw)
+      });
+      // console.log('图片数组：', this.ruleForm.images);
+      // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -90,20 +143,26 @@
       //   this.$message.error('上传头像图片只能是 JPG 格式!');
       // }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isLt2M;
     },
     submitForm(formName) {
+      console.log('---------提交表单：', this.ruleForm);
       this.$refs[formName].validate((valid) => {
-        console.log('调试2', this.ruleForm);
         if (valid) {
-          console.log('submit!');
           let ruleForm = Object.assign({}, this.ruleForm);
-          addGoods(ruleForm).then( res => {
+          addNews(ruleForm).then( res => {
               if ( res.code == 200 ) {
-                  alert('新建成功');
-                  history.back();
+                  this.$message({
+                    message: '添加成功',
+                    type: 'success'
+                  });
+                  setTimeout(() => {
+                    this.$router.push({
+                      name: 'news-list'
+                    });
+                  }, 1000);
               }
           });
         } else {
@@ -115,37 +174,71 @@
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  components: {
+    TitleLine,
+    editor
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+.app-container {
+  padding-left: 50px;
+  .title {
+    font-size: 30px;
+    color: #606266;
   }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
+  .form {
+    margin-top: 30px;
+    padding: 30px;
+    padding-bottom: 5px;
+    background: #f2f6fc;
+    .btn {
+      margin-top: 30px;
+    }
   }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  background: #fff;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.news-img {
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin: 0 10px 10px 0;
+  position: relative;
+  .del-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 20px;
   }
-  .avatar {
-    width: 178px;
-    height: 178px;
+  img {
+    width: 100%;
+    height: 100%;
     display: block;
   }
-  .addVisa-form {
-    margin-top: 20px;
-  }
-
-
+}
 </style>

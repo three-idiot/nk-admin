@@ -1,12 +1,10 @@
 <template>
 <div class="app-container">
-    <p class="title">查看资讯详情</p>
-    <hr/>
+    <title-line txt="查看资讯详情"></title-line>
     <portrait-table :data="data"></portrait-table>
     <div class="btn-container">
         <el-button type="primary" @click.native="$router.back()">返回</el-button>
     </div>
-
 </div>
 </template>
 
@@ -15,10 +13,10 @@ import {
     getNewsDetail
 } from "@/api/news";
 import PortraitTable from "@/components/PortraitTable/index.vue";
-import orderMap from "@/map/order";
+import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
-        return Object.assign({}, orderMap, {
+        return Object.assign({}, {
             data: []
         });
     },
@@ -52,8 +50,8 @@ export default {
                     },
                     {
                         key: '标题图片',
-                        // value: resData.images,
-                        value: ['https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a919d7dfe524b899c13c7f385e071d59/d52a2834349b033bda94010519ce36d3d439bdd5.jpg', 'https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=01805b674b10b912a0c1f0fef3fcfcb5/42a98226cffc1e17461390ed4690f603728de9ba.jpg'],
+                        value: resData.images,
+                        // value: ['https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a919d7dfe524b899c13c7f385e071d59/d52a2834349b033bda94010519ce36d3d439bdd5.jpg', 'https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=01805b674b10b912a0c1f0fef3fcfcb5/42a98226cffc1e17461390ed4690f603728de9ba.jpg'],
                         type: 'images'
                     },
                     {
@@ -86,7 +84,8 @@ export default {
         },
     },
     components: {
-        PortraitTable
+        PortraitTable,
+        TitleLine
     }
 };
 </script>
