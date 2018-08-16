@@ -268,17 +268,40 @@
             <!--</el-form-item>-->
             <hr>
 
-            <el-form-item label="设置上架日期">
-                <el-radio-group v-model="upType">
-                    <el-radio v-for="(val,key) in upStatus" :label="val" :key="key">{{ key }}</el-radio>
-                </el-radio-group>
-                <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
-                                v-model="ruleForm.upTime"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="选择日期">
-                </el-date-picker>
-            </el-form-item>
+
+            <div class="status-container">
+                <div><span>商品状态</span><span>{{ status[this.ruleForm.status] }}</span></div>
+                <div><span>商品上架时间</span><span>{{ this.ruleForm.upTime }}</span></div>
+                <el-button type="primary" style="float: left;" @click="dialogVisible3 = true">点击修改</el-button>
+            </div>
+
+            <el-dialog
+                title="修改期限和人数"
+                :visible.sync="dialogVisible3"
+                width="30%">
+
+                <el-form-item label="设置上架日期">
+                    <el-radio-group v-model="upType">
+                        <el-radio v-for="(val,key) in upStatus" :label="val" :key="key">{{ key }}</el-radio>
+                    </el-radio-group>
+                    <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
+                                    v-model="ruleForm.upTime"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    placeholder="选择日期">
+                    </el-date-picker>
+                </el-form-item>
+
+
+                <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible3 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible3 = false">确 定</el-button>
+            </span>
+            </el-dialog>
+
+
+
+
 
 
             <el-form-item>
@@ -310,6 +333,7 @@
                 good: null,
                 dialogVisible1: false,
                 dialogVisible2: false,
+                dialogVisible3: false,
                 editorSetting: {
                     width: 600,
                     height: 400,
@@ -569,6 +593,10 @@
             text-align: center;
             color: #FFFFFF;
         }
+    }
+    .status-container {
+        line-height: 40px;
+        display: flex;
     }
 
 
