@@ -557,7 +557,7 @@
                             }
                         }
                         console.log('调试2', this.ruleForm);
-                        this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+                        // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
                         updateTravelGoods(this.ruleForm).then(res => {
                             console.log('掉借口了', res);
                             // if ( res.code == 200 ) {
