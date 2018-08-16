@@ -452,7 +452,8 @@
                 let id = this.$route.query.id;
                 travelGoods({ id: id}).then(response => {
                     this.ruleForm = response.data;
-                    console.log('测试',this.ruleForm)
+                    console.log('测试',this.ruleForm);
+                    this.ruleForm.recommend = String(this.ruleForm.recommend);
                 });
             },
             handleAvatarSuccess(res, file) {
