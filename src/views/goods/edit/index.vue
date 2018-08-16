@@ -507,12 +507,12 @@
                     }
                 });
             },
-            imgUploaded(res, file) {
+            imgUploaded(res, file,fileList) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
                     this.ruleForm.images = [];
                 }
-                console.log('测试测试', file);
-                console.log('测试测试2', this.fileList);
+                // console.log('测试测试', file);
+                // console.log('测试测试2', fileList);
                 let obj = {
                     goodPath: res.data,
                     sort: this.ruleForm.images.length ? this.ruleForm.images.length : 0
@@ -521,7 +521,25 @@
                 console.log(this.ruleForm.images);
             },
             imgRemove(files, fileList) {
+                // console.log( files );
+                // console.log( fileList );
+                this.ruleForm.images = [];
                 console.log( fileList );
+                for ( let i=0;i<fileList.length;i++ ) {
+                    let item = fileList[i];
+                    if( typeof item.response != 'undefined' ) {
+                        this.ruleForm.images.push({
+                            goodPath: item.response.data,
+                            sort:i
+                        })
+                    } else {
+                        this.ruleForm.images.push({
+                            goodPath: item.url,
+                            sort:i
+                        })
+                    }
+                }
+                console.log( this.ruleForm.images );
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
