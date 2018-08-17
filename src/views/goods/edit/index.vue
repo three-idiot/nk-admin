@@ -495,7 +495,8 @@
                     for( let i=0;i<images.length;i++ ) {
                         let obj = {};
                         let item = images[i];
-                        obj.goodPath = item.goodPath;
+                        let path = /\/images\/.*\?/.exec(item.goodPath)[0].split('?')[0];
+                        obj.goodPath = path;
                         obj.sort = i;
                         this.ruleForm.images.push( obj );
                     }
@@ -528,7 +529,7 @@
                         })
                     } else {
                         this.ruleForm.images.push({
-                            goodPath: item.url,
+                            goodPath: /\/images\/.*\?/.exec(item.url)[0].split('?')[0],
                             sort:i
                         })
                     }
