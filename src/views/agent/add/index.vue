@@ -32,33 +32,26 @@
 
         <div class="address-container">
             <el-form-item label="代理商地区" prop="province">
-                <el-select v-model="form.province" placeholder="请选择省" clearable>
-                    <el-option :label="item.name" :value="item.id" v-for="item in province"></el-option>
+                <el-select v-model="form.province" placeholder="请选择省" clearable >
+                    <el-option :label="item.name" :value="item.id" v-for="item in province" @click.native="getNextLevel('city', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="city">
                 <el-select v-model="form.city" placeholder="请选择市" clearable class="address">
-                    <el-option label="企业" value="1"></el-option>
-                    <el-option label="个人" value="2"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in city" @click.native="getNextLevel('county', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="county">
                 <el-select v-model="form.county" placeholder="请选择区县" clearable class="address">
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in county" @click.native="getNextLevel('street', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="street">
                 <el-select v-model="form.street" placeholder="请选择街道" clearable class="address">
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in street"></el-option>
                 </el-select>
             </el-form-item>
         </div>
@@ -310,6 +303,11 @@ export default {
     watch: {
     },
     methods: {
+        getNextLevel(nextLevel, id) {
+            getLowerAreas( {id: id} ).then( res => {
+                this[nextLevel] = res.data;
+            })
+        },
         fetchAddressData() {
             getLowerAreas({id: 0}).then( res => {
                 // console.log( res );
