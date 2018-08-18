@@ -178,7 +178,8 @@ import {
     getOrderDetail,
     updateOrder,
     getLowerAreas,
-    getUniqueCode
+    getUniqueCode,
+    addAgent
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
@@ -382,6 +383,9 @@ export default {
                 console.log( this.form );
                 if (valid) {
                     console.log('哈哈', this.form);
+                    addAgent( this.form ).then( res => {
+                        console.log( res );
+                    })
                     // this.update(this.listQuery);
                 } else {
                     // console.log('error submit!!');

@@ -26,5 +26,13 @@ export function getUniqueCode(params) {
     })
 }
 
+export function addAgent(params) {
+    return request({
+        url: '/agent/add',
+        method: 'post',
+        data: params
+    })
+}
+
 
 
