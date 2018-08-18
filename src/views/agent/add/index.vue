@@ -307,6 +307,8 @@ export default {
         // this.fetchData();
         this.fetchAddressData();
     },
+    watch: {
+    },
     methods: {
         fetchAddressData() {
             getLowerAreas({id: 0}).then( res => {
