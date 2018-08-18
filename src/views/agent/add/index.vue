@@ -159,7 +159,7 @@
 
         <el-form-item label="代理商标识码：" prop="uniqueCode">
             <el-input v-model="form.uniqueCode" style="width: 270px;float: left;"></el-input>
-            <el-button type="primary" style="float: left;margin-left: 20px;">点击生成代理商标识码</el-button>
+            <el-button type="primary" style="float: left;margin-left: 20px;" @click="getCode">点击生成代理商标识码</el-button>
         </el-form-item>
 
 
@@ -177,7 +177,8 @@
 import {
     getOrderDetail,
     updateOrder,
-    getLowerAreas
+    getLowerAreas,
+    getUniqueCode
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
@@ -303,6 +304,16 @@ export default {
     watch: {
     },
     methods: {
+        getCode() {
+            getUniqueCode().then( res => {
+                console.log( res );
+                if( res.code == 200 ) {
+                    this.form.uniqueCode = res.data;
+                } else {
+                    alert(res.msg);
+                }
+            })
+        },
         getNextLevel(nextLevel, id) {
             getLowerAreas( {id: id} ).then( res => {
                 this[nextLevel] = res.data;

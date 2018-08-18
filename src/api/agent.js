@@ -18,5 +18,13 @@ export function getLowerAreas(params) {
     })
 }
 
+export function getUniqueCode(params) {
+    return request({
+        url: '/agent/getUniqueCode',
+        method: 'get',
+        params
+    })
+}
+
 
 
