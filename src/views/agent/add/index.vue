@@ -33,8 +33,7 @@
         <div class="address-container">
             <el-form-item label="代理商地区" prop="province">
                 <el-select v-model="form.province" placeholder="请选择省" clearable>
-                    <el-option label="正常订单" value="0"></el-option>
-                    <el-option label="续签订单" value="1"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in province"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -184,8 +183,9 @@
 <script>
 import {
     getOrderDetail,
-    updateOrder
-} from "@/api/order";
+    updateOrder,
+    getLowerAreas
+} from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
 import { checkNum, checkUsername, checkPassword } from "@/rules";
@@ -199,6 +199,10 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            province: null,
+            city: null,
+            county: null,
+            street: null,
             form: {
                 name: null,
                 roleId: null,
@@ -301,8 +305,15 @@ export default {
     },
     created() {
         // this.fetchData();
+        this.fetchAddressData();
     },
     methods: {
+        fetchAddressData() {
+            getLowerAreas({id: 0}).then( res => {
+                // console.log( res );
+                this.province = res.data;
+            })
+        },
         fetchData() {
             getOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;

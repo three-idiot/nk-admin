@@ -9,3 +9,14 @@ export function getAgentList(params) {
         data: params
     })
 }
+
+export function getLowerAreas(params) {
+    return request({
+        url: '/area/getLowerAreas',
+        method: 'get',
+        params
+    })
+}
+
+
+
