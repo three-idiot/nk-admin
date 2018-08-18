@@ -98,7 +98,7 @@
 
         <el-table-column align="center" label="代理商角色">
             <template slot-scope="scope">
-                {{scope.row.roleId}}
+                {{roleId[scope.row.roleId]}}
             </template>
         </el-table-column>
 
@@ -147,14 +147,14 @@
                 <!--<el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>-->
                 <!--<el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>-->
                 <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
-                    查看商品
+                    查看详情
                 </el-button>
                 <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
-                    修改分成
+                    编辑
                 </el-button>
-                <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">审核上架</el-button>
+                <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">恢复</el-button>
                 <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
-                    违规下架
+                    停用
                 </el-button>
             </template>
         </el-table-column>
