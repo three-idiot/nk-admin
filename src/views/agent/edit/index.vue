@@ -86,53 +86,53 @@
         <hr>
 
 
-        <div class="small-title" style="margin-top: 10px;">认证信息：</div>
+        <!--<div class="small-title" style="margin-top: 10px;">认证信息：</div>-->
 
-        <el-form-item label="代理商性质" prop="type">
-            <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
-                <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
-            </el-select>
-        </el-form-item>
+        <!--<el-form-item label="代理商性质" prop="type">-->
+            <!--<el-select v-model="form.type" placeholder="请选择代理商性质" clearable>-->
+                <!--<el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>-->
+            <!--</el-select>-->
+        <!--</el-form-item>-->
 
-        <!--// 选择代理商性质为企业-->
-        <div v-if="form.type == 1">
-            <el-form-item label="营业执照代码："  style="width: 400px;">
-                <el-input v-model="form.bizLicenseCode"></el-input>
-            </el-form-item>
+        <!--&lt;!&ndash;// 选择代理商性质为企业&ndash;&gt;-->
+        <!--<div v-if="form.type == 1">-->
+            <!--<el-form-item label="营业执照代码："  style="width: 400px;">-->
+                <!--<el-input v-model="form.bizLicenseCode"></el-input>-->
+            <!--</el-form-item>-->
 
-            <el-form-item label="营业执照副本" >
-                <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
-                    <el-button type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                </el-upload>
-            </el-form-item>
-        </div>
+            <!--<el-form-item label="营业执照副本" >-->
+                <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
+                <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
+                    <!--<el-button type="primary">点击上传</el-button>-->
+                    <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                <!--</el-upload>-->
+            <!--</el-form-item>-->
+        <!--</div>-->
 
 
 
-        <!--// 选择代理商性质为个人-->
-        <div v-if="form.type == 2">
-            <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
-                <el-input v-model="form.idCardNo"></el-input>
-            </el-form-item>
+        <!--&lt;!&ndash;// 选择代理商性质为个人&ndash;&gt;-->
+        <!--<div v-if="form.type == 2">-->
+            <!--<el-form-item label="身份证号码：" prop="title" style="width: 400px;">-->
+                <!--<el-input v-model="form.idCardNo"></el-input>-->
+            <!--</el-form-item>-->
 
-            <el-form-item label="身份证照片">
-                <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <div class="pic-container">
-                    <span class="picTitle">国徽面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">
-                        <el-button type="primary">点击上传</el-button>
-                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                    </el-upload>
-                    <span class="picTitle">信息面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">
-                        <el-button type="primary">点击上传</el-button>
-                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                    </el-upload>
-                </div>
-            </el-form-item>
-        </div>
+            <!--<el-form-item label="身份证照片">-->
+                <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
+                <!--<div class="pic-container">-->
+                    <!--<span class="picTitle">国徽面：</span>-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
+                        <!--<el-button type="primary">点击上传</el-button>-->
+                        <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                    <!--</el-upload>-->
+                    <!--<span class="picTitle">信息面：</span>-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
+                        <!--<el-button type="primary">点击上传</el-button>-->
+                        <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                    <!--</el-upload>-->
+                <!--</div>-->
+            <!--</el-form-item>-->
+        <!--</div>-->
 
 
 
