@@ -151,9 +151,10 @@
         <el-form-item label="时间" prop="expireTime">
             <el-date-picker
                 v-model="form.expireTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
         </el-form-item>
 
@@ -385,8 +386,10 @@ export default {
                     console.log('哈哈', this.form);
                     addAgent( this.form ).then( res => {
                         console.log( res );
+                        if ( res.code == 200 ) {
+                            alert('新建成功');
+                        }
                     })
-                    // this.update(this.listQuery);
                 } else {
                     // console.log('error submit!!');
                     return false;
