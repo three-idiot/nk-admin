@@ -34,5 +34,13 @@ export function addAgent(params) {
     })
 }
 
+export function getAgent(params) {
+    return request({
+        url: '/agent/getAgent',
+        method: 'get',
+        params
+    })
+}
+
 
 

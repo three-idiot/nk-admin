@@ -184,9 +184,8 @@
 
 <script>
 import {
-    getOrderDetail,
-    updateOrder
-} from "@/api/order";
+    getAgent
+} from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent"
 import { checkNum, checkUsername, checkPassword } from "@/rules";
@@ -301,60 +300,15 @@ export default {
         }
     },
     created() {
-        // this.fetchData();
+        this.fetchData();
     },
     methods: {
         fetchData() {
-            getOrderDetail(this.$route.params.id).then(response => {
-                const resData = response.data;
-                this.form.detatilId = response.data.orderDetail[0].id;
-                this.data = [{
-                        key: "订单编号",
-                        value: resData.orderNum,
-                        type: "string"
-                    },
-                    {
-                        key: "订单总额",
-                        value: resData.payMoney / 100,
-                        type: "string"
-                    },
-                    {
-                        key: "真实姓名",
-                        value: resData.orderDetail[0].name,
-                        type: "string"
-                    },
-                    {
-                        key: "护照号",
-                        value: resData.orderDetail[0].passportNo,
-                        type: "string"
-                    },
-                    {
-                        key: "手机号码",
-                        value: resData.orderDetail[0].mobile,
-                        type: "string"
-                    },
-                    {
-                        key: "Email",
-                        value: resData.linkEmail,
-                        type: "string"
-                    },
-                    {
-                        key: "支付单号",
-                        value: resData.payNum,
-                        type: "string"
-                    },
-                    {
-                        key: "付款时间",
-                        value: resData.payTime,
-                        type: "dateTime"
-                    },
-                    {
-                        key: "支付方式",
-                        value: this.payTypes[resData.payType].msg,
-                        type: "string"
-                    }
-                ];
-            });
+            let id = this.$route.query.id;
+            console.log('测试',id);
+            getAgent( {id:id} ).then( res => {
+                console.log( res );
+            })
         },
         onSubmit(formName) {
             this.$refs[formName].validate((valid) => {
