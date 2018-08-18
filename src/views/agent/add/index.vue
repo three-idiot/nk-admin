@@ -370,9 +370,10 @@ export default {
             this.$refs[formName].validate((valid) => {
                 console.log( this.form );
                 if (valid) {
-                    this.update(this.listQuery);
+                    console.log('哈哈', this.form);
+                    // this.update(this.listQuery);
                 } else {
-                    console.log('error submit!!');
+                    // console.log('error submit!!');
                     return false;
                 }
             });
