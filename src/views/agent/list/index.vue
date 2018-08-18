@@ -2,7 +2,7 @@
 <div class="app-container">
     <p class="title">
         代理商列表
-        <el-button  type="danger" class="add-agent-button">新增代理商+</el-button>
+        <el-button  type="danger" class="add-agent-button" @click="jumpAdd">新增代理商+</el-button>
     </p>
     <hr/>
 
@@ -149,7 +149,7 @@
                 <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
                     查看详情
                 </el-button>
-                <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
+                <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
                     编辑
                 </el-button>
                 <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">恢复</el-button>
@@ -211,6 +211,12 @@ export default {
         this.fetchData();
     },
     methods: {
+        jumpAdd() {
+            window.location.href = '#/agent/add';
+        },
+        goEdit(id) {
+            window.location.href = '#/agent/edit?id=' + id;
+        },
         fetchData() {
             this.listLoading = true;
             getAgentList(this.listQuery).then(response => {
