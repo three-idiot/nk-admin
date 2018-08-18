@@ -92,13 +92,13 @@
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='代理商编号'>
             <template slot-scope="scope">
-                {{scope.row.agent_no}}
+                {{scope.row.agentNo}}
             </template>
         </el-table-column>
 
         <el-table-column align="center" label="代理商角色">
             <template slot-scope="scope">
-                {{scope.row.Role}}
+                {{scope.row.roleId}}
             </template>
         </el-table-column>
 
