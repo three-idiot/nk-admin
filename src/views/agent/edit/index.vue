@@ -307,7 +307,11 @@ export default {
             let id = this.$route.query.id;
             console.log('测试',id);
             getAgent( {id:id} ).then( res => {
-                console.log( res );
+                if(res.code == 200) {
+                    this.form = res.data;
+                } else {
+                    alert( res.msg );
+                }
             })
         },
         onSubmit(formName) {
