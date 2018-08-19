@@ -213,7 +213,7 @@
             <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
                 <el-input v-model="form.uniqueCode"></el-input>
             </el-form-item>
-            
+
 
             <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible2 = false">取 消</el-button>

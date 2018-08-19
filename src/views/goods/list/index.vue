@@ -268,7 +268,7 @@
                 this.fetchData(this.goodsParams);
             },
             goDetail(id) {
-                window.location.href = '#/visa/detail?id=' + id;
+                window.location.href = '#/goods/detail?id=' + id;
             },
             goEdit(id) {
                 window.location.href = '#/goods/edit?id=' + id;

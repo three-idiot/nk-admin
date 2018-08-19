@@ -56,7 +56,6 @@
         }
       },
       created() {
-        // console.log('吴志鹏', this.$route);
         this.fetchData();
       },
       components: {
