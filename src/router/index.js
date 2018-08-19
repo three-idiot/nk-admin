@@ -295,6 +295,13 @@ export const asyncRouterMap = [
                 meta: { title: '代理商编辑' }
             },
             {
+                path: 'detail',
+                component: () => import('@/views/agent/detail'),
+                name: 'agent-detail',
+                hidden: true,
+                meta: { title: '代理商详情' }
+            },
+            {
                 path: 'add',
                 component: () => import('@/views/agent/add'),
                 name: 'order-edit',

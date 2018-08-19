@@ -211,6 +211,9 @@ export default {
         this.fetchData();
     },
     methods: {
+        goDetail(id) {
+            window.location.href = '#/agent/detail?id=' + id;
+        },
         jumpAdd() {
             window.location.href = '#/agent/add';
         },
