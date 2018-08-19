@@ -139,6 +139,8 @@
 
 
         <div class="small-title" style="margin-top: 10px;">银行账号：</div>
+        <el-button type="primary"  @click="dialogVisible1 = true">点击修改</el-button>
+
 
         <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
             <el-input v-model="form.bankAccountName"></el-input>
