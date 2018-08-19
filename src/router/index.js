@@ -246,6 +246,31 @@ export const asyncRouterMap = [
         ]
     },
     {
+        path: '/account',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/account/list',
+        name: 'account',
+        meta: {
+            title: '账号管理',
+            icon: 'account'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'account-list',
+                component: () => import('@/views/account/list'),
+                meta: { title: '账号列表' }
+            },
+            {
+                path: 'add',
+                component: () => import('@/views/account/add'),
+                hidden: true,
+                name: 'account-add'
+            }
+        ]
+    },
+    {
         path: '/permission',
         component: Layout,
         alwaysShow: true,

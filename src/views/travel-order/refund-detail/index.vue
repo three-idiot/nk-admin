@@ -162,9 +162,9 @@ export default {
                         type: "string"
                     }
                 ];
-                this.list = [Object.assign({},resData.travelGoods,{
-                    duration:new Date(resData.travelGoods.closeDate) - new Date(resData.refundOrder.createTime),
-                    money:'接口木有'
+                this.list = [Object.assign({}, resData.travelGoods, {
+                    duration: new Date(resData.travelGoods.closeDate) - new Date(resData.refundOrder.createTime),
+                    money: '接口木有'
                 })];
                 this.childList = resData.travelChildOrders;
                 this.listLoading = false;
