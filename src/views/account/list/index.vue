@@ -118,10 +118,10 @@ import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
         return Object.assign({}, orderMap, {
-            btn:{
-                txt:'+新建账号',
-                type:'primary',
-                size:'tiny'
+            btn: {
+                txt: '+新建账号',
+                type: 'primary',
+                size: 'tiny'
             },
             list: [],
             listLoading: true,
@@ -162,7 +162,7 @@ export default {
                 this.listLoading = false;
             });
         },
-        addAccount(){
+        addAccount() {
             alert();
         },
         onSubmit() {

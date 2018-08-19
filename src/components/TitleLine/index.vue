@@ -15,14 +15,14 @@ export default {
             type: String,
             default: ''
         },
-        btn:{
-            type:Object
+        btn: {
+            type: Object
         }
     },
     computed: {},
-    method:{
-        click(){
-            this.$emit('btnClick')
+    method: {
+        click() {
+            this.$emit('btnClick');
         }
     }
 };

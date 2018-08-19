@@ -12,3 +12,17 @@
 角色管理 permission-list
 新增角色 permission-add
 
+资讯管理 news
+
+资讯列表 news-list
+新增资讯 news-add
+查看资讯详情 news-detail
+编辑资讯 news-edit
+
+广告列表 adslist
+新增广告 ads-add
+查看广告详情 ads-detail
+编辑广告 ads-edit
+审核广告 ads-audit
+
+
