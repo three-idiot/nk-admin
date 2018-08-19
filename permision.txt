@@ -23,6 +23,8 @@
 新增广告 ads-add
 查看广告详情 ads-detail
 编辑广告 ads-edit
-审核广告 ads-audit
+
+审核 audit
+审核广告 audit-ads
 
 
