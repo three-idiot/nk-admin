@@ -2,7 +2,7 @@
     <div class="visaDetail">
         <p class="title">商品详情</p>
         <hr/>
-        <!--<portrait-table :data="processData"></portrait-table>-->
+        <portrait-table :data="processData"></portrait-table>
         <div class="btn-container">
             <el-button type="info" @click.native="$router.back()">返回</el-button>
         </div>
@@ -11,14 +11,6 @@
 
 <script>
     import {travelGoods} from '@/api/goods';
-    import transformData from '../tools/data';
-
-    let goodStatus = transformData.status;
-    let auditStatus = transformData.auditStatus;
-    let unitDay = transformData.unitDay;
-    let intoType = transformData.intoType;
-    let isUrgent = transformData.isUrgent;
-    // let isInterview = transformData.isInterview;
     import PortraitTable from "@/components/PortraitTable/index.vue";
 
     export default {
@@ -39,7 +31,7 @@
                     arr.push({key: '商品分类', value: this.data.type});
                     arr.push({key: '出发日期', value: this.data.leaveTime });
                     arr.push({key: '出发地点', value: this.data.leaveAddress });
-                    // arr.push({key: '添加图片', value: this.data.lowVisaPrice / 100});
+                    arr.push({key: '添加图片', value: this.data.images});
                     arr.push({key: '线路特色', value: this.data.lineDescribe });
                     arr.push({key: '行程介绍', value: this.data.tripDescribe });
                     arr.push({key: '费用与须知', value: this.data.costDescribe});
