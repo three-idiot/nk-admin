@@ -19,8 +19,8 @@
         <hr>
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
-        <el-form-item label="代理商名称" prop="name" style="width: 400px;">
-            <el-input v-model="form.name"></el-input>
+        <el-form-item label="代理商名称" prop="agentName" style="width: 400px;">
+            <el-input v-model="form.agentName"></el-input>
         </el-form-item>
 
 
@@ -57,16 +57,16 @@
         </div>
 
 
-        <el-form-item label="联系人：" prop="contractor" style="width: 400px;">
-            <el-input v-model="form.contractor"></el-input>
+        <el-form-item label="联系人：" prop="contactsName" style="width: 400px;">
+            <el-input v-model="form.contactsName"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系电话：" prop="phone" style="width: 400px;">
-            <el-input v-model="form.phone"></el-input>
+        <el-form-item label="联系电话：" prop="contactsPhone" style="width: 400px;">
+            <el-input v-model="form.contactsPhone"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系地址：" prop="mail" style="width: 400px;">
-            <el-input v-model="form.mail"></el-input>
+        <el-form-item label="联系地址：" prop="contactsMail" style="width: 400px;">
+            <el-input v-model="form.contactsMail"></el-input>
         </el-form-item>
 
 
@@ -75,8 +75,8 @@
 
         <div class="small-title" style="margin-top: 10px;">认证信息：</div>
 
-        <el-form-item label="代理商性质" prop="type">
-            <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
+        <el-form-item label="代理商性质" prop="agentType">
+            <el-select v-model="form.agentType" placeholder="请选择代理商性质" clearable>
                 <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
             </el-select>
         </el-form-item>
@@ -200,16 +200,16 @@ export default {
             county: null,
             street: null,
             form: {
-                name: null,
+                agentName: null,
                 roleId: null,
                 province: null,
                 city: null,
                 county: null,
                 street: null,
-                contractor: null,
-                phone: null,
-                mail: null,
-                type: '1',
+                contactsName: null,
+                contactsPhone: null,
+                contactsMail: null,
+                agentType: '1',
                 bizLicenseCode: null,
                 bizLicenseImagePath: null,
                 idCardNo: null,
@@ -237,7 +237,7 @@ export default {
                 confirmPassword: [
                     { validator: validatePass2, trigger: 'blur' }
                 ],
-                name:[
+                agentName:[
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
                 ],
                 roleId: [
@@ -255,16 +255,16 @@ export default {
                 street: [
                     { required: true, trigger: 'blur', message: '请输入街道' },
                 ],
-                contractor: [
+                contactsName: [
                     { required: true, trigger: 'blur', message: '请输入联系人' },
                 ],
-                phone: [
+                contactsPhone: [
                     { required: true, trigger: 'blur', message: '请输入联系电话' },
                 ],
-                mail: [
+                contactsMail: [
                     { required: true, trigger: 'blur', message: '请输入联系地址' },
                 ],
-                type: [
+                agentType: [
                     { required: true, trigger: 'blur', message: '请选择代理商性质' },
                 ],
                 bankAccountName: [
