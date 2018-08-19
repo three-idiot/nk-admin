@@ -42,13 +42,13 @@
                     arr.push({key: '代理商性质', value: this.data.type});
                     arr.push({key: '营业执照号码', value: this.data.bizLicenseCode});
                     arr.push({key: '营业执照副本', value: this.data.bizLicenseImagePath, type: 'image'});
-                    // arr.push({key: '有效期至', value: unitDay[this.data.unitDay]});
-                    // arr.push({key: '代理标识码', value: this.data.stayDay});
+                    arr.push({key: '有效期至', value: this.data.expireTime});
+                    arr.push({key: '代理标识码', value: this.data.uniqueCode});
                     // arr.push({key: '代理二维码', value: this.data.disposeDay});
-                    // arr.push({key: '创建人', value: intoType[this.data.intoType]});
-                    // arr.push({key: '创建时间', value: isUrgent[this.data.isUrgent]});
-                    // arr.push({key: '审核人', value: isUrgent[this.data.isInterview]});
-                    // arr.push({key: '审核时间', value: this.data.travelRatio});
+                    arr.push({key: '创建人', value: this.data.createUser});
+                    arr.push({key: '创建时间', value: this.data.auditTime});
+                    arr.push({key: '审核人', value: this.data.auditUser});
+                    arr.push({key: '审核时间', value: this.data.auditTime});
                     // arr.push({key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss")});
                     return arr;
                 }
