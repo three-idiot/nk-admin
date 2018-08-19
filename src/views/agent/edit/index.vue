@@ -138,8 +138,39 @@
 
 
 
-        <div class="small-title" style="margin-top: 10px;">银行账号：</div>
-        <el-button type="primary"  @click="dialogVisible1 = true">点击修改</el-button>
+        <div class="small-title" style="margin-top: 10px;">
+            银行账号：
+            <el-button type="primary"  @click="dialogVisible1 = true" style="margin-left: 70px;">点击修改</el-button>
+        </div>
+
+        <el-dialog
+            title="修改银行账号"
+            :visible.sync="dialogVisible1"
+            width="30%">
+
+            <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
+                <el-input v-model="form.bankAccountName"></el-input>
+            </el-form-item>
+
+            <el-form-item label="开户行：" prop="bankName" style="width: 400px;">
+                <el-input v-model="form.bankName"></el-input>
+            </el-form-item>
+
+            <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
+                <el-input v-model="form.bankCoupletNo"></el-input>
+            </el-form-item>
+
+            <el-form-item label="账号：" prop="bankAccountNo" style="width: 400px;">
+                <el-input v-model="form.bankAccountNo"></el-input>
+            </el-form-item>
+
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
 
 
         <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
@@ -160,7 +191,36 @@
 
         <hr>
 
-        <div class="small-title" style="margin-top: 10px;">使用期限：</div>
+        <div class="small-title" style="margin-top: 10px;">
+            使用期限：
+            <el-button type="primary"  @click="dialogVisible2 = true" style="margin-left: 70px;">点击修改</el-button>
+        </div>
+
+        <el-dialog
+            title="修改银行账号"
+            :visible.sync="dialogVisible2"
+            width="30%">
+
+            <el-form-item label="时间" prop="expireTime">
+                <el-date-picker
+                    v-model="form.expireTime"
+                    type="date"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择日期">
+                </el-date-picker>
+            </el-form-item>
+
+            <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
+                <el-input v-model="form.uniqueCode"></el-input>
+            </el-form-item>
+            
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible2 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
 
 
         <el-form-item label="时间" prop="expireTime">
@@ -201,6 +261,8 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            dialogVisible1: false,
+            dialogVisible2: false,
             form: {
                 name: null,
                 roleId: null,
