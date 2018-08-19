@@ -1,0 +1,12 @@
+用户列表  user-list
+签证订单列表 order-list
+签证订单查看详情 order-check
+签证订单编辑 order-edit
+旅游订单列表 travel-order-list
+旅游退款订单列表 travel-order-refund-order
+旅游退款审核 travel-order-refund-check
+账号列表 account-list
+新增账号 account-add
+角色管理 permission-list
+新增角色 permission-add
+

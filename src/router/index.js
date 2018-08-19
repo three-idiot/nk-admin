@@ -60,7 +60,8 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/user/list'),
-                meta: { title: '用户列表' }
+                meta: { title: '用户列表' },
+                name: 'user-list',
             }
         ]
     },
