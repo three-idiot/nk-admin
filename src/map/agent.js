@@ -8,10 +8,6 @@ export default {
             msg: "失效",
             color: "gray"
         },
-        2: {
-            msg: "待审核",
-            color: "warning"
-        },
     },
     type: {
         1: '企业',
