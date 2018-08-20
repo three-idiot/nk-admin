@@ -116,18 +116,36 @@
           <el-button v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
+          <el-button v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
+            审核
+          </el-button>
         </template>
       </el-table-column>
-
     </el-table>
     <!--表格结束-->
-
+    
     <!--分页-->
     <div class="block">
         <el-pagination @current-change="currentPageChange" :background='true' :current-page="current_page" :page-size="page_size" layout="total, prev, pager, next, jumper" :total="total_count">
         </el-pagination>
     </div>
     <!--分页结束-->
+    <el-dialog width="30%" title="广告审核" :visible.sync="dialogFormVisible">
+      <!-- <div style="color: red;margin-left: 50px;"></div> -->
+      <el-form :model="dialogForm">
+        <el-form-item label="审核意见" label-width="120px">
+          <el-radio v-model="dialogForm.agree" :label="1">同意</el-radio>
+          <el-radio v-model="dialogForm.agree" :label="4">不同意</el-radio>
+        </el-form-item>
+        <el-form-item label="备注" label-width="120px">
+          <el-input type="textarea" v-model="dialogForm.remark"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleAgreeConfirm">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </div>
 </template>
@@ -147,6 +165,7 @@ export default {
       page_size: 20,
       total_count: null,
       daterange: [],
+      clickId: '', // 审核的广告
       validdaterange: [],
       form: {
         publisher: "",
@@ -156,8 +175,26 @@ export default {
         sort: "",
       },
       list: [
+        {
+          adNo: '222',
+          title: '广告1',
+          publisher: '唐先森',
+          createTime: '20180715',
+          approver: '哈哈先森',
+          approveTime: '20180908',
+          sort: 3,
+          validTime: '20180706',
+          status: 3,
+          id: 100,
+          images: [{goodPath: 'http://p1.xiaoshidi.net/2018/08/17055418451694.jpg'}]
+        }
       ],
-      selectedLists: []
+      selectedLists: [],
+      dialogFormVisible: false,
+      dialogForm: {
+        agree: 0,
+        remark: ''
+      }
     };
   },
   computed: {
@@ -181,9 +218,35 @@ export default {
     }
   },
   created() {
-    this.fetchData();
+    // this.fetchData();
   },
   methods: {
+    audit (id) {
+      this.clickId = id;
+      this.dialogFormVisible = true;
+    },
+    handleAgreeConfirm (id) {
+      console.log(this.dialogForm);
+      this.dialogFormVisible = false;
+      changeAdsStatus({
+        adId: this.clickId,
+        status: this.dialogForm.agree,
+        remark: this.dialogForm.remark
+      }).then((res) => {
+        if (res.code == 200) {
+          this.$message({
+            message: '审核成功',
+            type: 'success'
+          });
+          this.fetchData();
+        } else {
+          this.$message({
+            message: res.msg,
+            type: 'error'
+          });
+        }
+      });
+    },
     fetchData() {
       this.listLoading = true;
       console.log(this.listQuery);
@@ -229,7 +292,8 @@ export default {
       this.$confirm('是否下架本条广告?', '广告下架', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
+        center: true
       }).then(() => {
         changeAdsStatus({
           adId: id,
@@ -275,7 +339,8 @@ export default {
       this.$confirm(`已选择${this.selectedLists.length}条广告，是否对广告置顶?`, '广告置顶', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'info'
+        type: 'info',
+        center: true
       }).then(() => { // 确定操作
         let ids = [];
         this.selectedLists.map((item, index) => {

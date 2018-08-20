@@ -14,8 +14,8 @@ export default {
             type: String,
             default: ''
         },
-        btn:{
-            type:Object
+        btn: {
+            type: Object
         }
     },
     computed: {},

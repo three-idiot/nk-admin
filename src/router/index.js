@@ -303,7 +303,25 @@ export const asyncRouterMap = [
             }
         ]
     },
-
+    {
+        path: '/audit',
+        component: Layout,
+        alwaysShow: true,
+        redirect: '/audit/ads',
+        name: 'audit',
+        meta: {
+            title: '审核',
+            icon: 'permission'
+        },
+        children: [
+            {
+                path: 'ads',
+                name: 'audit-ads',
+                component: () => import('@/views/audit/ads'),
+                meta: { title: '广告审核' }
+            }
+        ]
+    },
     {
         path: '/agent',
         component: Layout,
