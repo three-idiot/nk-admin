@@ -193,9 +193,17 @@ export default {
     },
     computed: {
         listQuery() {
+            let beginExpireTime,endExpireTime;
+            if( this.daterange ) {
+                beginExpireTime = this.daterange[0]? new Date(this.daterange[0]).Format("yyyy-MM-dd HH:mm:ss") : null;
+                endExpireTime = this.daterange[1]? new Date(this.daterange[1]).Format("yyyy-MM-dd HH:mm:ss") : null;
+            } else {
+                beginExpireTime = null;
+                endExpireTime = null;
+            }
             return Object.assign({}, this.form, {
-                beginExpireTime: this.daterange[0]? new Date(this.daterange[0]).Format("yyyy-MM-dd HH:mm:ss") : null,
-                endExpireTime: this.daterange[1]? new Date(this.daterange[1]).Format("yyyy-MM-dd HH:mm:ss") : null,
+                beginExpireTime: beginExpireTime,
+                endExpireTime: endExpireTime,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
             });
