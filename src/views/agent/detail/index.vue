@@ -33,13 +33,13 @@
                 let arr = [];
                 if (this.data) {
                     arr.push({key: '代理商编码', value: this.data.agentNo});
-                    arr.push({key: '代理商名称', value: this.data.name});
+                    arr.push({key: '代理商名称', value: this.data.agentName});
                     arr.push({key: '代理商属性', value: this.data.roleId});
                     arr.push({key: '代理商地区', value: this.data.province});
-                    arr.push({key: '联系人', value: this.data.contractor});
-                    arr.push({key: '联系电话', value: this.data.phone});
-                    arr.push({key: '联系地址', value: this.data.mail});
-                    arr.push({key: '代理商性质', value: this.data.type});
+                    arr.push({key: '联系人', value: this.data.contactsName});
+                    arr.push({key: '联系电话', value: this.data.contactsPhone});
+                    arr.push({key: '联系地址', value: this.data.contactsMail});
+                    arr.push({key: '代理商性质', value: this.data.agentType});
                     arr.push({key: '营业执照号码', value: this.data.bizLicenseCode});
                     arr.push({key: '营业执照副本', value: this.data.bizLicenseImagePath, type: 'image'});
                     arr.push({key: '有效期至', value: this.data.expireTime});
