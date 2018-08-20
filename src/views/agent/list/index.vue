@@ -35,10 +35,7 @@
 
             <el-form-item label="代理商角色：">
                 <el-select v-model="form.roleId" placeholder="请选择街道" clearable>
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="val" :value="key" :key="key" v-for="(val, key) in roleId"></el-option>
                 </el-select>
             </el-form-item>
             <div>
@@ -46,10 +43,7 @@
             </div>
             <el-form-item label="代理商状态：">
                 <el-select v-model="form.status" placeholder="请选择街道" clearable>
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="val.msg" :value="key" :key="key" v-for="(val, key) in status"></el-option>
                 </el-select>
             </el-form-item>
 
