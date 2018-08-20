@@ -48,7 +48,14 @@
             </el-form-item>
 
             <el-form-item label="有效期：">
-                <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+                <!--<el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">-->
+                <!--</el-date-picker>-->
+                <el-date-picker
+                    v-model="daterange"
+                    type="datetimerange"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :default-time="['12:00:00']">
                 </el-date-picker>
             </el-form-item>
 
