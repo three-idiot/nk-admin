@@ -8,48 +8,19 @@ export function getAccountList(params) {
     });
 }
 
-// export function getGroupOrderDetail(id) {
-//     return request({
-//         url: `/travelOrder/groupOrderDetail`,
-//         method: 'post',
-//         data: {
-//             groupOrderId: id
-//         }
-//     });
-// }
+export function addAccount(params) {
+    return request({
+        url: `/adminUser/add`,
+        method: 'post',
+        data: params
+    });
+}
 
-// export function getTravelOrderDetail(orderId) {
-//     return request({
-//         url: `/travelOrder/travelOrderDetail`,
-//         method: 'get',
-//         params: {
-//             orderId
-//         }
-//     });
-// }
+export function updateAccount(params) {
+    return request({
+        url: `/adminUser/update`,
+        method: 'post',
+        data: params
+    });
+}
 
-// export function getRefundOrderList(params) {
-//     return request({
-//         url: `/travelOrder/refundOrderList`,
-//         method: 'post',
-//         data: params
-//     });
-// }
-
-// export function getRefundOrderDetail(refundOrderId) {
-//     return request({
-//         url: `/travelOrder/refundOrderDetail`,
-//         method: 'get',
-//         params: {
-//             refundOrderId
-//         }
-//     });
-// }
-
-// export function forceSuccess(groupOrderId) {
-//     return request({
-//         url: `/travelOrder/modifyGroupOrder`,
-//         method: 'get',
-//         params: { groupOrderId, status: 5 }
-//     });
-// }

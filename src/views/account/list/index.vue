@@ -83,7 +83,7 @@
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">冻结</el-button>
                 <el-button size="mini" type="primary" @click="force(scope.$index, scope.row)">解冻</el-button>
                 <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
-                <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">查看</el-button>
+                <el-button size="mini" type="primary" @click="detail(scope.$index, scope.row)">查看</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -149,7 +149,9 @@ export default {
             });
         },
         addAccount() {
-            alert();
+            this.$router.push({
+                name: 'account-add'
+            });
         },
         onSubmit() {
             this.fetchData();
@@ -162,20 +164,21 @@ export default {
                 }
             });
         },
-        force(index, row) {
-            this.$confirm('确定强制成团?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                forceSuccess(row.groupOrderId).then(response => {
-                    this.$message({
-                        type: 'success',
-                        message: '成团成功!'
-                    });
-                    this.fetchData();
-                });
-            }).catch(() => {});
+        edit(index, row) {
+            this.$router.push({
+                name: 'account-edit',
+                params: {
+                    data: row
+                }
+            });
+        },
+        detail(index, row) {
+            this.$router.push({
+                name: 'account-detail',
+                params: {
+                    data: row
+                }
+            });
         },
         currentPageChange(page) {
             this.current_page = page;

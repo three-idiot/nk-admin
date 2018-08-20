@@ -263,6 +263,18 @@ export const asyncRouterMap = [
                 component: () => import('@/views/account/add'),
                 hidden: true,
                 name: 'account-add'
+            },
+            {
+                path: 'edit',
+                component: () => import('@/views/account/edit'),
+                hidden: true,
+                name: 'account-edit'
+            },
+            {
+                path: 'detail',
+                component: () => import('@/views/account/detail'),
+                hidden: true,
+                name: 'account-detail'
             }
         ]
     },

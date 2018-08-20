@@ -3,13 +3,13 @@
     <title-line txt="新建账号"></title-line>
     <el-form ref="ruleForm" :model="form" :rules="rules" class="demo-ruleForm" label-width="100px">
         <el-form-item label="所属角色">
-            <el-select v-model="form.roleId" placeholder="请选择">
+            <el-select disabled v-model="form.roleId" placeholder="请选择">
                 <el-option label="1" value="1">
                 </el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="账号">
-            <el-input v-model="form.username" placeholder="请输入用户名，用户名为3到15个字符组成，包括汉字，大小写字母（不区分大小写）"></el-input>
+            <el-input v-model="form.username" placeholder="请输入用户名，用户名为3到15个字符组成，包括汉字，大小写字母（不区分大小写）" disabled></el-input>
         </el-form-item>
         <el-form-item label="密码">
             <el-input type="password" v-model="form.pwd" placeholder="请填写密码，最小长度为 8 个字符"></el-input>
@@ -23,6 +23,13 @@
         <el-form-item label="手机号">
             <el-input v-model="form.phone"></el-input>
         </el-form-item>
+        {{form}}
+        <el-form-item label="状态">
+            <el-radio-group v-model="form.status">
+                <el-radio label="0">正常</el-radio>
+                <el-radio label="1">冻结</el-radio>
+            </el-radio-group>
+        </el-form-item>
         <el-form-item size="large" class="btn">
             <el-button type="info" @click.native="$router.back()">取消</el-button>
             <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
@@ -33,7 +40,7 @@
 
 <script>
 import {
-    addAccount
+    updateAccount
 } from "@/api/account";
 import TitleLine from "@/components/TitleLine/index.vue";
 import map from "@/map/account";
@@ -65,10 +72,22 @@ export default {
     },
     computed: {
         listQuery() {
-            return Object.assign({}, this.form, {});
+            return Object.assign({}, this.form, {
+            });
         }
     },
-    created() {},
+    created() {
+        if (!this.$route.params.data) {
+            this.$router.back();
+        } else {
+            const data = this.$route.params.data;
+            this.form.id = data.id;
+            this.form.roleId = data.roleId;
+            this.form.username = data.username;
+            this.form.phone = data.phone;
+            this.form.status = data.status;
+        }
+    },
     methods: {
         onSubmit(formName) {
             this.$refs[formName].validate((valid) => {
@@ -87,7 +106,7 @@ export default {
             this.form.visaPath = null;
         },
         update(params) {
-            addAccount(params).then(response => {
+            updateAccount(params).then(response => {
                 this.$alert('添加成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
