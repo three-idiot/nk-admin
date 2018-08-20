@@ -10,31 +10,31 @@
         <el-form :inline="true" :model="form" class="demo-form-inline">
 
             <el-form-item label="地区：">
-                <el-select v-model="form.renewType" placeholder="请选择省" clearable class="address">
+                <el-select v-model="form.province" placeholder="请选择省" clearable class="address">
                     <el-option :label="item.name" :value="item.id" v-for="item in province" @click.native="getNextLevel('city', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
-                <el-select v-model="form.status" placeholder="请选择市" clearable>
+                <el-select v-model="form.city" placeholder="请选择市" clearable>
                     <el-option :label="item.name" :value="item.id" v-for="item in city" @click.native="getNextLevel('county', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
-                <el-select v-model="form.timeType" placeholder="请选择区县" clearable>
+                <el-select v-model="form.county" placeholder="请选择区县" clearable>
                     <el-option :label="item.name" :value="item.id" v-for="item in county" @click.native="getNextLevel('street', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
-                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                <el-select v-model="form.street" placeholder="请选择街道" clearable>
                     <el-option :label="item.name" :value="item.id" v-for="item in street"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="代理商角色：">
-                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                <el-select v-model="form.roleId" placeholder="请选择街道" clearable>
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
                     <el-option label="签证时间" value="2"></el-option>
@@ -45,7 +45,7 @@
 
             </div>
             <el-form-item label="代理商状态：">
-                <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
+                <el-select v-model="form.status" placeholder="请选择街道" clearable>
                     <el-option label="下单时间" value="0"></el-option>
                     <el-option label="付款时间" value="1"></el-option>
                     <el-option label="签证时间" value="2"></el-option>
@@ -59,11 +59,11 @@
             </el-form-item>
 
             <el-form-item label="联系人：">
-                <el-input v-model="form.orderNum" placeholder="请输入订单号"></el-input>
+                <el-input v-model="form.contactsName" placeholder="请输入联系人姓名"></el-input>
             </el-form-item>
 
             <el-form-item label="电话：">
-                <el-input v-model="form.linkName" placeholder="请输入姓名"></el-input>
+                <el-input v-model="form.contactsPhone" placeholder="请输入联系人电话"></el-input>
             </el-form-item>
 
             <el-form-item>
