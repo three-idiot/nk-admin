@@ -185,8 +185,8 @@ export default {
                 endExpireTime: null,
                 contactsName: null,
                 contactsPhone: null,
-                pageIndex: null,
-                pageSize: null
+                // pageIndex: null,
+                // pageSize: null
             },
         });
     },
@@ -238,10 +238,10 @@ export default {
             this.listLoading = true;
             getAgentList(this.listQuery).then(response => {
                 this.list = response.data.data;
-                this.priceCount = response.data.priceCount;
-                this.total_count = response.data.total_count;
-                this.current_page = response.data.current_page;
-                this.max_page = response.data.max_page;
+                // this.priceCount = response.data.priceCount;
+                // this.total_count = response.data.total_count;
+                // this.current_page = response.data.current_page;
+                // this.max_page = response.data.max_page;
                 this.listLoading = false;
                 console.log( this.list );
             });
