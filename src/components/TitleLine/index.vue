@@ -1,8 +1,7 @@
 <template>
 <div class="title-container">
     <p class="title">{{txt}}</p>
-    {{btn}}
-    <el-button v-if="btn" class="btn" :type="btn.type" :size="btn.size" @click.native="click">{{btn.txt}}</el-button>
+    <el-button v-if="btn" class="btn" :type="btn.type" :size="btn.size" @click="click">{{btn.txt}}</el-button>
     <hr>
 </div>
 </template>
@@ -20,7 +19,7 @@ export default {
         }
     },
     computed: {},
-    method:{
+    methods:{
         click(){
             this.$emit('btnClick')
         }
