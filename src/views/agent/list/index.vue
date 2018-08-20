@@ -10,40 +10,26 @@
         <el-form :inline="true" :model="form" class="demo-form-inline">
 
             <el-form-item label="地区：">
-                <el-select v-model="form.renewType" placeholder="全国" clearable class="address">
-                    <el-option label="正常订单" value="0"></el-option>
-                    <el-option label="续签订单" value="1"></el-option>
+                <el-select v-model="form.renewType" placeholder="请选择省" clearable class="address">
+                    <el-option :label="item.name" :value="item.id" v-for="item in province" @click.native="getNextLevel('city', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
                 <el-select v-model="form.status" placeholder="请选择市" clearable>
-                    <el-option label="待付款" value="10"></el-option>
-                    <el-option label="办理中" value="20"></el-option>
-                    <el-option label="已送签" value="30"></el-option>
-                    <el-option label="已签发" value="40"></el-option>
-                    <el-option label="已拒签" value="41"></el-option>
-                    <el-option label="已登记" value="50"></el-option>
-                    <el-option label="已过期" value="60"></el-option>
-                    <el-option label="已取消" value="70"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in city" @click.native="getNextLevel('county', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
                 <el-select v-model="form.timeType" placeholder="请选择区县" clearable>
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in county" @click.native="getNextLevel('street', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="">
                 <el-select v-model="form.timeType" placeholder="请选择街道" clearable>
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in street"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -169,12 +155,17 @@
 <script>
 import {
     getAgentList,
-    opt
+    opt,
+    getLowerAreas
 } from "@/api/agent";
 import agentMap from "@/map/agent"
 export default {
     data() {
         return Object.assign({}, agentMap, {
+            province: null,
+            city: null,
+            county: null,
+            street: null,
             list: null,
             listLoading: true,
             current_page: 1,
@@ -184,18 +175,13 @@ export default {
             total_count: null,
             priceCount: null,
             form: {
-                orderNum: null,
-                linkName: null,
-                renewType: null,
+                province: null,
+                city: null,
+                county: null,
+                street: null,
+                roleId: null,
                 status: null,
-                timeType: null
             },
-            form2 :{
-                province: '',
-                city: '',
-                county: '',
-                street: '',
-            }
         });
     },
     computed: {
@@ -210,8 +196,20 @@ export default {
     },
     created() {
         this.fetchData();
+        this.fetchAddressData();
     },
     methods: {
+        fetchAddressData() {
+            getLowerAreas({id: 0}).then( res => {
+                // console.log( res );
+                this.province = res.data;
+            })
+        },
+        getNextLevel(nextLevel, id) {
+            getLowerAreas( {id: id} ).then( res => {
+                this[nextLevel] = res.data;
+            })
+        },
         opt(id, optType){
             opt( {id: id, optType: optType} ).then( res => {
                 console.log( res );
