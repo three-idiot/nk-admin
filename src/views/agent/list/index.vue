@@ -152,8 +152,8 @@
                 <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
                     编辑
                 </el-button>
-                <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">恢复</el-button>
-                <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
+                <el-button  size="mini" type="success" v-if="scope.row.status == 1" @click="opt(scope.row.id,2)">恢复</el-button>
+                <el-button  size="mini" type="danger" v-if="scope.row.status != 1"  @click="opt(scope.row.id,1)">
                     停用
                 </el-button>
             </template>
@@ -168,7 +168,8 @@
 
 <script>
 import {
-    getAgentList
+    getAgentList,
+    opt
 } from "@/api/agent";
 import agentMap from "@/map/agent"
 export default {
@@ -211,6 +212,15 @@ export default {
         this.fetchData();
     },
     methods: {
+        opt(id, optType){
+            opt( {id: id, optType: optType} ).then( res => {
+                console.log( res );
+                if( res.code == 200 ) {
+                    alert('改变成功');
+                    window.location.reload();
+                }
+            })
+        },
         goDetail(id) {
             window.location.href = '#/agent/detail?id=' + id;
         },

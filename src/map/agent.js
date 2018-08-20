@@ -18,4 +18,8 @@ export default {
         2: '网点',
         3: '市县代理'
     },
+    agentStatus: {
+        1: '正常',
+        2: '冻结'
+    }
 }

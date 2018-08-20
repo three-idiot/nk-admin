@@ -26,6 +26,16 @@ export function getUniqueCode(params) {
     })
 }
 
+export function opt(params) {
+    return request({
+        url: '/agent/opt',
+        method: 'get',
+        params
+    })
+}
+
+
+
 export function addAgent(params) {
     return request({
         url: '/agent/add',
