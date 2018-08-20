@@ -104,7 +104,7 @@
 
         <el-table-column label="代理商名称" align="center">
             <template slot-scope="scope">
-                <span>{{scope.row.name}}</span>
+                <span>{{scope.row.agentName}}</span>
             </template>
         </el-table-column>
         <el-table-column label="地区" align="center">
@@ -114,13 +114,13 @@
         </el-table-column>
         <el-table-column label="联系人" align="center">
             <template slot-scope="scope">
-                {{ scope.row.contractor }}
+                {{ scope.row.contactsName }}
             </template>
         </el-table-column>
 
         <el-table-column label="电话" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.phone}}
+                {{scope.row.contactsPhone}}
             </template>
         </el-table-column>
 
