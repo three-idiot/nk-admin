@@ -42,7 +42,7 @@
 
             </div>
             <el-form-item label="代理商状态：">
-                <el-select v-model="form.status" placeholder="请选择街道" clearable>
+                <el-select v-model="form.status" placeholder="请选择" clearable>
                     <el-option :label="val.msg" :value="key" :key="key" v-for="(val, key) in status"></el-option>
                 </el-select>
             </el-form-item>
@@ -186,18 +186,18 @@ export default {
                 endExpireTime: null,
                 contactsName: null,
                 contactsPhone: null,
-                // pageIndex: null,
-                // pageSize: null
+                pageIndex: null,
+                pageSize: null
             },
         });
     },
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                startTime: this.daterange[0],
-                endTime: this.daterange[1],
-                page: this.current_page,
-                size: this.page_size,
+                beginExpireTime: this.daterange[0]? new Date(this.daterange[0]).Format("yyyy-MM-dd HH:mm:ss") : null,
+                endExpireTime: this.daterange[1]? new Date(this.daterange[1]).Format("yyyy-MM-dd HH:mm:ss") : null,
+                pageIndex: this.current_page,
+                pageSize: this.page_size,
             });
         }
     },
@@ -237,6 +237,7 @@ export default {
         },
         fetchData() {
             this.listLoading = true;
+            console.log( '调试', this.listQuery );
             getAgentList(this.listQuery).then(response => {
                 this.list = response.data.data;
                 // this.priceCount = response.data.priceCount;
