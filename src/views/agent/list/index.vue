@@ -181,6 +181,12 @@ export default {
                 street: null,
                 roleId: null,
                 status: null,
+                beginExpireTime: null,
+                endExpireTime: null,
+                contactsName: null,
+                contactsPhone: null,
+                pageIndex: null,
+                pageSize: null
             },
         });
     },
