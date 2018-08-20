@@ -28,3 +28,22 @@
 审核广告 audit-ads
 
 
+签证管理：
+签证列表 visa/list
+新增签证 visa/add
+
+
+代理商管理：
+代理商列表 agent/list
+新增代理商 agent/add
+
+商品管理：
+商品列表 goods/list
+新增商品 goods/add
+
+
+
+
+
+
+
