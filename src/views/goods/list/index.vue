@@ -62,7 +62,7 @@
             title="退款规则设置"
             :visible.sync="refundDialog"
             width="30%">
-            <p>已选择个商品</p>
+            <p style="font-size: 20px;color: orangered;font-weight: bold;">已选择{{ chooseTravelGoodsId.length }}个商品</p>
             <div class="condition" v-for="(val,index) in RefundRule">
                 <p>条件{{ index+1 }}：</p>
                 <p>(截至时间)-(申请时间) >= <el-input class="input1" v-model="val.hour"></el-input></p>
@@ -72,7 +72,7 @@
             <p style="text-align: center;"><el-button type="primary" @click="addRule">添加规则</el-button></p>
             <span slot="footer" class="dialog-footer">
             <el-button @click="cancelRefund">取 消</el-button>
-            <el-button type="primary" @click="refundDialog = false">确 定</el-button>
+            <el-button type="primary" @click="changeRule">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -283,6 +283,9 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            changeRule() {
+                this.refundDialog = false;
+            },
             handleSelectionChange(val) {
                 this.chooseTravelGoodsId = val
                 // console.log( this.chooseTravelGoodsId );
