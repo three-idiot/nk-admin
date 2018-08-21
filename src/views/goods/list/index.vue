@@ -79,10 +79,10 @@
 
 
         <!--表格-->
-        <el-table :data="goodsList" v-loading="listLoading" border fit highlight-current-row
+        <el-table :data="goodsList" v-loading="listLoading" border fit highlight-current-row @selection-change="handleSelectionChange"
                   style="width: 100%;min-height:1000px;">
 
-            <el-table-column align="center" label="全选" type="selection" class="table-item" width="55">
+            <el-table-column align="center" label="全选" type="selection" v-model="chooseTravelGoodsId"  class="table-item" width="55">
             </el-table-column>
 
             <el-table-column align="center" label="商品编号" class="table-item">
@@ -283,6 +283,10 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            handleSelectionChange(val) {
+                this.chooseTravelGoodsId = val
+                // console.log( this.chooseTravelGoodsId );
+            },
             cancelRefund() {
                 let initArr = [];
                 this.RefundRule = initArr.push({
