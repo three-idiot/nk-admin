@@ -303,8 +303,12 @@
                     }
                 }
                 console.log( RefundRule );
-                addRefundRuleBatch( RefundRule ).then( res=> {
+                addRefundRuleBatch( {refundRules: RefundRule} ).then( res=> {
                     console.log( res );
+                    if( res.code == 200 ) {
+                        alert( '修改成功' );
+                        window.location.reload();
+                    }
                 })
                 this.refundDialog = false;
             },
