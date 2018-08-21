@@ -56,6 +56,29 @@
             <el-button type="danger" class="add-agent-button">批量设置商品退款规则</el-button>
         </div>
 
+
+
+        <el-dialog
+            title="退款规则设置"
+            :visible.sync="refundDialog"
+            width="25%">
+            <p>已选择个商品</p>
+            <div class="condition">
+                <p>条件1：</p>
+                <p>(截至时间)-(申请时间) >= <el-input class="input1"></el-input></p>
+                <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2"></el-input>%</p>
+                <hr>
+            </div>
+
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="refundDialog = false">取 消</el-button>
+            <el-button type="primary" @click="refundDialog = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
+
+
         <!--表格-->
         <el-table :data="goodsList" v-loading="listLoading" border fit highlight-current-row
                   style="width: 100%;min-height:1000px;">
@@ -200,6 +223,7 @@
                 shelfDialog: false,
                 remark: null,
                 listLoading: true,
+                refundDialog: true,
                 type: {
                     1: '一般',
                     2: '推荐'
@@ -315,6 +339,32 @@
                 /*float: left;*/
                 margin-right: 40px;
                 margin-left: 20px;
+            }
+        }
+        .condition {
+            font-size: 20px;
+
+            .input1 {
+                width: 60px;
+            }
+            .input2 {
+                width: 70px;
+            }
+            p:nth-child(1) {
+                color: #000000;
+                font-weight: bolder;
+            }
+            p:nth-child(2) {
+                padding-left: 60px;
+            }
+            p:nth-child(3) {
+                padding-left: 60px;
+                span:nth-child(1) {
+                    color: #ff0000;
+                }
+                span:nth-child(2) {
+                    color: #0000ff;
+                }
             }
         }
 
