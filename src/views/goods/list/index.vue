@@ -49,8 +49,11 @@
                            @click="handleFilter">查询
                 </el-button>
             </div>
+        </div>
 
-
+        <div class="list-des">
+            <span>商品总数：</span>
+            <el-button type="danger" class="add-agent-button">批量设置商品退款规则</el-button>
         </div>
 
         <!--表格-->
@@ -304,5 +307,16 @@
         padding-left: 50px;
         .item-btns {
         }
+        .list-des {
+            margin-top: 25px;
+            margin-bottom: 25px;
+            .add-agent-button {
+                font-size: 18px;
+                /*float: left;*/
+                margin-right: 40px;
+                margin-left: 20px;
+            }
+        }
+
     }
 </style>
