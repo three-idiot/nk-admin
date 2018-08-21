@@ -63,13 +63,13 @@
             :visible.sync="refundDialog"
             width="30%">
             <p>已选择个商品</p>
-            <div class="condition">
-                <p>条件1：</p>
-                <p>(截至时间)-(申请时间) >= <el-input class="input1"></el-input></p>
-                <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2"></el-input>%</p>
+            <div class="condition" v-for="(val,index) in RefundRule">
+                <p>条件{{ index+1 }}：</p>
+                <p>(截至时间)-(申请时间) >= <el-input class="input1" v-model="val.hour"></el-input></p>
+                <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2" v-model="val.ratio"></el-input>%</p>
                 <hr>
             </div>
-            <p style="text-align: center;"><el-button type="primary">添加规则</el-button></p>
+            <p style="text-align: center;"><el-button type="primary" @click="addRule">添加规则</el-button></p>
             <span slot="footer" class="dialog-footer">
             <el-button @click="refundDialog = false">取 消</el-button>
             <el-button type="primary" @click="refundDialog = false">确 定</el-button>
@@ -223,6 +223,14 @@
                 remark: null,
                 listLoading: true,
                 refundDialog: false,
+                RefundRule: [
+                    {
+                        sort: 0,
+                        hour: null,
+                        ratio: null,
+                        travelGoodsId: null
+                    },
+                ],
                 type: {
                     1: '一般',
                     2: '推荐'
@@ -271,6 +279,17 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            addRule() {
+                let length = this.RefundRule.length;
+                this.RefundRule.push(
+                    {
+                        sort: length,
+                        hour: null,
+                        ratio: null,
+                        travelGoodsId: null
+                    },
+                )
+            },
             fetchData(params) {
                 this.listLoading = true;
                 getGoodsList(params).then(response => {
