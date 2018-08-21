@@ -53,7 +53,7 @@
 
         <div class="list-des">
             <span>商品总数：</span>
-            <el-button type="danger" class="add-agent-button" @click="refundDialog = true">批量设置商品退款规则</el-button>
+            <el-button type="danger" class="add-agent-button" @click="refundDialogShow">批量设置商品退款规则</el-button>
         </div>
 
 
@@ -283,12 +283,21 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            refundDialogShow() {
+                if( this.chooseTravelGoodsId.length == 0 ) {
+                    alert( '当前没有选中任何商品!!!' );
+                    return;
+                } else {
+                    this.refundDialog = true;
+                }
+            },
             changeRule() {
+                console.log( this.RefundRule );
+                console.log( this.chooseTravelGoodsId );
                 this.refundDialog = false;
             },
             handleSelectionChange(val) {
                 this.chooseTravelGoodsId = val
-                // console.log( this.chooseTravelGoodsId );
             },
             cancelRefund() {
                 let initArr = [];
