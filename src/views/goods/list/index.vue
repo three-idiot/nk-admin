@@ -232,7 +232,7 @@
                         sort: 0,
                         hour: null,
                         ratio: null,
-                        travelGoodsId: null
+                        // travelGoodsId: null
                     },
                 ],
                 type: {
@@ -294,10 +294,22 @@
             changeRule() {
                 console.log( this.RefundRule );
                 console.log( this.chooseTravelGoodsId );
+                let RefundRule = [];
+                for ( let i=0;i<this.chooseTravelGoodsId.length;i++ ) {
+                    let item = this.chooseTravelGoodsId[i];
+                    for( let j=0;j < this.RefundRule.length;j++ ) {
+                        let item2 = this.RefundRule[j];
+                        let obj = Object.assign(item2,{
+                            travelGoodsId: item.id
+                        })
+                        RefundRule.push(obj);
+                    }
+                }
+                console.log( RefundRule );
                 this.refundDialog = false;
             },
             handleSelectionChange(val) {
-                this.chooseTravelGoodsId = val
+                this.chooseTravelGoodsId = val;
             },
             cancelRefund() {
                 let initArr = [];
