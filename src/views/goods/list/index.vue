@@ -53,7 +53,7 @@
 
         <div class="list-des">
             <span>商品总数：</span>
-            <el-button type="danger" class="add-agent-button">批量设置商品退款规则</el-button>
+            <el-button type="danger" class="add-agent-button" @click="refundDialog = true">批量设置商品退款规则</el-button>
         </div>
 
 
@@ -222,7 +222,7 @@
                 shelfDialog: false,
                 remark: null,
                 listLoading: true,
-                refundDialog: true,
+                refundDialog: false,
                 type: {
                     1: '一般',
                     2: '推荐'
