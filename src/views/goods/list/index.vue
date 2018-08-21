@@ -299,9 +299,8 @@
                     let item = this.chooseTravelGoodsId[i];
                     for( let j=0;j < this.RefundRule.length;j++ ) {
                         let item2 = this.RefundRule[j];
-                        let obj = Object.assign(item2,{
-                            travelGoodsId: item.id
-                        })
+                        let obj = JSON.parse(JSON.stringify(item2));
+                        obj.travelGoodsId = item.id;
                         RefundRule.push(obj);
                     }
                 }
