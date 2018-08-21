@@ -26,6 +26,14 @@ export function updateTravelGoods(params) {
     })
 }
 
+export function addRefundRuleBatch(params) {
+    return request({
+        url: '/refundRule/addRefundRuleBatch',
+        method: 'post',
+        data: params
+    })
+}
+
 export function changeStatus(params) {
     return request({
         url: '/travelGoods/changeStatus',

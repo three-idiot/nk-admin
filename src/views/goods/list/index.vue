@@ -65,8 +65,8 @@
             <p style="font-size: 20px;color: orangered;font-weight: bold;">已选择{{ chooseTravelGoodsId.length }}个商品</p>
             <div class="condition" v-for="(val,index) in RefundRule">
                 <p>条件{{ index+1 }}：</p>
-                <p>(截至时间)-(申请时间) >= <el-input class="input1" v-model="val.hour"></el-input></p>
-                <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2" v-model="val.ratio"></el-input>%</p>
+                <p>(截至时间)-(申请时间) >= <el-input class="input1" v-model.number="val.hour"></el-input></p>
+                <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2" v-model.number="val.ratio"></el-input>%</p>
                 <hr>
             </div>
             <p style="text-align: center;"><el-button type="primary" @click="addRule">添加规则</el-button></p>
@@ -213,9 +213,7 @@
 </template>
 
 <script>
-    import {getVisaList} from '@/api/visa';
-    import {goodsfoulup} from '@/api/visa';
-    import {getGoodsList, changeStatus} from '@/api/goods';
+    import {getGoodsList, changeStatus, addRefundRuleBatch} from '@/api/goods';
 
     export default {
         data() {
@@ -229,7 +227,6 @@
                 chooseTravelGoodsId: [],
                 RefundRule: [
                     {
-                        sort: 0,
                         hour: null,
                         ratio: null,
                         // travelGoodsId: null
@@ -292,8 +289,8 @@
                 }
             },
             changeRule() {
-                console.log( this.RefundRule );
-                console.log( this.chooseTravelGoodsId );
+                // console.log( this.RefundRule );
+                // console.log( this.chooseTravelGoodsId );
                 let RefundRule = [];
                 for ( let i=0;i<this.chooseTravelGoodsId.length;i++ ) {
                     let item = this.chooseTravelGoodsId[i];
@@ -301,10 +298,14 @@
                         let item2 = this.RefundRule[j];
                         let obj = JSON.parse(JSON.stringify(item2));
                         obj.travelGoodsId = item.id;
+                        obj.sort = i+j;
                         RefundRule.push(obj);
                     }
                 }
                 console.log( RefundRule );
+                addRefundRuleBatch( RefundRule ).then( res=> {
+                    console.log( res );
+                })
                 this.refundDialog = false;
             },
             handleSelectionChange(val) {
