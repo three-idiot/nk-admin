@@ -61,7 +61,7 @@
         <el-dialog
             title="退款规则设置"
             :visible.sync="refundDialog"
-            width="25%">
+            width="30%">
             <p>已选择个商品</p>
             <div class="condition">
                 <p>条件1：</p>
@@ -69,8 +69,7 @@
                 <p><span>退款金额</span> = <span>支付金额</span> x <el-input class="input2"></el-input>%</p>
                 <hr>
             </div>
-
-
+            <p style="text-align: center;"><el-button type="primary">添加规则</el-button></p>
             <span slot="footer" class="dialog-footer">
             <el-button @click="refundDialog = false">取 消</el-button>
             <el-button type="primary" @click="refundDialog = false">确 定</el-button>
