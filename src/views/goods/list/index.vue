@@ -71,7 +71,7 @@
             </div>
             <p style="text-align: center;"><el-button type="primary" @click="addRule">添加规则</el-button></p>
             <span slot="footer" class="dialog-footer">
-            <el-button @click="refundDialog = false">取 消</el-button>
+            <el-button @click="cancelRefund">取 消</el-button>
             <el-button type="primary" @click="refundDialog = false">确 定</el-button>
             </span>
         </el-dialog>
@@ -279,6 +279,16 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            cancelRefund() {
+                let initArr = [];
+                this.RefundRule = initArr.push({
+                    sort: 0,
+                    hour: null,
+                    ratio: null,
+                    travelGoodsId: null
+                });
+                this.refundDialog = false;
+            },
             addRule() {
                 let length = this.RefundRule.length;
                 this.RefundRule.push(
