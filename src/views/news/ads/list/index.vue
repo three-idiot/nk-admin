@@ -218,7 +218,7 @@ export default {
     }
   },
   created() {
-    // this.fetchData();
+    this.fetchData();
   },
   methods: {
     audit (id) {
