@@ -226,31 +226,39 @@
                 <tr>
                     <td class="tableTitle">成人：</td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(1,1) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(2,1) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(3,1) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(4,1) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>-->
                     </td>
                 </tr>
                 <tr>
                     <td class="tableTitle">儿童：</td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(1,2) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(2,2) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(3,2) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>-->
                     </td>
                     <td>
-                        <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
+                        {{ calPrices(4,2) }}
+                        <!--<el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>-->
                     </td>
                 </tr>
             </table>
@@ -477,6 +485,14 @@
             editor
         },
         methods: {
+            calPrices( agentType,userType ) {
+                for( let i=0;i<this.ruleForm.travelGoodsDividePrices.length;i++ ) {
+                    let item = this.ruleForm.travelGoodsDividePrices[i];
+                    if ( item.agentType == agentType && item.userType == userType ) {
+                        return item.price;
+                    }
+                }
+            },
             fetchData() {
                 let id = this.$route.query.id;
                 travelGoods({ id: id}).then(response => {
