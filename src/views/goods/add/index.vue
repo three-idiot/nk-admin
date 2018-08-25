@@ -276,51 +276,62 @@
                     travelGoodsDividePrices: null
                 },
                 rules: {
-                    goodsNum: [
-                        {required: true, trigger: 'change', message: '请上传图片'}
-                    ],
-                    title: [
+                    name: [
                         {required: true, trigger: 'blur', message: '请输入商品名称'}
                     ],
-                    unitDay: [
-                        {required: true, trigger: 'change', message: '请选择签证有效期'}
+                    outline: [
+                        {required: true, trigger: 'blur', message: '请输入商品概要'}
                     ],
-                    intoType: [
-                        {required: true, trigger: 'change', message: '请选择入境次数'}
+                    type: [
+                        {required: true, trigger: 'blur', message: '请选择商品分类'}
                     ],
-                    isUrgent: [
-                        {required: true, trigger: 'change', message: '请选择是否加急'}
+                    leaveTime: [
+                        {required: true, trigger: 'change', message: '请输入出发日期'}
                     ],
-                    isInterview: [
-                        {required: true, trigger: 'change', message: '请选择是否面试'}
+                    leaveAddress: [
+                        {required: true, trigger: 'change', message: '请输入出发地点'}
                     ],
-                    visaPrice: [
-                        {required: true, trigger: 'blur', message: '请输入签证费'},
+                    lineDescribe: [
+                        {required: true, trigger: 'change', message: '请输入线路特色'}
+                    ],
+                    tripDescribe: [
+                        {required: true, trigger: 'change', message: '请输入行程特色'},
+                    ],
+                    costDescribe: [
+                        {required: true, trigger: 'change', message: '请输入费用与须知'},
+                    ],
+                    peopleMinNum: [
+                        {required: true, trigger: 'change', message: '请输入最低成团人数'},
                         {validator: checkNum, trigger: 'blur'}
                     ],
-                    lowVisaPrice: [
-                        {required: true, trigger: 'blur', message: '请输入签证优惠费'},
+                    peopleMaxNum: [
+                        {required: true, trigger: 'change', message: '请输入成团人数上限'},
                         {validator: checkNum, trigger: 'blur'}
                     ],
-                    helpPrice: [
-                        {required: true, trigger: 'blur', message: '请输入服务费'},
+                    realPrice: [
+                        {required: true, trigger: 'blur', message: '请输入商品价格'},
                         {validator: checkNum, trigger: 'blur'}
                     ],
-                    lowHelpPrice: [
-                        {required: true, trigger: 'blur', message: '请输入服务优惠费'},
+                    salePrice: [
+                        {required: true, trigger: 'blur', message: '请输入门市价格'},
                         {validator: checkNum, trigger: 'blur'}
                     ],
-                    stayDay: [
-                        {required: true, trigger: 'blur', message: '请输入停留时间'},
+                    childPrice: [
+                        {required: true, trigger: 'blur', message: '请输入儿童价格'},
                         {validator: checkNum, trigger: 'blur'}
                     ],
-                    disposeDay: [
-                        {required: true, trigger: 'blur', message: '请输入处理时间'},
-                        {validator: checkNum, trigger: 'blur'}
+                    images: [
+                        {required: true, trigger: 'blur', message: '请至少添加一张图片'},
+                        // {validator: checkNum, trigger: 'blur'}
                     ],
-                    renewPrice: [
-                        {validator: checkNum, trigger: 'blur'}
+                    closeDate: [
+                        {required: true, trigger: 'blur', message: '请输入报名截止时间'},
+                        // {validator: checkNum, trigger: 'blur'}
                     ],
+
+                    // renewPrice: [
+                    //     {validator: checkNum, trigger: 'blur'}
+                    // ],
                 }
             });
         },
@@ -392,6 +403,7 @@
                             console.log('掉借口了', res);
                             if ( res.code == 200 ) {
                                 alert('新建成功');
+                                window.location.reload();
                             } else {
                                 alert(res.msg);
                             }
