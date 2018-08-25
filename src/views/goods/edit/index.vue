@@ -1,6 +1,9 @@
 <template>
     <div class="addVisa-form">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+            <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
+                <el-input v-model="ruleForm.goodsNo" disabled></el-input>
+            </el-form-item>
             <!--商品名称-->
             <el-form-item label="商品名称" prop="name" style="width: 312px;">
                 <el-input v-model="ruleForm.name"></el-input>
@@ -43,10 +46,10 @@
             </el-form-item>
 
 
-            <el-form-item label="添加图片" prop="images">
+            <el-form-item label="修改图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
                 <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="5"
-                           :on-success="imgUploaded" :on-remove="imgRemove">
+                           :on-success="imgUploaded" :on-remove="imgRemove" :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                 </el-upload>
@@ -71,13 +74,8 @@
 
 
             <hr>
+
             <el-form-item label="报名截止时间" prop="closeDate">
-                <!--<el-date-picker-->
-                <!--v-model="ruleForm.closeDate"-->
-                <!--type="date"-->
-                <!--value-format="yyyy-MM-dd"-->
-                <!--placeholder="选择日期">-->
-                <!--</el-date-picker>-->
                 <el-date-picker
                     v-model="ruleForm.closeDate"
                     type="datetime"
@@ -85,6 +83,7 @@
                     value-format="yyyy-MM-dd HH:mm:ss"
                 >
                 </el-date-picker>
+                <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible1 = true">点击修改</el-button>
             </el-form-item>
 
             <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
@@ -94,10 +93,49 @@
             <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
                 <el-input v-model="ruleForm.peopleMaxNum"></el-input>
             </el-form-item>
+
+
+            <!--弹层1号-->
+            <el-dialog
+                title="修改期限和人数"
+                :visible.sync="dialogVisible1"
+                width="30%">
+                <el-form-item label="修改商品期限" prop="peopleMinNum">
+                    <el-radio-group>
+                        <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
+                        <el-radio label="1">长期有效</el-radio>
+                        <el-radio label="2">固定年限</el-radio>
+                    </el-radio-group>
+                    <el-date-picker style="margin-left: 5px;"
+                                    v-model="ruleForm.upTime"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    placeholder="选择日期">
+                    </el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
+                    <el-input v-model="ruleForm.peopleMinNum"></el-input>
+
+                </el-form-item>
+
+                <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
+                    <el-input v-model="ruleForm.peopleMaxNum"></el-input>
+                </el-form-item>
+
+
+                <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+            </el-dialog>
+
+
             <hr>
 
-            <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
-                <el-input v-model="ruleForm.realPrice"></el-input>
+            <el-form-item label="设置商品价格(￥)" prop="realPrice">
+                <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
             </el-form-item>
 
             <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
@@ -107,6 +145,72 @@
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
                 <el-input v-model="ruleForm.childPrice"></el-input>
             </el-form-item>
+
+            <!--弹层2号-->
+            <el-dialog
+                title="修改期限和人数"
+                :visible.sync="dialogVisible2"
+                width="50%">
+                <el-form-item label="设置商品价格(￥)" prop="realPrice">
+                    <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                    <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
+                </el-form-item>
+
+                <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
+                    <el-input v-model="ruleForm.salePrice"></el-input>
+                </el-form-item>
+
+                <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
+                    <el-input v-model="ruleForm.childPrice"></el-input>
+                </el-form-item>
+
+                <p>设置商品分成：</p>
+                <table class="divide-table">
+                    <tr>
+                        <th class="tableTitle">分成设置(元)</th>
+                        <th class="tableTitle">省代</th>
+                        <th class="tableTitle">市县代</th>
+                        <th class="tableTitle">网点</th>
+                        <th class="tableTitle">第三方</th>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle">成人：</td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle">儿童：</td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
+                        </td>
+                        <td>
+                            <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
+                        </td>
+                    </tr>
+                </table>
+
+                <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible2 = false">确 定</el-button>
+            </span>
+            </el-dialog>
+
 
             <p>设置商品分成：</p>
 
@@ -121,31 +225,31 @@
                 <tr>
                     <td class="tableTitle">成人：</td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td class="tableTitle">儿童：</td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>
                     </td>
                     <td>
-                        <el-input v-model.number="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
+                        <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>
                     </td>
                 </tr>
             </table>
@@ -164,29 +268,54 @@
             <!--</el-form-item>-->
             <hr>
 
-            <el-form-item label="设置上架日期">
-                <el-radio-group v-model="upType">
-                    <el-radio v-for="(val,key) in upStatus" :label="val" :key="key">{{ key }}</el-radio>
-                </el-radio-group>
-                <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
-                                v-model="ruleForm.upTime"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="选择日期">
-                </el-date-picker>
-            </el-form-item>
+
+            <div class="status-container">
+                <div class="status">
+                    <span>商品状态：</span>
+                    <el-tag :type="ruleForm.status | statusFilter" style="float: left">
+                        {{ status[this.ruleForm.status] }}
+                    </el-tag>
+                    <el-button  style="margin-left: 100px;" type="primary" class="change" @click="dialogVisible3 = true">点击修改</el-button>
+                </div>
+                <div class="time">
+                    <span>商品上架时间：</span>
+                    <span>{{ this.ruleForm.upTime }}</span>
+                </div>
+            </div>
+
+
+            <el-dialog
+                title="修改期限和人数"
+                :visible.sync="dialogVisible3"
+                width="30%">
+                <el-form-item label="设置上架日期">
+                    <el-radio-group v-model="upType">
+                        <el-radio v-for="(val,key) in upStatus" :label="val" :key="key">{{ key }}</el-radio>
+                    </el-radio-group>
+                    <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
+                                    v-model="ruleForm.upTime"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    placeholder="选择日期">
+                    </el-date-picker>
+                </el-form-item>
+                <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible3 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible3 = false">确 定</el-button>
+            </span>
+            </el-dialog>
 
 
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button @click="resetForm('ruleForm')">取消并返回</el-button>
             </el-form-item>
         </el-form>
     </div>
 </template>
 
 <script>
-    import {addTravelGoods} from '@/api/goods';
+    import {travelGoods,updateTravelGoods} from '@/api/goods';
     import goodsMap from "@/map/goods"
     import editor from '@/components/editor'
     import App from "../../../App";
@@ -202,11 +331,24 @@
                 }
             };
             return Object.assign({}, goodsMap, {
+                fileList: [],
+                goodsList: null,
+                good: null,
+                dialogVisible1: false,
+                dialogVisible2: false,
+                dialogVisible3: false,
                 editorSetting: {
                     width: 600,
                     height: 400,
                 },
                 upType: null,
+                statusMap: {
+                    1: 'success',
+                    2: 'success',
+                    3: 'danger',
+                    4: 'warning',
+                    5: 'danger',
+                },
                 travelGoodsDividePrices: [
                     {
                         agentType: 1,
@@ -270,10 +412,12 @@
                     realPrice: null,
                     salePrice: null,
                     childPrice: null,
+                    provinceDividePrice: null,
+                    cityDividePrice: null,
+                    pointDividePrice: null,
                     status: null,
                     upTime: null,
-                    images: null,
-                    travelGoodsDividePrices: null
+                    images: null
                 },
                 rules: {
                     goodsNum: [
@@ -325,51 +469,78 @@
             });
         },
         created() {
+            this.fetchData();
         },
         components: {
             App,
             editor
         },
         methods: {
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
-                // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-                console.log(file.response.data);
-                this.ruleForm.goodsNum = file.response.data;
+            fetchData() {
+                let id = this.$route.query.id;
+                travelGoods({ id: id}).then(response => {
+                    this.ruleForm = response.data;
+                    console.log('测试',this.ruleForm);
+                    this.ruleForm.recommend = String(this.ruleForm.recommend);
+                    let images = this.ruleForm.images;
+                    this.fileList = [];
+                    for( let i = 0;i<images.length;i++ ) {
+                        let obj = {};
+                        let item = images[i];
+                        obj.name = item.id;
+                        obj.url = item.goodPath;
+                        this.fileList.push( obj );
+                    }
+                    this.ruleForm.images = [];
+                    for( let i=0;i<images.length;i++ ) {
+                        let obj = {};
+                        let item = images[i];
+                        let path = /\/images\/.*\?/.exec(item.goodPath)[0].split('?')[0];
+                        obj.goodPath = path;
+                        obj.sort = i;
+                        this.ruleForm.images.push( obj );
+                    }
+                });
             },
-            beforeAvatarUpload(file) {
-                // const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                // if (!isJPG) {
-                //   this.$message.error('上传头像图片只能是 JPG 格式!');
-                // }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isLt2M;
-            },
-            imgUploaded(res, file) {
+            imgUploaded(res, file,fileList) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
                     this.ruleForm.images = [];
                 }
+                // console.log('测试测试', file);
+                // console.log('测试测试2', fileList);
                 let obj = {
                     goodPath: res.data,
                     sort: this.ruleForm.images.length ? this.ruleForm.images.length : 0
                 }
-
                 this.ruleForm.images.push(obj);
                 console.log(this.ruleForm.images);
             },
             imgRemove(files, fileList) {
-                this.form.visaPath = null;
+                // console.log( files );
+                // console.log( fileList );
+                this.ruleForm.images = [];
+                console.log( fileList );
+                for ( let i=0;i<fileList.length;i++ ) {
+                    let item = fileList[i];
+                    if( typeof item.response != 'undefined' ) {
+                        this.ruleForm.images.push({
+                            goodPath: item.response.data,
+                            sort:i
+                        })
+                    } else {
+                        this.ruleForm.images.push({
+                            goodPath: /\/images\/.*\?/.exec(item.url)[0].split('?')[0],
+                            sort:i
+                        })
+                    }
+                }
+                console.log( this.ruleForm.images );
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         console.log('submit!');
                         console.log(this.upType);
-                        console.log('测试', this.travelGoodsDividePrices);
                         if (this.upType == 2) {
                             // 立即上架
                             this.ruleForm.status = 2;
@@ -387,8 +558,8 @@
                             }
                         }
                         console.log('调试2', this.ruleForm);
-                        this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
-                        addTravelGoods(this.ruleForm).then(res => {
+                        // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+                        updateTravelGoods(this.ruleForm).then(res => {
                             console.log('掉借口了', res);
                             // if ( res.code == 200 ) {
                             //     alert('新建成功');
@@ -439,7 +610,7 @@
     .addVisa-form {
         margin-top: 20px;
         padding-left: 30px;
-        padding-bottom: 100px;
+        padding-bottom: 300px;
         .divide-table {
             /*margin-left: 50px;*/
         }
@@ -449,6 +620,26 @@
             line-height: 30px;
             text-align: center;
             color: #FFFFFF;
+        }
+    }
+    .status-container {
+        line-height: 40px;
+        /*display: flex;*/
+        padding-top: 10px;
+        .status {
+            span {
+                float: left;
+            }
+            display: block;
+            overflow: hidden;
+            line-height: 40px;
+        }
+        .time {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .change {
+            float: left;
         }
     }
 

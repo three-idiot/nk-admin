@@ -86,59 +86,92 @@
         <hr>
 
 
-        <div class="small-title" style="margin-top: 10px;">认证信息：</div>
+        <!--<div class="small-title" style="margin-top: 10px;">认证信息：</div>-->
 
-        <el-form-item label="代理商性质" prop="type">
-            <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
-                <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
-            </el-select>
-        </el-form-item>
+        <!--<el-form-item label="代理商性质" prop="type">-->
+            <!--<el-select v-model="form.type" placeholder="请选择代理商性质" clearable>-->
+                <!--<el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>-->
+            <!--</el-select>-->
+        <!--</el-form-item>-->
 
-        <!--// 选择代理商性质为企业-->
-        <div v-if="form.type == 1">
-            <el-form-item label="营业执照代码："  style="width: 400px;">
-                <el-input v-model="form.bizLicenseCode"></el-input>
-            </el-form-item>
+        <!--&lt;!&ndash;// 选择代理商性质为企业&ndash;&gt;-->
+        <!--<div v-if="form.type == 1">-->
+            <!--<el-form-item label="营业执照代码："  style="width: 400px;">-->
+                <!--<el-input v-model="form.bizLicenseCode"></el-input>-->
+            <!--</el-form-item>-->
 
-            <el-form-item label="营业执照副本" >
-                <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
-                    <el-button type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                </el-upload>
-            </el-form-item>
+            <!--<el-form-item label="营业执照副本" >-->
+                <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
+                <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
+                    <!--<el-button type="primary">点击上传</el-button>-->
+                    <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                <!--</el-upload>-->
+            <!--</el-form-item>-->
+        <!--</div>-->
+
+
+
+        <!--&lt;!&ndash;// 选择代理商性质为个人&ndash;&gt;-->
+        <!--<div v-if="form.type == 2">-->
+            <!--<el-form-item label="身份证号码：" prop="title" style="width: 400px;">-->
+                <!--<el-input v-model="form.idCardNo"></el-input>-->
+            <!--</el-form-item>-->
+
+            <!--<el-form-item label="身份证照片">-->
+                <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
+                <!--<div class="pic-container">-->
+                    <!--<span class="picTitle">国徽面：</span>-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
+                        <!--<el-button type="primary">点击上传</el-button>-->
+                        <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                    <!--</el-upload>-->
+                    <!--<span class="picTitle">信息面：</span>-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
+                        <!--<el-button type="primary">点击上传</el-button>-->
+                        <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
+                    <!--</el-upload>-->
+                <!--</div>-->
+            <!--</el-form-item>-->
+        <!--</div>-->
+
+
+
+
+
+        <div class="small-title" style="margin-top: 10px;">
+            银行账号：
+            <el-button type="primary"  @click="dialogVisible1 = true" style="margin-left: 70px;">点击修改</el-button>
         </div>
 
+        <el-dialog
+            title="修改银行账号"
+            :visible.sync="dialogVisible1"
+            width="30%">
 
-
-        <!--// 选择代理商性质为个人-->
-        <div v-if="form.type == 2">
-            <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
-                <el-input v-model="form.idCardNo"></el-input>
+            <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
+                <el-input v-model="form.bankAccountName"></el-input>
             </el-form-item>
 
-            <el-form-item label="身份证照片">
-                <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <div class="pic-container">
-                    <span class="picTitle">国徽面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">
-                        <el-button type="primary">点击上传</el-button>
-                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                    </el-upload>
-                    <span class="picTitle">信息面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">
-                        <el-button type="primary">点击上传</el-button>
-                        <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
-                    </el-upload>
-                </div>
+            <el-form-item label="开户行：" prop="bankName" style="width: 400px;">
+                <el-input v-model="form.bankName"></el-input>
             </el-form-item>
-        </div>
+
+            <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
+                <el-input v-model="form.bankCoupletNo"></el-input>
+            </el-form-item>
+
+            <el-form-item label="账号：" prop="bankAccountNo" style="width: 400px;">
+                <el-input v-model="form.bankAccountNo"></el-input>
+            </el-form-item>
 
 
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+        </el-dialog>
 
 
-
-        <div class="small-title" style="margin-top: 10px;">银行账号：</div>
 
         <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
             <el-input v-model="form.bankAccountName"></el-input>
@@ -158,7 +191,36 @@
 
         <hr>
 
-        <div class="small-title" style="margin-top: 10px;">使用期限：</div>
+        <div class="small-title" style="margin-top: 10px;">
+            使用期限：
+            <el-button type="primary"  @click="dialogVisible2 = true" style="margin-left: 70px;">点击修改</el-button>
+        </div>
+
+        <el-dialog
+            title="修改银行账号"
+            :visible.sync="dialogVisible2"
+            width="30%">
+
+            <el-form-item label="时间" prop="expireTime">
+                <el-date-picker
+                    v-model="form.expireTime"
+                    type="date"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择日期">
+                </el-date-picker>
+            </el-form-item>
+
+            <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
+                <el-input v-model="form.uniqueCode"></el-input>
+            </el-form-item>
+
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible2 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
 
 
         <el-form-item label="时间" prop="expireTime">
@@ -184,9 +246,8 @@
 
 <script>
 import {
-    getOrderDetail,
-    updateOrder
-} from "@/api/order";
+    getAgent
+} from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
 import { checkNum, checkUsername, checkPassword } from "@/rules";
@@ -200,6 +261,8 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            dialogVisible1: false,
+            dialogVisible2: false,
             form: {
                 name: null,
                 roleId: null,
@@ -301,60 +364,19 @@ export default {
         }
     },
     created() {
-        // this.fetchData();
+        this.fetchData();
     },
     methods: {
         fetchData() {
-            getOrderDetail(this.$route.params.id).then(response => {
-                const resData = response.data;
-                this.form.detatilId = response.data.orderDetail[0].id;
-                this.data = [{
-                        key: "订单编号",
-                        value: resData.orderNum,
-                        type: "string"
-                    },
-                    {
-                        key: "订单总额",
-                        value: resData.payMoney / 100,
-                        type: "string"
-                    },
-                    {
-                        key: "真实姓名",
-                        value: resData.orderDetail[0].name,
-                        type: "string"
-                    },
-                    {
-                        key: "护照号",
-                        value: resData.orderDetail[0].passportNo,
-                        type: "string"
-                    },
-                    {
-                        key: "手机号码",
-                        value: resData.orderDetail[0].mobile,
-                        type: "string"
-                    },
-                    {
-                        key: "Email",
-                        value: resData.linkEmail,
-                        type: "string"
-                    },
-                    {
-                        key: "支付单号",
-                        value: resData.payNum,
-                        type: "string"
-                    },
-                    {
-                        key: "付款时间",
-                        value: resData.payTime,
-                        type: "dateTime"
-                    },
-                    {
-                        key: "支付方式",
-                        value: this.payTypes[resData.payType].msg,
-                        type: "string"
-                    }
-                ];
-            });
+            let id = this.$route.query.id;
+            console.log('测试',id);
+            getAgent( {id:id} ).then( res => {
+                if(res.code == 200) {
+                    this.form = res.data;
+                } else {
+                    alert( res.msg );
+                }
+            })
         },
         onSubmit(formName) {
             this.$refs[formName].validate((valid) => {
