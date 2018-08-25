@@ -171,7 +171,7 @@ export default {
             listLoading: true,
             max_page: 0,
             daterange: [],
-            total_count: null,
+            total_count: 0,
             priceCount: null,
             form: {
                 province: null,
@@ -243,6 +243,7 @@ export default {
             this.listLoading = true;
             console.log( '调试', this.listQuery );
             getAgentList(this.listQuery).then(response => {
+                console.log( response.data );
                 this.list = response.data.data;
                 // this.priceCount = response.data.priceCount;
                 // this.total_count = response.data.total_count;
@@ -250,6 +251,7 @@ export default {
                 // this.max_page = response.data.max_page;
                 this.listLoading = false;
                 console.log( this.list );
+                this.total_count = response.data.total_count;
             });
         },
         onSubmit() {

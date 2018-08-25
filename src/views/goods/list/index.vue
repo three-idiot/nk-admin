@@ -52,7 +52,7 @@
         </div>
 
         <div class="list-des">
-            <span>商品总数：</span>
+            <span>商品总数：<span style="color: orangered">{{ total_count }}</span></span>
             <el-button type="danger" class="add-agent-button" @click="refundDialogShow">批量设置商品退款规则</el-button>
         </div>
 
@@ -225,6 +225,7 @@
                 listLoading: true,
                 refundDialog: false,
                 chooseTravelGoodsId: [],
+                total_count: 0,
                 RefundRule: [
                     {
                         hour: null,
@@ -342,6 +343,7 @@
                     // this.list = response.data.data;
                     console.log(response.data);
                     this.goodsList = response.data.data;
+                    this.total_count = response.data.total_count;
                     // this.pagesStatus.total_count = response.data.total_count;
                     this.listLoading = false;
                 });
