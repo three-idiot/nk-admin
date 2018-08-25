@@ -373,6 +373,7 @@ export default {
             getAgent( {id:id} ).then( res => {
                 if(res.code == 200) {
                     this.form = res.data;
+                    this.form.roleId = String(this.form.roleId);
                 } else {
                     alert( res.msg );
                 }
