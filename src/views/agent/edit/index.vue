@@ -20,11 +20,11 @@
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
 
-        <el-form-item label="代理商编码" prop="name" style="width: 400px;">
-            <el-input v-model="form.agentNo"></el-input>
+        <el-form-item label="代理商编码" prop="agentNo" style="width: 400px;">
+            <el-input v-model="form.agentNo" disabled></el-input>
         </el-form-item>
 
-        <el-form-item label="代理商名称" prop="name" style="width: 400px;">
+        <el-form-item label="代理商名称" prop="agentName" style="width: 400px;">
             <el-input v-model="form.agentName"></el-input>
         </el-form-item>
 
@@ -298,7 +298,7 @@ export default {
                 confirmPassword: [
                     { validator: validatePass2, trigger: 'blur' }
                 ],
-                name: [
+                agentName: [
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
                 ],
                 roleId: [
