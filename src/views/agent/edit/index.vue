@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-    <p class="title">新增代理商</p>
+    <p class="title">编辑代理商</p>
     <hr/>
     <el-form ref="ruleForm" :model="form" :rules="rules"  class="form" label-width="130px">
         <div class="small-title">登录账号：</div>
