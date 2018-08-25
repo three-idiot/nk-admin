@@ -81,17 +81,18 @@
                     type="datetime"
                     placeholder="选择报名截止时间"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    disabled
                 >
                 </el-date-picker>
                 <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible1 = true">点击修改</el-button>
             </el-form-item>
 
             <el-form-item label="最低成团人数(人)" prop="peopleMinNum" style="width: 312px;">
-                <el-input v-model="ruleForm.peopleMinNum"></el-input>
+                <el-input v-model="ruleForm.peopleMinNum" disabled></el-input>
             </el-form-item>
 
             <el-form-item label="成团人数上限(人)" prop="peopleMaxNum" style="width: 312px;">
-                <el-input v-model="ruleForm.peopleMaxNum"></el-input>
+                <el-input v-model="ruleForm.peopleMaxNum" disabled></el-input>
             </el-form-item>
 
 
@@ -134,16 +135,16 @@
             <hr>
 
             <el-form-item label="设置商品价格(￥)" prop="realPrice">
-                <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                <el-input v-model="ruleForm.realPrice" style="width: 180px;" disabled></el-input>
                 <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
             </el-form-item>
 
             <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                <el-input v-model="ruleForm.salePrice"></el-input>
+                <el-input v-model="ruleForm.salePrice" disabled></el-input>
             </el-form-item>
 
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
-                <el-input v-model="ruleForm.childPrice"></el-input>
+                <el-input v-model="ruleForm.childPrice" disabled></el-input>
             </el-form-item>
 
             <!--弹层2号-->
