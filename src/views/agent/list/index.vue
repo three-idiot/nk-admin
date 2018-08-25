@@ -147,7 +147,7 @@
         </el-table-column>
     </el-table>
     <div class="block">
-        <el-pagination @current-change="currentPageChange" :background='true' :current-page="current_page" :page-size="page_size" layout="total, prev, pager, next, jumper" :total="total_count">
+        <el-pagination @current-change="currentPageChange" :background='true' :current-page="form.pageIndex" :page-size="form.pageSize" layout="total, prev, pager, next, jumper" :total="total_count">
         </el-pagination>
     </div>
 </div>
@@ -169,9 +169,7 @@ export default {
             street: null,
             list: null,
             listLoading: true,
-            current_page: 1,
             max_page: 0,
-            page_size: 20,
             daterange: [],
             total_count: null,
             priceCount: null,
@@ -186,8 +184,8 @@ export default {
                 endExpireTime: null,
                 contactsName: null,
                 contactsPhone: null,
-                pageIndex: null,
-                pageSize: null
+                pageIndex: 1,
+                pageSize: 20
             },
         });
     },
@@ -204,8 +202,6 @@ export default {
             return Object.assign({}, this.form, {
                 beginExpireTime: beginExpireTime,
                 endExpireTime: endExpireTime,
-                pageIndex: this.current_page,
-                pageSize: this.page_size,
             });
         }
     },
@@ -276,7 +272,7 @@ export default {
             });
         },
         currentPageChange(page) {
-            this.current_page = page;
+            this.form.pageIndex = page;
             this.fetchData();
         }
     }
