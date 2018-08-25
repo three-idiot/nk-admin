@@ -390,6 +390,11 @@
                         this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
                         addTravelGoods(this.ruleForm).then(res => {
                             console.log('掉借口了', res);
+                            if ( res.code == 200 ) {
+                                alert('新建成功');
+                            } else {
+                                alert(res.msg);
+                            }
                             // if ( res.code == 200 ) {
                             //     alert('新建成功');
                             //     history.back();
