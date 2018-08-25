@@ -21,11 +21,11 @@
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
 
         <el-form-item label="代理商编码" prop="name" style="width: 400px;">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.agentNo"></el-input>
         </el-form-item>
 
         <el-form-item label="代理商名称" prop="name" style="width: 400px;">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.agentName"></el-input>
         </el-form-item>
 
 
@@ -70,16 +70,16 @@
         </div>
 
 
-        <el-form-item label="联系人：" prop="contractor" style="width: 400px;">
-            <el-input v-model="form.contractor"></el-input>
+        <el-form-item label="联系人：" prop="contactsName" style="width: 400px;">
+            <el-input v-model="form.contactsName"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系电话：" prop="phone" style="width: 400px;">
-            <el-input v-model="form.phone"></el-input>
+        <el-form-item label="联系电话：" prop="contactsPhone" style="width: 400px;">
+            <el-input v-model="form.contactsPhone"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系地址：" prop="mail" style="width: 400px;">
-            <el-input v-model="form.mail"></el-input>
+        <el-form-item label="联系地址：" prop="contactsMail" style="width: 400px;">
+            <el-input v-model="form.contactsMail"></el-input>
         </el-form-item>
 
 
@@ -319,13 +319,13 @@ export default {
                 street: [
                     { required: true, trigger: 'blur', message: '请输入街道' },
                 ],
-                contractor: [
+                contactsName: [
                     { required: true, trigger: 'blur', message: '请输入联系人' },
                 ],
-                phone: [
+                contactsPhone: [
                     { required: true, trigger: 'blur', message: '请输入联系电话' },
                 ],
-                mail: [
+                contactsMail: [
                     { required: true, trigger: 'blur', message: '请输入联系地址' },
                 ],
                 type: [
