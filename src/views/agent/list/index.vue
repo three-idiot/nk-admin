@@ -35,7 +35,7 @@
 
             <el-form-item label="代理商角色：">
                 <el-select v-model="form.roleId" placeholder="请选择街道" clearable>
-                    <el-option :label="val" :value="key" :key="key" :key="item.id" v-for="(val, key) in roleId"></el-option>
+                    <el-option :label="val" :value="key" :key="key"  v-for="(val, key) in roleId"></el-option>
                 </el-select>
             </el-form-item>
             <div>
