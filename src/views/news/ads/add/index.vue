@@ -201,7 +201,7 @@
                   });
                   setTimeout(() => {
                     this.$router.push({
-                      name: 'ads-list'
+                      name: 'adslist'
                     });
                   }, 1000);
               }

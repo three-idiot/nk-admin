@@ -340,13 +340,21 @@ export const asyncRouterMap = [
                 meta: { title: '代理商列表' }
             },
             {
-                path: 'edit/:id',
+                path: 'edit',
                 component: () => import('@/views/agent/edit'),
                 name: 'order-edit',
+                hidden: true,
                 meta: { title: '代理商编辑' }
             },
             {
-                path: 'add/:id',
+                path: 'detail',
+                component: () => import('@/views/agent/detail'),
+                name: 'agent-detail',
+                hidden: true,
+                meta: { title: '代理商详情' }
+            },
+            {
+                path: 'add',
                 component: () => import('@/views/agent/add'),
                 name: 'order-edit2',
                 meta: { title: '新增代理商' }
@@ -375,6 +383,12 @@ export const asyncRouterMap = [
                 path: 'add',
                 component: () => import('@/views/goods/add'),
                 meta: { title: '新增商品' }
+            },
+            {
+                path: 'edit',
+                component: () => import('@/views/goods/edit'),
+                meta: { title: '编辑商品' },
+                hidden: true
             },
             {
                 path: 'detail',

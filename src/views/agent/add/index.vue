@@ -19,8 +19,8 @@
         <hr>
 
         <div class="small-title" style="margin-top: 10px;">基本信息：</div>
-        <el-form-item label="代理商名称" prop="name" style="width: 400px;">
-            <el-input v-model="form.name"></el-input>
+        <el-form-item label="代理商名称" prop="agentName" style="width: 400px;">
+            <el-input v-model="form.agentName"></el-input>
         </el-form-item>
 
 
@@ -32,49 +32,41 @@
 
         <div class="address-container">
             <el-form-item label="代理商地区" prop="province">
-                <el-select v-model="form.province" placeholder="请选择省" clearable>
-                    <el-option label="正常订单" value="0"></el-option>
-                    <el-option label="续签订单" value="1"></el-option>
+                <el-select v-model="form.province" placeholder="请选择省" clearable >
+                    <el-option :label="item.name" :value="item.id" v-for="item in province" @click.native="getNextLevel('city', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="city">
                 <el-select v-model="form.city" placeholder="请选择市" clearable class="address">
-                    <el-option label="企业" value="1"></el-option>
-                    <el-option label="个人" value="2"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in city" @click.native="getNextLevel('county', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="county">
                 <el-select v-model="form.county" placeholder="请选择区县" clearable class="address">
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in county" @click.native="getNextLevel('street', item.id)"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="" label-width="0" prop="street">
                 <el-select v-model="form.street" placeholder="请选择街道" clearable class="address">
-                    <el-option label="下单时间" value="0"></el-option>
-                    <el-option label="付款时间" value="1"></el-option>
-                    <el-option label="签证时间" value="2"></el-option>
-                    <el-option label="入境时间" value="3"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item in street"></el-option>
                 </el-select>
             </el-form-item>
         </div>
 
 
-        <el-form-item label="联系人：" prop="contractor" style="width: 400px;">
-            <el-input v-model="form.contractor"></el-input>
+        <el-form-item label="联系人：" prop="contactsName" style="width: 400px;">
+            <el-input v-model="form.contactsName"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系电话：" prop="phone" style="width: 400px;">
-            <el-input v-model="form.phone"></el-input>
+        <el-form-item label="联系电话：" prop="contactsPhone" style="width: 400px;">
+            <el-input v-model="form.contactsPhone"></el-input>
         </el-form-item>
 
-        <el-form-item label="联系地址：" prop="mail" style="width: 400px;">
-            <el-input v-model="form.mail"></el-input>
+        <el-form-item label="联系地址：" prop="contactsMail" style="width: 400px;">
+            <el-input v-model="form.contactsMail"></el-input>
         </el-form-item>
 
 
@@ -83,8 +75,8 @@
 
         <div class="small-title" style="margin-top: 10px;">认证信息：</div>
 
-        <el-form-item label="代理商性质" prop="type">
-            <el-select v-model="form.type" placeholder="请选择代理商性质" clearable>
+        <el-form-item label="代理商性质" prop="agentType">
+            <el-select v-model="form.agentType" placeholder="请选择代理商性质" clearable>
                 <el-option :label="val" :value="key" :key="key"  v-for="(val,key) in type"></el-option>
             </el-select>
         </el-form-item>
@@ -159,15 +151,20 @@
         <el-form-item label="时间" prop="expireTime">
             <el-date-picker
                 v-model="form.expireTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
         </el-form-item>
 
-        <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
-            <el-input v-model="form.uniqueCode"></el-input>
+        <el-form-item label="代理商标识码：" prop="uniqueCode">
+            <el-input v-model="form.uniqueCode" style="width: 270px;float: left;"></el-input>
+            <el-button type="primary" style="float: left;margin-left: 20px;" @click="getCode">点击生成代理商标识码</el-button>
         </el-form-item>
+
+
+
 
         <el-form-item size="large" class="btn">
             <el-button type="info" @click.native="$router.back()">取消</el-button>
@@ -180,8 +177,11 @@
 <script>
 import {
     getOrderDetail,
-    updateOrder
-} from "@/api/order";
+    updateOrder,
+    getLowerAreas,
+    getUniqueCode,
+    addAgent
+} from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
 import { checkNum, checkUsername, checkPassword } from "@/rules";
@@ -195,17 +195,21 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            province: null,
+            city: null,
+            county: null,
+            street: null,
             form: {
-                name: null,
+                agentName: null,
                 roleId: null,
                 province: null,
                 city: null,
                 county: null,
                 street: null,
-                contractor: null,
-                phone: null,
-                mail: null,
-                type: '1',
+                contactsName: null,
+                contactsPhone: null,
+                contactsMail: null,
+                agentType: '1',
                 bizLicenseCode: null,
                 bizLicenseImagePath: null,
                 idCardNo: null,
@@ -233,7 +237,7 @@ export default {
                 confirmPassword: [
                     { validator: validatePass2, trigger: 'blur' }
                 ],
-                name: [
+                agentName:[
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
                 ],
                 roleId: [
@@ -251,16 +255,16 @@ export default {
                 street: [
                     { required: true, trigger: 'blur', message: '请输入街道' },
                 ],
-                contractor: [
+                contactsName: [
                     { required: true, trigger: 'blur', message: '请输入联系人' },
                 ],
-                phone: [
+                contactsPhone: [
                     { required: true, trigger: 'blur', message: '请输入联系电话' },
                 ],
-                mail: [
+                contactsMail: [
                     { required: true, trigger: 'blur', message: '请输入联系地址' },
                 ],
-                type: [
+                agentType: [
                     { required: true, trigger: 'blur', message: '请选择代理商性质' },
                 ],
                 bankAccountName: [
@@ -297,8 +301,32 @@ export default {
     },
     created() {
         // this.fetchData();
+        this.fetchAddressData();
+    },
+    watch: {
     },
     methods: {
+        getCode() {
+            getUniqueCode().then( res => {
+                console.log( res );
+                if( res.code == 200 ) {
+                    this.form.uniqueCode = res.data;
+                } else {
+                    alert(res.msg);
+                }
+            })
+        },
+        getNextLevel(nextLevel, id) {
+            getLowerAreas( {id: id} ).then( res => {
+                this[nextLevel] = res.data;
+            })
+        },
+        fetchAddressData() {
+            getLowerAreas({id: 0}).then( res => {
+                // console.log( res );
+                this.province = res.data;
+            })
+        },
         fetchData() {
             getOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
@@ -355,9 +383,16 @@ export default {
             this.$refs[formName].validate((valid) => {
                 console.log( this.form );
                 if (valid) {
-                    this.update(this.listQuery);
+                    console.log('哈哈', this.form);
+                    addAgent( this.form ).then( res => {
+                        console.log( res );
+                        if ( res.code == 200 ) {
+                            alert('新建成功');
+                            history.back();
+                        }
+                    })
                 } else {
-                    console.log('error submit!!');
+                    // console.log('error submit!!');
                     return false;
                 }
             });
@@ -381,17 +416,6 @@ export default {
         },
         imgRemove(files, fileList) {
             this.form.bizLicenseImagePath = null;
-        },
-        beforeAvatarUpload(file) {
-            // const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            // if (!isJPG) {
-            //   this.$message.error('上传头像图片只能是 JPG 格式!');
-            // }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isLt2M;
         },
         update(params) {
             updateOrder(params).then(response => {
