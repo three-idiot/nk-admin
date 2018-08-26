@@ -176,8 +176,6 @@
 
 <script>
 import {
-    getOrderDetail,
-    updateOrder,
     getLowerAreas,
     getUniqueCode,
     addAgent
@@ -417,16 +415,6 @@ export default {
         imgRemove(files, fileList) {
             this.form.bizLicenseImagePath = null;
         },
-        update(params) {
-            updateOrder(params).then(response => {
-                this.$alert('更新成功', '提示', {
-                    confirmButtonText: '确定',
-                    callback: action => {
-                        this.$router.back();
-                    }
-                });
-            });
-        }
     },
     components: {
         PortraitTable
