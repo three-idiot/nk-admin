@@ -1,45 +1,42 @@
-用户列表  user-list
+商品管理：
+商品列表 goods-list
+新增商品 goods-add
 
-签证订单列表 order-list
+代理商管理：
+代理商列表 agent-list
+新增代理商 agent-add
 
-旅游订单列表 travel-order-list
-旅游退款订单列表 travel-order-refund-order
-旅游退款审核 travel-order-refund-check
+订单管理：
+订单列表 travel-order-list
+退款订单列表 travel-order-refund-order
+退款审核 travel-order-refund-check
 
+资讯广告管理：
+资讯列表 news-list
+新增资讯 news-add
+广告列表 adslist
+新增广告 ads-add
+广告审核 audit-ads
+
+账号管理：
 账号列表 account-list
 新增账号 account-add
 
+角色管理：
 角色管理 permission-list
 新增角色 permission-add
 
-资讯管理 news
-
-资讯列表 news-list
-新增资讯 news-add
-查看资讯详情 news-detail
-编辑资讯 news-edit
-
-广告列表 adslist
-新增广告 ads-add
-查看广告详情 ads-detail
-编辑广告 ads-edit
-
-审核 audit
-审核广告 audit-ads
-
+用户管理：
+用户列表  user-list
 
 签证管理：
-签证列表 visa/list
-新增签证 visa/add
+签证列表 visa-list
+新增签证 visa-add
 
 
-代理商管理：
-代理商列表 agent/list
-新增代理商 agent/add
 
-商品管理：
-商品列表 goods/list
-新增商品 goods/add
+
+
 
 
 

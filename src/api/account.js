@@ -24,3 +24,10 @@ export function updateAccount(params) {
     });
 }
 
+export function freeze(params) {
+    return request({
+        url: '/adminUser/opt',
+        method: 'get',
+        params
+    });
+}

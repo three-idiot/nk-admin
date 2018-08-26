@@ -148,7 +148,7 @@ export default {
                     },
                     {
                         key: '电子邮箱',
-                        value: '接口木有',
+                        value: resData.invoice.email,
                         type: 'string'
                     },
                     {

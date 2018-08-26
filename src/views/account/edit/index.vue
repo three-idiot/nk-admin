@@ -1,30 +1,28 @@
 <template>
 <div class="app-container">
-    <title-line txt="新建账号"></title-line>
+    <title-line txt="编辑账号"></title-line>
     <el-form ref="ruleForm" :model="form" :rules="rules" class="demo-ruleForm" label-width="100px">
-        <el-form-item label="所属角色">
+        <el-form-item label="所属角色" prop="roleId">
             <el-select disabled v-model="form.roleId" placeholder="请选择">
-                <el-option label="1" value="1">
-                </el-option>
+                <el-option v-for="item in roles" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="账号">
+        <el-form-item label="账号" prop="username">
             <el-input v-model="form.username" placeholder="请输入用户名，用户名为3到15个字符组成，包括汉字，大小写字母（不区分大小写）" disabled></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="pwd">
             <el-input type="password" v-model="form.pwd" placeholder="请填写密码，最小长度为 8 个字符"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码">
-            <el-input v-model="form.pwd2" placeholder="再次输入密码，请确保两次密码一致"></el-input>
+        <el-form-item label="确认密码" prop="checkPass">
+            <el-input type="password" v-model="form.checkPass" placeholder="再次输入密码，请确保两次密码一致"></el-input>
         </el-form-item>
         <el-form-item label="使用人姓名">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="手机号">
+        <el-form-item label="手机号" prop="phone">
             <el-input v-model="form.phone"></el-input>
         </el-form-item>
-        {{form}}
-        <el-form-item label="状态">
+        <el-form-item label="状态" prop="status">
             <el-radio-group v-model="form.status">
                 <el-radio label="0">正常</el-radio>
                 <el-radio label="1">冻结</el-radio>
@@ -40,43 +38,101 @@
 
 <script>
 import {
-    updateAccount
+    getList
+} from "@/api/permission";
+import {
+    addAccount
 } from "@/api/account";
 import TitleLine from "@/components/TitleLine/index.vue";
 import map from "@/map/account";
 export default {
     data() {
+        var validatePhone = (rule, value, callback) => {
+            if (!(/^1\d{10}$/.test(value)) && value) {
+                callback(new Error('请输入正确的手机号'));
+            } else {
+                callback();
+            }
+        };
+        var validateUsername = (rule, value, callback) => {
+            if (!value) {
+                callback(new Error('请输入账号'));
+            } else if (!(/^[A-Za-z\u4e00-\u9fa5]{3,15}$/.test(value))) {
+                callback(new Error('用户名为 3 到 15 个字符组成，包括汉字，大小写字母（不区分大小写）'));
+            } else {
+                callback();
+            }
+        };
+        var validatePass = (rule, value, callback) => {
+            if (!value) {
+                callback(new Error('请输入密码'));
+            } else if (!(/^[A-Za-z0-9]{8,}$/.test(value))) {
+                callback(new Error('最小长度为 8 个字符'));
+            } else {
+                if (this.form.checkPass) {
+                    this.$refs.ruleForm.validateField('checkPass');
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (!value) {
+                callback(new Error('请再次输入密码'));
+            } else if (value !== this.form.pwd) {
+                callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        };
         return Object.assign({}, map, {
-            form: {},
+            form: {
+                status:String(this.$route.params.data.status)
+            },
             rules: {
                 username: [{
                     required: true,
-                    message: '输入账户名称',
-                    trigger: 'change'
-                }],
-                pwd: [{
-                    required: true,
-                    message: '请输入密码',
-                    trigger: 'change'
+                    validator: validateUsername,
+                    trigger: 'blur'
                 }],
                 roleId: [{
                     required: true,
                     message: '请输入角色',
                     trigger: 'change'
                 }],
+                pwd: [{
+                    required: true,
+                    validator: validatePass,
+                    trigger: 'blur'
+                }],
+                checkPass: [{
+                    required: true,
+                    validator: validatePass2,
+                    trigger: 'blur'
+                }],
+                phone: [{
+                    validator: validatePhone,
+                    trigger: 'blur'
+                }],
+                status:[{
+                    required: true,
+                    message: '请选择状态',
+                    trigger: 'change'
+                }]
             },
             daterange: [],
             info: [],
             data: [],
+            roles: [],
         });
     },
     computed: {
         listQuery() {
-            return Object.assign({}, this.form, {
-            });
+            delete this.form.checkPass;
+            return Object.assign({}, this.form, {});
         }
     },
     created() {
+        this.getRolesList();
         if (!this.$route.params.data) {
             this.$router.back();
         } else {
@@ -85,7 +141,6 @@ export default {
             this.form.roleId = data.roleId;
             this.form.username = data.username;
             this.form.phone = data.phone;
-            this.form.status = data.status;
         }
     },
     methods: {
@@ -99,6 +154,14 @@ export default {
                 }
             });
         },
+        getRolesList() {
+            getList({
+                pageIndex: 1,
+                pageSize: 1000000,
+            }).then(response => {
+                this.roles = response.data.data;
+            });
+        },
         imgUploaded(res, file) {
             this.form.visaPath = res.data;
         },
@@ -106,7 +169,7 @@ export default {
             this.form.visaPath = null;
         },
         update(params) {
-            updateAccount(params).then(response => {
+            addAccount(params).then(response => {
                 this.$alert('添加成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {

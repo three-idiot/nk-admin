@@ -8,17 +8,17 @@
             </el-form-item>
             <el-form-item label="最低成团人数">
                 <el-select class="small-select" v-model="form.peopleMinRule" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                    <el-option label=">" value="1"></el-option>
+                    <el-option label="=" value="0"></el-option>
+                    <el-option label="<" value="-1"></el-option>
                 </el-select>
                 <el-input-number v-model="form.peopleMinNum" :min="1" :max="100" label="最低成团人数"></el-input-number>
             </el-form-item>
             <el-form-item label="成团人数上限">
                 <el-select class="small-select" v-model="form.peopleMaxRule" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                    <el-option label=">" value="1"></el-option>
+                    <el-option label="=" value="0"></el-option>
+                    <el-option label="<" value="-1"></el-option>
                 </el-select>
                 <el-input-number v-model="form.peopleMaxNum" :min="1" :max="100" label="成团人数上限"></el-input-number>
             </el-form-item>
@@ -133,10 +133,10 @@ export default {
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                sstartDate: this.startDaterange[0],
-                estartDate: this.startDaterange[1],
-                sendDate: this.endDaterange[0],
-                eendDate: this.endDaterange[1],
+                sstartDate: this.startDaterange[0]?this.startDaterange[0]+' 0:0:0':null,
+                sendDate: this.startDaterange[1]?this.startDaterange[1]+' 23:59:59':null,
+                estartDate: this.endDaterange[0]?this.endDaterange[0]+' 0:0:0':null,
+                eendDate: this.endDaterange[1]?this.endDaterange[1]+' 23:59:59':null,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
             });

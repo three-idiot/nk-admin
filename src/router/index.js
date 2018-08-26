@@ -261,7 +261,7 @@ export const asyncRouterMap = [
             {
                 path: 'add',
                 component: () => import('@/views/account/add'),
-                hidden: true,
+                meta: { title: '新增账号' },
                 name: 'account-add'
             },
             {
@@ -348,7 +348,7 @@ export const asyncRouterMap = [
             {
                 path: 'add/:id',
                 component: () => import('@/views/agent/add'),
-                name: 'order-edit',
+                name: 'order-edit2',
                 meta: { title: '新增代理商' }
             }
         ]

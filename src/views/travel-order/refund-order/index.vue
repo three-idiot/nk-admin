@@ -4,15 +4,11 @@
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
             <el-form-item label="地区">
-                <el-select v-model="form.provinceId" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                <el-select v-model="form.provinceId" @change="nextLocation" clearable placeholder="">
+                    <el-option v-for="item in locationLevel0" :key="item.id" :label="item.nameAbbr" :value="item.id"></el-option>
                 </el-select>
-                <el-select v-model="form.cityId" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                <el-select v-model="form.cityId" clearable placeholder="">
+                    <el-option v-for="item in locationLevel1" :key="item.id" :label="item.nameAbbr" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="商品编号">
@@ -20,36 +16,24 @@
             </el-form-item>
             <el-form-item label="退款原因">
                 <el-select v-model="form.refundReason" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                    <el-option label="用户申请" value="1"></el-option>
+                    <el-option label="组团失败" value="2"></el-option>
                 </el-select>
             </el-form-item>
-                        <el-form-item label="退款状态">
-                <el-select v-model="form.status" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="订单状态">
-                <el-select v-model="form.status">
-                    <el-option label="全部" value="10"></el-option>
-                    <el-option label="报名中" value="20"></el-option>
-                    <el-option label="已取消" value="30"></el-option>
-                    <el-option label="已成团" value="40"></el-option>
-                    <el-option label="已结束" value="41"></el-option>
+            <el-form-item label="退款状态">
+                <el-select v-model="form.status" clearable placeholder="">
+                    <el-option v-for="(value, key) in reFundDtatus" :key="key" :label="value.msg" :value="key"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="退款时间">
                 <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始时间" end-placeholder="结束时间">
                 </el-date-picker>
             </el-form-item>
-                        <el-form-item label="退款金额">
+            <el-form-item label="退款金额">
                 <el-select class="small-select" v-model="form.refundRule" placeholder="">
-                    <el-option label=">" value="0"></el-option>
-                    <el-option label="=" value="1"></el-option>
-                    <el-option label="<" value="2"></el-option>
+                    <el-option label=">" value="1"></el-option>
+                    <el-option label="=" value="0"></el-option>
+                    <el-option label="<" value="-1"></el-option>
                 </el-select>
                 <el-input-number v-model="form.refundFee" :min="1" :max="1000000" label="退款金额"></el-input-number>
             </el-form-item>
@@ -60,7 +44,7 @@
             </el-row>
         </el-form>
     </div>
-    <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
+    <p>订单总数 <span class="red">{{total_count}}</span> 条 退款总金额 <span class="red">{{priceCount}}</span> 元</p>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='退款订单编号'>
             <template slot-scope="scope">
@@ -110,7 +94,7 @@
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">审核</el-button>
+                <el-button size="mini" type="primary" @click="dialogFormVisible = true">审核</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -118,10 +102,31 @@
         <el-pagination @current-change="currentPageChange" :background='true' :current-page="current_page" :page-size="page_size" layout="total, prev, pager, next, jumper" :total="total_count">
         </el-pagination>
     </div>
+    <el-dialog title="退款审核" :visible.sync="dialogFormVisible" center>
+        <el-form :model="refundForm"  label-width="80px">
+            <el-form-item label="审核意见">
+                <el-radio-group v-model="refundForm.a">
+                    <el-radio :label="3">同意</el-radio>
+                    <el-radio :label="6">不同意</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" :rows="2" placeholder="" v-model="refundForm.b">
+                </el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 </template>
 
 <script>
+import {
+    getLocation
+} from "@/api/location";
 import {
     getRefundOrderList
 } from "@/api/travel-order";
@@ -131,6 +136,8 @@ export default {
     data() {
         return Object.assign({}, orderMap, {
             list: null,
+            locationLevel0: [],
+            locationLevel1: [],
             listLoading: true,
             current_page: 1,
             max_page: 0,
@@ -139,20 +146,24 @@ export default {
             total_count: null,
             priceCount: null,
             form: {},
+            refundForm:{},
+            dialogFormVisible: false,
         });
     },
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                startDate: this.daterange[0],
-                endDate: this.daterange[1],
+                startDate: this.daterange[0] ? this.daterange[0] + " 0:0:0" : null,
+                endDate: this.daterange[1] ? this.daterange[1] + " 23:59:59" : null,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
+                refundFee: this.form.refundFee * 100
             });
         }
     },
     created() {
         this.fetchData();
+        this.getLocationTopLevel();
     },
     methods: {
         fetchData() {
@@ -166,12 +177,22 @@ export default {
                 this.listLoading = false;
             });
         },
+        getLocationTopLevel() {
+            getLocation().then(response => {
+                this.locationLevel0 = response.data;
+            });
+        },
+        nextLocation(id) {
+            getLocation(id).then(response => {
+                this.locationLevel1 = response.data;
+            });
+        },
         onSubmit() {
             this.fetchData();
         },
         check(index, row) {
             this.$router.push({
-                name: 'travel-order-refund-detail',
+                name: "travel-order-refund-detail",
                 params: {
                     id: row.refundId
                 }
@@ -179,7 +200,7 @@ export default {
         },
         edit(index, row) {
             this.$router.push({
-                name: 'travel-order-edit',
+                name: "travel-order-edit",
                 params: {
                     id: row.id
                 }
@@ -199,7 +220,7 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     .red {
-        color: #F56C6C;
+        color: #f56c6c;
     }
     .block {
         margin: 50px 0 30px;
