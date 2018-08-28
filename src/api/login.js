@@ -11,18 +11,22 @@ export function login(username, password) {
     });
 }
 
-export function getInfo(token) {
-    return new Promise((resolve, reject) => {
-        resolve({
-            code: 200,
-            message: 'ok',
-            data: {
-                name: 'Fe-test-name',
-                avatar: 'http://images2.fanpop.com/image/photos/9400000/avatar-avatar-2009-film-9474591-1280-960.jpg',
-                roles: ['admin']
-            }
-        });
+export function getInfo() {
+    return request({
+        url: '/adminUser/permits',
+        method: 'get'
     });
+    // return new Promise((resolve, reject) => {
+    //     resolve({
+    //         code: 200,
+    //         message: 'ok',
+    //         data: {
+    //             name: 'Fe-test-name',
+    //             avatar: 'http://images2.fanpop.com/image/photos/9400000/avatar-avatar-2009-film-9474591-1280-960.jpg',
+    //             roles: ['admin']
+    //         }
+    //     });
+    // });
     // return request({
     //     url: '/user/info',
     //     method: 'get',

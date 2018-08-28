@@ -46,15 +46,16 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
-          const data = response.data
+          const data = response.data;
+          if(data.type==1){data.roles=['admin']}
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
-          commit('SET_NAME', data.name)
+          commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.avatar)
-          resolve(response)
+          resolve(response);
         }).catch(error => {
           reject(error)
         })

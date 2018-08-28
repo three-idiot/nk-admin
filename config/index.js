@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://47.93.3.67:8086',
+        target: 'http://admin.lovewh.com.cn:8080',
+        // target: 'http://47.93.3.67:8086',
         // target: 'http://admin.le-99.xyz',
         changeOrigin: true,
         // logLevel:'debug',

@@ -296,10 +296,16 @@ export const asyncRouterMap = [
                 meta: { title: '角色管理' }
             },
             {
-                path: 'edit/:new',
+                path: 'edit/:id',
                 component: () => import('@/views/permission/edit'),
                 hidden: true,
                 name: 'permission-edit'
+            },
+            {
+                path: 'add',
+                component: () => import('@/views/permission/add'),
+                meta: { title: '新增角色' },
+                name: 'permission-add'
             }
         ]
     },

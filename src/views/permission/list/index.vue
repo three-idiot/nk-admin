@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-    <title-line txt="角色管理"></title-line>
+    <title-line txt="角色管理" :btn="btn" @btnClick="addRoles"></title-line>
     <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='角色名称'>
             <template slot-scope="scope">
@@ -32,6 +32,11 @@ import TitleLine from "@/components/TitleLine/index.vue";
 export default {
     data() {
         return Object.assign({}, orderMap, {
+            btn: {
+                txt: "+新建角色",
+                type: "primary",
+                size: "small"
+            },
             list: null,
             listLoading: true,
             current_page: 1,
@@ -39,8 +44,7 @@ export default {
             page_size: 20,
             total_count: null,
             priceCount: null,
-            form: {
-            },
+            form: {},
         });
     },
     computed: {
@@ -64,6 +68,11 @@ export default {
                 // this.current_page = response.data.current_page;
                 // this.max_page = response.data.max_page;
                 this.listLoading = false;
+            });
+        },
+        addRoles() {
+            this.$router.push({
+                name: 'permission-add'
             });
         },
         onSubmit() {
