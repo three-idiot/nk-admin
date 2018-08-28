@@ -22,7 +22,7 @@
             </el-form-item>
             <el-row>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                    <el-button v-permission="['account-list-search']" type="primary" @click="onSubmit">查询</el-button>
                 </el-form-item>
             </el-row>
         </el-form>
@@ -71,10 +71,10 @@
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
-                <el-button size="mini" v-if="accountStatus[scope.row.status].msg=='正常'" type="danger" @click="freeze(scope.row,1)">冻结</el-button>
-                <el-button size="mini" v-if="accountStatus[scope.row.status].msg=='冻结'" type="success" @click="freeze(scope.row,2)">解冻</el-button>
-                <el-button size="mini" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
-                <el-button size="mini" type="primary" @click="detail(scope.$index, scope.row)">查看</el-button>
+                <el-button size="mini" v-permission="['account-list-offline']" v-if="accountStatus[scope.row.status].msg=='正常'" type="danger" @click="freeze(scope.row,1)">冻结</el-button>
+                <el-button size="mini" v-permission="['account-list-online']" v-if="accountStatus[scope.row.status].msg=='冻结'" type="success" @click="freeze(scope.row,2)">解冻</el-button>
+                <el-button size="mini" v-permission="['account-list-edit']" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                <el-button size="mini" v-permission="['account-list-detail']" type="primary" @click="detail(scope.$index, scope.row)">查看</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -108,7 +108,8 @@ export default {
             btn: {
                 txt: "+新建账号",
                 type: "primary",
-                size: "small"
+                size: "small",
+                permission: 'account-list-add'
             },
             list: [],
             listLoading: true,

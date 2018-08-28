@@ -47,15 +47,22 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
           const data = response.data;
-          if(data.type==1){data.roles=['admin']}
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
+          let roles =[];
+          data.role.menus.forEach(element => {
+            roles.push(element.feId);
+            roles=roles.concat(element.btnFeIds.split(','))
+          });
+          //TODO
+          // if(data.type==1){roles.push('admin')}
+         
+          if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
+            commit('SET_ROLES', roles)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
           commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.avatar)
-          resolve(response);
+          resolve({roles});
         }).catch(error => {
           reject(error)
         })

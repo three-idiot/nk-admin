@@ -42,7 +42,7 @@
             </el-form-item>
             <el-row>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                    <el-button v-permission="['travel-order-list-search']" type="primary" @click="onSubmit">查询</el-button>
                 </el-form-item>
             </el-row>
         </el-form>
@@ -95,8 +95,8 @@
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
-                <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button size="mini" type="primary" @click="force(scope.$index, scope.row)">强制成团</el-button>
+                <el-button v-permission="['travel-order-list-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
+                <el-button v-permission="['travel-order-list-refund']" size="mini" type="primary" @click="force(scope.$index, scope.row)">强制成团</el-button>
                 <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">退款</el-button>
             </template>
         </el-table-column>
@@ -115,6 +115,7 @@ import {
 } from "@/api/travel-order";
 import orderMap from "@/map/travel-order";
 import TitleLine from "@/components/TitleLine/index.vue";
+
 export default {
     data() {
         return Object.assign({}, orderMap, {
@@ -190,7 +191,7 @@ export default {
     },
     components: {
         TitleLine
-    }
+    },
 };
 </script>
 

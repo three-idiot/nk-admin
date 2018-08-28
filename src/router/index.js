@@ -60,7 +60,7 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/user/list'),
-                meta: { title: '用户列表' },
+                meta: { title: '用户列表', roles: ['user-list']},
                 name: 'user-list',
             }
         ]
@@ -80,7 +80,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'order-list',
                 component: () => import('@/views/order/list'),
-                meta: { title: '订单列表' }
+                meta: { title: '订单列表'}
             },
             {
                 path: 'check/:id',
@@ -111,7 +111,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'travel-order-list',
                 component: () => import('@/views/travel-order/list'),
-                meta: { title: '订单列表' }
+                meta: { title: '订单列表', roles: ['travel-order-list'] }
             },
             {
                 path: 'check/:id',
@@ -129,7 +129,7 @@ export const asyncRouterMap = [
                 path: 'refund-order',
                 name: 'travel-order-refund-order',
                 component: () => import('@/views/travel-order/refund-order'),
-                meta: { title: '退款订单列表' }
+                meta: { title: '退款订单列表', roles: ['travel-order-refund-order'] }
             },
             {
                 path: 'refund-detail/:id',
@@ -153,12 +153,12 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/visa/list'),
-                meta: { title: '签证列表' }
+                meta: { title: '签证列表', roles: ['visa-list'] }
             },
             {
                 path: 'add',
                 component: () => import('@/views/visa/add'),
-                meta: { title: '新增签证' }
+                meta: { title: '新增签证', roles: ['visa-add'] }
             },
             {
                 path: 'detail',
@@ -193,13 +193,13 @@ export const asyncRouterMap = [
               path: 'newslist',
               name: 'news-list',
               component: () => import('@/views/news/newslist/list'),
-              meta: { title: '资讯列表' }
+              meta: { title: '资讯列表', roles: ['news-list'] }
             },
             {
               path: 'newsadd',
               name: 'news-add',
               component: () => import('@/views/news/newslist/add'),
-              meta: { title: '新增资讯' },
+              meta: { title: '新增资讯', roles: ['news-add'] },
               hidden: true
             },
             {
@@ -217,14 +217,14 @@ export const asyncRouterMap = [
             {
               path: 'adslist',
               component: () => import('@/views/news/ads/list'),
-              meta: { title: '广告列表' },
+              meta: { title: '广告列表', roles: ['ads-list'] },
               name: 'adslist'
             },
             {
               path: 'adsadd',
               name: 'ads-add',
               component: () => import('@/views/news/ads/add'),
-              meta: { title: '新增广告' },
+              meta: { title: '新增广告', roles: ['ads-add']},
               hidden: true
             },
             {
@@ -256,12 +256,12 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'account-list',
                 component: () => import('@/views/account/list'),
-                meta: { title: '账号列表' }
+                meta: { title: '账号列表', roles: ['account-list'] }
             },
             {
                 path: 'add',
                 component: () => import('@/views/account/add'),
-                meta: { title: '新增账号' },
+                meta: { title: '新增账号', roles: ['account-add'] },
                 name: 'account-add'
             },
             {
@@ -293,7 +293,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'permission-list',
                 component: () => import('@/views/permission/list'),
-                meta: { title: '角色管理' }
+                meta: { title: '角色管理', roles: ['permission-list'] }
             },
             {
                 path: 'edit/:id',
@@ -304,7 +304,7 @@ export const asyncRouterMap = [
             {
                 path: 'add',
                 component: () => import('@/views/permission/add'),
-                meta: { title: '新增角色' },
+                meta: { title: '新增角色', roles: ['permission-add'] },
                 name: 'permission-add'
             }
         ]
@@ -324,7 +324,7 @@ export const asyncRouterMap = [
                 path: 'ads',
                 name: 'audit-ads',
                 component: () => import('@/views/audit/ads'),
-                meta: { title: '广告审核' }
+                meta: { title: '广告审核', roles: ['audit-ads'] }
             }
         ]
     },
@@ -343,7 +343,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'agent-list',
                 component: () => import('@/views/agent/list'),
-                meta: { title: '代理商列表' }
+                meta: { title: '代理商列表', roles: ['agent-list'] }
             },
             {
                 path: 'edit',
@@ -363,7 +363,7 @@ export const asyncRouterMap = [
                 path: 'add',
                 component: () => import('@/views/agent/add'),
                 name: 'order-edit2',
-                meta: { title: '新增代理商' }
+                meta: { title: '新增代理商', roles: ['agent-add'] }
             }
         ]
     },
@@ -383,12 +383,12 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/goods/list'),
-                meta: { title: '商品列表' }
+                meta: { title: '商品列表', roles: ['goods-list'] }
             },
             {
                 path: 'add',
                 component: () => import('@/views/goods/add'),
-                meta: { title: '新增商品' }
+                meta: { title: '新增商品', roles: ['goods-add'] }
             },
             {
                 path: 'edit',

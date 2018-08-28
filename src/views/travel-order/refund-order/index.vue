@@ -39,7 +39,7 @@
             </el-form-item>
             <el-row>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                    <el-button v-permission="['travel-order-refund-order-search']" type="primary" @click="onSubmit">查询</el-button>
                 </el-form-item>
             </el-row>
         </el-form>
@@ -93,8 +93,8 @@
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
-                <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button size="mini" type="primary" @click="dialogFormVisible = true">审核</el-button>
+                <el-button v-permission="['travel-order-refund-order-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
+                <el-button v-permission="['travel-order-refund-order-audit']" size="mini" type="primary" @click="dialogFormVisible = true">审核</el-button>
             </template>
         </el-table-column>
     </el-table>

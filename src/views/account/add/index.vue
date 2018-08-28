@@ -23,8 +23,8 @@
             <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item size="large" class="btn">
-            <el-button type="info" @click.native="$router.back()">取消</el-button>
-            <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
+            <el-button v-permission="['account-add-cancel']" type="info" @click.native="$router.back()">取消</el-button>
+            <el-button v-permission="['account-add-publish']" type="primary" @click="onSubmit('ruleForm')">保存</el-button>
         </el-form-item>
     </el-form>
 </div>

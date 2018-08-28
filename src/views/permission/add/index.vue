@@ -13,11 +13,17 @@
             <el-button size="small" type="primary">全选</el-button>
         </el-form-item>
         <el-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%; margin-top: 20px">
-            <el-table-column prop="id" label="分类" width="180">
+            <el-table-column prop="spanName" label="分类" width="180">
             </el-table-column>
-            <el-table-column prop="name" label="页面">
+            <el-table-column label="页面">
+                <template slot-scope="scope">
+                    <el-checkbox v-model="scope.row.status">{{scope.row.name}}</el-checkbox>
+                </template>
             </el-table-column>
             <el-table-column prop="amount1" label="按钮">
+                <template slot-scope="scope">
+                    <el-checkbox v-for="item in scope.row.btns" :key="item.id" v-model="item.status">{{item.name}}</el-checkbox>
+                </template>
             </el-table-column>
         </el-table>
         <el-form-item size="large" class="btn">
@@ -42,35 +48,171 @@ export default {
         return Object.assign({}, map, {
             form: {},
             tableData: [{
-                id: '12987122',
-                name: '王小虎',
-                amount1: '234',
-                amount2: '3.2',
-                amount3: 10
+                span: 2,
+                spanName: '商品管理',
+                name: '商品列表',
+                status: false,
+                id: 'goods-list',
+                btns: [{
+                    id: 'goods-list-add',
+                    name: '新增商品',
+                    status: false,
+                }, {
+                    id: 'goods-list-edit',
+                    name: '编辑',
+                    status: false,
+                }, {
+                    id: 'goods-list-detail',
+                    name: '查看详情',
+                    status: false,
+                }, {
+                    id: 'goods-list-online',
+                    name: '上架',
+                    status: false,
+                }, {
+                    id: 'goods-list-offline',
+                    name: '下架',
+                    status: false,
+                }, {
+                    id: 'goods-list-refundRule',
+                    name: '退款规则',
+                    status: false,
+                }, {
+                    id: 'goods-list-search',
+                    name: '搜索',
+                    status: false,
+                }]
             }, {
-                id: '12987122',
-                name: '王小虎',
-                amount1: '165',
-                amount2: '4.43',
-                amount3: 12
+                spanName: '商品管理',
+                name: '新增商品',
+                status: false,
+                id: 'goods-add',
+                btns: [{
+                    id: 'goods-add-cancel',
+                    name: '取消',
+                    status: false,
+                }, {
+                    id: 'goods-add-publish',
+                    name: '发布',
+                    status: false,
+                }]
             }, {
-                id: '12987124',
-                name: '王小虎',
-                amount1: '324',
-                amount2: '1.9',
-                amount3: 9
+                span: 2,
+                spanName: '代理商管理',
+                name: '代理商列表',
+                status: false,
+                id: 'agent-list',
+                btns: [{
+                    id: 'agent-list-add',
+                    name: '新增代理商',
+                    status: false,
+                }, {
+                    id: 'agent-list-edit',
+                    name: '编辑',
+                    status: false,
+                }, {
+                    id: 'agent-list-detail',
+                    name: '查看代理商',
+                    status: false,
+                }, {
+                    id: 'agent-list-search',
+                    name: '搜索',
+                    status: false,
+                }]
             }, {
-                id: '12987125',
-                name: '王小虎',
-                amount1: '621',
-                amount2: '2.2',
-                amount3: 17
+                spanName: '代理商管理',
+                name: '新增代理商',
+                status: false,
+                id: 'agent-add',
+                btns: [{
+                    id: 'agent-add-cancel',
+                    name: '取消',
+                    status: false,
+                }, {
+                    id: 'agent-add-publish',
+                    name: '发布',
+                    status: false,
+                }]
             }, {
-                id: '12987126',
-                name: '王小虎',
-                amount1: '539',
-                amount2: '4.1',
-                amount3: 15
+                span: 3,
+                spanName: '订单管理',
+                name: '订单列表',
+                status: false,
+                id: 'travel-order-list',
+                btns: [{
+                    id: 'travel-order-list-detail',
+                    name: '查看详情',
+                    status: false,
+                }, {
+                    id: 'travel-order-list-refund',
+                    name: '退款',
+                    status: false,
+                }, {
+                    id: 'travel-order-list-search',
+                    name: '搜索',
+                    status: false,
+                }]
+            }, {
+                spanName: '订单管理',
+                name: '退款订单列表',
+                status: false,
+            }, {
+                spanName: '订单管理',
+                name: '退款审核',
+                status: false,
+            }, {
+                span: 5,
+                spanName: '资讯广告管理',
+                name: '资讯列表',
+                status: false,
+            }, {
+                spanName: '资讯广告管理',
+                name: '新增资讯',
+                status: false,
+            }, {
+                spanName: '资讯广告管理',
+                name: '广告列表',
+                status: false,
+            }, {
+                spanName: '资讯广告管理',
+                name: '新增广告',
+                status: false,
+            }, {
+                spanName: '资讯广告管理',
+                name: '广告审核',
+                status: false,
+            }, {
+                span: 2,
+                spanName: '账号管理',
+                name: '账号列表',
+                status: false,
+            }, {
+                spanName: '账号管理',
+                name: '新增账号',
+                status: false,
+            }, {
+                span: 2,
+                spanName: '角色管理',
+                name: '角色列表',
+                status: false,
+            }, {
+                spanName: '角色管理',
+                name: '新增角色',
+                status: false,
+            }, {
+                span: 1,
+                spanName: '用户管理',
+                name: '用户列表',
+                status: false,
+            }, {
+                span: 2,
+                spanName: '签证管理',
+                name: '签证列表',
+                status: false,
+            }, {
+                spanName: '签证管理',
+                name: '新建签证',
+                status: false,
             }],
             rules: {
                 username: [{
@@ -112,9 +254,9 @@ export default {
         }) {
             // console.log(rowIndex,columnIndex,rowIndex!=this.tableData.length-1,row.id==this.tableData[rowIndex+1].id)
             if (columnIndex === 0) {
-                if (rowIndex!=this.tableData.length-1 && row.id==this.tableData[rowIndex+1].id) {
+                if (row.span) {
                     return {
-                        rowspan: 2,
+                        rowspan: row.span,
                         colspan: 1
                     };
                 } else {
