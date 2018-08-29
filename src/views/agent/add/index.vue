@@ -167,8 +167,8 @@
 
 
         <el-form-item size="large" class="btn">
-            <el-button type="info" @click.native="$router.back()">取消</el-button>
-            <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
+            <el-button type="info" @click.native="$router.back()"  v-permission="['agent-add-cancel']">取消</el-button>
+            <el-button type="primary" @click="onSubmit('ruleForm')" v-permission="['agent-add-publish']">提交</el-button>
         </el-form-item>
     </el-form>
 </div>
