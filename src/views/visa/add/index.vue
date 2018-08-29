@@ -75,8 +75,8 @@
         <el-input v-model.number="ruleForm.renewPrice"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')" v-permission="['visa-add-publish']">提交</el-button>
+        <el-button @click="resetForm('ruleForm')" v-permission="['visa-add-cancel']">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
