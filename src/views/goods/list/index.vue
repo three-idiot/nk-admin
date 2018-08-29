@@ -1,5 +1,10 @@
 <template>
     <div class="app-container">
+        <p class="title">
+            商品列表
+            <el-button  type="danger" class="add-agent-button" @click="jumpAdd">新增商品+</el-button>
+        </p>
+        <hr/>
 
         <div class="filter-container" style="margin-bottom: 30px;">
             <span>商品类别：</span>
@@ -281,6 +286,9 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            jumpAdd() {
+                window.location.href = '#/goods/add';
+            },
             refundDialogShow() {
                 if( this.chooseTravelGoodsId.length == 0 ) {
                     alert( '当前没有选中任何商品!!!' );
@@ -433,6 +441,16 @@
                 }
             }
         }
+    }
 
+    .title {
+        font-size: 30px;
+        color: #606266;
+        line-height: 40px;
+        .add-agent-button {
+            font-size: 18px;
+            float: right;
+            margin-right: 40px;
+        }
     }
 </style>
