@@ -1,7 +1,7 @@
 <template>
 <div class="title-container">
     <p class="title">{{txt}}</p>
-    <el-button v-permission="[btn.permission?btn.permission:'admin']" v-if="btn" class="btn" :type="btn.type" :size="btn.size" @click="click">{{btn.txt}}</el-button>
+    <el-button v-permission="btn.permission?[btn.permission]:'all'" v-if="btn" class="btn" :type="btn.type" :size="btn.size" @click="click">{{btn.txt}}</el-button>
     <hr>
 </div>
 </template>

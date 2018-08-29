@@ -16,7 +16,7 @@ export default{
       if (!hasPermission && !admin) {
         el.parentNode && el.parentNode.removeChild(el);
       }
-    } else {
+    } else if (value!='all') {
       throw new Error(`need roles! Like v-permission="['admin','editor']"`);
     }
   }
