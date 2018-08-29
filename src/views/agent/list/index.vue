@@ -2,7 +2,7 @@
 <div class="app-container">
     <p class="title">
         代理商列表
-        <el-button  type="danger" class="add-agent-button" @click="jumpAdd">新增代理商+</el-button>
+        <el-button  type="danger" class="add-agent-button" @click="jumpAdd" v-permission="['agent-list-add']">新增代理商+</el-button>
     </p>
     <hr/>
 
@@ -68,7 +68,7 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">搜索</el-button>
+                <el-button type="primary" @click="onSubmit" v-permission="['agent-list-search']">搜索</el-button>
             </el-form-item>
 
 
@@ -131,12 +131,10 @@
 
         <el-table-column label="操作" width="340" align="center">
             <template slot-scope="scope">
-                <!--<el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>-->
-                <!--<el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>-->
-                <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+                <el-button  size="mini" type="success" @click="goDetail(scope.row.id)"  v-permission="['agent-list-detail']" plain>
                     查看详情
                 </el-button>
-                <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
+                <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['agent-list-edit']">
                     编辑
                 </el-button>
                 <el-button  size="mini" type="success" v-if="scope.row.status == 1" @click="opt(scope.row.id,2)">恢复</el-button>
