@@ -29,16 +29,18 @@
             <span class="demonstration">发布日期：</span>
             <el-date-picker
                 v-model="goodsParams.upStartTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
             -
             <el-date-picker
                 v-model="goodsParams.upEndTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
             <!--时间选择器-->
 
