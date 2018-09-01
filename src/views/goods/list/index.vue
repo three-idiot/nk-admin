@@ -1,5 +1,10 @@
 <template>
     <div class="app-container">
+        <p class="title">
+            商品列表
+            <el-button  type="danger" class="add-agent-button" @click="jumpAdd" v-permission="['goods-list-add']">新增商品+</el-button>
+        </p>
+        <hr/>
 
         <div class="filter-container" style="margin-bottom: 30px;">
             <span>商品类别：</span>
@@ -24,16 +29,18 @@
             <span class="demonstration">发布日期：</span>
             <el-date-picker
                 v-model="goodsParams.upStartTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
             -
             <el-date-picker
                 v-model="goodsParams.upEndTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                type="datetime"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
+            >
             </el-date-picker>
             <!--时间选择器-->
 
@@ -45,7 +52,7 @@
                     </el-option>
                 </el-select>
                 <el-input style="width: 200px;" v-model="goodsParams.salePrice"></el-input>
-                <el-button class="filter-item" style="margin-left: 20px;" type="primary" icon="el-icon-search"
+                <el-button class="filter-item" style="margin-left: 20px;" type="primary" icon="el-icon-search"  v-permission="['goods-list-search']"
                            @click="handleFilter">查询
                 </el-button>
             </div>
@@ -53,7 +60,7 @@
 
         <div class="list-des">
             <span>商品总数：<span style="color: orangered">{{ total_count }}</span></span>
-            <el-button type="danger" class="add-agent-button" @click="refundDialogShow">批量设置商品退款规则</el-button>
+            <el-button type="danger" class="add-agent-button" @click="refundDialogShow" v-permission="['goods-list-refundRule']">批量设置商品退款规则</el-button>
         </div>
 
 
@@ -160,15 +167,15 @@
 
             <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="340">
                 <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+                    <el-button size="mini" type="success" @click="goDetail(scope.row.id)" plain v-permission="['goods-list-detail']">
                         查看详情
                     </el-button>
-                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
+                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['goods-list-edit']">
                         编辑
                     </el-button>
-                    <el-button size="mini" type="success" v-if="scope.row.status == 1" @click="shelfShow(scope.row.id)">上架
+                    <el-button size="mini" type="success" v-permission="['goods-list-online']" v-if="scope.row.status == 1" @click="shelfShow(scope.row.id)">上架
                     </el-button>
-                    <el-button size="mini" type="danger" v-if="scope.row.status == 2"
+                    <el-button size="mini" type="danger" v-if="scope.row.status == 2" v-permission="['goods-list-offline']"
                                @click="undercarriageShow(scope.row.id)">
                         下架
                     </el-button>
@@ -281,6 +288,9 @@
             this.fetchData(this.goodsParams);
         },
         methods: {
+            jumpAdd() {
+                window.location.href = '#/goods/add';
+            },
             refundDialogShow() {
                 if( this.chooseTravelGoodsId.length == 0 ) {
                     alert( '当前没有选中任何商品!!!' );
@@ -433,6 +443,16 @@
                 }
             }
         }
+    }
 
+    .title {
+        font-size: 30px;
+        color: #606266;
+        line-height: 40px;
+        .add-agent-button {
+            font-size: 18px;
+            float: right;
+            margin-right: 40px;
+        }
     }
 </style>

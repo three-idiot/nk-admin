@@ -27,7 +27,7 @@
         </el-option>
       </el-select>
 
-      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter">查询</el-button>
+      <el-button class="filter-item" style="margin-left: 20px;" type="primary"  icon="el-icon-search" @click="handleFilter" v-permission="['visa-list-search']">查询</el-button>
     </div>
 
     <!--表格-->
@@ -85,14 +85,14 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)"  v-permission="['visa-list-detail']" plain>
             查看商品
           </el-button>
-          <el-button type="primary" size="mini" @click="goRatio(scope.row.id)">
+          <el-button type="primary" size="mini" @click="goRatio(scope.row.id)" v-permission="['visa-list-editDivide']">
             修改分成
           </el-button>
           <el-button  size="mini" type="success" v-if="scope.row.status == 2" @click="shelf(scope.row.id)">审核上架</el-button>
-          <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)">
+          <el-button  size="mini" type="danger" v-if="scope.row.status != 2"  @click="goUndercarriage(scope.row.id)" v-permission="['visa-list-offline']">
             违规下架
           </el-button>
         </template>

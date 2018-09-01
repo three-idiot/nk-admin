@@ -13,7 +13,7 @@
         </el-form-item>
 
         <el-form-item label="确认密码：" prop="confirmPassword"   style="width: 400px;">
-            <el-input type="password" v-model="confirmPassword"></el-input>
+            <el-input type="password" v-model="form.confirmPassword"></el-input>
         </el-form-item>
 
         <hr>
@@ -167,8 +167,8 @@
 
 
         <el-form-item size="large" class="btn">
-            <el-button type="info" @click.native="$router.back()">取消</el-button>
-            <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
+            <el-button type="info" @click.native="$router.back()"  v-permission="['agent-add-cancel']">取消</el-button>
+            <el-button type="primary" @click="onSubmit('ruleForm')" v-permission="['agent-add-publish']">提交</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -186,7 +186,7 @@ import { checkNum, checkUsername, checkPassword } from "@/rules";
 export default {
     data() {
         let validatePass2 = (rule, value, callback) => {
-            if (this.confirmPassword !== this.form.pwd) {
+            if (this.form.confirmPassword !== this.form.pwd) {
                 callback(new Error('两次输入密码不一致!'));
             } else {
                 callback();
@@ -221,8 +221,9 @@ export default {
                 uniqueCode: null,
                 username: null,
                 pwd: null,
+                confirmPassword: null
             },
-            confirmPassword: null,
+            // confirmPassword: null,
             rules: {
                 username: [
                     { required: true, trigger: 'blur', message: '请输入用户名' },
@@ -233,6 +234,8 @@ export default {
                     { validator: checkPassword, trigger: 'blur' }
                 ],
                 confirmPassword: [
+                    { required: true, trigger: 'blur', message: '请再次输入密码' },
+                    { validator: checkPassword, trigger: 'blur' },
                     { validator: validatePass2, trigger: 'blur' }
                 ],
                 agentName:[
@@ -300,6 +303,7 @@ export default {
     created() {
         // this.fetchData();
         this.fetchAddressData();
+        window.this = this;
     },
     watch: {
     },
