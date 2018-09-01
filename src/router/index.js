@@ -132,6 +132,12 @@ export const asyncRouterMap = [
                 meta: { title: '退款订单列表', roles: ['travel-order-refund-order'] }
             },
             {
+                path: 'refund-check',
+                name: 'travel-order-refund-check',
+                component: () => import('@/views/travel-order/refund-check'),
+                meta: { title: '退款审核', roles: ['travel-order-refund-check'] }
+            },
+            {
                 path: 'refund-detail/:id',
                 component: () => import('@/views/travel-order/refund-detail'),
                 hidden: true,

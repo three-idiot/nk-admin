@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-    <title-line txt="退款订单列表"></title-line>
+    <title-line txt="退款审核"></title-line>
     <div style="padding:30px;background:#F2F6FC;">
         <el-form :inline="true" :model="form" class="demo-form-inline">
             <el-form-item label="地区">
@@ -39,13 +39,17 @@
             </el-form-item>
             <el-row>
                 <el-form-item>
-                    <el-button v-permission="['travel-order-refund-order-search']" type="primary" @click="onSubmit">查询</el-button>
+                    <el-button v-permission="['travel-order-refund-check-sarch']" type="primary" @click="onSubmit">查询</el-button>
                 </el-form-item>
             </el-row>
         </el-form>
     </div>
-    <p>订单总数 <span class="red">{{total_count}}</span> 条 退款总金额 <span class="red">{{priceCount}}</span> 元</p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <p>订单总数 <span class="red">{{total_count}}</span> 条 退款总金额 <span class="red">{{priceCount}}</span> 元
+        <el-button v-permission="['travel-order-refund-check-batchAudit']" class="mul-btn" size="small" type="warning" @click="refundCheck">批量审核</el-button>
+    </p>
+    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55">
+        </el-table-column>
         <el-table-column align="center" label='退款订单编号'>
             <template slot-scope="scope">
                 {{scope.row.refundNo}}
@@ -91,10 +95,9 @@
                 <el-tag :type="reFundDtatus[scope.row.status].color">{{reFundDtatus[scope.row.status].msg}}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="270" align="center">
+        <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
-                <el-button v-permission="['travel-order-refund-order-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button v-permission="['travel-order-refund-order-audit']" size="mini" type="primary" @click="refundCheck(scope.$index, scope.row)">审核</el-button>
+                <el-button v-permission="['travel-order-refund-check-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -104,6 +107,7 @@
     </div>
     <el-dialog title="退款审核" :visible.sync="dialogFormVisible" center>
         <el-form :model="refundForm" label-width="80px" ref="refundForm" :rules="rules">
+            <p class="red">已选择{{multipleSelection.length}}个订单</p>
             <el-form-item label="审核意见" prop="status">
                 <el-radio-group v-model="refundForm.status">
                     <el-radio :label="2">同意</el-radio>
@@ -149,7 +153,6 @@ export default {
             form: {},
             refundForm: {},
             dialogFormVisible: false,
-            refundId: null,
             rules: {
                 remark: [{
                     required: true,
@@ -162,6 +165,7 @@ export default {
                     trigger: 'change'
                 }],
             },
+            multipleSelection: []
         });
     },
     computed: {
@@ -220,16 +224,22 @@ export default {
                 }
             });
         },
-        refundCheck(index, row){
-            this.refundId=row.refundId;
-            this.dialogFormVisible = true;
+        refundCheck(index, row) {
+            if (this.multipleSelection.length == 0) {
+                this.$message({
+                    type: "warning",
+                    message: "请选择订单!"
+                });
+            }else {
+                this.dialogFormVisible = true;
+            }
         },
         refund(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.dialogFormVisible = false;
                     approveRefund({
-                        refundOrderIds: [this.refundId],
+                        refundOrderIds: this.multipleSelection,
                         status: this.refundForm.status,
                         remark: this.refundForm.remark
                     }).then(response => {
@@ -248,6 +258,9 @@ export default {
         currentPageChange(page) {
             this.current_page = page;
             this.fetchData();
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val.map(item => item.refundId);
         }
     },
     components: {
@@ -272,6 +285,9 @@ export default {
     }
     .small-select {
         width: 60px;
+    }
+    .mul-btn {
+        margin-left: 50px;
     }
 }
 </style>

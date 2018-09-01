@@ -3,7 +3,7 @@
     <p class="title">设置签证状态</p>
     <hr/>
     <portrait-table :data="data" :key-width=80></portrait-table>
-    <el-form ref="ruleForm" :model="form" :rules="rules" size="mini" class="form">
+    <el-form v-if="status[statusNum].msg!='办理中'" ref="ruleForm" :model="form" :rules="rules" size="mini" class="form">
         <el-form-item label="签证状态" prop="status">
             <el-radio-group v-model="form.status">
                 <el-radio label="40">已签发</el-radio>
@@ -32,6 +32,17 @@
             <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
         </el-form-item>
     </el-form>
+    <el-form v-else size="mini" class="form">
+        <el-form-item label="签证状态" prop="status">
+            <el-radio-group v-model="form2.status">
+                <el-radio label="30">已送签</el-radio>
+            </el-radio-group>
+        </el-form-item>
+        <el-form-item size="large" class="btn">
+            <el-button type="info" @click.native="$router.back()">取消</el-button>
+            <el-button type="primary" @click="sended">提交</el-button>
+        </el-form-item>
+    </el-form>
 </div>
 </template>
 
@@ -50,6 +61,7 @@ export default {
                 visaPath: null,
                 detatilId: null,
             },
+            form2: {},
             rules: {
                 visaPath: [{
                     required: true,
@@ -65,6 +77,7 @@ export default {
             daterange: [],
             info: [],
             data: [],
+            statusNum: null
         });
     },
     computed: {
@@ -86,6 +99,7 @@ export default {
             getOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
                 this.form.detatilId = response.data.orderDetail[0].id;
+                this.statusNum = response.data.status;
                 this.data = [{
                         key: "订单编号",
                         value: resData.orderNum,
@@ -152,6 +166,23 @@ export default {
         },
         update(params) {
             updateOrder(params).then(response => {
+                this.$alert('更新成功', '提示', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        this.$router.back();
+                    }
+                });
+            });
+        },
+        sended() {
+            if (!this.form2.status) {
+                this.$message({
+                    message: '请选择状态',
+                    type: 'warning'
+                });
+                return;
+            }
+            updateOrder({status:this.form2.status,orderId: this.$route.params.id,detatilId:this.form.detatilId}).then(response => {
                 this.$alert('更新成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
