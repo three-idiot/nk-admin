@@ -36,8 +36,8 @@
         </el-form-item>
         <el-row style="height: 40px;">
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button class="stick-item" type="danger" :disabled="!selectedLists.length" @click.native="audit">批量审核</el-button>
+            <el-button v-permisson="['audit-ads-search']" type="primary" @click="onSubmit">查询</el-button>
+            <el-button v-permisson="['audit-ads-batchAudit']" class="stick-item" type="danger" :disabled="!selectedLists.length" @click.native="audit">批量审核</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -106,10 +106,10 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permisson="['audit-ads-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
+          <el-button v-permisson="['audit-ads-audit']" v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
             审核
           </el-button>
         </template>

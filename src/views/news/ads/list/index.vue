@@ -36,8 +36,8 @@
         </el-form-item>
         <el-row style="height: 40px;">
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增广告</el-button>
+            <el-button v-permisson="['ads-list-search']" type="primary" @click="onSubmit">查询</el-button>
+            <el-button v-permisson="['ads-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增广告</el-button>
             <el-button class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
@@ -107,16 +107,16 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permisson="['ads-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permisson="['ads-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permisson="['ads-list-offline']" v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
-          <el-button v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
+          <el-button v-permisson="['ads-list-audit']" v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
             审核
           </el-button>
         </template>
