@@ -73,8 +73,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button v-permisson="['ads-add-cancel']" type="info" @click="cancel">取消</el-button>
-        <el-button v-permisson="['ads-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
+        <el-button v-permission="['ads-add-cancel']" type="info" @click="cancel">取消</el-button>
+        <el-button v-permission="['ads-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
       </el-form-item>
     </el-form>
   </div>

@@ -48,8 +48,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button v-permisson="['news-add-cancel']" type="info" @click="cancel">取消</el-button>
-        <el-button v-permisson="['news-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
+        <el-button v-permission="['news-add-cancel']" type="info" @click="cancel">取消</el-button>
+        <el-button v-permission="['news-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
       </el-form-item>
     </el-form>
   </div>

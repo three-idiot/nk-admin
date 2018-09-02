@@ -24,9 +24,9 @@
         </el-form-item>
         <el-row style="height: 40px;">
           <el-form-item>
-            <el-button v-permisson="['news-list-search']" type="primary" @click="onSubmit">查询</el-button>
-            <el-button v-permisson="['news-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增资讯</el-button>
-            <el-button v-permisson="['news-list-setTop']" class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
+            <el-button v-permission="['news-list-search']" type="primary" @click="onSubmit">查询</el-button>
+            <el-button v-permission="['news-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增资讯</el-button>
+            <el-button v-permission="['news-list-setTop']" class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -88,13 +88,13 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button v-permisson="['news-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permission="['news-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button v-permisson="['news-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permission="['news-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button v-permisson="['news-list-offline']" size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permission="['news-list-offline']" size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
         </template>
