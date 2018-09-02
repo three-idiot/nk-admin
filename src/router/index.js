@@ -209,7 +209,7 @@ export const asyncRouterMap = [
               hidden: true
             },
             {
-                path: 'newsedit/:id',
+                path: 'newsedit',
                 name: 'news-edit',
                 component: () => import('@/views/news/newslist/add'),
                 hidden: true
@@ -240,7 +240,7 @@ export const asyncRouterMap = [
               hidden: true
             },
             {
-              path: 'adsedit/:id',
+              path: 'adsedit',
               name: 'ads-edit',
               component: () => import('@/views/news/ads/add'),
               hidden: true

@@ -71,7 +71,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -83,7 +83,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -95,7 +95,7 @@
 
       <el-table-column  align="center" label="有效期" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.validTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.validTime ? new Date(scope.row.validTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import { getAdsList, stickAds, changeAdsStatus } from "@/api/news";
+import { getAdsList, stickAds, changeAdsStatus, getAdsDetail } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -200,10 +200,10 @@ export default {
   computed: {
     listQuery() {
       return Object.assign({}, this.form, {
-        startApproveDate: this.daterange[0] || null,
-        endApproveDate: this.daterange[1] || null,
-        startValidDate: this.validdaterange[0] || null,
-        endValidDate: this.validdaterange[1] || null,
+        startApproveDate: this.daterange && this.daterange[0] || null,
+        endApproveDate: this.daterange && this.daterange[1] || null,
+        startValidDate: this.validdaterange && this.validdaterange[0] || null,
+        endValidDate: this.validdaterange && this.validdaterange[1] || null,
         pageIndex: this.current_page,
         pageSize: this.page_size,
       });
@@ -252,9 +252,11 @@ export default {
       console.log(this.listQuery);
       getAdsList(this.listQuery).then(response => {
         this.listLoading = false;
-        console.log("广告列表:", response);
         if (response.code == 200) {
           this.list = response.data.data;
+          this.total_count = response.data.total_count;
+          this.current_page = response.data.current_page;
+          this.max_page = response.data.max_page;
         }
       }).catch((err) => {
         console.error('', err);
@@ -281,10 +283,16 @@ export default {
       });
     },
     goEdit(id) {
-      this.$router.push({
-        name: 'ads-edit',
-        params: {
-            id: id
+      this.listLoading = true;
+      getAdsDetail(id).then(response => {
+        this.listLoading = false;
+        if (response.data) {
+          this.$router.push({
+            name: 'ads-edit',
+            params: {
+                id: response.data
+            }
+          });
         }
       });
     },

@@ -82,7 +82,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -247,8 +247,10 @@ export default {
       this.listLoading = true;
       getAdsList(this.listQuery).then(response => {
         this.listLoading = false;
-        console.log("广告列表:", response);
         if (response.code == 200) {
+          this.total_count = response.data.total_count;
+          this.current_page = response.data.current_page;
+          this.max_page = response.data.max_page;
           this.list = response.data.data;
         }
       }).catch((err) => {

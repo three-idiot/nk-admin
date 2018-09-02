@@ -14,6 +14,7 @@ import {
 } from "@/api/news";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import TitleLine from "@/components/TitleLine/index.vue";
+import StatusEnum from '@/map/news';
 export default {
     data() {
         return Object.assign({}, {
@@ -40,7 +41,7 @@ export default {
                     },
                     {
                         key: '资讯状态',
-                        value: resData.status,
+                        value: StatusEnum.status[resData.status] && StatusEnum.status[resData.status].msg || '',
                         type: 'string'
                     },
                     {
