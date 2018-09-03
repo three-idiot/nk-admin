@@ -27,6 +27,14 @@
         </el-upload>
       </el-form-item>
 
+      <!-- 资讯分类 -->
+      <el-form-item v-if="isEdit" label="资讯分类" prop="type" style="width: 312px;">
+        <el-select v-model="ruleForm.type" placeholder="请选择分类" clearable>
+          <el-option label="普通" :value="0"></el-option>
+          <el-option label="精选" :value="1"></el-option>
+        </el-select>
+      </el-form-item>
+
       <!--资讯关键字-->
       <el-form-item label="资讯关键字" prop="newsKey" style="width: 312px;">
         <el-input v-model="ruleForm.newsKey"></el-input>
@@ -40,12 +48,6 @@
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
-      </el-form-item>
-
-      <!--是否置顶-->
-      <el-form-item label="是否置顶" prop="top" style="width: 312px;">
-        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
-        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
       </el-form-item>
 
       <el-form-item>
@@ -76,7 +78,7 @@
         images: [],
         newsKey: '',
         detail: '',
-        top: 0
+        type: ''
       },
       rules: {
         images: [
@@ -88,9 +90,6 @@
         newsKey: [
           { required: true, trigger: 'blur', message: '请输入关键字' }
         ],
-        top: [
-          { required: true, trigger: 'blur', message: '请选择是否置顶' }
-        ],
         detail: [
           { required: true, trigger: 'blur', message: '请添加资讯详情' }
         ]
@@ -101,6 +100,11 @@
       }
     };
   },
+  computed: {
+    isEdit () {
+      return this.$route.params && this.$route.params.id;
+    }
+  },
   created() {
     let data = this.$route.params && this.$route.params.id;
     if (data) {
@@ -110,7 +114,7 @@
         images: data.images,
         newsKey: data.newsKey,
         detail: data.detail,
-        top: data.top
+        type: data.type
       }
     }
   },
