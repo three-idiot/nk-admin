@@ -71,7 +71,7 @@
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
-                <el-button size="mini" v-permission="['account-list-offline']" v-if="accountStatus[scope.row.status].msg=='正常'" type="danger" @click="freeze(scope.row,1)">冻结</el-button>
+                <el-button size="mini" v-permission="['account-list-offline']" v-if="accountStatus[scope.row.status].msg=='正常'&&scope.row.type!=1" type="danger" @click="freeze(scope.row,1)">冻结</el-button>
                 <el-button size="mini" v-permission="['account-list-online']" v-if="accountStatus[scope.row.status].msg=='冻结'" type="success" @click="freeze(scope.row,2)">解冻</el-button>
                 <el-button size="mini" v-permission="['account-list-edit']" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
                 <el-button size="mini" v-permission="['account-list-detail']" type="primary" @click="detail(scope.$index, scope.row)">查看</el-button>

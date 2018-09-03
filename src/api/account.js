@@ -31,3 +31,10 @@ export function freeze(params) {
         params
     });
 }
+
+export function accountRoleList(params) {
+    return request({
+        url: '/role/accountRoleList',
+        method: 'get'
+    });
+}

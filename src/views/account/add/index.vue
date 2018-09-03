@@ -35,7 +35,8 @@ import {
     getList
 } from "@/api/permission";
 import {
-    addAccount
+    addAccount,
+    accountRoleList
 } from "@/api/account";
 import TitleLine from "@/components/TitleLine/index.vue";
 import map from "@/map/account";
@@ -133,10 +134,7 @@ export default {
             });
         },
         getRolesList() {
-            getList({
-                pageIndex: 1,
-                pageSize: 1000000,
-            }).then(response => {
+            accountRoleList().then(response => {
                 this.roles = response.data.data;
             });
         },
