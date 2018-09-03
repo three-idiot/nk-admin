@@ -28,7 +28,7 @@
             <!--时间选择器-->
             <span class="demonstration">发布日期：</span>
             <el-date-picker
-                v-model="goodsParams.upStartTime"
+                v-model="goodsParams.publishStartTime"
                 type="datetime"
                 placeholder="选择日期"
                 value-format="yyyy-MM-dd HH:mm:ss"
@@ -36,7 +36,7 @@
             </el-date-picker>
             -
             <el-date-picker
-                v-model="goodsParams.upEndTime"
+                v-model="goodsParams.publishEndTime"
                 type="datetime"
                 placeholder="选择日期"
                 value-format="yyyy-MM-dd HH:mm:ss"
@@ -261,6 +261,8 @@
                     name: null,
                     publisher: null,
                     status: null,
+                    publishStartTime: null,
+                    publishEndTime: null,
                     upStartTime: null,
                     upEndTime: null,
                     salePrice: null,
