@@ -53,3 +53,12 @@ export function forceSuccess(groupOrderId) {
         params: { groupOrderId, status: 5 }
     });
 }
+
+export function approveRefund(params) {
+    return request({
+        url: `/travelOrder/approveRefund`,
+        method: 'post',
+        data: params
+    });
+}
+

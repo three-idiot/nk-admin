@@ -36,6 +36,7 @@
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
         <editor class="editor" 
+                from="edit"
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -48,15 +49,15 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button v-permission="['news-add-cancel']" type="info" @click="cancel">取消</el-button>
+        <el-button v-permission="['news-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-  import { addNews, getNewsDetail } from '@/api/news';
+  import { addNews, editNews } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
   import editor from '@/components/editor';
 
@@ -75,7 +76,7 @@
         images: [],
         newsKey: '',
         detail: '',
-        top: '0'
+        top: 0
       },
       rules: {
         images: [
@@ -100,40 +101,29 @@
       }
     };
   },
-  mounted() {
-    let id = this.$route.params.id;
-    console.log('资讯id：', this.ruleForm.id);
-    // console.log('add mounted:', id);
-    if (id) {
-      this.ruleForm.id = id;
-      this.fetchData();
+  created() {
+    let data = this.$route.params && this.$route.params.id;
+    if (data) {
+      this.ruleForm = {
+        id: data.id,
+        title: data.title,
+        images: data.images,
+        newsKey: data.newsKey,
+        detail: data.detail,
+        top: data.top
+      }
     }
   },
   methods: {
-    fetchData() {
-        this.listLoading = true;
-        getNewsDetail(this.ruleForm.id).then(response => {
-          this.listLoading = false;
-          console.log('获取编辑数据：', response);
-          if (response.data) {
-            this.ruleForm = Object.assign({}, this.ruleForm, response.data);
-            // this.ruleForm.images = testImgs;
-          }
-        });
-    },
     handleDelImg (img, index) {
-      // console.log('要删除的图片上是：', img, index);
       this.ruleForm.images.splice(index);
     },
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);
-      // this.imageUrl = URL.createObjectURL(file.raw);
       this.ruleForm.images.push({
         goodPath: res.data,
         localPath: URL.createObjectURL(file.raw)
       });
-      // console.log('图片数组：', this.ruleForm.images);
-      // this.ruleForm.images = file.response.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -148,31 +138,47 @@
       return isLt2M;
     },
     submitForm(formName) {
-      console.log('---------提交表单：', this.ruleForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
-          addNews(ruleForm).then( res => {
-              if ( res.code == 200 ) {
-                  this.$message({
-                    message: '添加成功',
-                    type: 'success'
-                  });
-                  setTimeout(() => {
-                    this.$router.push({
-                      name: 'news-list'
+          let isEdit = this.$route.params && this.$route.params.id;
+          if (isEdit) {
+            editNews(ruleForm).then( res => {
+                if ( res.code == 200 ) {
+                    this.$message({
+                      message: '修改成功',
+                      type: 'success'
                     });
-                  }, 1000);
-              }
-          });
+                    setTimeout(() => {
+                      this.$router.push({
+                        name: 'news-list'
+                      });
+                    }, 1000);
+                }
+            });
+          } else {
+            addNews(ruleForm).then( res => {
+                if ( res.code == 200 ) {
+                    this.$message({
+                      message: '添加成功',
+                      type: 'success'
+                    });
+                    setTimeout(() => {
+                      this.$router.push({
+                        name: 'news-list'
+                      });
+                    }, 1000);
+                }
+            });
+          }
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    cancel() {
+      this.$router.back(-1);
     }
   },
   components: {

@@ -24,9 +24,9 @@
         </el-form-item>
         <el-row style="height: 40px;">
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增资讯</el-button>
-            <el-button class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
+            <el-button v-permission="['news-list-search']" type="primary" @click="onSubmit">查询</el-button>
+            <el-button v-permission="['news-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增资讯</el-button>
+            <el-button v-permission="['news-list-setTop']" class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -64,7 +64,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -76,7 +76,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -88,13 +88,13 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button  size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permission="['news-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permission="['news-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permission="['news-list-offline']" size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
         </template>
@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { getNewsList, stickNews, changeNewsStatus } from "@/api/news";
+import { getNewsList, stickNews, changeNewsStatus, getNewsDetail } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -153,8 +153,8 @@ export default {
   computed: {
     listQuery() {
       return Object.assign({}, this.form, {
-        startApproveDate: this.daterange[0],
-        endApproveDate: this.daterange[1],
+        startApproveDate: this.daterange && this.daterange[0] || '',
+        endApproveDate: this.daterange && this.daterange[1] || '',
         pageIndex: this.current_page,
         pageSize: this.page_size,
       });
@@ -173,9 +173,11 @@ export default {
       this.listLoading = true;
       getNewsList(this.listQuery).then(response => {
         this.listLoading = false;
-        console.log("资讯列表:", response);
         if (response.code == 200) {
           this.list = response.data.data;
+          this.total_count = response.data.total_count;
+          this.current_page = response.data.current_page;
+          this.max_page = response.data.max_page;
         }
       }).catch((err) => {
         console.error('', err);
@@ -202,10 +204,16 @@ export default {
       });
     },
     goEdit(id) {
-      this.$router.push({
-        name: 'news-edit',
-        params: {
-            id: id
+      this.listLoading = true;
+      getNewsDetail(id).then(response => {
+        this.listLoading = false;
+        if (response.data) {
+          this.$router.push({
+            name: 'news-edit',
+            params: {
+                id: response.data
+            }
+          });
         }
       });
     },

@@ -73,15 +73,15 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button v-permission="['ads-add-cancel']" type="info" @click="cancel">取消</el-button>
+        <el-button v-permission="['ads-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-  import { addAds, getAdsDetail } from '@/api/news';
+  import { addAds, editAds } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
   import editor from '@/components/editor';
 
@@ -99,7 +99,7 @@
         title: '',
         images: [],
         detail: '',
-        top: '0',
+        top: 0,
         url: '',
         width: '',
         height: '',
@@ -141,27 +141,24 @@
       }
     };
   },
-  mounted() {
-    let id = this.$route.params.id;
-    console.log('资讯id：', this.ruleForm.id);
-    // console.log('add mounted:', id);
-    if (id) {
-      this.ruleForm.id = id;
-      this.fetchData();
+  created() {
+    let data = this.$route.params && this.$route.params.id;
+    if (data) {
+      this.ruleForm = {
+        id: data.id,
+        title: data.title,
+        images: data.images,
+        detail: data.detail,
+        top: data.top,
+        url: data.url,
+        width: data.width,
+        height: data.height,
+        sort: data.sort,
+        validTime: data.validTime
+      }
     }
   },
   methods: {
-    fetchData() {
-        this.listLoading = true;
-        getAdsDetail(this.ruleForm.id).then(response => {
-          this.listLoading = false;
-          console.log('获取编辑数据：', response);
-          if (response.data) {
-            this.ruleForm = Object.assign({}, this.ruleForm, response.data);
-            // this.ruleForm.images = testImgs;
-          }
-        });
-    },
     handleDelImg (img, index) {
       // console.log('要删除的图片上是：', img, index);
       this.ruleForm.images.splice(index);
@@ -189,31 +186,47 @@
       return isLt2M;
     },
     submitForm(formName) {
-      console.log('---------提交表单：', this.ruleForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
-          addAds(ruleForm).then( res => {
-              if ( res.code == 200 ) {
-                  this.$message({
-                    message: '添加成功',
-                    type: 'success'
-                  });
-                  setTimeout(() => {
-                    this.$router.push({
-                      name: 'adslist'
+          let isEdit = this.$route.params && this.$route.params.id;
+          if (isEdit) {
+            editAds(ruleForm).then( res => {
+                if ( res.code == 200 ) {
+                    this.$message({
+                      message: '修改成功',
+                      type: 'success'
                     });
-                  }, 1000);
-              }
-          });
+                    setTimeout(() => {
+                      this.$router.push({
+                        name: 'adslist'
+                      });
+                    }, 1000);
+                }
+            });
+          } else {
+            addAds(ruleForm).then( res => {
+                if ( res.code == 200 ) {
+                    this.$message({
+                      message: '添加成功',
+                      type: 'success'
+                    });
+                    setTimeout(() => {
+                      this.$router.push({
+                        name: 'adslist'
+                      });
+                    }, 1000);
+                }
+            });
+          }
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    cancel() {
+      this.$router.back(-1);
     }
   },
   components: {
