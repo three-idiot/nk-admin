@@ -70,7 +70,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.createTime ? scope.row.createTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -82,7 +82,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.approveTime ? scope.row.approveTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -94,7 +94,7 @@
 
       <el-table-column  align="center" label="有效期" >
         <template slot-scope="scope" >
-          <span>{{new Date(scope.row.validTime).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+          <span>{{scope.row.validTime ? scope.row.validTime : ''}}</span>
         </template>
       </el-table-column>
 

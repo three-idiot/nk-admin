@@ -66,12 +66,6 @@
                 @input="(content)=> ruleForm.detail = content"></editor>
       </el-form-item>
 
-      <!--是否置顶-->
-      <el-form-item label="是否置顶" prop="top" style="width: 312px;">
-        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
-        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
-      </el-form-item>
-
       <el-form-item>
         <el-button v-permission="['ads-add-cancel']" type="info" @click="cancel">取消</el-button>
         <el-button v-permission="['ads-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
@@ -99,7 +93,6 @@
         title: '',
         images: [],
         detail: '',
-        top: 0,
         url: '',
         width: '',
         height: '',
@@ -112,9 +105,6 @@
         ],
         title: [
           { required: true, trigger: 'blur', message: '请输入资讯标题' }
-        ],
-        top: [
-          { required: true, trigger: 'blur', message: '请选择是否置顶' }
         ],
         detail: [
           { required: true, trigger: 'blur', message: '请添加资讯详情' }
@@ -149,7 +139,6 @@
         title: data.title,
         images: data.images,
         detail: data.detail,
-        top: data.top,
         url: data.url,
         width: data.width,
         height: data.height,

@@ -71,7 +71,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.createTime ? scope.row.createTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -83,7 +83,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.approveTime ? scope.row.approveTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -95,7 +95,7 @@
 
       <el-table-column  align="center" label="有效期" >
         <template slot-scope="scope" >
-          <span>{{scope.row.validTime ? new Date(scope.row.validTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.validTime ? scope.row.validTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -107,13 +107,13 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button v-permission="['ads-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permission="['ads-list-detail']" v-if="scope.row.status != 4" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button v-permission="['ads-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permission="['ads-list-edit']" v-if="scope.row.status == 1 || scope.row.status == 3" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button v-permission="['ads-list-offline']" v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permission="['ads-list-offline']" v-if="scope.row.status == 1"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
           <el-button v-permission="['ads-list-audit']" v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
@@ -229,7 +229,7 @@ export default {
       console.log(this.dialogForm);
       this.dialogFormVisible = false;
       changeAdsStatus({
-        adId: this.clickId,
+        adIds: [this.clickId],
         status: this.dialogForm.agree,
         remark: this.dialogForm.remark
       }).then((res) => {
@@ -304,7 +304,7 @@ export default {
         center: true
       }).then(() => {
         changeAdsStatus({
-          adId: id,
+          adIds: [id],
           status: 2,
           remark: ''
         }).then((res) => {
