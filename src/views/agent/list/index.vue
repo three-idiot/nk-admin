@@ -236,6 +236,12 @@ export default {
         },
         goEdit(id) {
             window.location.href = '#/agent/edit?id=' + id;
+            // this.$router.push({
+            //     name: "agent-edit",
+            //     params: {
+            //        id: id
+            //     }
+            // });
         },
         fetchData() {
             this.listLoading = true;
