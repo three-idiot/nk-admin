@@ -3,6 +3,9 @@
         <p class="title">商品详情</p>
         <hr/>
         <portrait-table :data="processData"></portrait-table>
+        <div class="text-item"><p class="item-tit">线路特色：</p><p v-html="data.lineDescribe"></p></div>
+        <div class="text-item"><p class="item-tit">行程介绍：</p><p v-html="data.tripDescribe"></p></div>
+        <div class="text-item"><p class="item-tit">费用与须知：</p><p v-html="data.costDescribe"></p></div>
         <table class="divide-table">
             <tr>
                 <th class="tableTitle">分成设置(元)</th>
@@ -156,6 +159,24 @@
     .divide-table {
         td {
             text-align: center;
+        }
+    }
+    .text-item {
+        display: flex;
+        align-items: center;
+        .item-tit {
+            /*box-sizing: border-box;*/
+            /*white-space: normal;*/
+            /*word-break: break-all;*/
+            /*line-height: 23px;*/
+            /*padding-left: 10px;*/
+            /*padding-right: 10px;*/
+            /*overflow: hidden;*/
+            /*text-overflow: ellipsis;*/
+            /*background-color: #EDF3F4;*/
+            color: #336199;
+            font-size: 20px;
+            margin-right: 40px;
         }
     }
 </style>
