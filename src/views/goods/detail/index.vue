@@ -14,38 +14,38 @@
             <tr>
                 <td class="tableTitle">成人：</td>
                 <td>
-                    {{ calPrices(1,1) }}
+                    {{ calPrices(1,1)? calPrices(1,1): '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(2,1) }}
+                    {{ calPrices(2,1)? calPrices(2,1): '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(3,1) }}
+                    {{ calPrices(3,1)? calPrices(3,1): '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(4,1) }}
+                    {{ calPrices(4,1)? calPrices(4,1): '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>-->
                 </td>
             </tr>
             <tr>
                 <td class="tableTitle">儿童：</td>
                 <td>
-                    {{ calPrices(1,2) }}
+                    {{ calPrices(1,2)? calPrices(1,2) : '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(2,2) }}
+                    {{ calPrices(2,2)? calPrices(2,2) : '/'  }}
                     <!--<el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(3,2) }}
+                    {{ calPrices(3,2)?  calPrices(3,2) : '/'}}
                     <!--<el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>-->
                 </td>
                 <td>
-                    {{ calPrices(4,2) }}
+                    {{ calPrices(4,2)? calPrices(4,2) : '/' }}
                     <!--<el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>-->
                 </td>
             </tr>
@@ -89,9 +89,9 @@
                     arr.push({key: '出发日期', value: this.data.leaveTime });
                     arr.push({key: '出发地点', value: this.data.leaveAddress });
                     arr.push({key: '添加图片', value: images, type: 'images'});
-                    arr.push({key: '线路特色', value: this.data.lineDescribe });
-                    arr.push({key: '行程介绍', value: this.data.tripDescribe });
-                    arr.push({key: '费用与须知', value: this.data.costDescribe});
+                    // arr.push({key: '线路特色', value: this.data.lineDescribe });
+                    // arr.push({key: '行程介绍', value: this.data.tripDescribe });
+                    // arr.push({key: '费用与须知', value: this.data.costDescribe});
                     arr.push({key: '报名截至日期', value: this.data.closeDate});
                     arr.push({key: '最低成团人数', value: this.data.peopleMinNum});
                     arr.push({key: '成团人数上限', value: this.data.peopleMaxNum});
@@ -151,6 +151,11 @@
             line-height: 30px;
             text-align: center;
             color: #FFFFFF;
+        }
+    }
+    .divide-table {
+        td {
+            text-align: center;
         }
     }
 </style>
