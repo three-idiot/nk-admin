@@ -58,6 +58,7 @@
 
 <script>
     import {travelGoods} from '@/api/goods';
+    import goodsMap from "@/map/goods";
     import PortraitTable from "@/components/PortraitTable/index.vue";
 
     export default {
@@ -81,10 +82,10 @@
                     }
                     console.log( images );
                     arr.push( {key: '商品编号', value: this.data.goodsNo} );
-                    arr.push( {key: '商品状态', value: this.data.status} );
+                    arr.push( {key: '商品状态', value: goodsMap.status[this.data.status]} );
                     arr.push( {key: '商品名称', value: this.data.name} );
                     arr.push({key: '商品概要', value: this.data.outline});
-                    arr.push({key: '商品分类', value: this.data.type});
+                    arr.push({key: '商品分类', value: goodsMap.type[this.data.type]});
                     arr.push({key: '出发日期', value: this.data.leaveTime });
                     arr.push({key: '出发地点', value: this.data.leaveAddress });
                     arr.push({key: '添加图片', value: images, type: 'images'});
