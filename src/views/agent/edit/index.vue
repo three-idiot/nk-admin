@@ -239,7 +239,8 @@
 <script>
 import {
     getAgent,
-    getLowerAreas
+    getLowerAreas,
+    updateAgent
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
@@ -436,7 +437,7 @@ export default {
             return isLt2M;
         },
         update(params) {
-            updateOrder(params).then(response => {
+            updateAgent(params).then(response => {
                 this.$alert('更新成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
