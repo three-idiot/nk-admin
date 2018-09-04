@@ -82,7 +82,7 @@
         </el-form-item>
 
         <!--// 选择代理商性质为企业-->
-        <div v-if="form.type == 1">
+        <div v-if="form.agentType == 1">
             <el-form-item label="营业执照代码："  style="width: 400px;">
                 <el-input v-model="form.bizLicenseCode"></el-input>
             </el-form-item>
@@ -99,7 +99,7 @@
 
 
         <!--// 选择代理商性质为个人-->
-        <div v-if="form.type == 2">
+        <div v-if="form.agentType == 2">
             <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
                 <el-input v-model="form.idCardNo"></el-input>
             </el-form-item>
@@ -135,7 +135,7 @@
             <el-input v-model="form.bankName"></el-input>
         </el-form-item>
 
-        <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
+        <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.agentType == 1">
             <el-input v-model="form.bankCoupletNo"></el-input>
         </el-form-item>
 
@@ -305,9 +305,15 @@ export default {
         this.fetchAddressData();
         window.this = this;
     },
+    mounted() {
+    },
     watch: {
     },
     methods: {
+        test() {
+            console.log( this.form.agentType );
+            console.log( typeof this.form.agentType);
+        },
         getCode() {
             getUniqueCode().then( res => {
                 console.log( res );
