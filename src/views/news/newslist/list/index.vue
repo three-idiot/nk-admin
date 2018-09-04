@@ -18,8 +18,6 @@
           <el-select v-model="form.status" placeholder="请选择" clearable>
             <el-option label="正常" value="1"></el-option>
             <el-option label="失效" value="2"></el-option>
-            <el-option label="待审核" value="3"></el-option>
-            <el-option label="审核拒绝" value="4"></el-option>
           </el-select>
         </el-form-item>
         <el-row style="height: 40px;">
@@ -65,18 +63,6 @@
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
           <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column  align="center"  label="审核人" >
-        <template slot-scope="scope">
-          <span class="link-type">{{scope.row.approver}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column  align="center" label="审核时间" >
-        <template slot-scope="scope" >
-          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
         </template>
       </el-table-column>
 
@@ -140,8 +126,6 @@ export default {
           title: '资讯1',
           publisher: '唐先森',
           createTime: '20180715',
-          approver: '哈哈先森',
-          approveTime: '20180908',
           status: 3,
           top: true,
           id: 100
@@ -153,8 +137,8 @@ export default {
   computed: {
     listQuery() {
       return Object.assign({}, this.form, {
-        startApproveDate: this.daterange && this.daterange[0] || '',
-        endApproveDate: this.daterange && this.daterange[1] || '',
+        startUpDate: this.daterange && this.daterange[0] || '',
+        endUpDate: this.daterange && this.daterange[1] || '',
         pageIndex: this.current_page,
         pageSize: this.page_size,
       });
@@ -225,7 +209,7 @@ export default {
         center: true
       }).then(() => {
         changeNewsStatus({
-          newsId: id,
+          newsIds: [id],
           status: 2,
           remark: ''
         }).then((res) => {

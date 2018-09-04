@@ -1,5 +1,8 @@
 import Vue from 'vue';
 
+/* eslint-disable no-unused-vars */
+import Promise from 'core-js/es6/promise';
+
 import 'normalize.css/normalize.css';// A modern alternative to CSS resets
 
 import ElementUI from 'element-ui';

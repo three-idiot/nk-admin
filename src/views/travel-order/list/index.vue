@@ -97,7 +97,7 @@
             <template slot-scope="scope">
                 <el-button v-permission="['travel-order-list-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
                 <el-button v-permission="['travel-order-list-refund']" size="mini" type="primary" @click="force(scope.$index, scope.row)">强制成团</el-button>
-                <el-button size="mini" type="primary" @click="edit(scope.$index, scope.row)">退款</el-button>
+                <el-button size="mini" type="primary" @click="refund(scope.$index, scope.row)">退款</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -111,7 +111,8 @@
 <script>
 import {
     getOrderList,
-    forceSuccess
+    forceSuccess,
+    fullRefund
 } from "@/api/travel-order";
 import orderMap from "@/map/travel-order";
 import TitleLine from "@/components/TitleLine/index.vue";
@@ -134,10 +135,10 @@ export default {
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                sstartDate: this.startDaterange[0]?this.startDaterange[0]+' 0:0:0':null,
-                sendDate: this.startDaterange[1]?this.startDaterange[1]+' 23:59:59':null,
-                estartDate: this.endDaterange[0]?this.endDaterange[0]+' 0:0:0':null,
-                eendDate: this.endDaterange[1]?this.endDaterange[1]+' 23:59:59':null,
+                sstartDate: this.startDaterange[0] ? this.startDaterange[0] + ' 0:0:0' : null,
+                sendDate: this.startDaterange[1] ? this.startDaterange[1] + ' 23:59:59' : null,
+                estartDate: this.endDaterange[0] ? this.endDaterange[0] + ' 0:0:0' : null,
+                eendDate: this.endDaterange[1] ? this.endDaterange[1] + ' 23:59:59' : null,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
             });
@@ -179,6 +180,21 @@ export default {
                     this.$message({
                         type: 'success',
                         message: '成团成功!'
+                    });
+                    this.fetchData();
+                });
+            }).catch(() => {});
+        },
+        refund(index, row) {
+            this.$confirm('是否对该团全部订单进行退款?', '组团失败', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                fullRefund(row.groupOrderId).then(response => {
+                    this.$message({
+                        type: 'success',
+                        message: '退款成功!'
                     });
                     this.fetchData();
                 });

@@ -62,3 +62,14 @@ export function approveRefund(params) {
     });
 }
 
+export function fullRefund(orderId) {
+    return request({
+        url: `/travelOrder/fullRefund`,
+        method: 'get',
+        params: {
+            orderId
+        }
+    });
+}
+
+
