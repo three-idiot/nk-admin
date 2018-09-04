@@ -355,6 +355,9 @@
             fetchData(params) {
                 this.listLoading = true;
                 getGoodsList(params).then(response => {
+                    if ( this.goodsParams.salePrice ) {
+                        this.goodsParams.salePrice = null;
+                    }
                     // this.list = response.data.data;
                     console.log(response.data);
                     this.goodsList = response.data.data;
