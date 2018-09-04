@@ -291,7 +291,10 @@
         },
         methods: {
             jumpAdd() {
-                window.location.href = '#/goods/add';
+                // window.location.href = '#/goods/add';
+                this.$router.push({
+                    name: "goods-add",
+                });
             },
             refundDialogShow() {
                 if( this.chooseTravelGoodsId.length == 0 ) {
@@ -373,10 +376,22 @@
                 this.fetchData(this.goodsParams);
             },
             goDetail(id) {
-                window.location.href = '#/goods/detail?id=' + id;
+                // window.location.href = '#/goods/detail?id=' + id;
+                this.$router.push({
+                    name: "goods-detail",
+                    query:{
+                        id:id
+                    }
+                });
             },
             goEdit(id) {
-                window.location.href = '#/goods/edit?id=' + id;
+                // window.location.href = '#/goods/edit?id=' + id;
+                this.$router.push({
+                    name: "goods-edit",
+                    query:{
+                        id:id
+                    }
+                });
             },
             undercarriageShow(id) {
                 this.undercarriage = true;

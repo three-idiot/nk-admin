@@ -394,28 +394,21 @@ export const asyncRouterMap = [
             {
                 path: 'add',
                 component: () => import('@/views/goods/add'),
-                meta: { title: '新增商品', roles: ['goods-add'] }
+                meta: { title: '新增商品', roles: ['goods-add'] },
+                name: 'goods-add'
             },
             {
                 path: 'edit',
                 component: () => import('@/views/goods/edit'),
                 meta: { title: '编辑商品' },
+                name: 'goods-edit',
                 hidden: true
             },
             {
                 path: 'detail',
                 component: () => import('@/views/goods/detail'),
-                hidden: true
-            },
-            {
-                path: 'ratio',
-                component: () => import('@/views/goods/ratio-change'),
-                hidden: true
-            },
-            {
-                path: 'undercarriage',
-                component: () => import('@/views/goods/undercarriage'),
-                hidden: true
+                hidden: true,
+                name: 'goods-detail'
             },
         ]
     },
