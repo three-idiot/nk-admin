@@ -239,7 +239,8 @@
 <script>
 import {
     getAgent,
-    getLowerAreas
+    getLowerAreas,
+    updateAgent
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
@@ -383,6 +384,7 @@ export default {
                 if(res.code == 200) {
                     this.form = res.data;
                     this.form.roleId = String(this.form.roleId);
+                    this.confirmPassword = this.form.pwd;
                     console.log( this.form.province, this.form.city, this.form.county);
                     this.getNextLevel('city', this.form.province);
                     this.getNextLevel('county', this.form.city);
@@ -435,7 +437,7 @@ export default {
             return isLt2M;
         },
         update(params) {
-            updateOrder(params).then(response => {
+            updateAgent(params).then(response => {
                 this.$alert('更新成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
