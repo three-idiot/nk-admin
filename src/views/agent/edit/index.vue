@@ -383,6 +383,7 @@ export default {
                 if(res.code == 200) {
                     this.form = res.data;
                     this.form.roleId = String(this.form.roleId);
+                    this.confirmPassword = this.form.pwd;
                     console.log( this.form.province, this.form.city, this.form.county);
                     this.getNextLevel('city', this.form.province);
                     this.getNextLevel('county', this.form.city);
