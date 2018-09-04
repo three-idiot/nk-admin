@@ -373,6 +373,9 @@
             },
             handleFilter() {
                 console.log(this.goodsParams);
+                if( this.goodsParams.salePrice ) {
+                    this.goodsParams.salePrice *= 100;
+                }
                 this.fetchData(this.goodsParams);
             },
             goDetail(id) {
