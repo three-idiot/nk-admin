@@ -68,17 +68,7 @@ export default {
                     {
                         key: '创建时间',
                         value: resData.createTime,
-                        type: 'dateTime'
-                    },
-                    {
-                        key: '审核人',
-                        value: resData.approver,
                         type: 'string'
-                    },
-                    {
-                        key: '审核时间',
-                        value: resData.approveTime,
-                        type: 'dateTime'
                     }
                 ];
             });

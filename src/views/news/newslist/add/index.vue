@@ -27,14 +27,6 @@
         </el-upload>
       </el-form-item>
 
-      <!-- 资讯分类 -->
-      <el-form-item v-if="isEdit" label="资讯分类" prop="type" style="width: 312px;">
-        <el-select v-model="ruleForm.type" placeholder="请选择分类" clearable>
-          <el-option label="普通" :value="0"></el-option>
-          <el-option label="精选" :value="1"></el-option>
-        </el-select>
-      </el-form-item>
-
       <!--资讯关键字-->
       <el-form-item label="资讯关键字" prop="newsKey" style="width: 312px;">
         <el-input v-model="ruleForm.newsKey"></el-input>
@@ -77,8 +69,7 @@
         title: '',
         images: [],
         newsKey: '',
-        detail: '',
-        type: ''
+        detail: ''
       },
       rules: {
         images: [
@@ -113,8 +104,7 @@
         title: data.title,
         images: data.images,
         newsKey: data.newsKey,
-        detail: data.detail,
-        type: data.type
+        detail: data.detail
       }
     }
   },
@@ -142,9 +132,23 @@
       return isLt2M;
     },
     submitForm(formName) {
+      /** 由于接口不能直接接受编辑请求回来的图片格式，所以需要特殊处理一下 */
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
+          let _newArr = [];
+          ruleForm.images.map((img) => {
+            if (img.goodPath.indexOf('https') > -1) {
+              img.localPath = img.goodPath;
+              img.goodPath = /https:\/\/image.le-99.xyz\/(images\/\w+\.\w+)(\?\w+)/.exec(img.goodPath)[1];
+            }
+            _newArr.push({
+              localPath: img.localPath,
+              goodPath: img.goodPath
+            });
+            return img;
+          });
+          ruleForm.images = _newArr;
           let isEdit = this.$route.params && this.$route.params.id;
           if (isEdit) {
             editNews(ruleForm).then( res => {
