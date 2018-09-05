@@ -38,7 +38,6 @@
           <el-form-item>
             <el-button v-permission="['ads-list-search']" type="primary" @click="onSubmit">查询</el-button>
             <el-button v-permission="['ads-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增广告</el-button>
-            <el-button class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -151,7 +150,7 @@
 </template>
 
 <script>
-import { getAdsList, stickAds, changeAdsStatus, getAdsDetail } from "@/api/news";
+import { getAdsList, changeAdsStatus, getAdsDetail } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -171,7 +170,6 @@ export default {
         publisher: "",
         title: "",
         status: "",
-        top: 0,
         sort: "",
       },
       list: [
@@ -180,8 +178,6 @@ export default {
           title: '广告1',
           publisher: '唐先森',
           createTime: '20180715',
-          approver: '哈哈先森',
-          approveTime: '20180908',
           sort: 3,
           validTime: '20180706',
           status: 3,
@@ -342,35 +338,6 @@ export default {
           type: 'warning'
         });
       }
-    },
-    stick () {
-      this.$confirm(`已选择${this.selectedLists.length}条广告，是否对广告置顶?`, '广告置顶', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'info',
-        center: true
-      }).then(() => { // 确定操作
-        let ids = [];
-        this.selectedLists.map((item, index) => {
-          ids.push(item.id);
-        });
-        let params = {
-          adsIds: ids,
-          top: 1
-        };
-        stickAds(params).then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              message: '置顶成功',
-              type: 'success'
-            });
-            this.fetchData();
-          } else {
-            this.$message.error(res.msg);
-          }
-        });
-      }).catch(() => { // 取消操作
-      });
     }
   },
   components: {
