@@ -89,7 +89,7 @@ export function changeAdsStatus(params) {
 export function stickAds(params) {
   return request({
       url: '/news/topAds',
-      method: 'post',
+      method: 'get',
       data: params
   });
 }

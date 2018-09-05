@@ -283,7 +283,7 @@
                         {required: true, trigger: 'blur', message: '请输入商品概要'}
                     ],
                     type: [
-                        {required: true, trigger: 'blur', message: '请选择商品分类'}
+                        {required: true, trigger: 'change', message: '请选择商品分类'}
                     ],
                     leaveTime: [
                         {required: true, trigger: 'change', message: '请输入出发日期'}
@@ -321,11 +321,11 @@
                         {validator: checkNum, trigger: 'blur'}
                     ],
                     images: [
-                        {required: true, trigger: 'blur', message: '请至少添加一张图片'},
+                        {required: true, trigger: 'change', message: '请至少添加一张图片'},
                         // {validator: checkNum, trigger: 'blur'}
                     ],
                     closeDate: [
-                        {required: true, trigger: 'blur', message: '请输入报名截止时间'},
+                        {required: true, trigger: 'change', message: '请输入报名截止时间'},
                         // {validator: checkNum, trigger: 'blur'}
                     ],
 

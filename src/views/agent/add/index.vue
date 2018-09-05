@@ -226,8 +226,8 @@ export default {
             // confirmPassword: null,
             rules: {
                 username: [
-                    { required: true, trigger: 'blur', message: '请输入用户名' },
-                    { validator: checkUsername, trigger: 'blur' }
+                    { required: true, trigger: 'change', message: '请输入用户名' },
+                    { validator: checkUsername, trigger: 'change' }
                 ],
                 pwd: [
                     { required: true, trigger: 'blur', message: '请输入密码' },

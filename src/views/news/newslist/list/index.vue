@@ -44,7 +44,7 @@
       </el-table-column>
       <el-table-column align="center"   label="资讯编号" class="table-item">
         <template slot-scope="scope">
-          <span>{{scope.row.id}}</span>
+          <span>{{scope.row.newsNo}}</span>
         </template>
       </el-table-column>
 
@@ -62,7 +62,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.createTime ? scope.row.createTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -77,10 +77,10 @@
           <el-button v-permission="['news-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button v-permission="['news-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permission="['news-list-edit']" v-if="scope.row.status == 1" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button v-permission="['news-list-offline']" size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permission="['news-list-offline']" v-if="scope.row.status == 1" size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
         </template>
