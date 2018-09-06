@@ -20,7 +20,7 @@
             <el-input style="width: 200px;" v-model="goodsParams.publisher"></el-input>
 
             <span>商品状态：</span>
-            <el-select clearable style="width: 90px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
+            <el-select clearable style="width: 150px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
                 <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
                 </el-option>
             </el-select>
@@ -248,8 +248,8 @@
                     1: '库存中',
                     2: '已上架',
                     3: '已下架',
-                    4: '审核中',
-                    5: '审核拒绝'
+                    // 4: '审核中',
+                    // 5: '审核拒绝'
                 },
                 salePriceRule: {
                     0: '=',
