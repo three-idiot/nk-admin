@@ -501,6 +501,8 @@
                     this.ruleForm = response.data;
                     console.log('测试',this.ruleForm);
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
+                    this.ruleForm.type = String(this.ruleForm.type);
+                    this.ruleForm.status = String(this.ruleForm.status);
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {
