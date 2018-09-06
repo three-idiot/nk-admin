@@ -82,14 +82,14 @@
         </el-form-item>
 
         <!--// 选择代理商性质为企业-->
-        <div v-if="form.type == 1">
+        <div v-if="form.agentType == 1">
             <el-form-item label="营业执照代码："  style="width: 400px;">
                 <el-input v-model="form.bizLicenseCode"></el-input>
             </el-form-item>
 
             <el-form-item label="营业执照副本" >
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
+                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                 </el-upload>
@@ -99,7 +99,7 @@
 
 
         <!--// 选择代理商性质为个人-->
-        <div v-if="form.type == 2">
+        <div v-if="form.agentType == 2">
             <el-form-item label="身份证号码：" prop="title" style="width: 400px;">
                 <el-input v-model="form.idCardNo"></el-input>
             </el-form-item>
@@ -108,12 +108,12 @@
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
                 <div class="pic-container">
                     <span class="picTitle">国徽面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">
+                    <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">
                         <el-button type="primary">点击上传</el-button>
                         <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                     </el-upload>
                     <span class="picTitle">信息面：</span>
-                    <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">
+                    <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">
                         <el-button type="primary">点击上传</el-button>
                         <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
                     </el-upload>
@@ -135,7 +135,7 @@
             <el-input v-model="form.bankName"></el-input>
         </el-form-item>
 
-        <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
+        <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.agentType == 1">
             <el-input v-model="form.bankCoupletNo"></el-input>
         </el-form-item>
 
@@ -226,8 +226,8 @@ export default {
             // confirmPassword: null,
             rules: {
                 username: [
-                    { required: true, trigger: 'blur', message: '请输入用户名' },
-                    { validator: checkUsername, trigger: 'blur' }
+                    { required: true, trigger: 'change', message: '请输入用户名' },
+                    { validator: checkUsername, trigger: 'change' }
                 ],
                 pwd: [
                     { required: true, trigger: 'blur', message: '请输入密码' },
@@ -305,9 +305,15 @@ export default {
         this.fetchAddressData();
         window.this = this;
     },
+    mounted() {
+    },
     watch: {
     },
     methods: {
+        test() {
+            console.log( this.form.agentType );
+            console.log( typeof this.form.agentType);
+        },
         getCode() {
             getUniqueCode().then( res => {
                 console.log( res );

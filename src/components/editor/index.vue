@@ -7,6 +7,7 @@
     import 'tinymce/themes/modern/theme';
     import 'tinymce/plugins/paste';
     import 'tinymce/plugins/link';
+    import './zh_CN'
     const INIT = 0;
     const CHANGED = 2;
     let EDITOR = null;

@@ -281,7 +281,7 @@
             <div class="status-container">
                 <div class="status">
                     <span>商品状态：</span>
-                    <el-tag :type="ruleForm.status | statusFilter" style="float: left">
+                    <el-tag :type="ruleForm.status" style="float: left">
                         {{ status[this.ruleForm.status] }}
                     </el-tag>
                     <el-button  style="margin-left: 100px;" type="primary" class="change" @click="dialogVisible3 = true">点击修改</el-button>
@@ -486,10 +486,12 @@
         },
         methods: {
             calPrices( agentType,userType ) {
-                for( let i=0;i<this.ruleForm.travelGoodsDividePrices.length;i++ ) {
-                    let item = this.ruleForm.travelGoodsDividePrices[i];
-                    if ( item.agentType == agentType && item.userType == userType ) {
-                        return item.price;
+                if ( this.ruleForm.travelGoodsDividePrices ) {
+                    for( let i=0;i<this.ruleForm.travelGoodsDividePrices.length;i++ ) {
+                        let item = this.ruleForm.travelGoodsDividePrices[i];
+                        if ( item.agentType == agentType && item.userType == userType ) {
+                            return item.price;
+                        }
                     }
                 }
             },
@@ -499,6 +501,8 @@
                     this.ruleForm = response.data;
                     console.log('测试',this.ruleForm);
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
+                    this.ruleForm.type = String(this.ruleForm.type);
+                    this.ruleForm.status = String(this.ruleForm.status);
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {

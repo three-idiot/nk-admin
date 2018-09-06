@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import { getAgent} from '@/api/agent';
+    import { getAgent,getLowerAreas } from '@/api/agent';
     import transformData from '@/map/agent';
 
     // let goodStatus = transformData.status;
@@ -26,6 +26,7 @@
         data() {
             return {
                 data: '',
+                provinces: null,
             };
         },
         computed: {
@@ -34,12 +35,12 @@
                 if (this.data) {
                     arr.push({key: '代理商编码', value: this.data.agentNo});
                     arr.push({key: '代理商名称', value: this.data.agentName});
-                    arr.push({key: '代理商属性', value: this.data.roleId});
-                    arr.push({key: '代理商地区', value: this.data.province});
+                    arr.push({key: '代理商属性', value: transformData.roleId[this.data.roleId]});
+                    arr.push({key: '代理商地区', value: this.getProvince(this.data.province)});
                     arr.push({key: '联系人', value: this.data.contactsName});
                     arr.push({key: '联系电话', value: this.data.contactsPhone});
                     arr.push({key: '联系地址', value: this.data.contactsMail});
-                    arr.push({key: '代理商性质', value: this.data.agentType});
+                    arr.push({key: '代理商性质', value: transformData.type[this.data.agentType]});
                     arr.push({key: '营业执照号码', value: this.data.bizLicenseCode});
                     arr.push({key: '营业执照副本', value: this.data.bizLicenseImagePath, type: 'image'});
                     arr.push({key: '有效期至', value: this.data.expireTime});
@@ -47,15 +48,15 @@
                     // arr.push({key: '代理二维码', value: this.data.disposeDay});
                     arr.push({key: '创建人', value: this.data.createUser});
                     arr.push({key: '创建时间', value: this.data.auditTime});
-                    arr.push({key: '审核人', value: this.data.auditUser});
-                    arr.push({key: '审核时间', value: this.data.auditTime});
+                    // arr.push({key: '审核人', value: this.data.auditUser});
+                    // arr.push({key: '审核时间', value: this.data.auditTime});
                     // arr.push({key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss")});
                     return arr;
                 }
             }
         },
         created() {
-            this.fetchData();
+            this.fetchAddressData();
         },
         components: {
             PortraitTable
@@ -68,6 +69,21 @@
                     console.log( res )
                     this.data = res.data;
                 });
+            },
+            fetchAddressData() {
+                getLowerAreas({id: 0}).then( res => {
+                    this.provinces = res.data;
+                    console.log( this.provinces );
+                    this.fetchData();
+                })
+            },
+            getProvince( id ) {
+                for ( let i=0;i<this.provinces.length;i++ ) {
+                    let item = this.provinces[i];
+                    if( item.id == id ) {
+                        return item.name;
+                    }
+                }
             }
         }
     };

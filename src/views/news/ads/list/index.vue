@@ -38,7 +38,6 @@
           <el-form-item>
             <el-button v-permission="['ads-list-search']" type="primary" @click="onSubmit">查询</el-button>
             <el-button v-permission="['ads-list-add']" class="add-item" type="danger" icon="el-icon-add" @click.native="add">新增广告</el-button>
-            <el-button class="stick-item" type="primary" :disabled="!selectedLists.length" @click.native="stick">置顶</el-button>
           </el-form-item>
         </el-row>
       </el-form>
@@ -71,7 +70,7 @@
 
       <el-table-column  align="center" label="发布时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.createTime ? new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.createTime ? scope.row.createTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -83,7 +82,7 @@
 
       <el-table-column  align="center" label="审核时间" >
         <template slot-scope="scope" >
-          <span>{{scope.row.approveTime ? new Date(scope.row.approveTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.approveTime ? scope.row.approveTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -95,7 +94,7 @@
 
       <el-table-column  align="center" label="有效期" >
         <template slot-scope="scope" >
-          <span>{{scope.row.validTime ? new Date(scope.row.validTime).Format("yyyy-MM-dd HH:mm:ss") : ''}}</span>
+          <span>{{scope.row.validTime ? scope.row.validTime : ''}}</span>
         </template>
       </el-table-column>
 
@@ -107,13 +106,13 @@
 
       <el-table-column align="center"  class-name="small-padding fixed-width" label="操作" width="340">
         <template slot-scope="scope">
-          <el-button v-permission="['ads-list-detail']" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
+          <el-button v-permission="['ads-list-detail']" v-if="scope.row.status != 4" size="mini" type="success" @click="goDetail(scope.row.id)" plain>
             查看详情
           </el-button>
-          <el-button v-permission="['ads-list-edit']" type="primary" size="mini" @click="goEdit(scope.row.id)">
+          <el-button v-permission="['ads-list-edit']" v-if="scope.row.status == 1 || scope.row.status == 3" type="primary" size="mini" @click="goEdit(scope.row.id)">
             编辑
           </el-button>
-          <el-button v-permission="['ads-list-offline']" v-if="scope.row.status == 1 || scope.row.status == 4"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
+          <el-button v-permission="['ads-list-offline']" v-if="scope.row.status == 1"  size="mini" type="danger"  @click="goUndercarriage(scope.row.id)">
             下架
           </el-button>
           <el-button v-permission="['ads-list-audit']" v-if="scope.row.status == 3"  size="mini" type="danger"  @click="audit(scope.row.id)">
@@ -151,7 +150,7 @@
 </template>
 
 <script>
-import { getAdsList, stickAds, changeAdsStatus, getAdsDetail } from "@/api/news";
+import { getAdsList, changeAdsStatus, getAdsDetail } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -171,7 +170,6 @@ export default {
         publisher: "",
         title: "",
         status: "",
-        top: 0,
         sort: "",
       },
       list: [
@@ -180,8 +178,6 @@ export default {
           title: '广告1',
           publisher: '唐先森',
           createTime: '20180715',
-          approver: '哈哈先森',
-          approveTime: '20180908',
           sort: 3,
           validTime: '20180706',
           status: 3,
@@ -229,7 +225,7 @@ export default {
       console.log(this.dialogForm);
       this.dialogFormVisible = false;
       changeAdsStatus({
-        adId: this.clickId,
+        adIds: [this.clickId],
         status: this.dialogForm.agree,
         remark: this.dialogForm.remark
       }).then((res) => {
@@ -304,7 +300,7 @@ export default {
         center: true
       }).then(() => {
         changeAdsStatus({
-          adId: id,
+          adIds: [id],
           status: 2,
           remark: ''
         }).then((res) => {
@@ -342,35 +338,6 @@ export default {
           type: 'warning'
         });
       }
-    },
-    stick () {
-      this.$confirm(`已选择${this.selectedLists.length}条广告，是否对广告置顶?`, '广告置顶', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'info',
-        center: true
-      }).then(() => { // 确定操作
-        let ids = [];
-        this.selectedLists.map((item, index) => {
-          ids.push(item.id);
-        });
-        let params = {
-          adsIds: ids,
-          top: 1
-        };
-        stickAds(params).then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              message: '置顶成功',
-              type: 'success'
-            });
-            this.fetchData();
-          } else {
-            this.$message.error(res.msg);
-          }
-        });
-      }).catch(() => { // 取消操作
-      });
     }
   },
   components: {

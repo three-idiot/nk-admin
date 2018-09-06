@@ -20,7 +20,7 @@
             <el-input style="width: 200px;" v-model="goodsParams.publisher"></el-input>
 
             <span>商品状态：</span>
-            <el-select clearable style="width: 90px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
+            <el-select clearable style="width: 150px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
                 <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
                 </el-option>
             </el-select>
@@ -248,8 +248,8 @@
                     1: '库存中',
                     2: '已上架',
                     3: '已下架',
-                    4: '审核中',
-                    5: '审核拒绝'
+                    // 4: '审核中',
+                    // 5: '审核拒绝'
                 },
                 salePriceRule: {
                     0: '=',
@@ -291,7 +291,10 @@
         },
         methods: {
             jumpAdd() {
-                window.location.href = '#/goods/add';
+                // window.location.href = '#/goods/add';
+                this.$router.push({
+                    name: "goods-add",
+                });
             },
             refundDialogShow() {
                 if( this.chooseTravelGoodsId.length == 0 ) {
@@ -352,6 +355,9 @@
             fetchData(params) {
                 this.listLoading = true;
                 getGoodsList(params).then(response => {
+                    if ( this.goodsParams.salePrice ) {
+                        this.goodsParams.salePrice = null;
+                    }
                     // this.list = response.data.data;
                     console.log(response.data);
                     this.goodsList = response.data.data;
@@ -370,13 +376,28 @@
             },
             handleFilter() {
                 console.log(this.goodsParams);
+                if( this.goodsParams.salePrice ) {
+                    this.goodsParams.salePrice *= 100;
+                }
                 this.fetchData(this.goodsParams);
             },
             goDetail(id) {
-                window.location.href = '#/goods/detail?id=' + id;
+                // window.location.href = '#/goods/detail?id=' + id;
+                this.$router.push({
+                    name: "goods-detail",
+                    query:{
+                        id:id
+                    }
+                });
             },
             goEdit(id) {
-                window.location.href = '#/goods/edit?id=' + id;
+                // window.location.href = '#/goods/edit?id=' + id;
+                this.$router.push({
+                    name: "goods-edit",
+                    query:{
+                        id:id
+                    }
+                });
             },
             undercarriageShow(id) {
                 this.undercarriage = true;

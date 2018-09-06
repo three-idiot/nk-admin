@@ -229,13 +229,28 @@ export default {
             })
         },
         goDetail(id) {
-            window.location.href = '#/agent/detail?id=' + id;
+            // window.location.href = '#/agent/detail?id=' + id;
+            this.$router.push({
+                name: "agent-detail",
+                query:{
+                    id:id
+                }
+            });
         },
         jumpAdd() {
-            window.location.href = '#/agent/add';
+            // window.location.href = '#/agent/add';
+            this.$router.push({
+                name: "agent-add",
+            });
         },
         goEdit(id) {
-            window.location.href = '#/agent/edit?id=' + id;
+            // window.location.href = '#/agent/edit?id=' + id;
+            this.$router.push({
+                name: "agent-edit",
+                query:{
+                    id:id
+                }
+            });
         },
         fetchData() {
             this.listLoading = true;

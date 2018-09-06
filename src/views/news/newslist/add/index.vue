@@ -42,12 +42,6 @@
                 @input="(content)=> ruleForm.detail = content"></editor>
       </el-form-item>
 
-      <!--是否置顶-->
-      <el-form-item label="是否置顶" prop="top" style="width: 312px;">
-        <el-radio v-model="ruleForm.top" :label="1">是</el-radio>
-        <el-radio v-model="ruleForm.top" :label="0">否</el-radio>
-      </el-form-item>
-
       <el-form-item>
         <el-button v-permission="['news-add-cancel']" type="info" @click="cancel">取消</el-button>
         <el-button v-permission="['news-add-publish']" type="primary" @click="submitForm('ruleForm')">发布</el-button>
@@ -75,8 +69,7 @@
         title: '',
         images: [],
         newsKey: '',
-        detail: '',
-        top: 0
+        detail: ''
       },
       rules: {
         images: [
@@ -88,9 +81,6 @@
         newsKey: [
           { required: true, trigger: 'blur', message: '请输入关键字' }
         ],
-        top: [
-          { required: true, trigger: 'blur', message: '请选择是否置顶' }
-        ],
         detail: [
           { required: true, trigger: 'blur', message: '请添加资讯详情' }
         ]
@@ -101,6 +91,11 @@
       }
     };
   },
+  computed: {
+    isEdit () {
+      return this.$route.params && this.$route.params.id;
+    }
+  },
   created() {
     let data = this.$route.params && this.$route.params.id;
     if (data) {
@@ -109,8 +104,7 @@
         title: data.title,
         images: data.images,
         newsKey: data.newsKey,
-        detail: data.detail,
-        top: data.top
+        detail: data.detail
       }
     }
   },
@@ -138,9 +132,23 @@
       return isLt2M;
     },
     submitForm(formName) {
+      /** 由于接口不能直接接受编辑请求回来的图片格式，所以需要特殊处理一下 */
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
+          let _newArr = [];
+          ruleForm.images.map((img) => {
+            if (img.goodPath.indexOf('https') > -1) {
+              img.localPath = img.goodPath;
+              img.goodPath = /https:\/\/image.le-99.xyz\/(images\/\w+\.\w+)(\?\w+)/.exec(img.goodPath)[1];
+            }
+            _newArr.push({
+              localPath: img.localPath,
+              goodPath: img.goodPath
+            });
+            return img;
+          });
+          ruleForm.images = _newArr;
           let isEdit = this.$route.params && this.$route.params.id;
           if (isEdit) {
             editNews(ruleForm).then( res => {
