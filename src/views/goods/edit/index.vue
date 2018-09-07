@@ -480,6 +480,8 @@
         created() {
             this.fetchData();
         },
+        mounted() {
+        },
         components: {
             App,
             editor
