@@ -65,7 +65,7 @@ export default {
                     {
                         key: '广告有效期',
                         value: resData.validTime,
-                        type: 'dateTime'
+                        type: 'string'
                     },
                     {
                         key: '广告详情',
@@ -80,7 +80,7 @@ export default {
                     {
                         key: '创建时间',
                         value: resData.createTime,
-                        type: 'dateTime'
+                        type: 'string'
                     },
                     {
                         key: '审核人',
@@ -90,7 +90,7 @@ export default {
                     {
                         key: '审核时间',
                         value: resData.approveTime,
-                        type: 'dateTime'
+                        type: 'string'
                     }
                 ];
             });

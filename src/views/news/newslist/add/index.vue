@@ -2,9 +2,13 @@
   <div class="app-container">
     <title-line :txt="ruleForm.id ? '编辑资讯':'新建资讯'"></title-line>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
+      <!--资讯编号-->
+      <el-form-item label="资讯编号" v-if="isEdit" prop="newsNo" style="width: 312px;">
+        <el-input v-model="ruleForm.newsNo" :disabled="isEdit"></el-input>
+      </el-form-item>
       <!--资讯名称-->
       <el-form-item label="资讯标题" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title" :disabled="ruleForm.id?true:false"></el-input>
+        <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!--资讯图片-->
       <el-form-item label="资讯图片" prop="images">
@@ -69,7 +73,8 @@
         title: '',
         images: [],
         newsKey: '',
-        detail: ''
+        detail: '',
+        newsNo: ''
       },
       rules: {
         images: [
@@ -104,7 +109,8 @@
         title: data.title,
         images: data.images,
         newsKey: data.newsKey,
-        detail: data.detail
+        detail: data.detail,
+        newsNo: data.newsNo
       }
     }
   },
