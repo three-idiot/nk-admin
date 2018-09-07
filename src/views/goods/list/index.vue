@@ -170,7 +170,7 @@
                     <el-button size="mini" type="success" @click="goDetail(scope.row.id)" plain v-permission="['goods-list-detail']">
                         查看详情
                     </el-button>
-                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['goods-list-edit']">
+                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['goods-list-edit']"  v-if="scope.row.status !== 3">
                         编辑
                     </el-button>
                     <el-button size="mini" type="success" v-permission="['goods-list-online']" v-if="scope.row.status == 1" @click="shelfShow(scope.row.id)">上架
