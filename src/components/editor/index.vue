@@ -41,6 +41,7 @@
         },
         mounted: function () {
             const _this = this;
+            console.log( '原来的', _this );
             const setting =
                 {
                     selector: '.'+_this.id,
