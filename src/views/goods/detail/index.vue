@@ -105,8 +105,8 @@
                     // arr.push({key: '儿童', value: this.data.travelGoodsDividePrices});
                     arr.push({key: '创建人', value: this.data.publisher});
                     arr.push({key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss")});
-                    arr.push({key: '审核人', value: this.data.approver});
-                    arr.push({key: '审核时间', value: new Date(this.data.approveTime).Format("yyyy-MM-dd HH:mm:ss")});
+                    // arr.push({key: '审核人', value: this.data.approver});
+                    // arr.push({key: '审核时间', value: new Date(this.data.approveTime).Format("yyyy-MM-dd HH:mm:ss")});
                     return arr;
                 }
             }
