@@ -11,11 +11,12 @@
           <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
         <el-form-item label="发布日期">
-          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="资讯状态">
           <el-select v-model="form.status" placeholder="请选择" clearable>
+            <el-option label="全部" value=""></el-option>
             <el-option label="正常" value="1"></el-option>
             <el-option label="失效" value="2"></el-option>
           </el-select>

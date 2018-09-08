@@ -59,10 +59,6 @@
   import TitleLine from "@/components/TitleLine/index.vue";
   import editor from '@/components/editor';
 
-  // let testImgs = [
-  //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
-  // ];
-
   export default {
   data() {
     return {
