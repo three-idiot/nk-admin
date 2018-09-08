@@ -1,6 +1,6 @@
 <template>
-    <div class="addVisa-form">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+    <div class="addVisa-form" v-loading="detailLoading">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm" v-if="!detailLoading">
             <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
                 <el-input v-model="ruleForm.goodsNo" disabled></el-input>
             </el-form-item>
@@ -340,6 +340,7 @@
                 }
             };
             return Object.assign({}, goodsMap, {
+                detailLoading: true,
                 fileList: [],
                 goodsList: null,
                 good: null,
@@ -501,7 +502,6 @@
                 let id = this.$route.query.id;
                 travelGoods({ id: id}).then(response => {
                     this.ruleForm = response.data;
-                    console.log('测试',this.ruleForm);
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
                     this.ruleForm.type = String(this.ruleForm.type);
                     this.ruleForm.status = String(this.ruleForm.status);
@@ -523,7 +523,9 @@
                         obj.sort = i;
                         this.ruleForm.images.push( obj );
                     }
+                    this.detailLoading = false;
                 });
+
             },
             imgUploaded(res, file,fileList) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
