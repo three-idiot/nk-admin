@@ -33,7 +33,7 @@
     <div class="total">资讯总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
     <el-table :data="list" ref="newsTable" v-loading="listLoading" border fit highlight-current-row
-              style="width: 100%;" @selection-change="handleSelectionChange">
+              style="width: 100%;" :row-class-name="topClassName" @selection-change="handleSelectionChange">
       <!-- <el-table-column align="center" width="50"  label="" class="table-item">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.checked"></el-checkbox>
@@ -43,7 +43,7 @@
               type="selection"
               width="35">
       </el-table-column>
-      <el-table-column align="center"   label="资讯编号" class="table-item">
+      <el-table-column align="center" label="资讯编号" class="table-item">
         <template slot-scope="scope">
           <span>{{scope.row.newsNo}}</span>
         </template>
@@ -262,6 +262,13 @@ export default {
         });
       }).catch(() => { // 取消操作
       });
+    },
+    /** 添加置顶样式 */
+    topClassName ({row, rowIndex}) {
+      if (row.top == '1') {
+        return 'top';
+      }
+      return '';
     }
   },
   components: {
@@ -270,7 +277,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-container {
   padding-left: 50px;
   .title {
@@ -290,5 +297,8 @@ export default {
       color: red;
     }
   }
+}
+.el-table tr.top {
+  background-color: lightgoldenrodyellow!important;
 }
 </style>
