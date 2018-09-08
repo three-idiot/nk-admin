@@ -2,9 +2,13 @@
   <div class="app-container">
     <title-line :txt="ruleForm.id ? '编辑广告':'新建广告'"></title-line>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
+      <!--广告编号-->
+      <el-form-item label="广告编号" prop="adNo" style="width: 312px;">
+        <el-input v-model="ruleForm.adNo" :disabled="isEdit"></el-input>
+      </el-form-item>
       <!--资讯名称-->
       <el-form-item label="广告标题" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title" :disabled="ruleForm.id?true:false"></el-input>
+        <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!--资讯图片-->
       <el-form-item label="广告图片" prop="images">
@@ -12,7 +16,7 @@
                  v-for="(img, index) in ruleForm.images" 
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.localPath" 
+          <img :src="img.localPath || img.goodPath" 
                  alt="图片" />
         </span>
          <el-upload
@@ -31,11 +35,11 @@
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
       <!-- 广告位宽度 -->
-      <el-form-item label="广告位宽度" prop="width" style="width: 312px;">
+      <el-form-item v-if="!isEdit" label="广告位宽度" prop="width" style="width: 312px;">
         <el-input type="number" v-model.number="ruleForm.width"></el-input>
       </el-form-item>
       <!-- 广告位高度 -->
-      <el-form-item label="广告位高度" prop="height" style="width: 312px;">
+      <el-form-item v-if="!isEdit" label="广告位高度" prop="height" style="width: 312px;">
         <el-input type="number" v-model.number="ruleForm.height"></el-input>
       </el-form-item>
       <!-- 广告位位置 -->
@@ -75,13 +79,9 @@
 </template>
 
 <script>
-  import { addAds, editAds } from '@/api/news';
+  import { addAds, editAds, getAdsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
   import editor from '@/components/editor';
-
-  // let testImgs = [
-  //   'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3895702763,1516561449&fm=27&gp=0.jpg'
-  // ];
 
   export default {
   data() {
@@ -89,6 +89,7 @@
       action: '/api/image/uploadfile',
       // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
+        adNo: '',
         id: '',
         title: '',
         images: [],
@@ -131,20 +132,15 @@
       }
     };
   },
+  computed: {
+    isEdit () {
+      return this.$route.query && this.$route.query.id;
+    }
+  },
   created() {
-    let data = this.$route.params && this.$route.params.id;
-    if (data) {
-      this.ruleForm = {
-        id: data.id,
-        title: data.title,
-        images: data.images,
-        detail: data.detail,
-        url: data.url,
-        width: data.width,
-        height: data.height,
-        sort: data.sort,
-        validTime: data.validTime
-      }
+    let id = this.$route.query && this.$route.query.id;
+    if (id) {
+      this.getAdsEditInfo(id);
     }
   },
   methods: {
@@ -174,12 +170,43 @@
       }
       return isLt2M;
     },
+    getAdsEditInfo (id) {
+      this.listLoading = true;
+      getAdsDetail(id).then(response => {
+        this.listLoading = false;
+        if (response.data) {
+          let data = response.data;
+          this.ruleForm = {
+            adNo: data.adNo,
+            id: data.id,
+            title: data.title,
+            images: data.images,
+            detail: data.detail,
+            url: data.url,
+            sort: data.sort,
+            validTime: data.validTime
+          }
+        }
+      });
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let ruleForm = Object.assign({}, this.ruleForm);
-          let isEdit = this.$route.params && this.$route.params.id;
-          if (isEdit) {
+          let _newArr = [];
+          ruleForm.images.map((img) => {
+            if (img.goodPath.indexOf('https') > -1) {
+              img.localPath = img.goodPath;
+              img.goodPath = /https:\/\/image.le-99.xyz\/(images\/\w+\.\w+)(\?\w+)/.exec(img.goodPath)[1];
+            }
+            _newArr.push({
+              localPath: img.localPath,
+              goodPath: img.goodPath
+            });
+            return img;
+          });
+          ruleForm.images = _newArr;
+          if (this.isEdit) {
             editAds(ruleForm).then( res => {
                 if ( res.code == 200 ) {
                     this.$message({

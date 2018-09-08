@@ -39,8 +39,7 @@
       <!--资讯详情-->
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
-        <editor class="editor" 
-                from="edit"
+        <editor class="editor"
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -55,7 +54,7 @@
 </template>
 
 <script>
-  import { addNews, editNews } from '@/api/news';
+  import { addNews, editNews, getNewsDetail } from '@/api/news';
   import TitleLine from "@/components/TitleLine/index.vue";
   import editor from '@/components/editor';
 
@@ -94,20 +93,13 @@
   },
   computed: {
     isEdit () {
-      return this.$route.params && this.$route.params.id;
+      return this.$route.query && this.$route.query.id;
     }
   },
   created() {
-    let data = this.$route.params && this.$route.params.id;
-    if (data) {
-      this.ruleForm = {
-        id: data.id,
-        title: data.title,
-        images: data.images,
-        newsKey: data.newsKey,
-        detail: data.detail,
-        newsNo: data.newsNo
-      }
+    let id = this.$route.query && this.$route.query.id;
+    if (id) {
+      this.getNewsEditInfo(id);
     }
   },
   methods: {
@@ -133,6 +125,23 @@
       }
       return isLt2M;
     },
+    getNewsEditInfo (id) {
+      this.listLoading = true;
+      getNewsDetail(id).then(response => {
+        this.listLoading = false;
+        if (response.data) {
+          let data = response.data;
+          this.ruleForm = {
+            id: data.id,
+            title: data.title,
+            images: data.images,
+            newsKey: data.newsKey,
+            detail: data.detail,
+            newsNo: data.newsNo
+          }
+        }
+      });
+    },
     submitForm(formName) {
       /** 由于接口不能直接接受编辑请求回来的图片格式，所以需要特殊处理一下 */
       this.$refs[formName].validate((valid) => {
@@ -151,8 +160,7 @@
             return img;
           });
           ruleForm.images = _newArr;
-          let isEdit = this.$route.params && this.$route.params.id;
-          if (isEdit) {
+          if (this.isEdit) {
             editNews(ruleForm).then( res => {
                 if ( res.code == 200 ) {
                     this.$message({

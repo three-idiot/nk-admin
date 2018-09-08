@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import { getAdsList, changeAdsStatus, getAdsDetail } from "@/api/news";
+import { getAdsList, changeAdsStatus } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -262,22 +262,16 @@ export default {
     goDetail(id) {
       this.$router.push({
         name: 'ads-detail',
-        params: {
+        query: {
             id: id
         }
       });
     },
     goEdit(id) {
-      this.listLoading = true;
-      getAdsDetail(id).then(response => {
-        this.listLoading = false;
-        if (response.data) {
-          this.$router.push({
-            name: 'ads-edit',
-            params: {
-                id: response.data
-            }
-          });
+      this.$router.push({
+        name: 'ads-edit',
+        query: {
+            id: id
         }
       });
     },

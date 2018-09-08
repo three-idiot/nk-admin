@@ -29,7 +29,7 @@ export default {
     methods: {
         fetchData() {
             this.listLoading = true;
-            getAdsDetail(this.$route.params.id).then(response => {
+            getAdsDetail(this.$route.query.id).then(response => {
                 const resData = response.data;
                 this.data = [{
                         key: '广告编码',

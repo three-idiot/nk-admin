@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { getNewsList, stickNews, changeNewsStatus, getNewsDetail } from "@/api/news";
+import { getNewsList, stickNews, changeNewsStatus } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -122,15 +122,6 @@ export default {
         top: ''
       },
       list: [
-        {
-          newsNo: '222',
-          title: '资讯1',
-          publisher: '唐先森',
-          createTime: '20180715',
-          status: 3,
-          top: true,
-          id: 100
-        }
       ],
       selectedLists: []
     };
@@ -183,22 +174,16 @@ export default {
     goDetail(id) {
       this.$router.push({
         name: 'news-detail',
-        params: {
+        query: {
             id: id
         }
       });
     },
     goEdit(id) {
-      this.listLoading = true;
-      getNewsDetail(id).then(response => {
-        this.listLoading = false;
-        if (response.data) {
-          this.$router.push({
-            name: 'news-edit',
-            params: {
-                id: response.data
-            }
-          });
+      this.$router.push({
+        name: 'news-edit',
+        query: {
+            id: id
         }
       });
     },
