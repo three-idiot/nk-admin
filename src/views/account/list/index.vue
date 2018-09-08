@@ -36,7 +36,7 @@
         </el-table-column>
         <el-table-column align="center" label="账号角色">
             <template slot-scope="scope">
-                {{getRoleName(scope.row.accountType)}}
+                {{scope.row.roleName}}
             </template>
         </el-table-column>
         <el-table-column align="center" label="使用人">
@@ -167,13 +167,13 @@ export default {
                 this.roles = response.data.data;
             });
         },
-        getRoleName(id) {
-            for (let i = 0; i < this.roles.length; i++) {
-                if (this.roles[i].id == id) {
-                    return this.roles[i].name;
-                }
-            }
-        },
+        // getRoleName(id) {
+        //     for (let i = 0; i < this.roles.length; i++) {
+        //         if (this.roles[i].id == id) {
+        //             return this.roles[i].name;
+        //         }
+        //     }
+        // },
         addAccount() {
             this.$router.push({
                 name: "account-add"

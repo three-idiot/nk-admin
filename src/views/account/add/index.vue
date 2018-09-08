@@ -31,9 +31,7 @@
 </template>
 
 <script>
-import {
-    getList
-} from "@/api/permission";
+import md5 from 'md5';
 import {
     addAccount,
     accountRoleList
@@ -116,7 +114,9 @@ export default {
     computed: {
         listQuery() {
             delete this.form.checkPass;
-            return Object.assign({}, this.form, {});
+            return Object.assign({}, this.form, {
+                pwd : md5(this.form.pwd)
+            });
         }
     },
     created() {
@@ -135,7 +135,7 @@ export default {
         },
         getRolesList() {
             accountRoleList().then(response => {
-                this.roles = response.data.data;
+                this.roles = response.data;
             });
         },
         imgUploaded(res, file) {
