@@ -1,6 +1,6 @@
 <template>
-    <div class="addVisa-form">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+    <div class="addVisa-form" v-loading="detailLoading">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm" v-if="!detailLoading">
             <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
                 <el-input v-model="ruleForm.goodsNo" disabled></el-input>
             </el-form-item>
@@ -303,8 +303,8 @@
                     </el-radio-group>
                     <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
                                     v-model="ruleForm.upTime"
-                                    type="date"
-                                    value-format="yyyy-MM-dd"
+                                    type="datetime"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
                                     placeholder="选择日期">
                     </el-date-picker>
                 </el-form-item>
@@ -340,6 +340,7 @@
                 }
             };
             return Object.assign({}, goodsMap, {
+                detailLoading: true,
                 fileList: [],
                 goodsList: null,
                 good: null,
@@ -480,6 +481,8 @@
         created() {
             this.fetchData();
         },
+        mounted() {
+        },
         components: {
             App,
             editor
@@ -499,7 +502,6 @@
                 let id = this.$route.query.id;
                 travelGoods({ id: id}).then(response => {
                     this.ruleForm = response.data;
-                    console.log('测试',this.ruleForm);
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
                     this.ruleForm.type = String(this.ruleForm.type);
                     this.ruleForm.status = String(this.ruleForm.status);
@@ -521,7 +523,9 @@
                         obj.sort = i;
                         this.ruleForm.images.push( obj );
                     }
+                    this.detailLoading = false;
                 });
+
             },
             imgUploaded(res, file,fileList) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {

@@ -51,7 +51,7 @@
                     <el-option v-for="(val,key) in salePriceRule" :key="key" :label="val" :value="key">
                     </el-option>
                 </el-select>
-                <el-input style="width: 200px;" v-model="goodsParams.salePrice"></el-input>
+                <el-input style="width: 200px;" v-model="salePrice"></el-input>
                 <el-button class="filter-item" style="margin-left: 20px;" type="primary" icon="el-icon-search"  v-permission="['goods-list-search']"
                            @click="handleFilter">查询
                 </el-button>
@@ -170,7 +170,7 @@
                     <el-button size="mini" type="success" @click="goDetail(scope.row.id)" plain v-permission="['goods-list-detail']">
                         查看详情
                     </el-button>
-                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['goods-list-edit']">
+                    <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['goods-list-edit']"  v-if="scope.row.status !== 3">
                         编辑
                     </el-button>
                     <el-button size="mini" type="success" v-permission="['goods-list-online']" v-if="scope.row.status == 1" @click="shelfShow(scope.row.id)">上架
@@ -256,6 +256,7 @@
                     1: '>',
                     '-1': '<'
                 },
+                salePrice: null,
                 goodsParams: {
                     type: null,
                     name: null,
@@ -376,8 +377,8 @@
             },
             handleFilter() {
                 console.log(this.goodsParams);
-                if( this.goodsParams.salePrice ) {
-                    this.goodsParams.salePrice *= 100;
+                if( this.salePrice ) {
+                    this.goodsParams.salePrice = this.salePrice * 100;
                 }
                 this.fetchData(this.goodsParams);
             },
