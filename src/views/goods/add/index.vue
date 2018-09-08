@@ -170,8 +170,8 @@
                 </el-radio-group>
                 <el-date-picker style="margin-left: 5px;" v-if="upType == 3"
                                 v-model="ruleForm.upTime"
-                                type="date"
-                                value-format="yyyy-MM-dd"
+                                type="datetime"
+                                value-format="yyyy-MM-dd HH:mm:ss"
                                 placeholder="选择日期">
                 </el-date-picker>
             </el-form-item>
