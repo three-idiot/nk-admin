@@ -21,7 +21,7 @@
 
             <span>商品状态：</span>
             <el-select clearable style="width: 150px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
-                <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
+                <el-option v-for="(val,key) in status" :key="key" :label="key" :value="val">
                 </el-option>
             </el-select>
 
@@ -159,7 +159,7 @@
             <el-table-column class-name="status-col" label="商品状态" align="center">
                 <template slot-scope="scope">
                     <el-tag :type="scope.row.status | statusFilter">
-                        {{ status[scope.row.status] }}
+                        {{ statusPerform[scope.row.status] }}
                     </el-tag>
                 </template>
             </el-table-column>
@@ -244,12 +244,18 @@
                     1: '一般',
                     2: '推荐'
                 },
-                status: {
+                statusPerform: {
                     1: '库存中',
                     2: '已上架',
                     3: '已下架',
                     // 4: '审核中',
                     // 5: '审核拒绝'
+                },
+                status:{
+                    '全部': null,
+                    '库存中': 1,
+                    '已上架': 2,
+                    '已下架': 3,
                 },
                 salePriceRule: {
                     0: '=',
