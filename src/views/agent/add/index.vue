@@ -183,6 +183,7 @@ import {
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
 import { checkNum, checkUsername, checkPassword, validateUsername } from "@/rules";
+import md5 from 'md5';
 export default {
     data() {
         let validatePass2 = (rule, value, callback) => {
@@ -392,6 +393,7 @@ export default {
                 console.log( this.form );
                 if (valid) {
                     console.log('哈哈', this.form);
+                    this.form.pwd = md5(this.form.pwd);
                     addAgent( this.form ).then( res => {
                         console.log( res );
                         if ( res.code == 200 ) {
