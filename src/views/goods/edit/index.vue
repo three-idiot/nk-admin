@@ -586,10 +586,10 @@
                         // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
                         updateTravelGoods(this.ruleForm).then(res => {
                             console.log('掉借口了', res);
-                            // if ( res.code == 200 ) {
-                            //     alert('新建成功');
-                            //     history.back();
-                            // }
+                            if ( res.code == 200 ) {
+                                alert('修改成功');
+                                history.back();
+                            }
                         });
                     } else {
                         console.log('error submit!!');
