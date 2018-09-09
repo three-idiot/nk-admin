@@ -3,6 +3,8 @@
 </template>
 <script>
     // Import TinyMCE
+    import './lightgray/skin.min.css';
+    import './lightgray/content.min.css';
     import tinymce from 'tinymce/tinymce';
     import './zh_CN'
     import 'tinymce/themes/modern/theme';
