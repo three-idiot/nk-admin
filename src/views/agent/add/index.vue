@@ -182,7 +182,7 @@ import {
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
-import { checkNum, checkUsername, checkPassword } from "@/rules";
+import { checkNum, checkUsername, checkPassword, validateUsername } from "@/rules";
 export default {
     data() {
         let validatePass2 = (rule, value, callback) => {
@@ -227,7 +227,7 @@ export default {
             rules: {
                 username: [
                     { required: true, trigger: 'change', message: '请输入用户名' },
-                    { validator: checkUsername, trigger: 'change' }
+                    { validator: validateUsername, trigger: 'change' }
                 ],
                 pwd: [
                     { required: true, trigger: 'blur', message: '请输入密码' },
