@@ -212,7 +212,8 @@
         <div class="pagination-container" style="margin-top: 30px;">
             <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
                            :current-page="goodsParams.pageIndex" :page-sizes="[4,10,20,30,50]"
-                           :page-size="goodsParams.pageSize" layout="sizes, prev, pager, next, jumper">
+                           :total="total_count"
+                           :page-size="goodsParams.pageSize" layout="sizes, prev, pager, next, jumper" >
             </el-pagination>
         </div>
         <!--分页结束-->
