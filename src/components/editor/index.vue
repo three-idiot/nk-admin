@@ -50,10 +50,10 @@
                         EDITOR = editor;
                         console.log("Editor: " + editor.id + " is now initialized.");
                         _this.realId = editor.id;
-                        console.log( '你好啊呀', editor.id, _this.value,_this );
-                        if(  _this.value )  {
-                            tinymce.get(_this.realId).setContent( _this.value );
-                        }
+                        console.log( '你好巴拉巴拉', editor.id, _this.value,_this );
+                        // if(  _this.value )  {
+                        //     tinymce.get(_this.realId).setContent( _this.value );
+                        // }
                         // console.log( '测试四c', _this.realId );
                         _this.$emit('input', _this.value);
                         editor.on('input change undo redo', () => {
