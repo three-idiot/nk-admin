@@ -25,7 +25,7 @@ export function validateUsername (rule, value, callback) {
 }
 
 export function checkPassword (rule, value, callback) {
-    if ( !/^.{8}$/.test(value) ) {
+    if ( !/^.{8,}$/.test(value) ) {
         return callback(new Error('密码最小长度为 8 个字符'));
     } else {
         callback();
