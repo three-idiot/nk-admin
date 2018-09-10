@@ -317,7 +317,7 @@
 
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                <el-button @click="resetForm('ruleForm')">取消并返回</el-button>
+                <el-button @click="goBack">取消并返回</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -488,6 +488,9 @@
             editor
         },
         methods: {
+            goBack() {
+                history.back();
+            },
             calPrices( agentType,userType ) {
                 if ( this.ruleForm.travelGoodsDividePrices ) {
                     for( let i=0;i<this.ruleForm.travelGoodsDividePrices.length;i++ ) {
