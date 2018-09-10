@@ -201,6 +201,14 @@
                     callback();
                 }
             };
+            let length16 = (rule, value, callback) => {
+                if ( !/^.{1,16}$/.test(value) ) {
+                    return callback(new Error('不能超过16个字符'));
+                } else {
+                    callback();
+                }
+            };
+
             return Object.assign({}, goodsMap, {
                 editorSetting: {
                     width: 600,
@@ -277,10 +285,12 @@
                 },
                 rules: {
                     name: [
-                        {required: true, trigger: 'blur', message: '请输入商品名称'}
+                        {required: true, trigger: 'blur', message: '请输入商品名称'},
+                        {validator: length16, trigger: 'change'}
                     ],
                     outline: [
-                        {required: true, trigger: 'blur', message: '请输入商品概要'}
+                        {required: true, trigger: 'blur', message: '请输入商品概要'},
+                        {validator: length16, trigger: 'change'}
                     ],
                     type: [
                         {required: true, trigger: 'change', message: '请选择商品分类'}
