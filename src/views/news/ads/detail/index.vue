@@ -70,7 +70,7 @@ export default {
                     {
                         key: '广告详情',
                         value: resData.detail,
-                        type: 'string'
+                        type: 'html'
                     },
                     {
                         key: '创建人',

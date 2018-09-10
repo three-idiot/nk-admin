@@ -9,6 +9,7 @@
         <el-table-column label="值">
             <template slot-scope="scope">
                 <span v-if="scope.row.type=='string'||scope.row.type==undefined">{{scope.row.value}}</span>
+                <span v-if="scope.row.type=='html'||scope.row.type==undefined" v-html="scope.row.value"></span>
                 <span v-if="scope.row.value&&scope.row.type=='image'"><img :style="imgStyle" :src="scope.row.value" alt=""></span>
                 <span v-if="scope.row.value&&scope.row.type=='images'">
                     <img class="single-img" v-for="(item, index) in scope.row.value" :key="index" :style="imgStyle" :src="item && item.goodPath" alt="">

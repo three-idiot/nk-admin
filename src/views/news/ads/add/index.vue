@@ -62,9 +62,10 @@
       </el-form-item>
 
       <!--资讯详情-->
-      <el-form-item label="广告详情" prop="details" style="width: 312px;">
+      <el-form-item label="广告详情" prop="detail" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
-        <editor class="editor" 
+        <editor class="editor"
+                v-if="!isEdit || isEdit && showEditor" 
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -86,6 +87,7 @@
   export default {
   data() {
     return {
+      showEditor: false, /** 加这个变量纯属无奈，editor异步传入数据进去居然不会渲染 */
       action: '/api/image/uploadfile',
       // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
@@ -93,7 +95,7 @@
         id: '',
         title: '',
         images: [],
-        detail: '',
+        detail: null,
         url: '',
         width: '',
         height: '',
@@ -187,6 +189,7 @@
             validTime: data.validTime
           }
         }
+        this.showEditor = true;
       });
     },
     submitForm(formName) {

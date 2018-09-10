@@ -40,6 +40,7 @@
       <el-form-item label="资讯详情" prop="details" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
         <editor class="editor"
+                v-if="!isEdit || isEdit && showEditor"
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -61,6 +62,7 @@
   export default {
   data() {
     return {
+      showEditor: false,
       action: '/api/image/uploadfile',
       // action: 'http://47.93.3.67:8086/api/image/uploadfile',
       ruleForm: {
@@ -139,6 +141,7 @@
             detail: data.detail,
             newsNo: data.newsNo
           }
+          this.showEditor = true;
         }
       });
     },
