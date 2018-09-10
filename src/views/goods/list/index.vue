@@ -9,7 +9,7 @@
         <div class="filter-container" style="margin-bottom: 30px;">
             <span>商品类别：</span>
             <el-select clearable style="width: 200px" class="filter-item" v-model="goodsParams.type" placeholder="请选择">
-                <el-option v-for="(val,key) in type" :key="key" :label="val" :value="key">
+                <el-option v-for="(val,key) in typePerform" :key="key" :label="key" :value="val">
                 </el-option>
             </el-select>
 
@@ -242,8 +242,13 @@
                     },
                 ],
                 type: {
-                    1: '一般',
-                    2: '推荐'
+                    1: '旅游',
+                    2: '商务',
+                },
+                typePerform: {
+                    '旅游': 1,
+                    '商务': 2,
+                    '全部': null
                 },
                 statusPerform: {
                     1: '库存中',
