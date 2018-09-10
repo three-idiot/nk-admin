@@ -292,13 +292,13 @@
                         {required: true, trigger: 'change', message: '请输入出发地点'}
                     ],
                     lineDescribe: [
-                        {required: true, trigger: 'change', message: '请输入线路特色'}
+                        {required: true, trigger: 'blur', message: '请输入线路特色'}
                     ],
                     tripDescribe: [
-                        {required: true, trigger: 'change', message: '请输入行程特色'},
+                        {required: true, trigger: 'blur', message: '请输入行程特色'},
                     ],
                     costDescribe: [
-                        {required: true, trigger: 'change', message: '请输入费用与须知'},
+                        {required: true, trigger: 'blur', message: '请输入费用与须知'},
                     ],
                     peopleMinNum: [
                         {required: true, trigger: 'change', message: '请输入最低成团人数'},
