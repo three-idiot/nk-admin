@@ -389,10 +389,16 @@
             },
             handleFilter() {
                 console.log(this.goodsParams);
-                if( this.salePrice ) {
-                    this.goodsParams.salePrice = this.salePrice * 100;
+                if( this.goodsParams.salePriceRule !== null || this.salePrice !== null ) {
+                    if( this.salePrice == null || this.goodsParams.salePriceRule == null ) {
+                        alert('价格规则和价格不能只输入一个！！！')
+                    } else {
+                        this.goodsParams.salePrice = this.salePrice * 100;
+                        this.fetchData(this.goodsParams);
+                    }
+                } else {
+                    this.fetchData(this.goodsParams);
                 }
-                this.fetchData(this.goodsParams);
             },
             goDetail(id) {
                 // window.location.href = '#/goods/detail?id=' + id;
