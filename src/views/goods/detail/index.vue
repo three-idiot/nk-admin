@@ -68,48 +68,49 @@
         name: 'index',
         data() {
             return {
-                data: '',
+                data: [],
+                processData:[]
             };
         },
         computed: {
-            processData() {
-                let arr = [];
-
-                if (this.data) {
-                    let images = [];
-                    if( this.data.images ) {
-                        for( let i=0;i<this.data.images.length;i++ ) {
-                            let item = this.data.images[i];
-                            images.push( item.goodPath );
-                        }
-                    }
-                    console.log( images );
-                    arr.push( {key: '商品编号', value: this.data.goodsNo, type: 'string'} );
-                    arr.push( {key: '商品状态', value: goodsMap.status[this.data.status], type: 'string'} );
-                    arr.push( {key: '商品名称', value: this.data.name, type: 'string'} );
-                    arr.push({key: '商品概要', value: this.data.outline, type: 'string'});
-                    arr.push({key: '商品分类', value: goodsMap.type[this.data.type], type: 'string'});
-                    arr.push({key: '出发日期', value: this.data.leaveTime, type: 'string'});
-                    arr.push({key: '出发地点', value: this.data.leaveAddress, type: 'string'});
-                    arr.push({key: '添加图片', value: images, type: 'images'});
-                    // arr.push({key: '线路特色', value: this.data.lineDescribe });
-                    // arr.push({key: '行程介绍', value: this.data.tripDescribe });
-                    // arr.push({key: '费用与须知', value: this.data.costDescribe});
-                    arr.push({key: '报名截至日期', value: this.data.closeDate, type: 'string'});
-                    arr.push({key: '最低成团人数', value: this.data.peopleMinNum, type: 'string'});
-                    arr.push({key: '成团人数上限', value: this.data.peopleMaxNum, type: 'string'});
-                    arr.push({key: '商品价格', value: this.data.realPrice, type: 'string'});
-                    arr.push({key: '门市价格', value: this.data.salePrice, type: 'string'});
-                    arr.push({key: '儿童价格', value: this.data.childPrice, type: 'string'});
-                    // arr.push({key: '成人', value: this.data.travelGoodsDividePrices});
-                    // arr.push({key: '儿童', value: this.data.travelGoodsDividePrices});
-                    arr.push({key: '创建人', value: this.data.publisher, type: 'string'});
-                    arr.push({key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'});
-                    // arr.push({key: '审核人', value: this.data.approver});
-                    // arr.push({key: '审核时间', value: new Date(this.data.approveTime).Format("yyyy-MM-dd HH:mm:ss")});
-                    return arr;
-                }
-            }
+            // processData() {
+            //     let arr = [];
+            //
+            //     if (this.data) {
+            //         let images = [];
+            //         if( this.data.images ) {
+            //             for( let i=0;i<this.data.images.length;i++ ) {
+            //                 let item = this.data.images[i];
+            //                 images.push( item.goodPath );
+            //             }
+            //         }
+            //         console.log( images );
+            //         arr.push( {key: '商品编号', value: this.data.goodsNo, type: 'string'} );
+            //         arr.push( {key: '商品状态', value: goodsMap.status[this.data.status], type: 'string'} );
+            //         arr.push( {key: '商品名称', value: this.data.name, type: 'string'} );
+            //         arr.push({key: '商品概要', value: this.data.outline, type: 'string'});
+            //         arr.push({key: '商品分类', value: goodsMap.type[this.data.type], type: 'string'});
+            //         arr.push({key: '出发日期', value: this.data.leaveTime, type: 'string'});
+            //         arr.push({key: '出发地点', value: this.data.leaveAddress, type: 'string'});
+            //         arr.push({key: '添加图片', value: images, type: 'images'});
+            //         // arr.push({key: '线路特色', value: this.data.lineDescribe });
+            //         // arr.push({key: '行程介绍', value: this.data.tripDescribe });
+            //         // arr.push({key: '费用与须知', value: this.data.costDescribe});
+            //         arr.push({key: '报名截至日期', value: this.data.closeDate, type: 'string'});
+            //         arr.push({key: '最低成团人数', value: this.data.peopleMinNum, type: 'string'});
+            //         arr.push({key: '成团人数上限', value: this.data.peopleMaxNum, type: 'string'});
+            //         arr.push({key: '商品价格', value: this.data.realPrice, type: 'string'});
+            //         arr.push({key: '门市价格', value: this.data.salePrice, type: 'string'});
+            //         arr.push({key: '儿童价格', value: this.data.childPrice, type: 'string'});
+            //         // arr.push({key: '成人', value: this.data.travelGoodsDividePrices});
+            //         // arr.push({key: '儿童', value: this.data.travelGoodsDividePrices});
+            //         arr.push({key: '创建人', value: this.data.publisher, type: 'string'});
+            //         arr.push({key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'});
+            //         // arr.push({key: '审核人', value: this.data.approver});
+            //         // arr.push({key: '审核时间', value: new Date(this.data.approveTime).Format("yyyy-MM-dd HH:mm:ss")});
+            //         return arr;
+            //     }
+            // }
         },
         created() {
             this.fetchData();
@@ -131,8 +132,33 @@
             fetchData() {
                 let id = this.$route.query.id;
                 travelGoods({id: id}).then(res => {
+                    let images = [];
+                    if( this.data.images ) {
+                        for( let i=0;i<this.data.images.length;i++ ) {
+                            let item = this.data.images[i];
+                            images.push( item.goodPath );
+                        }
+                    }
                     this.data = res.data;
-                    console.log( this.data );
+                    // console.log( this.data );
+                    this.processData= [
+                        {key: '商品编号', value: this.data.goodsNo, type: 'string'},
+                        {key: '商品状态', value: goodsMap.status[this.data.status], type: 'string'},
+                        {key: '商品名称', value: this.data.name, type: 'string'},
+                        {key: '商品概要', value: this.data.outline, type: 'string'},
+                        {key: '商品分类', value: goodsMap.type[this.data.type], type: 'string'},
+                        {key: '出发日期', value: this.data.leaveTime, type: 'string'},
+                        {key: '出发地点', value: this.data.leaveAddress, type: 'string'},
+                        {key: '添加图片', value: images, type: 'images'},
+                        {key: '报名截至日期', value: this.data.closeDate, type: 'string'},
+                        {key: '最低成团人数', value: this.data.peopleMinNum, type: 'string'},
+                        {key: '成团人数上限', value: this.data.peopleMaxNum, type: 'string'},
+                        {key: '商品价格', value: this.data.realPrice, type: 'string'},
+                        {key: '门市价格', value: this.data.salePrice, type: 'string'},
+                        {key: '儿童价格', value: this.data.childPrice, type: 'string'},
+                        {key: '创建人', value: this.data.publisher, type: 'string'},
+                        {key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}
+                    ]
                 });
             }
         }
