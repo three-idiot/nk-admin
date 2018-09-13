@@ -394,6 +394,7 @@ export default {
                 if (valid) {
                     console.log('哈哈', this.form);
                     this.form.pwd = md5(this.form.pwd);
+                    this.form.confirmPassword = md5(this.form.confirmPassword);
                     addAgent( this.form ).then( res => {
                         console.log( res );
                         if ( res.code == 200 ) {
