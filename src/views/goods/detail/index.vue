@@ -133,12 +133,13 @@
                 let id = this.$route.query.id;
                 travelGoods({id: id}).then(res => {
                     let images = [];
-                    if( this.data.images ) {
-                        for( let i=0;i<this.data.images.length;i++ ) {
-                            let item = this.data.images[i];
-                            images.push( item.goodPath );
-                        }
+                    console.log( res.data );
+                    for( let i=0;i<res.data.images.length;i++ ) {
+                        let item = res.data.images[i];
+                        console.log( item );
+                        images.push( item.goodPath );
                     }
+                    console.log(images);
                     this.data = res.data;
                     // console.log( this.data );
                     this.processData= [
