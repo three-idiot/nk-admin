@@ -2,7 +2,7 @@
     <div class="visaDetail">
         <p class="title">代理商详情</p>
         <hr/>
-        <portrait-table :data="processData"></portrait-table>
+        <portrait-table :data="data"></portrait-table>
         <div class="btn-container">
             <el-button type="info" @click.native="$router.back()">返回</el-button>
         </div>
@@ -25,36 +25,11 @@
         name: 'index',
         data() {
             return {
-                data: '',
+                data: [],
                 provinces: null,
             };
         },
-        computed: {
-            processData() {
-                let arr = [];
-                if (this.data) {
-                    arr.push({key: '代理商编码', value: this.data.agentNo, type: 'string'});
-                    arr.push({key: '代理商名称', value: this.data.agentName, type: 'string'});
-                    arr.push({key: '代理商属性', value: transformData.roleId[this.data.roleId], type: 'string'});
-                    arr.push({key: '代理商地区', value: this.getProvince(this.data.province), type: 'string'});
-                    arr.push({key: '联系人', value: this.data.contactsName, type: 'string'});
-                    arr.push({key: '联系电话', value: this.data.contactsPhone, type: 'string'});
-                    arr.push({key: '联系地址', value: this.data.contactsMail, type: 'string'});
-                    arr.push({key: '代理商性质', value: transformData.type[this.data.agentType], type: 'string'});
-                    arr.push({key: '营业执照号码', value: this.data.bizLicenseCode, type: 'string'});
-                    arr.push({key: '营业执照副本', value: this.data.bizLicenseImagePath, type: 'image'});
-                    arr.push({key: '有效期至', value: this.data.expireTime, type: 'string'});
-                    arr.push({key: '代理标识码', value: this.data.uniqueCode, type: 'string'});
-                    // arr.push({key: '代理二维码', value: this.data.disposeDay});
-                    arr.push({key: '创建人', value: this.data.createUserName, type: 'string'});
-                    arr.push({key: '创建时间', value: this.data.auditTime, type: 'string'});
-                    // arr.push({key: '审核人', value: this.data.auditUser});
-                    // arr.push({key: '审核时间', value: this.data.auditTime});
-                    // arr.push({key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss")});
-                    return arr;
-                }
-            }
-        },
+        computed: {},
         created() {
             this.fetchAddressData();
         },
@@ -66,8 +41,26 @@
                 let id = this.$route.query.id;
                 // let url = '/gooddetail/' + id;
                 getAgent({id: id}).then(res => {
-                    console.log( res )
-                    this.data = res.data;
+                    console.log( res );
+                    let data = res.data;
+                    // this.data = res.data;
+                    this.data = [
+                        {key: '代理商编码', value: data.agentNo, type: 'string'},
+                        {key: '代理商名称', value: data.agentName, type: 'string'},
+                        {key: '代理商属性', value: transformData.roleId[data.roleId], type: 'string'},
+                        {key: '代理商地区', value: this.getProvince(data.province), type: 'string'},
+                        {key: '联系人', value: data.contactsName, type: 'string'},
+                        {key: '联系电话', value: data.contactsPhone, type: 'string'},
+                        {key: '联系地址', value: data.contactsMail, type: 'string'},
+                        {key: '代理商性质', value: transformData.type[data.agentType], type: 'string'},
+                        {key: '营业执照号码', value: data.bizLicenseCode, type: 'string'},
+                        {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'image'},
+                        {key: '有效期至', value: data.expireTime, type: 'string'},
+                        {key: '代理标识码', value: data.uniqueCode, type: 'string'},
+                        // {key: '代理二维码', value: this.data.disposeDay},
+                        {key: '创建人', value: data.createUserName, type: 'string'},
+                        {key: '创建时间', value: data.auditTime, type: 'string'}
+                    ]
                 });
             },
             fetchAddressData() {
