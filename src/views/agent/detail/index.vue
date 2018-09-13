@@ -46,7 +46,7 @@
                     arr.push({key: '有效期至', value: this.data.expireTime, type: 'string'});
                     arr.push({key: '代理标识码', value: this.data.uniqueCode, type: 'string'});
                     // arr.push({key: '代理二维码', value: this.data.disposeDay});
-                    arr.push({key: '创建人', value: this.data.createUser, type: 'string'});
+                    arr.push({key: '创建人', value: this.data.createUserName, type: 'string'});
                     arr.push({key: '创建时间', value: this.data.auditTime, type: 'string'});
                     // arr.push({key: '审核人', value: this.data.auditUser});
                     // arr.push({key: '审核时间', value: this.data.auditTime});
