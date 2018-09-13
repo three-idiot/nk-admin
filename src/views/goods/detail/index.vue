@@ -133,13 +133,6 @@
                 let id = this.$route.query.id;
                 travelGoods({id: id}).then(res => {
                     let images = [];
-                    console.log( res.data );
-                    for( let i=0;i<res.data.images.length;i++ ) {
-                        let item = res.data.images[i];
-                        console.log( item );
-                        images.push( item.goodPath );
-                    }
-                    console.log(images);
                     this.data = res.data;
                     // console.log( this.data );
                     this.processData= [
@@ -150,7 +143,7 @@
                         {key: '商品分类', value: goodsMap.type[this.data.type], type: 'string'},
                         {key: '出发日期', value: this.data.leaveTime, type: 'string'},
                         {key: '出发地点', value: this.data.leaveAddress, type: 'string'},
-                        {key: '添加图片', value: images, type: 'images'},
+                        {key: '添加图片', value: this.data.images, type: 'images'},
                         {key: '报名截至日期', value: this.data.closeDate, type: 'string'},
                         {key: '最低成团人数', value: this.data.peopleMinNum, type: 'string'},
                         {key: '成团人数上限', value: this.data.peopleMaxNum, type: 'string'},
