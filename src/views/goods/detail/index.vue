@@ -119,10 +119,12 @@
         },
         methods: {
             calPrices( agentType,userType ) {
-                for( let i=0;i<this.data.travelGoodsDividePrices.length;i++ ) {
-                    let item = this.data.travelGoodsDividePrices[i];
-                    if ( item.agentType == agentType && item.userType == userType ) {
-                        return item.price;
+                if( this.data.travelGoodsDividePrices ) {
+                    for( let i=0;i<this.data.travelGoodsDividePrices.length;i++ ) {
+                        let item = this.data.travelGoodsDividePrices[i];
+                        if ( item.agentType == agentType && item.userType == userType ) {
+                            return item.price;
+                        }
                     }
                 }
             },
