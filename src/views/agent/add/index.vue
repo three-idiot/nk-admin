@@ -26,7 +26,7 @@
 
         <el-form-item label="代理商角色" prop="roleId">
             <el-select v-model="form.roleId" placeholder="请选择代理商角色" clearable>
-                <el-option :label="val" :value="key" :key="key" v-for="(val, key) in roleId"></el-option>
+                <el-option :label="val" :value="key" :key="key" v-for="(val, key) in newRoleId"></el-option>
             </el-select>
         </el-form-item>
 
@@ -178,7 +178,8 @@
 import {
     getLowerAreas,
     getUniqueCode,
-    addAgent
+    addAgent,
+    agentRoleList
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
@@ -194,6 +195,7 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            newRoleId: {},
             province: null,
             city: null,
             county: null,
@@ -304,6 +306,7 @@ export default {
     created() {
         // this.fetchData();
         this.fetchAddressData();
+        this.fetchAgentRoleList();
         window.this = this;
     },
     mounted() {
@@ -386,6 +389,18 @@ export default {
                         type: "string"
                     }
                 ];
+            });
+        },
+        fetchAgentRoleList() {
+            agentRoleList().then(res => {
+                console.log( res );
+                let data = res.data;
+                for ( let i=0;i<data.length;i++ ) {
+                    let item = data[i];
+                    console.log(item);
+                    this.newRoleId[item.id] = item.name;
+                }
+                console.log('测试',this.newRoleId);
             });
         },
         onSubmit(formName) {
