@@ -135,10 +135,10 @@ export default {
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                sstartDate: this.startDaterange[0] ? this.startDaterange[0] + ' 0:0:0' : null,
-                sendDate: this.startDaterange[1] ? this.startDaterange[1] + ' 23:59:59' : null,
-                estartDate: this.endDaterange[0] ? this.endDaterange[0] + ' 0:0:0' : null,
-                eendDate: this.endDaterange[1] ? this.endDaterange[1] + ' 23:59:59' : null,
+                sstartDate: this.startDaterange&&this.startDaterange[0] ? this.startDaterange[0] + ' 0:0:0' : null,
+                sendDate: this.startDaterange&&this.startDaterange[1] ? this.startDaterange[1] + ' 23:59:59' : null,
+                estartDate: this.endDaterange&&this.endDaterange[0] ? this.endDaterange[0] + ' 0:0:0' : null,
+                eendDate: this.endDaterange&&this.endDaterange[1] ? this.endDaterange[1] + ' 23:59:59' : null,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
             });

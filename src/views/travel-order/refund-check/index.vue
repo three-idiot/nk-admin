@@ -171,8 +171,8 @@ export default {
     computed: {
         listQuery() {
             return Object.assign({}, this.form, {
-                startDate: this.daterange[0] ? this.daterange[0] + " 0:0:0" : null,
-                endDate: this.daterange[1] ? this.daterange[1] + " 23:59:59" : null,
+                startDate: this.daterange&&this.daterange[0] ? this.daterange[0] + " 0:0:0" : null,
+                endDate: this.daterange&&this.daterange[1] ? this.daterange[1] + " 23:59:59" : null,
                 pageIndex: this.current_page,
                 pageSize: this.page_size,
                 refundFee: this.form.refundFee * 100
