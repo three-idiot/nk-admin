@@ -10,7 +10,7 @@ export function getNewsList(params) {
 
 export function getNewsDetail(id) {
   return request({
-    url: '/news/' + id,
+    url: '/news/' + id + '?t=' + new Date().getTime(),
     method: 'get'
   });
 }
@@ -57,7 +57,7 @@ export function getAdsList(params) {
 
 export function getAdsDetail(id) {
   return request({
-    url: '/adInfo/' + id,
+    url: '/adInfo/' + id + '?t=' + new Date().getTime(),
     method: 'get'
   });
 }

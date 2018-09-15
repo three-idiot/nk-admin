@@ -11,11 +11,12 @@
           <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
         <el-form-item label="发布日期">
-          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="资讯状态">
           <el-select v-model="form.status" placeholder="请选择" clearable>
+            <el-option label="全部" value=""></el-option>
             <el-option label="正常" value="1"></el-option>
             <el-option label="失效" value="2"></el-option>
           </el-select>
@@ -32,7 +33,7 @@
     <div class="total">资讯总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
     <el-table :data="list" ref="newsTable" v-loading="listLoading" border fit highlight-current-row
-              style="width: 100%;" @selection-change="handleSelectionChange">
+              style="width: 100%;" :row-class-name="topClassName" @selection-change="handleSelectionChange">
       <!-- <el-table-column align="center" width="50"  label="" class="table-item">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.checked"></el-checkbox>
@@ -42,7 +43,7 @@
               type="selection"
               width="35">
       </el-table-column>
-      <el-table-column align="center"   label="资讯编号" class="table-item">
+      <el-table-column align="center" label="资讯编号" class="table-item">
         <template slot-scope="scope">
           <span>{{scope.row.newsNo}}</span>
         </template>
@@ -100,7 +101,7 @@
 </template>
 
 <script>
-import { getNewsList, stickNews, changeNewsStatus, getNewsDetail } from "@/api/news";
+import { getNewsList, stickNews, changeNewsStatus } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -121,15 +122,6 @@ export default {
         top: ''
       },
       list: [
-        {
-          newsNo: '222',
-          title: '资讯1',
-          publisher: '唐先森',
-          createTime: '20180715',
-          status: 3,
-          top: true,
-          id: 100
-        }
       ],
       selectedLists: []
     };
@@ -182,22 +174,16 @@ export default {
     goDetail(id) {
       this.$router.push({
         name: 'news-detail',
-        params: {
+        query: {
             id: id
         }
       });
     },
     goEdit(id) {
-      this.listLoading = true;
-      getNewsDetail(id).then(response => {
-        this.listLoading = false;
-        if (response.data) {
-          this.$router.push({
-            name: 'news-edit',
-            params: {
-                id: response.data
-            }
-          });
+      this.$router.push({
+        name: 'news-edit',
+        query: {
+            id: id
         }
       });
     },
@@ -276,6 +262,13 @@ export default {
         });
       }).catch(() => { // 取消操作
       });
+    },
+    /** 添加置顶样式 */
+    topClassName ({row, rowIndex}) {
+      if (row.top == '1') {
+        return 'top';
+      }
+      return '';
     }
   },
   components: {
@@ -284,7 +277,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-container {
   padding-left: 50px;
   .title {
@@ -304,5 +297,8 @@ export default {
       color: red;
     }
   }
+}
+.el-table tr.top {
+  background-color: lightgoldenrodyellow!important;
 }
 </style>

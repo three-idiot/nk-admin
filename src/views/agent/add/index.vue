@@ -182,7 +182,8 @@ import {
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
-import { checkNum, checkUsername, checkPassword } from "@/rules";
+import { checkNum, checkUsername, checkPassword, validateUsername } from "@/rules";
+import md5 from 'md5';
 export default {
     data() {
         let validatePass2 = (rule, value, callback) => {
@@ -227,7 +228,7 @@ export default {
             rules: {
                 username: [
                     { required: true, trigger: 'change', message: '请输入用户名' },
-                    { validator: checkUsername, trigger: 'change' }
+                    { validator: validateUsername, trigger: 'change' }
                 ],
                 pwd: [
                     { required: true, trigger: 'blur', message: '请输入密码' },
@@ -392,6 +393,8 @@ export default {
                 console.log( this.form );
                 if (valid) {
                     console.log('哈哈', this.form);
+                    this.form.pwd = md5(this.form.pwd);
+                    this.form.confirmPassword = md5(this.form.confirmPassword);
                     addAgent( this.form ).then( res => {
                         console.log( res );
                         if ( res.code == 200 ) {

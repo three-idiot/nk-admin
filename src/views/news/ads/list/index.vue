@@ -11,7 +11,7 @@
           <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
         <el-form-item label="发布日期">
-          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="广告状态">
@@ -31,7 +31,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="有效期">
-          <el-date-picker v-model="validdaterange" type="validdaterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-date-picker v-model="validdaterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
           </el-date-picker>
         </el-form-item>
         <el-row style="height: 40px;">
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import { getAdsList, changeAdsStatus, getAdsDetail } from "@/api/news";
+import { getAdsList, changeAdsStatus } from "@/api/news";
 import statusEnum from '@/map/news';
 import TitleLine from "@/components/TitleLine/index.vue";
 
@@ -173,17 +173,6 @@ export default {
         sort: "",
       },
       list: [
-        {
-          adNo: '222',
-          title: '广告1',
-          publisher: '唐先森',
-          createTime: '20180715',
-          sort: 3,
-          validTime: '20180706',
-          status: 3,
-          id: 100,
-          images: [{goodPath: 'http://p1.xiaoshidi.net/2018/08/17055418451694.jpg'}]
-        }
       ],
       selectedLists: [],
       dialogFormVisible: false,
@@ -273,22 +262,16 @@ export default {
     goDetail(id) {
       this.$router.push({
         name: 'ads-detail',
-        params: {
+        query: {
             id: id
         }
       });
     },
     goEdit(id) {
-      this.listLoading = true;
-      getAdsDetail(id).then(response => {
-        this.listLoading = false;
-        if (response.data) {
-          this.$router.push({
-            name: 'ads-edit',
-            params: {
-                id: response.data
-            }
-          });
+      this.$router.push({
+        name: 'ads-edit',
+        query: {
+            id: id
         }
       });
     },

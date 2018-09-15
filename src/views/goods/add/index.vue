@@ -48,7 +48,7 @@
                 <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
+                    <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
                 </el-upload>
             </el-form-item>
 
@@ -201,6 +201,14 @@
                     callback();
                 }
             };
+            let length16 = (rule, value, callback) => {
+                if ( !/^.{1,16}$/.test(value) ) {
+                    return callback(new Error('不能超过16个字符'));
+                } else {
+                    callback();
+                }
+            };
+
             return Object.assign({}, goodsMap, {
                 editorSetting: {
                     width: 600,
@@ -277,10 +285,12 @@
                 },
                 rules: {
                     name: [
-                        {required: true, trigger: 'blur', message: '请输入商品名称'}
+                        {required: true, trigger: 'blur', message: '请输入商品名称'},
+                        {validator: length16, trigger: 'change'}
                     ],
                     outline: [
-                        {required: true, trigger: 'blur', message: '请输入商品概要'}
+                        {required: true, trigger: 'blur', message: '请输入商品概要'},
+                        {validator: length16, trigger: 'change'}
                     ],
                     type: [
                         {required: true, trigger: 'change', message: '请选择商品分类'}
@@ -292,13 +302,13 @@
                         {required: true, trigger: 'change', message: '请输入出发地点'}
                     ],
                     lineDescribe: [
-                        {required: true, trigger: 'change', message: '请输入线路特色'}
+                        {required: true, trigger: 'blur', message: '请输入线路特色'}
                     ],
                     tripDescribe: [
-                        {required: true, trigger: 'change', message: '请输入行程特色'},
+                        {required: true, trigger: 'blur', message: '请输入行程特色'},
                     ],
                     costDescribe: [
-                        {required: true, trigger: 'change', message: '请输入费用与须知'},
+                        {required: true, trigger: 'blur', message: '请输入费用与须知'},
                     ],
                     peopleMinNum: [
                         {required: true, trigger: 'change', message: '请输入最低成团人数'},

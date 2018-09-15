@@ -27,7 +27,7 @@ export default {
     methods: {
         fetchData() {
             this.listLoading = true;
-            getNewsDetail(this.$route.params.id).then(response => {
+            getNewsDetail(this.$route.query.id).then(response => {
                 const resData = response.data;
                 this.data = [{
                         key: '资讯编码',
@@ -58,7 +58,7 @@ export default {
                     {
                         key: '资讯详情',
                         value: resData.detail,
-                        type: 'string'
+                        type: 'html'
                     },
                     {
                         key: '创建人',

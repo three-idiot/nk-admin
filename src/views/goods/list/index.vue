@@ -9,7 +9,7 @@
         <div class="filter-container" style="margin-bottom: 30px;">
             <span>商品类别：</span>
             <el-select clearable style="width: 200px" class="filter-item" v-model="goodsParams.type" placeholder="请选择">
-                <el-option v-for="(val,key) in type" :key="key" :label="val" :value="key">
+                <el-option v-for="(val,key) in typePerform" :key="key" :label="key" :value="val">
                 </el-option>
             </el-select>
 
@@ -21,7 +21,7 @@
 
             <span>商品状态：</span>
             <el-select clearable style="width: 150px" class="filter-item" v-model="goodsParams.status" placeholder="请选择">
-                <el-option v-for="(val,key) in status" :key="key" :label="val" :value="key">
+                <el-option v-for="(val,key) in status" :key="key" :label="key" :value="val">
                 </el-option>
             </el-select>
 
@@ -159,7 +159,7 @@
             <el-table-column class-name="status-col" label="商品状态" align="center">
                 <template slot-scope="scope">
                     <el-tag :type="scope.row.status | statusFilter">
-                        {{ status[scope.row.status] }}
+                        {{ statusPerform[scope.row.status] }}
                     </el-tag>
                 </template>
             </el-table-column>
@@ -212,7 +212,8 @@
         <div class="pagination-container" style="margin-top: 30px;">
             <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
                            :current-page="goodsParams.pageIndex" :page-sizes="[4,10,20,30,50]"
-                           :page-size="goodsParams.pageSize" layout="sizes, prev, pager, next, jumper">
+                           :total="total_count"
+                           :page-size="goodsParams.pageSize" layout="sizes, prev, pager, next, jumper" >
             </el-pagination>
         </div>
         <!--分页结束-->
@@ -241,15 +242,26 @@
                     },
                 ],
                 type: {
-                    1: '一般',
-                    2: '推荐'
+                    1: '旅游',
+                    2: '商务',
                 },
-                status: {
+                typePerform: {
+                    '旅游': 1,
+                    '商务': 2,
+                    '全部': null
+                },
+                statusPerform: {
                     1: '库存中',
                     2: '已上架',
                     3: '已下架',
                     // 4: '审核中',
                     // 5: '审核拒绝'
+                },
+                status:{
+                    '全部': null,
+                    '库存中': 1,
+                    '已上架': 2,
+                    '已下架': 3,
                 },
                 salePriceRule: {
                     0: '=',
@@ -377,10 +389,16 @@
             },
             handleFilter() {
                 console.log(this.goodsParams);
-                if( this.salePrice ) {
-                    this.goodsParams.salePrice = this.salePrice * 100;
+                if( this.goodsParams.salePriceRule !== null || this.salePrice !== null ) {
+                    if( this.salePrice == null || this.goodsParams.salePriceRule == null ) {
+                        alert('价格规则和价格不能只输入一个！！！')
+                    } else {
+                        this.goodsParams.salePrice = this.salePrice * 100;
+                        this.fetchData(this.goodsParams);
+                    }
+                } else {
+                    this.fetchData(this.goodsParams);
                 }
-                this.fetchData(this.goodsParams);
             },
             goDetail(id) {
                 // window.location.href = '#/goods/detail?id=' + id;
