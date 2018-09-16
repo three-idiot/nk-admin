@@ -82,5 +82,15 @@ export default {
             msg: "退款成功",
             color: "success"
         }
+    },
+    reFundReason: {
+        1: {
+            msg: "用户申请",
+            color: "warning"
+        },
+        2: {
+            msg: "组团失败",
+            color: "primary"
+        }
     }
 };
