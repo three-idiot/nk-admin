@@ -59,5 +59,13 @@ export function getAgent(params) {
     })
 }
 
+export function agentRoleList(params) {
+    return request({
+        url: '/role/agentRoleList',
+        method: 'get',
+        params
+    })
+}
+
 
 
