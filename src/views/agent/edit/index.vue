@@ -256,6 +256,7 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            newRoleId: {},
             dialogVisible1: false,
             dialogVisible2: false,
             province: null,
