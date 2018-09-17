@@ -10,21 +10,15 @@
 </template>
 
 <script>
-    import { getAgent,getLowerAreas } from '@/api/agent';
+    import { getAgent,getLowerAreas,agentRoleList } from '@/api/agent';
     import transformData from '@/map/agent';
-
-    // let goodStatus = transformData.status;
-    // let auditStatus = transformData.auditStatus;
-    // let unitDay = transformData.unitDay;
-    // let intoType = transformData.intoType;
-    // let isUrgent = transformData.isUrgent;
-    // let isInterview = transformData.isInterview;
     import PortraitTable from "@/components/PortraitTable/index.vue";
 
     export default {
         name: 'index',
         data() {
             return {
+                newRoleId: {},
                 data: [],
                 provinces: null,
             };
@@ -56,12 +50,25 @@
             // }
         },
         created() {
+            this.fetchAgentRoleList();
             this.fetchAddressData();
         },
         components: {
             PortraitTable
         },
         methods: {
+            fetchAgentRoleList() {
+                agentRoleList().then(res => {
+                    console.log( res );
+                    let data = res.data;
+                    for ( let i=0;i<data.length;i++ ) {
+                        let item = data[i];
+                        // console.log(item);
+                        this.newRoleId[item.id] = item.name;
+                    }
+                    console.log('测试',this.newRoleId);
+                });
+            },
             fetchData() {
                 let id = this.$route.query.id;
                 // let url = '/gooddetail/' + id;
@@ -72,7 +79,7 @@
                     this.data = [
                         {key: '代理商编码', value: data.agentNo, type: 'string'},
                         {key: '代理商名称', value: data.agentName, type: 'string'},
-                        {key: '代理商属性', value: transformData.roleId[data.roleId], type: 'string'},
+                        {key: '代理商属性', value: this.newRoleId[data.roleId], type: 'string'},
                         {key: '代理商地区', value: this.getProvince(data.province), type: 'string'},
                         {key: '联系人', value: data.contactsName, type: 'string'},
                         {key: '联系电话', value: data.contactsPhone, type: 'string'},
@@ -84,7 +91,8 @@
                         {key: '代理标识码', value: data.uniqueCode, type: 'string'},
                         // {key: '代理二维码', value: this.data.disposeDay},
                         {key: '创建人', value: data.createUserName, type: 'string'},
-                        {key: '创建时间', value: data.auditTime, type: 'string'}
+                        // {key: '创建时间', value: data.auditTime, type: 'string'}
+                        {key: '创建时间', value: data.createTime, type: 'string'}
                     ]
                 });
             },
