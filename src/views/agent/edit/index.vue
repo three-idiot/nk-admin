@@ -218,7 +218,7 @@
         <el-form-item label="时间" prop="expireTime">
             <el-date-picker
                 v-model="form.expireTime"
-                type="date"
+                type="datetime"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
             </el-date-picker>
@@ -294,11 +294,11 @@ export default {
                     { validator: validateUsername, trigger: 'blur' }
                 ],
                 pwd: [
-                    { required: true, trigger: 'blur', message: '请输入密码' },
-                    { validator: checkPassword, trigger: 'blur' }
+                    // { required: true, trigger: 'blur', message: '请输入密码' },
+                    // { validator: checkPassword, trigger: 'blur' }
                 ],
                 confirmPassword: [
-                    { validator: validatePass2, trigger: 'blur' }
+                    { validator: validatePass2, trigger: 'change' }
                 ],
                 agentName: [
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
@@ -385,7 +385,8 @@ export default {
                 if(res.code == 200) {
                     this.form = res.data;
                     this.form.roleId = String(this.form.roleId);
-                    this.confirmPassword = this.form.pwd;
+                    this.form.pwd = null;
+                    // this.confirmPassword = this.form.pwd;
                     console.log( this.form.province, this.form.city, this.form.county);
                     this.getNextLevel('city', this.form.province);
                     this.getNextLevel('county', this.form.city);
