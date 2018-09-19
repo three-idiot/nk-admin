@@ -54,17 +54,17 @@
 
 
             <p>商品描述：</p>
-            <el-form-item label="线路特色" prop="lineDescribe">
+            <el-form-item label="线路特色" prop="lineDescribe" class="lineDescribe">
                 <editor class="editor" :value="ruleForm.lineDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.lineDescribe = content"></editor>
             </el-form-item>
 
-            <el-form-item label="行程介绍" prop="tripDescribe">
+            <el-form-item label="行程介绍" prop="tripDescribe" class="tripDescribe">
                 <editor class="editor" :value="ruleForm.tripDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.tripDescribe = content"></editor>
             </el-form-item>
 
-            <el-form-item label="费用与须知" prop="costDescribe">
+            <el-form-item label="费用与须知" prop="costDescribe" class="costDescribe">
                 <editor class="editor" :value="ruleForm.costDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.costDescribe = content"></editor>
             </el-form-item>
@@ -444,6 +444,16 @@
     };
 </script>
 
+<style rel="stylesheet/scss" lang="scss">
+    .lineDescribe,.costDescribe,.tripDescribe {
+        label:before {
+            content: '*';
+            color: #f56c6c;
+            margin-right: 4px;
+        }
+    }
+</style>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;
@@ -487,6 +497,8 @@
             color: #FFFFFF;
         }
     }
+
+
 
 
 </style>
