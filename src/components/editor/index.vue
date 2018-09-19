@@ -1,5 +1,7 @@
 <template>
-    <textarea :class="id" v-model="value"></textarea>
+    <div>
+        <textarea :class="id" v-model="value"></textarea>
+    </div>
 </template>
 <script>
     // Import TinyMCE

@@ -45,7 +45,7 @@
 
             <el-form-item label="添加图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='api/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
@@ -360,24 +360,6 @@
             editor
         },
         methods: {
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
-                // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-                console.log(file.response.data);
-                this.ruleForm.goodsNum = file.response.data;
-            },
-            beforeAvatarUpload(file) {
-                // const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                // if (!isJPG) {
-                //   this.$message.error('上传头像图片只能是 JPG 格式!');
-                // }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isLt2M;
-            },
             imgUploaded(res, file) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
                     this.ruleForm.images = [];
@@ -393,46 +375,62 @@
             imgRemove(files, fileList) {
                 this.form.visaPath = null;
             },
+            finalSubmit() {
+                console.log('submit!');
+                // console.log(this.upType);
+                console.log('测试', this.travelGoodsDividePrices);
+                if (this.upType == 2) {
+                    // 立即上架
+                    this.ruleForm.status = 2;
+                    this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+                } else if (this.upType == 1) {
+                    // 在库中
+                    this.ruleForm.status = 1;
+                    this.ruleForm.upTime = null;
+                } else {
+                    // 固定时间上架
+                    this.ruleForm.status = 1;
+                    if (!this.ruleForm.upTime) {
+                        alert('请输入上架时间');
+                        return;
+                    }
+                }
+                console.log('调试2', this.ruleForm);
+                this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
+                this.ruleForm.realPrice = this.ruleForm.realPrice * 100;
+                this.ruleForm.salePrice = this.ruleForm.salePrice * 100;
+                this.ruleForm.childPrice = this.ruleForm.childPrice * 100;
+                addTravelGoods(this.ruleForm).then(res => {
+                    console.log('掉借口了', res);
+                    if ( res.code == 200 ) {
+                        alert('新建成功');
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                });
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log('submit!');
-                        console.log(this.upType);
-                        console.log('测试', this.travelGoodsDividePrices);
-                        if (this.upType == 2) {
-                            // 立即上架
-                            this.ruleForm.status = 2;
-                            this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
-                        } else if (this.upType == 1) {
-                            // 在库中
-                            this.ruleForm.status = 1;
-                            this.ruleForm.upTime = null;
+                        if( this.ruleForm.lineDescribe == null || this.ruleForm.lineDescribe == '' ) {
+                            this.$message({
+                                message: '线路特色不能为空',
+                                type: 'error'
+                            });
+                        } else if ( this.ruleForm.tripDescribe == null || this.ruleForm.tripDescribe == '') {
+                            this.$message({
+                                message: '行程介绍不能为空',
+                                type: 'error'
+                            });
+                        } else if ( this.ruleForm.costDescribe == null || this.ruleForm.costDescribe == '' ) {
+                            this.$message({
+                                message: '费用与须知不能为空',
+                                type: 'error'
+                            });
                         } else {
-                            // 固定时间上架
-                            this.ruleForm.status = 1;
-                            if (!this.ruleForm.upTime) {
-                                alert('请输入上架时间');
-                                return;
-                            }
+                            this.finalSubmit();
                         }
-                        console.log('调试2', this.ruleForm);
-                        this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
-                        this.ruleForm.realPrice = this.ruleForm.realPrice * 100;
-                        this.ruleForm.salePrice = this.ruleForm.salePrice * 100;
-                        this.ruleForm.childPrice = this.ruleForm.childPrice * 100;
-                        addTravelGoods(this.ruleForm).then(res => {
-                            console.log('掉借口了', res);
-                            if ( res.code == 200 ) {
-                                alert('新建成功');
-                                window.location.reload();
-                            } else {
-                                alert(res.msg);
-                            }
-                            // if ( res.code == 200 ) {
-                            //     alert('新建成功');
-                            //     history.back();
-                            // }
-                        });
                     } else {
                         console.log('error submit!!');
                         return false;
