@@ -97,11 +97,11 @@
             <hr>
 
             <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
-                <el-input v-model="ruleForm.realPrice"></el-input>
+                <el-input v-model="ruleForm.salePrice"></el-input>
             </el-form-item>
 
             <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                <el-input v-model="ruleForm.salePrice"></el-input>
+                <el-input v-model="ruleForm.realPrice"></el-input>
             </el-form-item>
 
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
