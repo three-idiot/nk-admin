@@ -45,7 +45,7 @@
 
             <el-form-item label="添加图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='api/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
@@ -201,6 +201,14 @@
                     callback();
                 }
             };
+            let checkFloat = (rule, value, callback) => {
+                if (!/^\d+(\.\d+)?$/.test(value)) {
+                    return callback(new Error('必须是数字'));
+                } else {
+                    callback();
+                }
+            };
+
             let length16 = (rule, value, callback) => {
                 if ( !/^.{1,16}$/.test(value) ) {
                     return callback(new Error('不能超过16个字符'));
@@ -302,13 +310,13 @@
                         {required: true, trigger: 'change', message: '请输入出发地点'}
                     ],
                     lineDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入线路特色'}
+                        // {required: true, trigger: 'blur', message: '请输入线路特色'}
                     ],
                     tripDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入行程特色'},
+                        // {required: true, trigger: 'blur', message: '请输入行程特色'},
                     ],
                     costDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入费用与须知'},
+                        // {required: true, trigger: 'blur', message: '请输入费用与须知'},
                     ],
                     peopleMinNum: [
                         {required: true, trigger: 'change', message: '请输入最低成团人数'},
@@ -320,15 +328,15 @@
                     ],
                     realPrice: [
                         {required: true, trigger: 'blur', message: '请输入商品价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     salePrice: [
                         {required: true, trigger: 'blur', message: '请输入门市价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     childPrice: [
                         {required: true, trigger: 'blur', message: '请输入儿童价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     images: [
                         {required: true, trigger: 'change', message: '请至少添加一张图片'},
@@ -409,6 +417,9 @@
                         }
                         console.log('调试2', this.ruleForm);
                         this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
+                        this.ruleForm.realPrice = this.ruleForm.realPrice * 100;
+                        this.ruleForm.salePrice = this.ruleForm.salePrice * 100;
+                        this.ruleForm.childPrice = this.ruleForm.childPrice * 100;
                         addTravelGoods(this.ruleForm).then(res => {
                             console.log('掉借口了', res);
                             if ( res.code == 200 ) {
