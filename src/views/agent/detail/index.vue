@@ -88,12 +88,12 @@
                         {key: '营业执照号码', value: data.bizLicenseCode, type: 'string'},
                         {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'image'},
                         {key: '有效期至', value: data.expireTime, type: 'string'},
-                        {key: '代理标识码', value: data.uniqueCode, type: 'string'},
+                        {key: '代理标识码', value: data.uniqueCode, type: 'qrcode'},
                         // {key: '代理二维码', value: this.data.disposeDay},
                         {key: '创建人', value: data.createUserName, type: 'string'},
                         // {key: '创建时间', value: data.auditTime, type: 'string'}
                         {key: '创建时间', value: data.createTime, type: 'string'}
-                    ]
+                    ];
                 });
             },
             fetchAddressData() {
