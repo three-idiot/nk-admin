@@ -86,7 +86,7 @@
                         {key: '联系地址', value: data.contactsMail, type: 'string'},
                         {key: '代理商性质', value: transformData.type[data.agentType], type: 'string'},
                         {key: '营业执照号码', value: data.bizLicenseCode, type: 'string'},
-                        {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'image'},
+                        {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'big-image'},
                         {key: '有效期至', value: data.expireTime, type: 'string'},
                         {key: '代理标识码', value: data.uniqueCode, type: 'qrcode'},
                         // {key: '代理二维码', value: this.data.disposeDay},
