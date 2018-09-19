@@ -146,15 +146,15 @@
                 </template>
             </el-table-column>
 
-            <el-table-column align="center" label="分成比例">
-                <template slot-scope="scope">
-                <span class="link-type">
-                <p>省代 :{{  scope.row.provinceDividePrice/100 }}%</p>
-                <p>市县代：{{  scope.row.cityDividePrice/100 }}%</p>
-                <p>网点：{{  scope.row.pointDividePrice/100 }}%</p>
-                </span>
-                </template>
-            </el-table-column>
+            <!--<el-table-column align="center" label="分成比例">-->
+                <!--<template slot-scope="scope">-->
+                <!--<span class="link-type">-->
+                <!--<p>省代 :{{  scope.row.provinceDividePrice/100 }}%</p>-->
+                <!--<p>市县代：{{  scope.row.cityDividePrice/100 }}%</p>-->
+                <!--<p>网点：{{  scope.row.pointDividePrice/100 }}%</p>-->
+                <!--</span>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
 
             <el-table-column class-name="status-col" label="商品状态" align="center">
                 <template slot-scope="scope">
