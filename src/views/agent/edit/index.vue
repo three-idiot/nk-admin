@@ -417,6 +417,11 @@ export default {
                 if (valid) {
                     if ( this.listQuery.pwd != null ) {
                         this.listQuery.pwd = md5(this.listQuery.pwd);
+                    };
+                    if ( this.listQuery.bizLicenseImagePath ) {
+                        let path = /\/images\/.*\?/.exec(this.listQuery.bizLicenseImagePath)[0].split('?')[0];
+                        console.log( path );
+                        this.listQuery.bizLicenseImagePath = path;
                     }
                     // console.log('测试大师', this.listQuery.pwd);
                     this.update(this.listQuery);
