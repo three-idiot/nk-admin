@@ -63,7 +63,7 @@
                         //     tinymce.get(_this.realId).setContent( _this.value );
                         // }
                         // console.log( '测试四c', _this.realId );
-                        _this.$emit('input', _this.value);
+                        // _this.$emit('input', _this.value);
                         editor.on('input change undo redo', () => {
                             let content = editor.getContent();
                             _this.$emit('input', content);

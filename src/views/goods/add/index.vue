@@ -45,7 +45,7 @@
 
             <el-form-item label="添加图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='api/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
@@ -354,6 +354,7 @@
             });
         },
         created() {
+            window.this = this;
         },
         components: {
             App,
