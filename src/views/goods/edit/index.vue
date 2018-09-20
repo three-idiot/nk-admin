@@ -134,13 +134,13 @@
 
             <hr>
 
-            <el-form-item label="设置商品价格(￥)" prop="realPrice">
-                <el-input v-model="ruleForm.realPrice" style="width: 180px;" disabled></el-input>
+            <el-form-item label="设置商品价格(￥)" prop="salePrice">
+                <el-input v-model="ruleForm.salePrice" style="width: 180px;" disabled></el-input>
                 <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
             </el-form-item>
 
-            <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                <el-input v-model="ruleForm.salePrice" disabled></el-input>
+            <el-form-item label="设置门市价格(￥)" prop="realPrice" style="width: 312px;">
+                <el-input v-model="ruleForm.realPrice" disabled></el-input>
             </el-form-item>
 
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
@@ -152,13 +152,13 @@
                 title="修改期限和人数"
                 :visible.sync="dialogVisible2"
                 width="50%">
-                <el-form-item label="设置商品价格(￥)" prop="realPrice">
-                    <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                <el-form-item label="设置商品价格(￥)" prop="salePrice">
+                    <el-input v-model="ruleForm.salePrice" style="width: 180px;"></el-input>
                     <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
                 </el-form-item>
 
-                <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                    <el-input v-model="ruleForm.salePrice"></el-input>
+                <el-form-item label="设置门市价格(￥)" prop="realPrice" style="width: 312px;">
+                    <el-input v-model="ruleForm.realPrice"></el-input>
                 </el-form-item>
 
                 <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">

@@ -54,17 +54,17 @@
 
 
             <p>商品描述：</p>
-            <el-form-item label="线路特色" prop="lineDescribe">
+            <el-form-item label="线路特色" prop="lineDescribe" class="lineDescribe">
                 <editor class="editor" :value="ruleForm.lineDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.lineDescribe = content"></editor>
             </el-form-item>
 
-            <el-form-item label="行程介绍" prop="tripDescribe">
+            <el-form-item label="行程介绍" prop="tripDescribe" class="tripDescribe">
                 <editor class="editor" :value="ruleForm.tripDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.tripDescribe = content"></editor>
             </el-form-item>
 
-            <el-form-item label="费用与须知" prop="costDescribe">
+            <el-form-item label="费用与须知" prop="costDescribe" class="costDescribe">
                 <editor class="editor" :value="ruleForm.costDescribe" :setting="editorSetting"
                         @input="(content)=> ruleForm.costDescribe = content"></editor>
             </el-form-item>
@@ -96,12 +96,12 @@
             </el-form-item>
             <hr>
 
-            <el-form-item label="设置商品价格(￥)" prop="realPrice" style="width: 312px;">
-                <el-input v-model="ruleForm.realPrice"></el-input>
+            <el-form-item label="设置商品价格(￥)" prop="salePrice" style="width: 312px;">
+                <el-input v-model="ruleForm.salePrice"></el-input>
             </el-form-item>
 
-            <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                <el-input v-model="ruleForm.salePrice"></el-input>
+            <el-form-item label="设置门市价格(￥)" prop="realPrice" style="width: 312px;">
+                <el-input v-model="ruleForm.realPrice"></el-input>
             </el-form-item>
 
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
@@ -201,6 +201,14 @@
                     callback();
                 }
             };
+            let checkFloat = (rule, value, callback) => {
+                if (!/^\d+(\.\d+)?$/.test(value)) {
+                    return callback(new Error('必须是数字'));
+                } else {
+                    callback();
+                }
+            };
+
             let length16 = (rule, value, callback) => {
                 if ( !/^.{1,16}$/.test(value) ) {
                     return callback(new Error('不能超过16个字符'));
@@ -302,13 +310,13 @@
                         {required: true, trigger: 'change', message: '请输入出发地点'}
                     ],
                     lineDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入线路特色'}
+                        // {required: true, trigger: 'blur', message: '请输入线路特色'}
                     ],
                     tripDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入行程特色'},
+                        // {required: true, trigger: 'blur', message: '请输入行程特色'},
                     ],
                     costDescribe: [
-                        {required: true, trigger: 'blur', message: '请输入费用与须知'},
+                        // {required: true, trigger: 'blur', message: '请输入费用与须知'},
                     ],
                     peopleMinNum: [
                         {required: true, trigger: 'change', message: '请输入最低成团人数'},
@@ -320,15 +328,15 @@
                     ],
                     realPrice: [
                         {required: true, trigger: 'blur', message: '请输入商品价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     salePrice: [
                         {required: true, trigger: 'blur', message: '请输入门市价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     childPrice: [
                         {required: true, trigger: 'blur', message: '请输入儿童价格'},
-                        {validator: checkNum, trigger: 'blur'}
+                        {validator: checkFloat, trigger: 'blur'}
                     ],
                     images: [
                         {required: true, trigger: 'change', message: '请至少添加一张图片'},
@@ -352,24 +360,6 @@
             editor
         },
         methods: {
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
-                // this.ruleForm.goodsNum = URL.createObjectURL(file.raw);
-                console.log(file.response.data);
-                this.ruleForm.goodsNum = file.response.data;
-            },
-            beforeAvatarUpload(file) {
-                // const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                // if (!isJPG) {
-                //   this.$message.error('上传头像图片只能是 JPG 格式!');
-                // }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isLt2M;
-            },
             imgUploaded(res, file) {
                 if (Object.prototype.toString.call(this.ruleForm.images) != '[object Array]') {
                     this.ruleForm.images = [];
@@ -385,43 +375,62 @@
             imgRemove(files, fileList) {
                 this.form.visaPath = null;
             },
+            finalSubmit() {
+                console.log('submit!');
+                // console.log(this.upType);
+                console.log('测试', this.travelGoodsDividePrices);
+                if (this.upType == 2) {
+                    // 立即上架
+                    this.ruleForm.status = 2;
+                    this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+                } else if (this.upType == 1) {
+                    // 在库中
+                    this.ruleForm.status = 1;
+                    this.ruleForm.upTime = null;
+                } else {
+                    // 固定时间上架
+                    this.ruleForm.status = 1;
+                    if (!this.ruleForm.upTime) {
+                        alert('请输入上架时间');
+                        return;
+                    }
+                }
+                console.log('调试2', this.ruleForm);
+                this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
+                this.ruleForm.realPrice = this.ruleForm.realPrice * 100;
+                this.ruleForm.salePrice = this.ruleForm.salePrice * 100;
+                this.ruleForm.childPrice = this.ruleForm.childPrice * 100;
+                addTravelGoods(this.ruleForm).then(res => {
+                    console.log('掉借口了', res);
+                    if ( res.code == 200 ) {
+                        alert('新建成功');
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                });
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log('submit!');
-                        console.log(this.upType);
-                        console.log('测试', this.travelGoodsDividePrices);
-                        if (this.upType == 2) {
-                            // 立即上架
-                            this.ruleForm.status = 2;
-                            this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
-                        } else if (this.upType == 1) {
-                            // 在库中
-                            this.ruleForm.status = 1;
-                            this.ruleForm.upTime = null;
+                        if( this.ruleForm.lineDescribe == null || this.ruleForm.lineDescribe == '' ) {
+                            this.$message({
+                                message: '线路特色不能为空',
+                                type: 'error'
+                            });
+                        } else if ( this.ruleForm.tripDescribe == null || this.ruleForm.tripDescribe == '') {
+                            this.$message({
+                                message: '行程介绍不能为空',
+                                type: 'error'
+                            });
+                        } else if ( this.ruleForm.costDescribe == null || this.ruleForm.costDescribe == '' ) {
+                            this.$message({
+                                message: '费用与须知不能为空',
+                                type: 'error'
+                            });
                         } else {
-                            // 固定时间上架
-                            this.ruleForm.status = 1;
-                            if (!this.ruleForm.upTime) {
-                                alert('请输入上架时间');
-                                return;
-                            }
+                            this.finalSubmit();
                         }
-                        console.log('调试2', this.ruleForm);
-                        this.ruleForm.travelGoodsDividePrices = this.travelGoodsDividePrices;
-                        addTravelGoods(this.ruleForm).then(res => {
-                            console.log('掉借口了', res);
-                            if ( res.code == 200 ) {
-                                alert('新建成功');
-                                window.location.reload();
-                            } else {
-                                alert(res.msg);
-                            }
-                            // if ( res.code == 200 ) {
-                            //     alert('新建成功');
-                            //     history.back();
-                            // }
-                        });
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -434,6 +443,16 @@
         }
     };
 </script>
+
+<style rel="stylesheet/scss" lang="scss">
+    .lineDescribe,.costDescribe,.tripDescribe {
+        label:before {
+            content: '*';
+            color: #f56c6c;
+            margin-right: 4px;
+        }
+    }
+</style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
     .avatar-uploader .el-upload {
@@ -478,6 +497,8 @@
             color: #FFFFFF;
         }
     }
+
+
 
 
 </style>
