@@ -151,7 +151,7 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible2"
-                width="50%">
+                >
                 <el-form-item label="设置商品价格(￥)" prop="salePrice">
                     <el-input v-model="ruleForm.salePrice" style="width: 180px;"></el-input>
                     <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
@@ -226,55 +226,44 @@
                 <tr>
                     <td class="tableTitle">成人：</td>
                     <td>
-                        {{ calPrices(1,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(1,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(2,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(2,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(3,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(3,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(4,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(4,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td class="tableTitle">儿童：</td>
                     <td>
-                        {{ calPrices(1,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(1,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(2,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(2,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(3,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(3,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(4,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(4,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                 </tr>
             </table>
 
 
-            <!--<el-form-item label="省代(元)" prop="provinceDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.provinceDividePrice"></el-input>-->
-            <!--</el-form-item>-->
-
-            <!--<el-form-item label="市县代(元)" prop="cityDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.cityDividePrice"></el-input>-->
-            <!--</el-form-item>-->
-
-            <!--<el-form-item label="网点(元)" prop="pointDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.pointDividePrice"></el-input>-->
-            <!--</el-form-item>-->
             <hr>
 
 
@@ -508,6 +497,7 @@
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
                     this.ruleForm.type = String(this.ruleForm.type);
                     this.ruleForm.status = String(this.ruleForm.status);
+                    this.travelGoodsDividePrices = this.ruleForm.travelGoodsDividePrices;
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {
