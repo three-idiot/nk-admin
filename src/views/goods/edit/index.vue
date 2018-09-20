@@ -48,7 +48,7 @@
 
             <el-form-item label="修改图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove" :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
