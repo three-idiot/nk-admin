@@ -95,7 +95,7 @@
   },
   computed: {
     isEdit () {
-      return this.$route.query && this.$route.query.id;
+      return this.$route.query && this.$route.query.id ? true : false;
     }
   },
   created() {

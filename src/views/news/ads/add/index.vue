@@ -54,6 +54,7 @@
       <!-- 广告有效期 -->
       <el-form-item label="广告有效期" prop="validTime" style="width: 312px;">
         <el-date-picker
+          v-if="showEditor"
           v-model="ruleForm.validTime"
           type="date"
           value-format="yyyy-MM-dd HH:mm:ss"
@@ -136,7 +137,7 @@
   },
   computed: {
     isEdit () {
-      return this.$route.query && this.$route.query.id;
+      return this.$route.query && this.$route.query.id ? true : false;
     }
   },
   created() {
@@ -186,7 +187,8 @@
             detail: data.detail,
             url: data.url,
             sort: data.sort,
-            validTime: new Date(Date.parse(data.validTime.replace(/-/g,"/")))
+            // validTime: new Date(Date.parse(data.validTime.replace(/-/g,"/")))
+            validTime: data.validTime
           }
         }
         this.showEditor = true;
@@ -246,6 +248,10 @@
     },
     cancel() {
       this.$router.back(-1);
+    },
+    /** 2018-01-01 00:00:00转化为ie支持的格式 */
+    parseTime (str) {
+      console.log(str);
     }
   },
   components: {
