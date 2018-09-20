@@ -100,7 +100,7 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible1"
-                width="30%">
+                >
                 <el-form-item label="修改商品期限" prop="peopleMinNum">
                     <el-radio-group>
                         <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
@@ -109,8 +109,8 @@
                     </el-radio-group>
                     <el-date-picker style="margin-left: 5px;"
                                     v-model="ruleForm.upTime"
-                                    type="date"
-                                    value-format="yyyy-MM-dd"
+                                    type="datetime"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
                                     placeholder="选择日期">
                     </el-date-picker>
                 </el-form-item>

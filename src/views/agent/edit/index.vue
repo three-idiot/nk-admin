@@ -197,7 +197,7 @@
                 <el-date-picker
                     v-model="form.expireTime"
                     type="datetime"
-                    value-format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd HH:mm:ss"
                     placeholder="选择日期">
                 </el-date-picker>
             </el-form-item>
@@ -219,7 +219,7 @@
             <el-date-picker
                 v-model="form.expireTime"
                 type="datetime"
-                value-format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd HH:mm:ss"
                 placeholder="选择日期">
             </el-date-picker>
         </el-form-item>
