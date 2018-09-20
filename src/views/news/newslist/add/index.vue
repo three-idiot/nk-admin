@@ -106,7 +106,7 @@
   },
   methods: {
     handleDelImg (img, index) {
-      this.ruleForm.images.splice(index);
+      this.ruleForm.images.splice(index, 1);
     },
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);

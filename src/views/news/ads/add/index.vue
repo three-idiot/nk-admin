@@ -148,7 +148,7 @@
   methods: {
     handleDelImg (img, index) {
       // console.log('要删除的图片上是：', img, index);
-      this.ruleForm.images.splice(index);
+      this.ruleForm.images.splice(index, 1);
     },
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);
@@ -186,7 +186,7 @@
             detail: data.detail,
             url: data.url,
             sort: data.sort,
-            validTime: data.validTime
+            validTime: new Date(Date.parse(data.validTime.replace(/-/g,"/")))
           }
         }
         this.showEditor = true;
