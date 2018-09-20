@@ -13,10 +13,10 @@
       <!--资讯图片-->
       <el-form-item label="广告图片" prop="images">
         <span class="news-img"
-                 v-for="(img, index) in ruleForm.images" 
+                 v-for="(img, index) in ruleForm.images"
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.localPath || img.goodPath" 
+          <img :src="img.localPath || img.goodPath"
                  alt="图片" />
         </span>
          <el-upload
@@ -66,7 +66,7 @@
       <el-form-item label="广告详情" prop="detail" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
         <editor class="editor"
-                v-if="!isEdit || isEdit && showEditor" 
+                v-if="!isEdit || isEdit && showEditor"
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -89,8 +89,8 @@
   data() {
     return {
       showEditor: false, /** 加这个变量纯属无奈，editor异步传入数据进去居然不会渲染 */
-      action: '/api/image/uploadfile',
-      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
+      action: '/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/image/uploadfile',
       ruleForm: {
         adNo: '',
         id: '',

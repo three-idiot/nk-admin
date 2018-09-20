@@ -22,7 +22,7 @@
         </el-form-item>
         <el-form-item label="上传电子签证" prop="visaPath">
             <!-- TODO 上线之后这里要把api前缀去掉 -->
-            <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
+            <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">
                 <el-button v-show="!form.visaPath" size="small" type="primary">点击上传</el-button>
                 <div v-show="!!form.visaPath" slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
             </el-upload>

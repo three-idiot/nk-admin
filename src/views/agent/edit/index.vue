@@ -94,7 +94,7 @@
 
             <!--<el-form-item label="营业执照副本" >-->
                 <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
-                <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
+                <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
                     <!--<el-button type="primary">点击上传</el-button>-->
                     <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                 <!--</el-upload>-->
@@ -113,12 +113,12 @@
                 <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
                 <!--<div class="pic-container">-->
                     <!--<span class="picTitle">国徽面：</span>-->
-                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
                         <!--<el-button type="primary">点击上传</el-button>-->
                         <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                     <!--</el-upload>-->
                     <!--<span class="picTitle">信息面：</span>-->
-                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
                         <!--<el-button type="primary">点击上传</el-button>-->
                         <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                     <!--</el-upload>-->
