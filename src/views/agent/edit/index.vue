@@ -138,7 +138,7 @@
         <el-dialog
             title="修改银行账号"
             :visible.sync="dialogVisible1"
-            width="30%">
+            >
 
             <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
                 <el-input v-model="form.bankAccountName"></el-input>
@@ -189,14 +189,14 @@
         </div>
 
         <el-dialog
-            title="修改银行账号"
+            title="修改使用期限"
             :visible.sync="dialogVisible2"
-            width="30%">
+            >
 
             <el-form-item label="时间" prop="expireTime">
                 <el-date-picker
                     v-model="form.expireTime"
-                    type="date"
+                    type="datetime"
                     value-format="yyyy-MM-dd"
                     placeholder="选择日期">
                 </el-date-picker>
@@ -415,7 +415,9 @@ export default {
             this.$refs[formName].validate((valid) => {
                 console.log( this.form );
                 if (valid) {
-                    this.listQuery.pwd = md5(this.listQuery.pwd);
+                    if ( this.listQuery.pwd != null ) {
+                        this.listQuery.pwd = md5(this.listQuery.pwd);
+                    }
                     // console.log('测试大师', this.listQuery.pwd);
                     this.update(this.listQuery);
                 } else {
@@ -443,17 +445,6 @@ export default {
         },
         imgRemove(files, fileList) {
             this.form.bizLicenseImagePath = null;
-        },
-        beforeAvatarUpload(file) {
-            // const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            // if (!isJPG) {
-            //   this.$message.error('上传头像图片只能是 JPG 格式!');
-            // }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isLt2M;
         },
         update(params) {
             updateAgent(params).then(response => {
