@@ -102,13 +102,8 @@
                 :visible.sync="dialogVisible1"
                 >
                 <el-form-item label="修改商品期限" prop="peopleMinNum">
-                    <el-radio-group>
-                        <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
-                        <el-radio label="1">长期有效</el-radio>
-                        <el-radio label="2">固定年限</el-radio>
-                    </el-radio-group>
                     <el-date-picker style="margin-left: 5px;"
-                                    v-model="ruleForm.upTime"
+                                    v-model="ruleForm.closeDate"
                                     type="datetime"
                                     value-format="yyyy-MM-dd HH:mm:ss"
                                     placeholder="选择日期">
