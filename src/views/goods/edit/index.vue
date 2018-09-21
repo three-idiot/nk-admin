@@ -551,36 +551,46 @@
                 }
                 console.log( this.ruleForm.images );
             },
+            finalSubmit() {
+                console.log('submit!');
+                console.log(this.upType);
+                if (this.upType == 2) {
+                    // 立即上架
+                    this.ruleForm.status = 2;
+                    this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+                } else if (this.upType == 1) {
+                    // 在库中
+                    this.ruleForm.status = 1;
+                    this.ruleForm.upTime = null;
+                } else {
+                    // 固定时间上架
+                    this.ruleForm.status = 1;
+                    if (!this.ruleForm.upTime) {
+                        alert('请输入上架时间');
+                        return;
+                    }
+                }
+                console.log('调试2', this.ruleForm);
+                // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+                updateTravelGoods(this.ruleForm).then(res => {
+                    console.log('掉借口了', res);
+                    if ( res.code == 200 ) {
+                        alert('修改成功');
+                        history.back();
+                    }
+                });
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log('submit!');
-                        console.log(this.upType);
-                        if (this.upType == 2) {
-                            // 立即上架
-                            this.ruleForm.status = 2;
-                            this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
-                        } else if (this.upType == 1) {
-                            // 在库中
-                            this.ruleForm.status = 1;
-                            this.ruleForm.upTime = null;
+                        if ( this.ruleForm.peopleMinNum > this.ruleForm.peopleMaxNum ){
+                            this.$message({
+                                message: '最低成团人数不能大于成团人数上限',
+                                type: 'error'
+                            });
                         } else {
-                            // 固定时间上架
-                            this.ruleForm.status = 1;
-                            if (!this.ruleForm.upTime) {
-                                alert('请输入上架时间');
-                                return;
-                            }
+                            this.finalSubmit();
                         }
-                        console.log('调试2', this.ruleForm);
-                        // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
-                        updateTravelGoods(this.ruleForm).then(res => {
-                            console.log('掉借口了', res);
-                            if ( res.code == 200 ) {
-                                alert('修改成功');
-                                history.back();
-                            }
-                        });
                     } else {
                         console.log('error submit!!');
                         return false;
