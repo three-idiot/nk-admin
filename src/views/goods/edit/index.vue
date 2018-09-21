@@ -497,7 +497,9 @@
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
                     this.ruleForm.type = String(this.ruleForm.type);
                     this.ruleForm.status = String(this.ruleForm.status);
-                    this.travelGoodsDividePrices = this.ruleForm.travelGoodsDividePrices;
+                    if ( this.ruleForm.travelGoodsDividePrices.length  ) {
+                        this.travelGoodsDividePrices = this.ruleForm.travelGoodsDividePrices;
+                    }
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {
