@@ -54,13 +54,14 @@ export const asyncRouterMap = [
         name: 'user',
         meta: {
             title: '用户管理',
-            icon: 'user'
+            icon: 'user',
+            roles: ['user-list']
         },
         children: [
             {
                 path: 'list',
                 component: () => import('@/views/user/list'),
-                meta: { title: '用户列表', roles: ['user-list']},
+                meta: { title: '用户列表', roles: ['user-list'] },
                 name: 'user-list',
             }
         ]
@@ -80,7 +81,7 @@ export const asyncRouterMap = [
                 path: 'list',
                 name: 'order-list',
                 component: () => import('@/views/order/list'),
-                meta: { title: '订单列表'}
+                meta: { title: '订单列表' }
             },
             {
                 path: 'check/:id',
@@ -104,7 +105,8 @@ export const asyncRouterMap = [
         name: 'travel-order',
         meta: {
             title: '旅游订单',
-            icon: 'travel-shopping'
+            icon: 'travel-shopping',
+            roles: ['travel-order-list', 'travel-order-refund-order', 'travel-order-refund-check']
         },
         children: [
             {
@@ -153,7 +155,8 @@ export const asyncRouterMap = [
         name: 'visa',
         meta: {
             title: '签证管理',
-            icon: 'visa'
+            icon: 'visa',
+            roles: ['visa-list', 'visa-add']
         },
         children: [
             {
@@ -191,22 +194,23 @@ export const asyncRouterMap = [
         redirect: '/news/newslist',
         name: 'news',
         meta: {
-        title: '资讯管理',
-        icon: 'news'
+            title: '资讯管理',
+            icon: 'news',
+            roles: ['news-list', 'news-add', 'ads-list', 'ads-add']
         },
         children: [
             {
-              path: 'newslist',
-              name: 'news-list',
-              component: () => import('@/views/news/newslist/list'),
-              meta: { title: '资讯列表', roles: ['news-list'] }
+                path: 'newslist',
+                name: 'news-list',
+                component: () => import('@/views/news/newslist/list'),
+                meta: { title: '资讯列表', roles: ['news-list'] }
             },
             {
-              path: 'newsadd',
-              name: 'news-add',
-              component: () => import('@/views/news/newslist/add'),
-              meta: { title: '新增资讯', roles: ['news-add'] },
-              hidden: true
+                path: 'newsadd',
+                name: 'news-add',
+                component: () => import('@/views/news/newslist/add'),
+                meta: { title: '新增资讯', roles: ['news-add'] },
+                hidden: true
             },
             {
                 path: 'newsedit',
@@ -215,35 +219,35 @@ export const asyncRouterMap = [
                 hidden: true
             },
             {
-              path: 'newsdetail/:id',
-              name: 'news-detail',
-              component: () => import('@/views/news/newslist/detail'),
-              hidden: true
+                path: 'newsdetail/:id',
+                name: 'news-detail',
+                component: () => import('@/views/news/newslist/detail'),
+                hidden: true
             },
             {
-              path: 'adslist',
-              component: () => import('@/views/news/ads/list'),
-              meta: { title: '广告列表', roles: ['ads-list'] },
-              name: 'adslist'
+                path: 'adslist',
+                component: () => import('@/views/news/ads/list'),
+                meta: { title: '广告列表', roles: ['ads-list'] },
+                name: 'adslist'
             },
             {
-              path: 'adsadd',
-              name: 'ads-add',
-              component: () => import('@/views/news/ads/add'),
-              meta: { title: '新增广告', roles: ['ads-add']},
-              hidden: true
+                path: 'adsadd',
+                name: 'ads-add',
+                component: () => import('@/views/news/ads/add'),
+                meta: { title: '新增广告', roles: ['ads-add'] },
+                hidden: true
             },
             {
-              path: 'adsdetail/:id',
-              name: 'ads-detail',
-              component: () => import('@/views/news/ads/detail'),
-              hidden: true
+                path: 'adsdetail/:id',
+                name: 'ads-detail',
+                component: () => import('@/views/news/ads/detail'),
+                hidden: true
             },
             {
-              path: 'adsedit',
-              name: 'ads-edit',
-              component: () => import('@/views/news/ads/add'),
-              hidden: true
+                path: 'adsedit',
+                name: 'ads-edit',
+                component: () => import('@/views/news/ads/add'),
+                hidden: true
             }
         ]
     },
@@ -255,7 +259,8 @@ export const asyncRouterMap = [
         name: 'account',
         meta: {
             title: '账号管理',
-            icon: 'account'
+            icon: 'account',
+            roles: ['account-list', 'account-add']
         },
         children: [
             {
@@ -292,7 +297,8 @@ export const asyncRouterMap = [
         name: 'permission',
         meta: {
             title: '角色和权限',
-            icon: 'permission'
+            icon: 'permission',
+            roles: ['permission-list', 'permission-add']
         },
         children: [
             {
@@ -323,7 +329,8 @@ export const asyncRouterMap = [
         name: 'audit',
         meta: {
             title: '审核',
-            icon: 'permission'
+            icon: 'permission',
+            roles: ['audit-ads']
         },
         children: [
             {
@@ -342,7 +349,8 @@ export const asyncRouterMap = [
         name: 'agent',
         meta: {
             title: '代理商管理',
-            icon: 'eye'
+            icon: 'eye',
+            roles: ['agent-list', 'agent-add']
         },
         children: [
             {
@@ -383,7 +391,8 @@ export const asyncRouterMap = [
         name: 'goods',
         meta: {
             title: '商品管理',
-            icon: 'visa'
+            icon: 'visa',
+            roles: ['goods-list', 'goods-add']
         },
         children: [
             {

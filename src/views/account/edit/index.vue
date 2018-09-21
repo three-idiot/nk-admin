@@ -2,8 +2,13 @@
 <div class="app-container">
     <title-line txt="编辑账号"></title-line>
     <el-form ref="ruleForm" :model="form" :rules="rules" class="demo-ruleForm" label-width="100px">
-        <el-form-item label="所属角色" prop="roleId">
+        <el-form-item v-if="0" label="所属角色" prop="roleId">
             <el-select disabled v-model="form.roleId" placeholder="请选择">
+                <el-option v-for="item in roles" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="所属角色" prop="roleId">
+            <el-select disabled v-model="form.roleName" placeholder="请选择">
                 <el-option v-for="item in roles" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
         </el-form-item>
@@ -37,11 +42,12 @@
 </template>
 
 <script>
+import md5 from 'md5';
 import {
     getList
 } from "@/api/permission";
 import {
-    addAccount
+    updateAccount
 } from "@/api/account";
 import TitleLine from "@/components/TitleLine/index.vue";
 import map from "@/map/account";
@@ -64,9 +70,7 @@ export default {
             }
         };
         var validatePass = (rule, value, callback) => {
-            if (!value) {
-                callback(new Error('请输入密码'));
-            } else if (!(/^[A-Za-z0-9]{8,}$/.test(value))) {
+            if (value && !(/^[A-Za-z0-9]{8,}$/.test(value))) {
                 callback(new Error('最小长度为 8 个字符'));
             } else {
                 if (this.form.checkPass) {
@@ -76,9 +80,7 @@ export default {
             }
         };
         var validatePass2 = (rule, value, callback) => {
-            if (!value) {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.form.pwd) {
+            if (this.form.pwd && value !== this.form.pwd) {
                 callback(new Error('两次输入密码不一致!'));
             } else {
                 callback();
@@ -86,7 +88,7 @@ export default {
         };
         return Object.assign({}, map, {
             form: {
-                status:String(this.$route.params.data.status)
+                status: String(this.$route.params.data.status)
             },
             rules: {
                 username: [{
@@ -113,7 +115,7 @@ export default {
                     validator: validatePhone,
                     trigger: 'blur'
                 }],
-                status:[{
+                status: [{
                     required: true,
                     message: '请选择状态',
                     trigger: 'change'
@@ -128,7 +130,9 @@ export default {
     computed: {
         listQuery() {
             delete this.form.checkPass;
-            return Object.assign({}, this.form, {});
+            return Object.assign({}, this.form, {
+                pwd: md5(this.form.pwd)
+            });
         }
     },
     created() {
@@ -138,8 +142,10 @@ export default {
         } else {
             const data = this.$route.params.data;
             this.form.id = data.id;
+            this.form.roleName = data.roleName;
             this.form.roleId = data.roleId;
             this.form.username = data.username;
+            this.form.name = data.name;
             this.form.phone = data.phone;
         }
     },
@@ -169,8 +175,8 @@ export default {
             this.form.visaPath = null;
         },
         update(params) {
-            addAccount(params).then(response => {
-                this.$alert('添加成功', '提示', {
+            updateAccount(params).then(response => {
+                this.$alert('修改成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
                         this.$router.back();
@@ -188,15 +194,18 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+
     .title {
         font-size: 30px;
         color: #606266;
     }
+
     .form {
         margin-top: 30px;
         padding: 30px;
         padding-bottom: 5px;
         background: #F2F6FC;
+
         .btn {
             margin-top: 30px;
         }
