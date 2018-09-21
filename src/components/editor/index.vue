@@ -1,5 +1,7 @@
 <template>
-    <textarea :class="id" v-model="value"></textarea>
+    <div>
+        <textarea :class="id" v-model="value"></textarea>
+    </div>
 </template>
 <script>
     // Import TinyMCE
@@ -24,6 +26,9 @@
         watch: {
             value: function (val) {
                 console.log('init ' + val);
+                if( val == null ) {
+                    tinymce.get(this.realId).setContent('');
+                }
                 // if (this.status == INIT || tinymce.activeEditor.getContent() != val) {
                 //     tinymce.activeEditor.setContent(val);
                 // }
@@ -58,7 +63,7 @@
                         //     tinymce.get(_this.realId).setContent( _this.value );
                         // }
                         // console.log( '测试四c', _this.realId );
-                        _this.$emit('input', _this.value);
+                        // _this.$emit('input', _this.value);
                         editor.on('input change undo redo', () => {
                             let content = editor.getContent();
                             _this.$emit('input', content);

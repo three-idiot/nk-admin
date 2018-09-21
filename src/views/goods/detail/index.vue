@@ -147,8 +147,8 @@
                         {key: '报名截至日期', value: this.data.closeDate, type: 'string'},
                         {key: '最低成团人数', value: this.data.peopleMinNum, type: 'string'},
                         {key: '成团人数上限', value: this.data.peopleMaxNum, type: 'string'},
-                        {key: '商品价格', value: this.data.realPrice, type: 'string'},
-                        {key: '门市价格', value: this.data.salePrice, type: 'string'},
+                        {key: '商品价格', value: this.data.salePrice, type: 'string'},
+                        {key: '门市价格', value: this.data.realPrice, type: 'string'},
                         {key: '儿童价格', value: this.data.childPrice, type: 'string'},
                         {key: '创建人', value: this.data.publisher, type: 'string'},
                         {key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}

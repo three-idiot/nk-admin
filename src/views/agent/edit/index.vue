@@ -31,7 +31,7 @@
 
         <el-form-item label="代理商角色" prop="roleId">
             <el-select v-model="form.roleId" placeholder="请选择代理商角色" clearable>
-                <el-option :label="val" :value="key" :key="key" v-for="(val, key) in roleId"></el-option>
+                <el-option :label="val" :value="key" :key="key" v-for="(val, key) in newRoleId"></el-option>
             </el-select>
         </el-form-item>
 
@@ -94,7 +94,7 @@
 
             <!--<el-form-item label="营业执照副本" >-->
                 <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
-                <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
+                <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="imgUploaded" :on-remove="imgRemove">-->
                     <!--<el-button type="primary">点击上传</el-button>-->
                     <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                 <!--</el-upload>-->
@@ -113,12 +113,12 @@
                 <!--&lt;!&ndash; TODO 上线之后这里要把api前缀去掉 &ndash;&gt;-->
                 <!--<div class="pic-container">-->
                     <!--<span class="picTitle">国徽面：</span>-->
-                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardFrontImageUploaded" :on-remove="idCardFrontImageRemove">-->
                         <!--<el-button type="primary">点击上传</el-button>-->
                         <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                     <!--</el-upload>-->
                     <!--<span class="picTitle">信息面：</span>-->
-                    <!--<el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
+                    <!--<el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="1" :on-success="idCardBackImageUploaded" :on-remove="idCardBackImageRemove">-->
                         <!--<el-button type="primary">点击上传</el-button>-->
                         <!--<div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>-->
                     <!--</el-upload>-->
@@ -138,7 +138,7 @@
         <el-dialog
             title="修改银行账号"
             :visible.sync="dialogVisible1"
-            width="30%">
+            >
 
             <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
                 <el-input v-model="form.bankAccountName"></el-input>
@@ -189,15 +189,15 @@
         </div>
 
         <el-dialog
-            title="修改银行账号"
+            title="修改使用期限"
             :visible.sync="dialogVisible2"
-            width="30%">
+            >
 
             <el-form-item label="时间" prop="expireTime">
                 <el-date-picker
                     v-model="form.expireTime"
-                    type="date"
-                    value-format="yyyy-MM-dd"
+                    type="datetime"
+                    value-format="yyyy-MM-dd HH:mm:ss"
                     placeholder="选择日期">
                 </el-date-picker>
             </el-form-item>
@@ -218,8 +218,8 @@
         <el-form-item label="时间" prop="expireTime">
             <el-date-picker
                 v-model="form.expireTime"
-                type="date"
-                value-format="yyyy-MM-dd"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
                 placeholder="选择日期">
             </el-date-picker>
         </el-form-item>
@@ -240,7 +240,8 @@
 import {
     getAgent,
     getLowerAreas,
-    updateAgent
+    updateAgent,
+    agentRoleList
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
@@ -256,6 +257,7 @@ export default {
             }
         };
         return Object.assign({}, agentMap, {
+            newRoleId: {},
             dialogVisible1: false,
             dialogVisible2: false,
             province: null,
@@ -294,11 +296,11 @@ export default {
                     { validator: validateUsername, trigger: 'blur' }
                 ],
                 pwd: [
-                    { required: true, trigger: 'blur', message: '请输入密码' },
-                    { validator: checkPassword, trigger: 'blur' }
+                    // { required: true, trigger: 'blur', message: '请输入密码' },
+                    // { validator: checkPassword, trigger: 'blur' }
                 ],
                 confirmPassword: [
-                    { validator: validatePass2, trigger: 'blur' }
+                    { validator: validatePass2, trigger: 'change' }
                 ],
                 agentName: [
                     { required: true, trigger: 'blur', message: '请输入代理商名称' },
@@ -363,10 +365,23 @@ export default {
         }
     },
     created() {
+        this.fetchAgentRoleList();
         this.fetchData();
         this.fetchAddressData();
     },
     methods: {
+        fetchAgentRoleList() {
+            agentRoleList().then(res => {
+                console.log( res );
+                let data = res.data;
+                for ( let i=0;i<data.length;i++ ) {
+                    let item = data[i];
+                    console.log(item);
+                    this.newRoleId[item.id] = item.name;
+                }
+                console.log('测试',this.newRoleId);
+            });
+        },
         fetchAddressData() {
             getLowerAreas({id: 0}).then( res => {
                 // console.log( res );
@@ -385,7 +400,8 @@ export default {
                 if(res.code == 200) {
                     this.form = res.data;
                     this.form.roleId = String(this.form.roleId);
-                    this.confirmPassword = this.form.pwd;
+                    this.form.pwd = null;
+                    // this.confirmPassword = this.form.pwd;
                     console.log( this.form.province, this.form.city, this.form.county);
                     this.getNextLevel('city', this.form.province);
                     this.getNextLevel('county', this.form.city);
@@ -399,7 +415,14 @@ export default {
             this.$refs[formName].validate((valid) => {
                 console.log( this.form );
                 if (valid) {
-                    this.listQuery.pwd = md5(this.listQuery.pwd);
+                    if ( this.listQuery.pwd != null ) {
+                        this.listQuery.pwd = md5(this.listQuery.pwd);
+                    };
+                    if ( this.listQuery.bizLicenseImagePath ) {
+                        let path = /\/images\/.*\?/.exec(this.listQuery.bizLicenseImagePath)[0].split('?')[0];
+                        console.log( path );
+                        this.listQuery.bizLicenseImagePath = path;
+                    }
                     // console.log('测试大师', this.listQuery.pwd);
                     this.update(this.listQuery);
                 } else {
@@ -427,17 +450,6 @@ export default {
         },
         imgRemove(files, fileList) {
             this.form.bizLicenseImagePath = null;
-        },
-        beforeAvatarUpload(file) {
-            // const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            // if (!isJPG) {
-            //   this.$message.error('上传头像图片只能是 JPG 格式!');
-            // }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isLt2M;
         },
         update(params) {
             updateAgent(params).then(response => {

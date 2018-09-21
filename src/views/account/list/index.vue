@@ -51,7 +51,7 @@
         </el-table-column>
         <el-table-column align="center" label="创建人">
             <template slot-scope="scope">
-                {{scope.row.createUser}}
+                {{scope.row.createUserName}}
             </template>
         </el-table-column>
         <el-table-column align="center" label="创建人角色">

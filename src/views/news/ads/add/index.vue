@@ -13,10 +13,10 @@
       <!--资讯图片-->
       <el-form-item label="广告图片" prop="images">
         <span class="news-img"
-                 v-for="(img, index) in ruleForm.images" 
+                 v-for="(img, index) in ruleForm.images"
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.localPath || img.goodPath" 
+          <img :src="img.localPath || img.goodPath"
                  alt="图片" />
         </span>
          <el-upload
@@ -54,6 +54,7 @@
       <!-- 广告有效期 -->
       <el-form-item label="广告有效期" prop="validTime" style="width: 312px;">
         <el-date-picker
+          v-if="showEditor"
           v-model="ruleForm.validTime"
           type="date"
           value-format="yyyy-MM-dd HH:mm:ss"
@@ -65,7 +66,7 @@
       <el-form-item label="广告详情" prop="detail" style="width: 312px;">
         <!-- <el-input v-model="ruleForm.detail"></el-input> -->
         <editor class="editor"
-                v-if="!isEdit || isEdit && showEditor" 
+                v-if="!isEdit || isEdit && showEditor"
                 :value="ruleForm.detail"
                 :setting="editorSetting"
                 @input="(content)=> ruleForm.detail = content"></editor>
@@ -88,8 +89,8 @@
   data() {
     return {
       showEditor: false, /** 加这个变量纯属无奈，editor异步传入数据进去居然不会渲染 */
-      action: '/api/image/uploadfile',
-      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
+      action: '/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/image/uploadfile',
       ruleForm: {
         adNo: '',
         id: '',
@@ -136,7 +137,7 @@
   },
   computed: {
     isEdit () {
-      return this.$route.query && this.$route.query.id;
+      return this.$route.query && this.$route.query.id ? true : false;
     }
   },
   created() {
@@ -148,7 +149,7 @@
   methods: {
     handleDelImg (img, index) {
       // console.log('要删除的图片上是：', img, index);
-      this.ruleForm.images.splice(index);
+      this.ruleForm.images.splice(index, 1);
     },
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);
@@ -186,6 +187,7 @@
             detail: data.detail,
             url: data.url,
             sort: data.sort,
+            // validTime: new Date(Date.parse(data.validTime.replace(/-/g,"/")))
             validTime: data.validTime
           }
         }
@@ -246,6 +248,10 @@
     },
     cancel() {
       this.$router.back(-1);
+    },
+    /** 2018-01-01 00:00:00转化为ie支持的格式 */
+    parseTime (str) {
+      console.log(str);
     }
   },
   components: {

@@ -13,10 +13,10 @@
       <!--资讯图片-->
       <el-form-item label="资讯图片" prop="images">
         <span class="news-img"
-                 v-for="(img, index) in ruleForm.images" 
+                 v-for="(img, index) in ruleForm.images"
                  :key="index">
           <i class="del-btn el-icon-remove" @click="handleDelImg(img, index)"></i>
-          <img :src="img.localPath || img.goodPath" 
+          <img :src="img.localPath || img.goodPath"
                  alt="图片" />
         </span>
          <el-upload
@@ -63,8 +63,8 @@
   data() {
     return {
       showEditor: false,
-      action: '/api/image/uploadfile',
-      // action: 'http://47.93.3.67:8086/api/image/uploadfile',
+      action: '/image/uploadfile',
+      // action: 'http://47.93.3.67:8086/image/uploadfile',
       ruleForm: {
         id: '',
         title: '',
@@ -95,7 +95,7 @@
   },
   computed: {
     isEdit () {
-      return this.$route.query && this.$route.query.id;
+      return this.$route.query && this.$route.query.id ? true : false;
     }
   },
   created() {
@@ -106,7 +106,7 @@
   },
   methods: {
     handleDelImg (img, index) {
-      this.ruleForm.images.splice(index);
+      this.ruleForm.images.splice(index, 1);
     },
     handleAvatarSuccess(res, file) {
       console.log('图片上传返回：', res, file);

@@ -48,7 +48,7 @@
 
             <el-form-item label="修改图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/api/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove" :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">如需更换图片，请点击图片右上角删除后重新上传</div>
@@ -100,17 +100,12 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible1"
-                width="30%">
+                >
                 <el-form-item label="修改商品期限" prop="peopleMinNum">
-                    <el-radio-group>
-                        <!--<el-radio v-for="(val,key) in upStatus" :label="val"  :key="key" >{{ key }}</el-radio>-->
-                        <el-radio label="1">长期有效</el-radio>
-                        <el-radio label="2">固定年限</el-radio>
-                    </el-radio-group>
                     <el-date-picker style="margin-left: 5px;"
-                                    v-model="ruleForm.upTime"
-                                    type="date"
-                                    value-format="yyyy-MM-dd"
+                                    v-model="ruleForm.closeDate"
+                                    type="datetime"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
                                     placeholder="选择日期">
                     </el-date-picker>
                 </el-form-item>
@@ -134,13 +129,13 @@
 
             <hr>
 
-            <el-form-item label="设置商品价格(￥)" prop="realPrice">
-                <el-input v-model="ruleForm.realPrice" style="width: 180px;" disabled></el-input>
+            <el-form-item label="设置商品价格(￥)" prop="salePrice">
+                <el-input v-model="ruleForm.salePrice" style="width: 180px;" disabled></el-input>
                 <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
             </el-form-item>
 
-            <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                <el-input v-model="ruleForm.salePrice" disabled></el-input>
+            <el-form-item label="设置门市价格(￥)" prop="realPrice" style="width: 312px;">
+                <el-input v-model="ruleForm.realPrice" disabled></el-input>
             </el-form-item>
 
             <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
@@ -151,14 +146,14 @@
             <el-dialog
                 title="修改期限和人数"
                 :visible.sync="dialogVisible2"
-                width="50%">
-                <el-form-item label="设置商品价格(￥)" prop="realPrice">
-                    <el-input v-model="ruleForm.realPrice" style="width: 180px;"></el-input>
+                >
+                <el-form-item label="设置商品价格(￥)" prop="salePrice">
+                    <el-input v-model="ruleForm.salePrice" style="width: 180px;"></el-input>
                     <el-button type="primary" style="margin-left: 30px;" @click="dialogVisible2 = true">点击修改</el-button>
                 </el-form-item>
 
-                <el-form-item label="设置门市价格(￥)" prop="salePrice" style="width: 312px;">
-                    <el-input v-model="ruleForm.salePrice"></el-input>
+                <el-form-item label="设置门市价格(￥)" prop="realPrice" style="width: 312px;">
+                    <el-input v-model="ruleForm.realPrice"></el-input>
                 </el-form-item>
 
                 <el-form-item label="设置儿童价格(￥)" prop="childPrice" style="width: 312px;">
@@ -226,55 +221,44 @@
                 <tr>
                     <td class="tableTitle">成人：</td>
                     <td>
-                        {{ calPrices(1,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(1,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[4].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(2,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(2,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[5].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(3,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(3,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[6].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(4,1) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(4,1) }}-->
+                        <el-input v-model="travelGoodsDividePrices[7].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td class="tableTitle">儿童：</td>
                     <td>
-                        {{ calPrices(1,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(1,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[0].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(2,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(2,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[1].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(3,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(3,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[2].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                     <td>
-                        {{ calPrices(4,2) }}
-                        <!--<el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00"></el-input>-->
+                        <!--{{ calPrices(4,2) }}-->
+                        <el-input v-model="travelGoodsDividePrices[3].price" placeholder="￥0.00" disabled></el-input>
                     </td>
                 </tr>
             </table>
 
 
-            <!--<el-form-item label="省代(元)" prop="provinceDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.provinceDividePrice"></el-input>-->
-            <!--</el-form-item>-->
-
-            <!--<el-form-item label="市县代(元)" prop="cityDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.cityDividePrice"></el-input>-->
-            <!--</el-form-item>-->
-
-            <!--<el-form-item label="网点(元)" prop="pointDividePrice" style="width: 312px;">-->
-            <!--<el-input v-model="ruleForm.pointDividePrice"></el-input>-->
-            <!--</el-form-item>-->
             <hr>
 
 
@@ -508,6 +492,9 @@
                     this.ruleForm.recommend = String(this.ruleForm.recommend);
                     this.ruleForm.type = String(this.ruleForm.type);
                     this.ruleForm.status = String(this.ruleForm.status);
+                    if ( this.ruleForm.travelGoodsDividePrices.length && this.ruleForm.travelGoodsDividePrices ) {
+                        this.travelGoodsDividePrices = this.ruleForm.travelGoodsDividePrices;
+                    }
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {
@@ -564,36 +551,46 @@
                 }
                 console.log( this.ruleForm.images );
             },
+            finalSubmit() {
+                console.log('submit!');
+                console.log(this.upType);
+                if (this.upType == 2) {
+                    // 立即上架
+                    this.ruleForm.status = 2;
+                    this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+                } else if (this.upType == 1) {
+                    // 在库中
+                    this.ruleForm.status = 1;
+                    this.ruleForm.upTime = null;
+                } else {
+                    // 固定时间上架
+                    this.ruleForm.status = 1;
+                    if (!this.ruleForm.upTime) {
+                        alert('请输入上架时间');
+                        return;
+                    }
+                }
+                console.log('调试2', this.ruleForm);
+                // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
+                updateTravelGoods(this.ruleForm).then(res => {
+                    console.log('掉借口了', res);
+                    if ( res.code == 200 ) {
+                        alert('修改成功');
+                        history.back();
+                    }
+                });
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log('submit!');
-                        console.log(this.upType);
-                        if (this.upType == 2) {
-                            // 立即上架
-                            this.ruleForm.status = 2;
-                            this.ruleForm.upTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
-                        } else if (this.upType == 1) {
-                            // 在库中
-                            this.ruleForm.status = 1;
-                            this.ruleForm.upTime = null;
+                        if ( this.ruleForm.peopleMinNum > this.ruleForm.peopleMaxNum ){
+                            this.$message({
+                                message: '最低成团人数不能大于成团人数上限',
+                                type: 'error'
+                            });
                         } else {
-                            // 固定时间上架
-                            this.ruleForm.status = 1;
-                            if (!this.ruleForm.upTime) {
-                                alert('请输入上架时间');
-                                return;
-                            }
+                            this.finalSubmit();
                         }
-                        console.log('调试2', this.ruleForm);
-                        // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
-                        updateTravelGoods(this.ruleForm).then(res => {
-                            console.log('掉借口了', res);
-                            if ( res.code == 200 ) {
-                                alert('修改成功');
-                                history.back();
-                            }
-                        });
                     } else {
                         console.log('error submit!!');
                         return false;

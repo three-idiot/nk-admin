@@ -85,7 +85,7 @@
 
         <el-table-column align="center" label="代理商角色">
             <template slot-scope="scope">
-                {{roleId[scope.row.roleId]}}
+                {{newRoleId[scope.row.roleId]}}
             </template>
         </el-table-column>
 
@@ -155,12 +155,14 @@
 import {
     getAgentList,
     opt,
-    getLowerAreas
+    getLowerAreas,
+    agentRoleList
 } from "@/api/agent";
 import agentMap from "@/map/agent";
 export default {
     data() {
         return Object.assign({}, agentMap, {
+            newRoleId: {},
             province: null,
             city: null,
             county: null,
@@ -204,10 +206,23 @@ export default {
         }
     },
     created() {
+        this.fetchAgentRoleList();
         this.fetchData();
         this.fetchAddressData();
     },
     methods: {
+        fetchAgentRoleList() {
+            agentRoleList().then(res => {
+                console.log( res );
+                let data = res.data;
+                for ( let i=0;i<data.length;i++ ) {
+                    let item = data[i];
+                    // console.log(item);
+                    this.newRoleId[item.id] = item.name;
+                }
+                console.log('测试',this.newRoleId);
+            });
+        },
         fetchAddressData() {
             getLowerAreas({id: 0}).then( res => {
                 // console.log( res );
