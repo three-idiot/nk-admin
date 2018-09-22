@@ -312,6 +312,7 @@
     import goodsMap from "@/map/goods"
     import editor from '@/components/editor'
     import App from "../../../App";
+    import deepClone from '../tools/deepClone';
 
 
     export default {
@@ -495,6 +496,15 @@
                     if ( this.ruleForm.travelGoodsDividePrices.length && this.ruleForm.travelGoodsDividePrices ) {
                         this.travelGoodsDividePrices = this.ruleForm.travelGoodsDividePrices;
                     }
+                    for (let i=0; i<this.ruleForm.travelGoodsDividePrices.length;i++) {
+                        let item = this.ruleForm.travelGoodsDividePrices[i];
+                        if( item.price ) {
+                            item.price = item.price / 100;
+                        }
+                    }
+                    this.ruleForm.realPrice = this.ruleForm.realPrice / 100;
+                    this.ruleForm.salePrice = this.ruleForm.salePrice / 100;
+                    this.ruleForm.childPrice = this.ruleForm.childPrice / 100;
                     let images = this.ruleForm.images;
                     this.fileList = [];
                     for( let i = 0;i<images.length;i++ ) {
@@ -572,7 +582,20 @@
                 }
                 console.log('调试2', this.ruleForm);
                 // this.ruleForm.images = JSON.stringify(this.ruleForm.images);
-                updateTravelGoods(this.ruleForm).then(res => {
+                let ruleForm = deepClone(this.ruleForm);
+                //  将所有价格有关的都*100转化为分
+                ruleForm.realPrice = ruleForm.realPrice * 100;
+                ruleForm.salePrice = ruleForm.salePrice * 100;
+                ruleForm.childPrice = ruleForm.childPrice * 100;
+                console.log( '调试0',ruleForm.travelGoodsDividePrices );
+                for (let i=0; i<ruleForm.travelGoodsDividePrices.length;i++) {
+                    let item = ruleForm.travelGoodsDividePrices[i];
+                    if( item.price ) {
+                        item.price = item.price * 100;
+                    }
+                }
+                console.log('最后', ruleForm);
+                updateTravelGoods(ruleForm).then(res => {
                     console.log('掉借口了', res);
                     if ( res.code == 200 ) {
                         alert('修改成功');

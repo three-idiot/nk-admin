@@ -45,7 +45,7 @@
 
             <el-form-item label="添加图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='api/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
@@ -190,6 +190,7 @@
     import goodsMap from "@/map/goods"
     import editor from '@/components/editor'
     import App from "../../../App";
+    import deepClone from '../tools/deepClone';
 
 
     export default {
@@ -401,11 +402,19 @@
                 // this.ruleForm.realPrice = this.ruleForm.realPrice * 100;
                 // this.ruleForm.salePrice = this.ruleForm.salePrice * 100;
                 // this.ruleForm.childPrice = this.ruleForm.childPrice * 100;
-                let ruleForm = Object.assign({},this.ruleForm);
+                let ruleForm = deepClone(this.ruleForm);
+                //  将所有价格有关的都*100转化为分
                 ruleForm.realPrice = ruleForm.realPrice * 100;
                 ruleForm.salePrice = ruleForm.salePrice * 100;
                 ruleForm.childPrice = ruleForm.childPrice * 100;
-
+                console.log( '调试0',ruleForm.travelGoodsDividePrices );
+                for (let i=0; i<ruleForm.travelGoodsDividePrices.length;i++) {
+                    let item = ruleForm.travelGoodsDividePrices[i];
+                    if( item.price ) {
+                        item.price = item.price * 100;
+                    }
+                }
+                console.log('最后', ruleForm);
                 addTravelGoods(ruleForm).then(res => {
                     console.log('掉借口了', res);
                     if ( res.code == 200 ) {
