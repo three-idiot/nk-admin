@@ -1,6 +1,6 @@
 <template>
     <div>
-        <textarea :class="id" v-model="value"></textarea>
+        <textarea :class="id" :value="value"></textarea>
     </div>
 </template>
 <script>
