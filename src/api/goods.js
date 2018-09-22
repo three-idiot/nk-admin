@@ -42,7 +42,7 @@ export function changeStatus(params) {
 }
 export function travelGoods(params) {
     return request({
-        url: '/travelGoods/' + params.id,
+        url: '/travelGoods/' + params.id + '?t=' + new Date().getTime(),
         method: 'get',
     })
 }
