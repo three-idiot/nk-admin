@@ -52,8 +52,7 @@ const user = {
             roles.push(element.feId);
             roles=roles.concat(element.btnFeIds.split(','))
           });
-          //TODO
-          // if(data.type==1){roles.push('admin')}
+          if(data.type==1){roles.push('admin')}
          
           if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', roles)

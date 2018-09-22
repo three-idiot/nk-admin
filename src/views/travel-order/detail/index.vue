@@ -93,8 +93,7 @@ export default {
             this.listLoading = true;
             getTravelOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
-                this.data = [
-                    {
+                this.data = [{
                         key: '买家名称',
                         value: resData.user.nickName,
                         type: 'string'
@@ -129,39 +128,41 @@ export default {
                         value: resData.travelOrder.payTime,
                         type: 'dateTime'
                     },
-                                        {
+                    {
                         key: '总金额',
-                        value: resData.travelOrder.orderPrice/100,
+                        value: resData.travelOrder.orderPrice / 100,
                         type: 'string'
                     },
 
                 ];
-                this.invoiceData = [{
-                        key: '发票抬头',
-                        value: resData.invoice.title,
-                        type: 'string'
-                    },
-                    {
-                        key: '纳税识别号',
-                        value: resData.invoice.taxNo,
-                        type: 'string'
-                    },
-                    {
-                        key: '电子邮箱',
-                        value: resData.invoice.email,
-                        type: 'string'
-                    },
-                    {
-                        key: '地址',
-                        value: resData.invoice.address,
-                        type: 'string'
-                    },
-                    {
-                        key: '电话',
-                        value: resData.invoice.phone,
-                        type: 'string'
-                    },
-                ];
+                if (resData.invoice) {
+                    this.invoiceData = [{
+                            key: '发票抬头',
+                            value: resData.invoice.title,
+                            type: 'string'
+                        },
+                        {
+                            key: '纳税识别号',
+                            value: resData.invoice.taxNo,
+                            type: 'string'
+                        },
+                        {
+                            key: '电子邮箱',
+                            value: resData.invoice.email,
+                            type: 'string'
+                        },
+                        {
+                            key: '地址',
+                            value: resData.invoice.address,
+                            type: 'string'
+                        },
+                        {
+                            key: '电话',
+                            value: resData.invoice.phone,
+                            type: 'string'
+                        },
+                    ];
+                }
                 this.list = [resData.travelGoods];
                 this.childList = resData.travelChildOrders;
                 this.listLoading = false;
@@ -178,21 +179,26 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+
     .title {
         font-size: 30px;
         color: #606266;
     }
+
     .btn-container {
         padding-top: 30px;
         text-align: center;
     }
+
     .portrait-table {
         margin-bottom: 20px;
     }
+
     .hr {
         margin-top: 40px;
         color: #ebeef5;
     }
+
     .subtitle {
         color: #444;
         font-size: 20px;

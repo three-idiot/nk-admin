@@ -74,14 +74,15 @@ export const asyncRouterMap = [
         name: 'order',
         meta: {
             title: '签证订单',
-            icon: 'shopping'
+            icon: 'shopping',
+            roles: ['admin']
         },
         children: [
             {
                 path: 'list',
                 name: 'order-list',
                 component: () => import('@/views/order/list'),
-                meta: { title: '订单列表' }
+                meta: { title: '订单列表', roles: ['admin'] }
             },
             {
                 path: 'check/:id',
