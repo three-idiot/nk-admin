@@ -67,7 +67,7 @@ export default {
     },
     reFundDtatus: {
         1: {
-            msg: "申请中",
+            msg: "待审核",
             color: "warning"
         },
         2: {
@@ -75,12 +75,16 @@ export default {
             color: "primary"
         },
         3: {
-            msg: "拒绝",
+            msg: "审核失败",
             color: "danger"
         },
         4: {
             msg: "退款成功",
             color: "success"
+        },
+        5: {
+            msg: "退款失败",
+            color: "danger"
         }
     },
     reFundReason: {
