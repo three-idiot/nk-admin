@@ -24,7 +24,7 @@
                 {{scope.row.payId}}
             </template>
         </el-table-column>
-        <el-table-column label="支付" align="center">
+        <el-table-column label="支付时间" align="center">
             <template slot-scope="scope">
                 {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
