@@ -44,7 +44,7 @@
             //         arr.push({key: '创建时间', value: this.data.auditTime, type: 'string'});
             //         // arr.push({key: '审核人', value: this.data.auditUser});
             //         // arr.push({key: '审核时间', value: this.data.auditTime});
-            //         // arr.push({key: '创建时间', value: new Date(this.data.ctime).Format("yyyy-MM-dd HH:mm:ss")});
+            //         // arr.push({key: '创建时间', value: new Date(this.data.ctime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")});
             //         return arr;
             //     }
             // }

@@ -105,9 +105,9 @@
             //         // arr.push({key: '成人', value: this.data.travelGoodsDividePrices});
             //         // arr.push({key: '儿童', value: this.data.travelGoodsDividePrices});
             //         arr.push({key: '创建人', value: this.data.publisher, type: 'string'});
-            //         arr.push({key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'});
+            //         arr.push({key: '创建时间', value: new Date(this.data.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'});
             //         // arr.push({key: '审核人', value: this.data.approver});
-            //         // arr.push({key: '审核时间', value: new Date(this.data.approveTime).Format("yyyy-MM-dd HH:mm:ss")});
+            //         // arr.push({key: '审核时间', value: new Date(this.data.approveTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")});
             //         return arr;
             //     }
             // }
@@ -151,7 +151,7 @@
                         {key: '门市价格', value: this.data.realPrice/100, type: 'string'},
                         {key: '儿童价格', value: this.data.childPrice, type: 'string'},
                         {key: '创建人', value: this.data.publisher, type: 'string'},
-                        {key: '创建时间', value: new Date(this.data.createTime).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}
+                        {key: '创建时间', value: new Date(this.data.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}
                     ]
                 });
             }

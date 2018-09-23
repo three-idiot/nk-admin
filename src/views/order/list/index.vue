@@ -64,12 +64,12 @@
         </el-table-column>
         <el-table-column label="下单时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.ctime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{new Date(scope.row.ctime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
         <el-table-column label="付款时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.payTime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{new Date(scope.row.payTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
         <el-table-column label="订单总额" width="110" align="center">

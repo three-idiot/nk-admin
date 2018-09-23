@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column label="报名截止日期" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.closeDate).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{new Date(scope.row.closeDate.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
         <el-table-column label="距截至日期时长" align="center">

@@ -68,7 +68,7 @@
         </el-table-column>
         <el-table-column label="申请退款时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.createTime).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{new Date(scope.row.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
             </template>
         </el-table-column>
         <el-table-column label="付款金额" align="center">
