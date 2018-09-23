@@ -63,7 +63,7 @@
   data() {
     return {
       showEditor: false,
-      action: $imgUploadApi,
+      action: this.$imgUploadApi,
       ruleForm: {
         id: '',
         title: '',

@@ -89,7 +89,7 @@
   data() {
     return {
       showEditor: false, /** 加这个变量纯属无奈，editor异步传入数据进去居然不会渲染 */
-      action: $imgUploadApi,
+      action: this.$imgUploadApi,
       ruleForm: {
         adNo: '',
         id: '',
