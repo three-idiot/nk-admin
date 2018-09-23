@@ -15,6 +15,8 @@ import App from './App';
 import router from './router';
 import store from './store';
 
+import Plugins from './plugins/index';
+
 import '@/icons'; // icon
 import '@/permission'; // permission control
 
@@ -25,6 +27,7 @@ Vue.component(VueQrcode.name, VueQrcode);
 
 Vue.use(ElementUI, { locale });
 Vue.use(permission);
+Vue.use(Plugins);
 
 Vue.config.productionTip = false;
 
