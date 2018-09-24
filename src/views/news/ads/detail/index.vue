@@ -74,7 +74,7 @@ export default {
                     },
                     {
                         key: '创建人',
-                        value: resData.publisher,
+                        value: resData.publisherName,
                         type: 'string'
                     },
                     {
@@ -84,7 +84,7 @@ export default {
                     },
                     {
                         key: '审核人',
-                        value: resData.approver,
+                        value: resData.approverName,
                         type: 'string'
                     },
                     {

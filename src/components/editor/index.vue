@@ -12,6 +12,7 @@
     import 'tinymce/themes/modern/theme';
     import 'tinymce/plugins/paste';
     import 'tinymce/plugins/link';
+    import 'tinymce/plugins/image';
     const INIT = 0;
     const INPUT = 1;
     const CHANGED = 2;
@@ -69,7 +70,7 @@
                             _this.$emit('input', content);
                         });
                     },
-                    plugins: []
+                    plugins: ['image']
                 };
             Object.assign(setting, _this.setting);
             tinymce.init(setting);
