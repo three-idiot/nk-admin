@@ -61,7 +61,7 @@
         </el-table-column>
         <el-table-column label="创建时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{scope.row.createTime}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="账号状态" width="110" align="center">

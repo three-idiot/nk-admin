@@ -15,8 +15,8 @@
                 <span v-if="scope.row.value&&scope.row.type=='images'">
                     <img class="single-img" v-for="(item, index) in scope.row.value" :key="index" :style="imgStyle" :src="item && item.goodPath" alt="">
                 </span>
-                <span v-if="scope.row.value&&scope.row.type=='date'">{{new Date(scope.row.value).Format("yyyy-MM-dd")}}</span>
-                <span v-if="scope.row.value&&scope.row.type=='dateTime'">{{new Date(scope.row.value.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+                <span v-if="scope.row.value&&scope.row.type=='date'">{{scope.row.value}}</span>
+                <span v-if="scope.row.value&&scope.row.type=='dateTime'">{{scope.row.value}}</span>
                 <span v-if="scope.row.value&&scope.row.type=='qrcode'"><qrcode :value="scope.row.value" :options="{ size: 200 }"></qrcode></span>
             </template>
         </el-table-column>

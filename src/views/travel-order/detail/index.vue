@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column label="出行日期" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.leaveTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{scope.row.leaveTime}}
             </template>
         </el-table-column>
     </el-table>

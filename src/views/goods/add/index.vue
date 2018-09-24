@@ -443,7 +443,7 @@
                                 message: '费用与须知不能为空',
                                 type: 'error'
                             });
-                        } else if (this.ruleForm.peopleMinNum > this.ruleForm.peopleMaxNum) {
+                        } else if (Number(this.ruleForm.peopleMinNum) > Number(this.ruleForm.peopleMaxNum)) {
                             this.$message({
                                 message: '最低成团人数不能大于成团人数上限',
                                 type: 'error'

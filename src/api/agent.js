@@ -52,6 +52,9 @@ export function updateAgent(params) {
 }
 
 export function getAgent(params) {
+    params =Object.assign({
+        t: new Date().getTime()
+    },params);
     return request({
         url: '/agent/getAgent',
         method: 'get',
