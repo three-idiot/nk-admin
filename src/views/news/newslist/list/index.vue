@@ -8,7 +8,7 @@
           <el-input v-model="form.title" placeholder="请输入资讯标题"></el-input>
         </el-form-item>
         <el-form-item label="发布人">
-          <el-input v-model="form.publisher" placeholder="请输入发布人姓名"></el-input>
+          <el-input v-model="form.publisherName" placeholder="请输入发布人姓名"></el-input>
         </el-form-item>
         <el-form-item label="发布日期">
           <el-date-picker v-model="daterange" type="daterange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
@@ -57,7 +57,7 @@
 
       <el-table-column  align="center"  label="发布人" >
         <template slot-scope="scope">
-          <span class="link-type">{{scope.row.publisher}}</span>
+          <span class="link-type">{{scope.row.publisherName}}</span>
         </template>
       </el-table-column>
 
@@ -116,7 +116,7 @@ export default {
       total_count: null,
       daterange: [],
       form: {
-        publisher: "",
+        publisherName: "",
         title: "",
         status: "",
         top: ''

@@ -62,7 +62,7 @@ export default {
                     },
                     {
                         key: '创建人',
-                        value: resData.publisher,
+                        value: resData.publisherName,
                         type: 'string'
                     },
                     {
