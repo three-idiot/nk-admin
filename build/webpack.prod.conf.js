@@ -34,7 +34,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': env,
+      'img_upload_api': '"/image/uploadfile"'
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
@@ -119,6 +120,16 @@ const webpackConfig = merge(baseWebpackConfig, {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
+      },
+      {
+        from: path.resolve(__dirname, '../langs'),
+        to: path.resolve(__dirname, '../dist/static/js/langs'),
+        force: true
+      },
+      {
+        from: path.resolve(__dirname, '../skins'),
+        to: path.resolve(__dirname, '../dist/static/js/skins'),
+        force: true
       }
     ])
   ]

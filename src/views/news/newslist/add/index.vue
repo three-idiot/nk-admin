@@ -63,8 +63,7 @@
   data() {
     return {
       showEditor: false,
-      action: '/image/uploadfile',
-      // action: 'http://47.93.3.67:8086/image/uploadfile',
+      action: this.$imgUploadApi,
       ruleForm: {
         id: '',
         title: '',

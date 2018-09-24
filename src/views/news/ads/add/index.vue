@@ -3,7 +3,7 @@
     <title-line :txt="ruleForm.id ? '编辑广告':'新建广告'"></title-line>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="form">
       <!--广告编号-->
-      <el-form-item label="广告编号" prop="adNo" style="width: 312px;">
+      <el-form-item label="广告编号" v-if="isEdit" prop="adNo" style="width: 312px;">
         <el-input v-model="ruleForm.adNo" :disabled="isEdit"></el-input>
       </el-form-item>
       <!--资讯名称-->
@@ -54,7 +54,7 @@
       <!-- 广告有效期 -->
       <el-form-item label="广告有效期" prop="validTime" style="width: 312px;">
         <el-date-picker
-          v-if="showEditor"
+          v-if="!isEdit || isEdit && showEditor"
           v-model="ruleForm.validTime"
           type="date"
           value-format="yyyy-MM-dd HH:mm:ss"
@@ -89,8 +89,7 @@
   data() {
     return {
       showEditor: false, /** 加这个变量纯属无奈，editor异步传入数据进去居然不会渲染 */
-      action: '/image/uploadfile',
-      // action: 'http://47.93.3.67:8086/image/uploadfile',
+      action: this.$imgUploadApi,
       ruleForm: {
         adNo: '',
         id: '',

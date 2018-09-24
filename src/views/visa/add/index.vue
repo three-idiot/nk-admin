@@ -12,7 +12,7 @@
         <el-upload
           class="avatar-uploader"
           style="border:1px solid #000;width: 178px;height: 178px;"
-          action="/image/uploadfile"
+          :action="$imgUploadApi"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">

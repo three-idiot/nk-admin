@@ -45,7 +45,7 @@
 
             <el-form-item label="添加图片" prop="images">
                 <!-- TODO 上线之后这里要把api前缀去掉 -->
-                <el-upload list-type="picture" class="upload-demo" action='/image/uploadfile' name='file' :limit="5"
+                <el-upload list-type="picture" class="upload-demo" :action='$imgUploadApi' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
@@ -443,7 +443,7 @@
                                 message: '费用与须知不能为空',
                                 type: 'error'
                             });
-                        } else if (this.ruleForm.peopleMinNum > this.ruleForm.peopleMaxNum) {
+                        } else if (Number(this.ruleForm.peopleMinNum) > Number(this.ruleForm.peopleMaxNum)) {
                             this.$message({
                                 message: '最低成团人数不能大于成团人数上限',
                                 type: 'error'
