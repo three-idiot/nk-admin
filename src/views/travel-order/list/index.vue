@@ -65,12 +65,12 @@
         </el-table-column>
         <el-table-column label="开始时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.goodsUpDate.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{scope.row.goodsUpDate}}
             </template>
         </el-table-column>
         <el-table-column label="结束时间" align="center">
             <template slot-scope="scope">
-                {{new Date(scope.row.goodsCloseDate.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}
+                {{scope.row.goodsCloseDate}}
             </template>
         </el-table-column>
         <el-table-column label="最低成团人数" width="110" align="center">

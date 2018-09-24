@@ -103,7 +103,7 @@ export default {
                     {
                         key: '签证有效期',
                         /* eslint-disable max-len */
-                        value: new Date(resData.orderDetail[0].startTime).Format("yyyy-MM-dd") + ' 至 ' + new Date(resData.orderDetail[0].endTime).Format("yyyy-MM-dd"),
+                        value: resData.orderDetail[0].startTime + ' 至 ' + resData.orderDetail[0].endTime,
                         type: 'string'
                     },
                     {
