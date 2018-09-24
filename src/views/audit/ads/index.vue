@@ -76,7 +76,7 @@
 
       <el-table-column  align="center"  label="审核人" >
         <template slot-scope="scope">
-          <span class="link-type">{{scope.row.approver}}</span>
+          <span class="link-type">{{scope.row.approverName}}</span>
         </template>
       </el-table-column>
 
@@ -173,7 +173,7 @@ export default {
           title: '广告1',
           publisherName: '唐先森',
           createTime: '20180715',
-          approver: '哈哈先森',
+          approverName: '哈哈先森',
           approveTime: '20180908',
           sort: 3,
           validTime: '20180706',
