@@ -267,7 +267,7 @@ export default {
     goDetail(id) {
       this.$router.push({
         name: 'ads-detail',
-        params: {
+        query: {
             id: id
         }
       });
