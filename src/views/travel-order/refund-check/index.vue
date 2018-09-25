@@ -150,7 +150,9 @@ export default {
             daterange: [],
             total_count: null,
             priceCount: null,
-            form: {},
+            form: {
+                status:'1'
+            },
             refundForm: {},
             dialogFormVisible: false,
             rules: {

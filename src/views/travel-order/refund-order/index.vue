@@ -94,7 +94,7 @@
         <el-table-column label="操作" width="270" align="center">
             <template slot-scope="scope">
                 <el-button v-permission="['travel-order-refund-order-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
-                <el-button v-permission="['travel-order-refund-order-audit']" size="mini" type="primary" @click="refundCheck(scope.$index, scope.row)">审核</el-button>
+                <el-button v-if="reFundDtatus[scope.row.status].msg=='待审核'&&reFundReason[scope.row.refundReason].msg=='用户申请'" v-permission="['travel-order-refund-order-audit']" size="mini" type="primary" @click="refundCheck(scope.$index, scope.row)">审核</el-button>
             </template>
         </el-table-column>
     </el-table>
