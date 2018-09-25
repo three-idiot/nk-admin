@@ -40,7 +40,8 @@
             return {
                 status: INIT,
                 id: 'editor-'+new Date().getMilliseconds(),
-                realId: null
+                realId: null,
+                uploadApi: this.$imgUploadApi
             };
         },
         methods: {
@@ -52,26 +53,51 @@
             const _this = this;
             console.log( '原来的', _this.value );
             const setting =
-                {
-                    selector: '.'+_this.id,
-                    language: "zh_CN",
-                    init_instance_callback: function(editor) {
-                        EDITOR = editor;
-                        console.log("Editor: " + editor.id + " is now initialized.");
-                        _this.realId = editor.id;
-                        // console.log( '你好巴拉巴拉', editor.id, _this.value,_this );
-                        // if(  _this.value )  {
-                        //     tinymce.get(_this.realId).setContent( _this.value );
-                        // }
-                        // console.log( '测试四c', _this.realId );
-                        // _this.$emit('input', _this.value);
-                        editor.on('input change undo redo', () => {
-                            let content = editor.getContent();
-                            _this.$emit('input', content);
-                        });
-                    },
-                    plugins: ['image']
-                };
+            {
+                selector: '.'+_this.id,
+                language: "zh_CN",
+                init_instance_callback: function(editor) {
+                    EDITOR = editor;
+                    console.log("Editor: " + editor.id + " is now initialized.");
+                    _this.realId = editor.id;
+                    // console.log( '你好巴拉巴拉', editor.id, _this.value,_this );
+                    // if(  _this.value )  {
+                    //     tinymce.get(_this.realId).setContent( _this.value );
+                    // }
+                    // console.log( '测试四c', _this.realId );
+                    // _this.$emit('input', _this.value);
+                    editor.on('input change undo redo', () => {
+                        let content = editor.getContent();
+                        _this.$emit('input', content);
+                    });
+                },
+                // 参考地址：https://blog.csdn.net/smoisy/article/details/81268772
+                // plugins: ['image'],
+                // images_upload_handler: function (blobInfo, success, failure) {
+                //     var xhr, formData;
+                //     xhr = new XMLHttpRequest();
+                //     xhr.withCredentials = false;
+                //     xhr.open("POST", _this.uploadApi);
+                //     formData = new FormData();
+                //     formData.append("file", blobInfo.blob());
+                //     xhr.onload = function(e){
+                //         var json;
+
+                //         if (xhr.status != 200) {
+                //             failure('HTTP Error: ' + xhr.status);
+                //             return;
+                //         }
+                //         json = JSON.parse(this.responseText);
+                //         if (!json || typeof json.data != 'string') {
+                //             failure('Invalid JSON: ' + xhr.responseText);
+                //             return;
+                //         }
+                //         // tinyMCE.execCommand('mceReplaceContent',false,'<img src="https://image.le-99.xyz/images/56831537893019703.png" />')
+                //         success('https://image.le-99.xyz/'+json.data);
+                //     };
+                //     xhr.send(formData);
+                // }
+            }
             Object.assign(setting, _this.setting);
             tinymce.init(setting);
             // console.log('测试测试', tinymce.get());
