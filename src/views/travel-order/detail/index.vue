@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column align="center" label='商品单价'>
             <template slot-scope="scope">
-                {{scope.row.realPrice/100}}
+                {{scope.row.salePrice/100}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='购买数量'>
