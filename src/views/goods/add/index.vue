@@ -328,11 +328,11 @@
                         {validator: checkNum, trigger: 'blur'}
                     ],
                     realPrice: [
-                        {required: true, trigger: 'blur', message: '请输入商品价格'},
+                        {required: true, trigger: 'blur', message: '请输入门市价格'},
                         {validator: checkFloat, trigger: 'blur'}
                     ],
                     salePrice: [
-                        {required: true, trigger: 'blur', message: '请输入门市价格'},
+                        {required: true, trigger: 'blur', message: '请输入商品价格'},
                         {validator: checkFloat, trigger: 'blur'}
                     ],
                     childPrice: [
