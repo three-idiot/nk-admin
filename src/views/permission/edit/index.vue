@@ -121,7 +121,7 @@ export default {
         },
         update(params) {
             updateRole(params).then(response => {
-                this.$alert('添加成功', '提示', {
+                this.$alert('修改成功', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
                         this.$router.push({

@@ -97,7 +97,7 @@
             <template slot-scope="scope">
                 <el-button v-permission="['travel-order-list-detail']" size="mini" type="success" @click="check(scope.$index, scope.row)">查看详情</el-button>
                 <el-button v-if="groupStatus[scope.row.status].msg == '报名中' || groupStatus[scope.row.status].msg == '组团失败'" v-permission="['travel-order-list-refund']" size="mini" type="primary" @click="force(scope.$index, scope.row)">强制成团</el-button>
-                <el-button size="mini" type="primary" @click="refund(scope.$index, scope.row)">退款</el-button>
+                <el-button v-if="groupStatus[scope.row.status].msg == '组团失败'" size="mini" type="primary" @click="refund(scope.$index, scope.row)">退款</el-button>
             </template>
         </el-table-column>
     </el-table>
