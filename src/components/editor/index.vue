@@ -72,31 +72,31 @@
                     });
                 },
                 // 参考地址：https://blog.csdn.net/smoisy/article/details/81268772
-                // plugins: ['image'],
-                // images_upload_handler: function (blobInfo, success, failure) {
-                //     var xhr, formData;
-                //     xhr = new XMLHttpRequest();
-                //     xhr.withCredentials = false;
-                //     xhr.open("POST", _this.uploadApi);
-                //     formData = new FormData();
-                //     formData.append("file", blobInfo.blob());
-                //     xhr.onload = function(e){
-                //         var json;
+                plugins: ['image'],
+                images_upload_handler: function (blobInfo, success, failure) {
+                    var xhr, formData;
+                    xhr = new XMLHttpRequest();
+                    xhr.withCredentials = false;
+                    xhr.open("POST", _this.uploadApi+'?isUrl=true');
+                    formData = new FormData();
+                    formData.append("file", blobInfo.blob());
+                    xhr.onload = function(e){
+                        var json;
 
-                //         if (xhr.status != 200) {
-                //             failure('HTTP Error: ' + xhr.status);
-                //             return;
-                //         }
-                //         json = JSON.parse(this.responseText);
-                //         if (!json || typeof json.data != 'string') {
-                //             failure('Invalid JSON: ' + xhr.responseText);
-                //             return;
-                //         }
-                //         // tinyMCE.execCommand('mceReplaceContent',false,'<img src="https://image.le-99.xyz/images/56831537893019703.png" />')
-                //         success('https://image.le-99.xyz/'+json.data);
-                //     };
-                //     xhr.send(formData);
-                // }
+                        if (xhr.status != 200) {
+                            failure('HTTP Error: ' + xhr.status);
+                            return;
+                        }
+                        json = JSON.parse(this.responseText);
+                        if (!json || typeof json.data != 'string') {
+                            failure('Invalid JSON: ' + xhr.responseText);
+                            return;
+                        }
+                        // tinyMCE.execCommand('mceReplaceContent',false,'<img src="https://image.le-99.xyz/images/56831537893019703.png" />')
+                        success(json.data);
+                    };
+                    xhr.send(formData);
+                }
             }
             Object.assign(setting, _this.setting);
             tinymce.init(setting);
