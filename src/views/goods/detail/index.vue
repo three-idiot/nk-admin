@@ -150,7 +150,7 @@
                         {key: '商品价格', value: this.data.salePrice/100, type: 'string'},
                         {key: '门市价格', value: this.data.realPrice/100, type: 'string'},
                         {key: '儿童价格', value: this.data.childPrice, type: 'string'},
-                        {key: '创建人', value: this.data.publisher, type: 'string'},
+                        {key: '创建人', value: this.data.publisherName, type: 'string'},
                         {key: '创建时间', value: new Date(this.data.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}
                     ]
                 });

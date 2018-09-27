@@ -328,11 +328,11 @@
                         {validator: checkNum, trigger: 'blur'}
                     ],
                     realPrice: [
-                        {required: true, trigger: 'blur', message: '请输入商品价格'},
+                        {required: true, trigger: 'blur', message: '请输入门市价格'},
                         {validator: checkFloat, trigger: 'blur'}
                     ],
                     salePrice: [
-                        {required: true, trigger: 'blur', message: '请输入门市价格'},
+                        {required: true, trigger: 'blur', message: '请输入商品价格'},
                         {validator: checkFloat, trigger: 'blur'}
                     ],
                     childPrice: [
@@ -375,7 +375,17 @@
                 console.log(this.ruleForm.images);
             },
             imgRemove(files, fileList) {
-                this.form.visaPath = null;
+                // this.form.visaPath = null;
+                console.log(fileList);
+                this.ruleForm.images = [];
+                for ( let i=0;i<fileList.length;i++ ) {
+                    let item = fileList[i];
+                    this.ruleForm.images.push({
+                        goodPath: item.response.data,
+                        sort:i
+                    })
+                }
+
             },
             finalSubmit() {
                 console.log('submit!');

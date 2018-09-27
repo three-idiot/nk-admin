@@ -130,7 +130,7 @@
 
             <el-table-column align="center" label="发布人">
                 <template slot-scope="scope">
-                    <span>{{scope.row.publisher}}</span>
+                    <span>{{scope.row.publisherName}}</span>
                 </template>
             </el-table-column>
 
