@@ -34,7 +34,7 @@
     <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='子订单编号'>
             <template slot-scope="scope">
-                {{scope.row.travelUserInfo.childOrderNo}}
+                {{scope.row.childOrderNo}}
             </template>
         </el-table-column>
         <el-table-column align="center" label='姓名'>

@@ -74,7 +74,7 @@
         </el-table-column>
         <el-table-column label="订单总额" width="110" align="center">
             <template slot-scope="scope">
-                {{scope.row.orderMoney}}
+                {{scope.row.orderMoney/100}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="支付方式" width="110" align="center">
@@ -95,7 +95,7 @@
         <el-table-column label="操作" width="160">
             <template slot-scope="scope">
                 <el-button size="mini" type="success" @click="check(scope.$index, scope.row)">查看</el-button>
-                <el-button v-if="status[scope.row.status].msg!='已取消'" size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                <el-button v-if="status[scope.row.status].msg=='办理中'||status[scope.row.status].msg=='已送签'" size="mini" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
             </template>
         </el-table-column>
     </el-table>

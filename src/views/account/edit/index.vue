@@ -27,7 +27,7 @@
         <el-form-item label="手机号" prop="phone">
             <el-input v-model="form.phone"></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
+        <el-form-item v-show="!currentAccount" label="状态" prop="status">
             <el-radio-group v-model="form.status">
                 <el-radio label="0">正常</el-radio>
                 <el-radio label="1">冻结</el-radio>
@@ -125,6 +125,7 @@ export default {
             info: [],
             data: [],
             roles: [],
+            currentAccount:true
         });
     },
     computed: {
@@ -147,6 +148,8 @@ export default {
             this.form.username = data.username;
             this.form.name = data.name;
             this.form.phone = data.phone;
+            this.form.phone = data.phone;
+            this.currentAccount = data.currentAccount;
         }
     },
     methods: {

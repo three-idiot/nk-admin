@@ -32,7 +32,7 @@
             <el-button type="primary" @click="onSubmit('ruleForm')">提交</el-button>
         </el-form-item>
     </el-form>
-    <el-form v-else size="mini" class="form">
+    <el-form v-if="status[statusNum].msg!='已送签'" size="mini" class="form">
         <el-form-item label="签证状态" prop="status">
             <el-radio-group v-model="form2.status">
                 <el-radio label="30">已送签</el-radio>
