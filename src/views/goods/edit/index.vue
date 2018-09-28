@@ -596,13 +596,13 @@
                     }
                 }
                 console.log('最后', ruleForm);
-                // updateTravelGoods(ruleForm).then(res => {
-                //     console.log('掉借口了', res);
-                //     if ( res.code == 200 ) {
-                //         alert('修改成功');
-                //         history.back();
-                //     }
-                // });
+                updateTravelGoods(ruleForm).then(res => {
+                    console.log('掉借口了', res);
+                    if ( res.code == 200 ) {
+                        alert('修改成功');
+                        history.back();
+                    }
+                });
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
