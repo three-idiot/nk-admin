@@ -322,6 +322,15 @@
                 // console.log( this.RefundRule );
                 // console.log( this.chooseTravelGoodsId );
                 let RefundRule = [];
+                // console.log(this.RefundRule);
+                for (let k=0;k<this.RefundRule.length;k++) {
+                    if( k+1 < this.RefundRule.length ) {
+                        if( this.RefundRule[k+1].hour >  this.RefundRule[k].hour ) {
+                            alert('下一个条件的小时数必须小于上一个条件的小时数');
+                            return;
+                        }
+                    }
+                }
                 for ( let i=0;i<this.chooseTravelGoodsId.length;i++ ) {
                     let item = this.chooseTravelGoodsId[i];
                     for( let j=0;j < this.RefundRule.length;j++ ) {
