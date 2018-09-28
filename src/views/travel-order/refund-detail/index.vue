@@ -18,11 +18,11 @@
                 {{scope.row.salePrice/100}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label='购买数量'>
+        <!-- <el-table-column align="center" label='购买数量'>
             <template slot-scope="scope">
                 {{scope.row.saleNum}}
             </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="报名截止日期" align="center">
             <template slot-scope="scope">
                 {{scope.row.closeDate}}
@@ -35,11 +35,11 @@
                 <span v-if="Math.floor(scope.row.duration/1000/60%60)">{{`${Math.floor(scope.row.duration/1000/60%60)}分钟`}}</span>
             </template>
         </el-table-column>
-        <el-table-column align="center" label='支付金额'>
+        <!-- <el-table-column align="center" label='支付金额'>
             <template slot-scope="scope">
-                {{'木有'}}
+                {{scope.row.realPrice/100}}
             </template>
-        </el-table-column>
+        </el-table-column> -->
     </el-table>
     <hr class="hr">
     <p class="subtitle">出行用户信息</p>
@@ -136,8 +136,18 @@ export default {
                         type: "dateTime"
                     },
                     {
+                        key: '购买数量',
+                        value: resData.travelOrder.buyNum,
+                        type: 'dateTime'
+                    },
+                    {
                         key: "退款金额",
                         value: resData.refundOrder.refundFee / 100,
+                        type: "string"
+                    },
+                    {
+                        key: "支付金额",
+                        value: resData.travelOrder.orderPrice / 100,
                         type: "string"
                     }
                 ];
@@ -181,21 +191,26 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+
     .title {
         font-size: 30px;
         color: #606266;
     }
+
     .btn-container {
         padding-top: 30px;
         text-align: center;
     }
+
     .portrait-table {
         margin-bottom: 20px;
     }
+
     .hr {
         margin-top: 40px;
         color: #ebeef5;
     }
+
     .subtitle {
         color: #444;
         font-size: 20px;

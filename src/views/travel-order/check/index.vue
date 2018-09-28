@@ -91,7 +91,7 @@ export default {
             this.listLoading = true;
             getGroupOrderDetail(this.$route.params.id).then(response => {
                 const resData = response.data;
-                this.priceCount = resData.travelOrders.priceCount;
+                this.priceCount = resData.travelOrders.priceCount/100;
                 this.total_count = resData.travelOrders.total_count;
                 this.current_page = resData.travelOrders.current_page;
                 this.max_page = resData.travelOrders.max_page;

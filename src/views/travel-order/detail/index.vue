@@ -18,11 +18,11 @@
                 {{scope.row.salePrice/100}}
             </template>
         </el-table-column>
-        <el-table-column align="center" label='购买数量'>
+        <!-- <el-table-column align="center" label='购买数量'>
             <template slot-scope="scope">
-                {{scope.row.saleNum}}
+                {{scope.row.buyNum}}
             </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="出行日期" align="center">
             <template slot-scope="scope">
                 {{scope.row.leaveTime}}
@@ -126,6 +126,11 @@ export default {
                     {
                         key: '支付时间',
                         value: resData.travelOrder.payTime,
+                        type: 'dateTime'
+                    },
+                    {
+                        key: '购买数量',
+                        value: resData.travelOrder.buyNum,
                         type: 'dateTime'
                     },
                     {
