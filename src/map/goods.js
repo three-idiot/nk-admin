@@ -17,6 +17,6 @@ export default {
     },
     recommend: {
         1: '是',
-        2: '否'
+        0: '否'
     }
 };
