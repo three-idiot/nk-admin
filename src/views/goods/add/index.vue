@@ -55,18 +55,18 @@
 
             <p>商品描述：</p>
             <el-form-item label="线路特色" prop="lineDescribe" class="lineDescribe">
-                <editor class="editor" :value="ruleForm.lineDescribe" :setting="editorSetting"
-                        @input="(content)=> ruleForm.lineDescribe = content"></editor>
+                <editor0 class="editor" :value="ruleForm.lineDescribe" :setting="editorSetting"
+                        @input="(content)=> ruleForm.lineDescribe = content"></editor0>
             </el-form-item>
 
             <el-form-item label="行程介绍" prop="tripDescribe" class="tripDescribe">
-                <editor class="editor" :value="ruleForm.tripDescribe" :setting="editorSetting"
-                        @input="(content)=> ruleForm.tripDescribe = content"></editor>
+                <editor1 class="editor" :value="ruleForm.tripDescribe" :setting="editorSetting"
+                        @input="(content)=> ruleForm.tripDescribe = content"></editor1>
             </el-form-item>
 
             <el-form-item label="费用与须知" prop="costDescribe" class="costDescribe">
-                <editor class="editor" :value="ruleForm.costDescribe" :setting="editorSetting"
-                        @input="(content)=> ruleForm.costDescribe = content"></editor>
+                <editor2 class="editor" :value="ruleForm.costDescribe" :setting="editorSetting"
+                        @input="(content)=> ruleForm.costDescribe = content"></editor2>
             </el-form-item>
 
 
@@ -188,7 +188,9 @@
 <script>
     import {addTravelGoods} from '@/api/goods';
     import goodsMap from "@/map/goods"
-    import editor from '@/components/editor'
+    import editor0 from '@/components/editor'
+    import editor1 from '@/components/editor'
+    import editor2 from '@/components/editor'
     import App from "../../../App";
     import deepClone from '../tools/deepClone';
 
@@ -359,7 +361,9 @@
         },
         components: {
             App,
-            editor
+            editor0,
+            editor1,
+            editor2,
         },
         methods: {
             imgUploaded(res, file) {
