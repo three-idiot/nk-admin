@@ -137,8 +137,8 @@
                 <el-button type="primary" size="mini" @click="goEdit(scope.row.id)" v-permission="['agent-list-edit']">
                     编辑
                 </el-button>
-                <el-button  size="mini" type="success" v-if="scope.row.status == 1" @click="opt(scope.row.id,2)">恢复</el-button>
-                <el-button  size="mini" type="danger" v-if="scope.row.status != 1"  @click="opt(scope.row.id,1)">
+                <el-button  size="mini" type="success" v-if="scope.row.status == 1 && !scope.row.currentAccount" @click="opt(scope.row.id,2)">恢复</el-button>
+                <el-button  size="mini" type="danger" v-if="scope.row.status != 1  && !scope.row.currentAccount"  @click="opt(scope.row.id,1)">
                     停用
                 </el-button>
             </template>

@@ -464,6 +464,7 @@
             });
         },
         created() {
+            window.this = this;
             this.fetchData();
         },
         mounted() {
@@ -572,7 +573,7 @@
                     // 在库中
                     this.ruleForm.status = 1;
                     this.ruleForm.upTime = null;
-                } else {
+                } else if( this.upType == 3 ) {
                     // 固定时间上架
                     this.ruleForm.status = 1;
                     if (!this.ruleForm.upTime) {
