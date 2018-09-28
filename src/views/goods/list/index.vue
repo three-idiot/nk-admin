@@ -325,7 +325,7 @@
                 // console.log(this.RefundRule);
                 for (let k=0;k<this.RefundRule.length;k++) {
                     if( k+1 < this.RefundRule.length ) {
-                        if( this.RefundRule[k+1].hour >  this.RefundRule[k].hour ) {
+                        if( this.RefundRule[k+1].hour >= this.RefundRule[k].hour ) {
                             alert('下一个条件的小时数必须小于上一个条件的小时数');
                             return;
                         }
