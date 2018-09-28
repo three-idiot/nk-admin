@@ -464,6 +464,7 @@
             });
         },
         created() {
+            window.this = this;
             this.fetchData();
         },
         mounted() {
@@ -572,7 +573,7 @@
                     // 在库中
                     this.ruleForm.status = 1;
                     this.ruleForm.upTime = null;
-                } else {
+                } else if( this.upType == 3 ) {
                     // 固定时间上架
                     this.ruleForm.status = 1;
                     if (!this.ruleForm.upTime) {
@@ -595,13 +596,13 @@
                     }
                 }
                 console.log('最后', ruleForm);
-                updateTravelGoods(ruleForm).then(res => {
-                    console.log('掉借口了', res);
-                    if ( res.code == 200 ) {
-                        alert('修改成功');
-                        history.back();
-                    }
-                });
+                // updateTravelGoods(ruleForm).then(res => {
+                //     console.log('掉借口了', res);
+                //     if ( res.code == 200 ) {
+                //         alert('修改成功');
+                //         history.back();
+                //     }
+                // });
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
