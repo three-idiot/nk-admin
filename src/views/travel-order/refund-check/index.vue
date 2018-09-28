@@ -190,7 +190,7 @@ export default {
             this.listLoading = true;
             getRefundOrderList(this.listQuery).then(response => {
                 this.list = response.data.data;
-                this.priceCount = response.data.priceCount;
+                this.priceCount = response.data.priceCount/100;
                 this.total_count = response.data.total_count;
                 this.current_page = response.data.current_page;
                 this.max_page = response.data.max_page;
