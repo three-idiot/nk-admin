@@ -112,19 +112,20 @@
 
             <el-table-column align="center" label="发布日期">
                 <template slot-scope="scope">
-                    <span>{{new Date(scope.row.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+                    <!--<span>{{new Date(scope.row.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>-->
+                    <span>{{ scope.row.createTime }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="上架日期">
                 <template slot-scope="scope">
-                    <span>{{new Date(scope.row.upTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+                    <span>{{ scope.row.upTime }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="截止日期">
                 <template slot-scope="scope">
-                    <span>{{new Date(scope.row.closeDate.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>
+                    <span>{{ scope.row.closeDate}}</span>
                 </template>
             </el-table-column>
 
