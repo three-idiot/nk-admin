@@ -76,24 +76,47 @@
                     console.log( res );
                     let data = res.data;
                     // this.data = res.data;
-                    this.data = [
-                        {key: '代理商编码', value: data.agentNo, type: 'string'},
-                        {key: '代理商名称', value: data.agentName, type: 'string'},
-                        {key: '代理商属性', value: this.newRoleId[data.roleId], type: 'string'},
-                        {key: '代理商地区', value: this.getProvince(data.province), type: 'string'},
-                        {key: '联系人', value: data.contactsName, type: 'string'},
-                        {key: '联系电话', value: data.contactsPhone, type: 'string'},
-                        {key: '联系地址', value: data.contactsMail, type: 'string'},
-                        {key: '代理商性质', value: transformData.type[data.agentType], type: 'string'},
-                        {key: '营业执照号码', value: data.bizLicenseCode, type: 'string'},
-                        {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'big-image'},
-                        {key: '有效期至', value: data.expireTime, type: 'string'},
-                        {key: '代理标识码', value: data.uniqueCode, type: 'qrcode'},
-                        // {key: '代理二维码', value: this.data.disposeDay},
-                        {key: '创建人', value: data.createUserName, type: 'string'},
-                        // {key: '创建时间', value: data.auditTime, type: 'string'}
-                        {key: '创建时间', value: data.createTime, type: 'string'}
-                    ];
+                    if (data.agentType == 1) {
+                        this.data = [
+                            {key: '代理商编码', value: data.agentNo, type: 'string'},
+                            {key: '代理商名称', value: data.agentName, type: 'string'},
+                            {key: '代理商属性', value: this.newRoleId[data.roleId], type: 'string'},
+                            {key: '代理商地区', value: this.getProvince(data.province), type: 'string'},
+                            {key: '联系人', value: data.contactsName, type: 'string'},
+                            {key: '联系电话', value: data.contactsPhone, type: 'string'},
+                            {key: '联系地址', value: data.contactsMail, type: 'string'},
+                            {key: '代理商性质', value: transformData.type[data.agentType], type: 'string'},
+                            {key: '营业执照号码', value: data.bizLicenseCode, type: 'string'},
+                            {key: '营业执照副本', value: data.bizLicenseImagePath, type: 'big-image'},
+                            {key: '有效期至', value: data.expireTime, type: 'string'},
+                            {key: '代理标识码', value: data.uniqueCode, type: 'qrcode'},
+                            // {key: '代理二维码', value: this.data.disposeDay},
+                            {key: '创建人', value: data.createUserName, type: 'string'},
+                            // {key: '创建时间', value: data.auditTime, type: 'string'}
+                            {key: '创建时间', value: data.createTime, type: 'string'}
+                        ];
+                    } else {
+                        this.data = [
+                            {key: '代理商编码', value: data.agentNo, type: 'string'},
+                            {key: '代理商名称', value: data.agentName, type: 'string'},
+                            {key: '代理商属性', value: this.newRoleId[data.roleId], type: 'string'},
+                            {key: '代理商地区', value: this.getProvince(data.province), type: 'string'},
+                            {key: '联系人', value: data.contactsName, type: 'string'},
+                            {key: '联系电话', value: data.contactsPhone, type: 'string'},
+                            {key: '联系地址', value: data.contactsMail, type: 'string'},
+                            {key: '代理商性质', value: transformData.type[data.agentType], type: 'string'},
+                            {key: '身份证号码', value: data.idCardNo, type: 'string'},
+                            {key: '身份证正面', value: data.idCardFrontImagePath, type: 'big-image'},
+                            {key: '身份证反面', value: data.idCardBackImagePath, type: 'big-image'},
+                            {key: '有效期至', value: data.expireTime, type: 'string'},
+                            {key: '代理标识码', value: data.uniqueCode, type: 'qrcode'},
+                            // {key: '代理二维码', value: this.data.disposeDay},
+                            {key: '创建人', value: data.createUserName, type: 'string'},
+                            // {key: '创建时间', value: data.auditTime, type: 'string'}
+                            {key: '创建时间', value: data.createTime, type: 'string'}
+                        ];
+                    }
+
                 });
             },
             fetchAddressData() {
