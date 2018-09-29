@@ -203,8 +203,9 @@
                 </el-date-picker>
             </el-form-item>
 
-            <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
-                <el-input v-model="form.uniqueCode"></el-input>
+            <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 100%;">
+                <el-input v-model="form.uniqueCode" style="width: 170px;"></el-input>
+                <el-button type="primary" style="margin-left: 10px;" @click="getCode">点击生成代理商标识码</el-button>
             </el-form-item>
 
 
@@ -243,7 +244,8 @@ import {
     getAgent,
     getLowerAreas,
     updateAgent,
-    agentRoleList
+    agentRoleList,
+    getUniqueCode,
 } from "@/api/agent";
 import PortraitTable from "@/components/PortraitTable/index.vue";
 import agentMap from "@/map/agent";
@@ -432,6 +434,16 @@ export default {
                     return false;
                 }
             });
+        },
+        getCode() {
+            getUniqueCode().then( res => {
+                console.log( res );
+                if( res.code == 200 ) {
+                    this.form.uniqueCode = res.data;
+                } else {
+                    alert(res.msg);
+                }
+            })
         },
         imgUploaded(res, file) {
             this.form.bizLicenseImagePath = res.data;
