@@ -52,13 +52,13 @@
         },
         mounted: function () {
             const _this = this;
-            console.log('this1111111111111111111111111',this);
+            // console.log('this1111111111111111111111111',this);
             const setting =
             {
                 selector: '.'+_this.id,
                 language: "zh_CN",
                 init_instance_callback: (editor)=> {
-                    console.log('calback this2222222222222222:',_this);
+                    // console.log('calback this2222222222222222:',_this);
                     EDITOR = editor;
                     console.log("Editor: " + editor.id + " is now initialized.");
                     _this.realId = editor.id;
