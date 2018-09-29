@@ -63,7 +63,7 @@
         </el-table-column>
         <el-table-column label="地区" align="center">
             <template slot-scope="scope">
-                {{scope.row.provinceId+'/'+scope.row.cityId}}
+                {{scope.row.province+'/'+scope.row.city}}
             </template>
         </el-table-column>
         <el-table-column label="申请退款时间" align="center">

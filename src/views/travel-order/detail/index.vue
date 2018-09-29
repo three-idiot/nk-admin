@@ -100,7 +100,7 @@ export default {
                     },
                     {
                         key: '地区',
-                        value: `${resData.user.proId}/${resData.user.cityId}`,
+                        value: `${resData.user.province}/${resData.user.city}`,
                         type: 'string'
                     },
                     {
