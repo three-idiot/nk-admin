@@ -18,6 +18,7 @@
     const CHANGED = 2;
     let EDITOR = null;
     export default {
+        name: 'edidor',
         props: {
             value: {
                 required: true
@@ -36,10 +37,10 @@
                 // this.status = CHANGED;
             }
         },
-        data: function () {
+        data() {
             return {
                 status: INIT,
-                id: 'editor-'+new Date().getMilliseconds(),
+                id: 'editor-'+new Date().getMilliseconds()+Math.floor(Math.random()*1000000),
                 realId: null,
                 uploadApi: this.$imgUploadApi
             };
@@ -51,16 +52,16 @@
         },
         mounted: function () {
             const _this = this;
-            console.log( '原来的', _this.value );
+            // console.log('this1111111111111111111111111',this);
             const setting =
             {
                 selector: '.'+_this.id,
                 language: "zh_CN",
-                init_instance_callback: function(editor) {
+                init_instance_callback: (editor)=> {
+                    // console.log('calback this2222222222222222:',this,_this);
                     EDITOR = editor;
                     console.log("Editor: " + editor.id + " is now initialized.");
                     _this.realId = editor.id;
-                    // console.log( '你好巴拉巴拉', editor.id, _this.value,_this );
                     // if(  _this.value )  {
                     //     tinymce.get(_this.realId).setContent( _this.value );
                     // }
@@ -99,6 +100,7 @@
                 }
             }
             Object.assign(setting, _this.setting);
+            // console.log('setting',setting);
             tinymce.init(setting);
             // console.log('测试测试', tinymce.get());
             // console.log('测试测试222', this.realId);
