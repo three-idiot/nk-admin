@@ -166,19 +166,19 @@
 
 
         <el-form-item label="名称：" prop="bankAccountName" style="width: 400px;">
-            <el-input v-model="form.bankAccountName"></el-input>
+            <el-input v-model="form.bankAccountName" disabled></el-input>
         </el-form-item>
 
         <el-form-item label="开户行：" prop="bankName" style="width: 400px;">
-            <el-input v-model="form.bankName"></el-input>
+            <el-input v-model="form.bankName" disabled></el-input>
         </el-form-item>
 
         <el-form-item label="联行号：" prop="title" style="width: 400px;" v-if="form.type == 1">
-            <el-input v-model="form.bankCoupletNo"></el-input>
+            <el-input v-model="form.bankCoupletNo" disabled></el-input>
         </el-form-item>
 
         <el-form-item label="账号：" prop="bankAccountNo" style="width: 400px;">
-            <el-input v-model="form.bankAccountNo"></el-input>
+            <el-input v-model="form.bankAccountNo" disabled></el-input>
         </el-form-item>
 
         <hr>
@@ -198,7 +198,8 @@
                     v-model="form.expireTime"
                     type="datetime"
                     value-format="yyyy-MM-dd HH:mm:ss"
-                    placeholder="选择日期">
+                    placeholder="选择日期"
+                >
                 </el-date-picker>
             </el-form-item>
 
@@ -216,16 +217,17 @@
 
 
         <el-form-item label="时间" prop="expireTime">
-            <el-date-picker
-                v-model="form.expireTime"
-                type="datetime"
-                value-format="yyyy-MM-dd HH:mm:ss"
-                placeholder="选择日期">
-            </el-date-picker>
+            <!--<el-date-picker-->
+                <!--v-model="form.expireTime"-->
+                <!--type="datetime"-->
+                <!--value-format="yyyy-MM-dd HH:mm:ss"-->
+                <!--placeholder="选择日期">-->
+            <!--</el-date-picker>-->
+            {{ form.expireTime }}
         </el-form-item>
 
         <el-form-item label="代理商标识码：" prop="uniqueCode" style="width: 400px;">
-            <el-input v-model="form.uniqueCode"></el-input>
+            <el-input v-model="form.uniqueCode" disabled></el-input>
         </el-form-item>
 
         <el-form-item size="large" class="btn">
