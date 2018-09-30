@@ -11,7 +11,7 @@
         </el-table-column>
         <el-table-column align="center" label="下单用户">
             <template slot-scope="scope">
-                {{scope.row.userId}}
+                {{scope.row.userName}}
             </template>
         </el-table-column>
         <el-table-column label="下单时间" align="center">
