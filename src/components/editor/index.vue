@@ -58,7 +58,7 @@
                 selector: '.'+_this.id,
                 language: "zh_CN",
                 init_instance_callback: (editor)=> {
-                    // console.log('calback this2222222222222222:',this,_this);
+                    // console.log('calback this2222222222222222:',_this);
                     EDITOR = editor;
                     console.log("Editor: " + editor.id + " is now initialized.");
                     _this.realId = editor.id;

@@ -386,6 +386,7 @@
                     if ( this.goodsParams.salePrice ) {
                         this.goodsParams.salePrice = null;
                     }
+                    console.log( this.goodsParams );
                     // this.list = response.data.data;
                     console.log(response.data);
                     this.goodsList = response.data.data;
@@ -400,6 +401,8 @@
             },
             handleCurrentChange(val) {
                 this.goodsParams.pageIndex = val;
+                console.log( '测试',val );
+                this.goodsList = [];
                 this.fetchData(this.goodsParams);
             },
             handleFilter() {
