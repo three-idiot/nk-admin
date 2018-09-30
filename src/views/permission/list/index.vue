@@ -27,7 +27,7 @@
         </el-table-column>
         <el-table-column align="center" label="状态">
             <template slot-scope="scope">
-                <el-tag :type="roleStatus[scope.row.status].color">{{roleStatus[scope.row.status].msg}}</el-tag>
+                {{roleStatus[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" align="center">

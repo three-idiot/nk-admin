@@ -87,12 +87,12 @@
         </el-table-column>
         <el-table-column label="退款原因" align="center">
             <template slot-scope="scope">
-                <el-tag :type="reFundReason[scope.row.refundReason].color">{{reFundReason[scope.row.refundReason].msg}}</el-tag>
+                {{reFundReason[scope.row.refundReason].msg}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="退款状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="reFundDtatus[scope.row.status].color">{{reFundDtatus[scope.row.status].msg}}</el-tag>
+                {{reFundDtatus[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" width="150" align="center">

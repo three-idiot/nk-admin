@@ -41,7 +41,7 @@
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
+                {{status[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" width="150" align="center">

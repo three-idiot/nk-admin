@@ -79,17 +79,17 @@
         </el-table-column>
         <el-table-column class-name="status-col" label="支付方式" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="payTypes[scope.row.payType].color">{{payTypes[scope.row.payType].msg}}</el-tag>
+                {{payTypes[scope.row.payType].msg}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="status[scope.row.status].color">{{status[scope.row.status].msg}}</el-tag>
+                {{status[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="订单类型" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="renewTypes[scope.row.renewType].color">{{renewTypes[scope.row.renewType].msg}}</el-tag>
+                {{renewTypes[scope.row.renewType].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" width="160">

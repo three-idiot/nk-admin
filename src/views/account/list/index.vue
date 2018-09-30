@@ -66,7 +66,7 @@
         </el-table-column>
         <el-table-column class-name="status-col" label="账号状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="accountStatus[scope.row.status].color">{{accountStatus[scope.row.status].msg}}</el-tag>
+                {{accountStatus[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">

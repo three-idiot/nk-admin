@@ -159,9 +159,8 @@
 
             <el-table-column class-name="status-col" label="商品状态" align="center">
                 <template slot-scope="scope">
-                    <el-tag :type="scope.row.status | statusFilter">
                         {{ statusPerform[scope.row.status] }}
-                    </el-tag>
+                    
                 </template>
             </el-table-column>
 

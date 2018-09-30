@@ -49,7 +49,6 @@
       <el-table-column  align="center"  label="有效期(天)" >
         <template slot-scope="scope">
           <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
-          <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
 
@@ -77,9 +76,7 @@
 
       <el-table-column class-name="status-col"  label="商品状态" align="center" >
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">
             {{ goodStatus[scope.row.status] }}
-          </el-tag>
         </template>
       </el-table-column>
 

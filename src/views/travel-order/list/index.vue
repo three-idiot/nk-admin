@@ -60,7 +60,7 @@
         </el-table-column>
         <el-table-column label="商品分类" align="center">
             <template slot-scope="scope">
-                <el-tag :type="type[scope.row.goodsType].color">{{type[scope.row.goodsType].msg}}</el-tag>
+                {{type[scope.row.goodsType].msg}}
             </template>
         </el-table-column>
         <el-table-column label="开始时间" align="center">
@@ -90,7 +90,7 @@
         </el-table-column>
         <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
             <template slot-scope="scope">
-                <el-tag :type="groupStatus[scope.row.status].color">{{groupStatus[scope.row.status].msg}}</el-tag>
+                {{groupStatus[scope.row.status].msg}}
             </template>
         </el-table-column>
         <el-table-column label="操作" width="270" align="center">
