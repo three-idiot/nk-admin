@@ -3,9 +3,9 @@
         <p class="title">商品详情</p>
         <hr/>
         <portrait-table :data="processData"></portrait-table>
-        <div class="text-item"><div class="item-tit">线路特色：</div><div v-html="data.lineDescribe"></div></div>
-        <div class="text-item"><div class="item-tit">行程介绍：</div><div v-html="data.tripDescribe"></div></div>
-        <div class="text-item"><div class="item-tit">费用与须知：</div><div v-html="data.costDescribe"></div></div>
+        <!--<div class="text-item"><div class="item-tit">线路特色：</div><div v-html="data.lineDescribe"></div></div>-->
+        <!--<div class="text-item"><div class="item-tit">行程介绍：</div><div v-html="data.tripDescribe"></div></div>-->
+        <!--<div class="text-item"><div class="item-tit">费用与须知：</div><div v-html="data.costDescribe"></div></div>-->
         <table class="divide-table">
             <tr>
                 <th class="tableTitle">分成设置(元)</th>
@@ -151,7 +151,10 @@
                         {key: '门市价格', value: this.data.realPrice/100, type: 'string'},
                         {key: '儿童价格', value: this.data.childPrice/100, type: 'string'},
                         {key: '创建人', value: this.data.publisherName, type: 'string'},
-                        {key: '创建时间', value: new Date(this.data.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'}
+                        {key: '创建时间', value: new Date(this.data.createTime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss"), type: 'string'},
+                        {key: '线路特色', value: this.data.lineDescribe, type: 'html'},
+                        {key: '行程介绍', value: this.data.tripDescribe, type: 'html'},
+                        {key: '费用与须知', value: this.data.costDescribe, type: 'html'},
                     ]
                 });
             }
