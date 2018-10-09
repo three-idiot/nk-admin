@@ -28,7 +28,7 @@
         </el-form>
     </div>
     <p>共{{total_count}}个账号</p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='账号名称'>
             <template slot-scope="scope">
                 {{scope.row.username}}

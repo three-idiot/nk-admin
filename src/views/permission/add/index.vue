@@ -13,7 +13,7 @@
             <el-button size="small" type="primary" @click="selectAll(true)">全选</el-button>
             <el-button size="small" type="warning" @click="selectAll(false)">重置</el-button>
         </el-form-item>
-        <el-table :stripe="true" :data="permissionList" :span-method="objectSpanMethod" border fit highlight-current-row>
+        <el-table empty-text="暂无数据～" :stripe="true" :data="permissionList" :span-method="objectSpanMethod" border fit highlight-current-row>
             <el-table-column prop="spanName" label="分类" width="130">
             </el-table-column>
             <el-table-column label="页面" width="180">

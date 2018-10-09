@@ -47,7 +47,7 @@
             </el-row>
         </el-form>
     </div>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='商品编号'>
             <template slot-scope="scope">
                 {{scope.row.goodsNo}}

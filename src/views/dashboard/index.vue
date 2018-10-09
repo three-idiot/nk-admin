@@ -23,7 +23,7 @@
         <el-col :span="15">
             <div class=" bg-purple-light">
                 <p class="title">数据统计</p>
-                <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+                <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
                     <el-table-column align="center" label=''>
                         <template slot-scope="scope">
                             {{scope.row.title}}

@@ -44,7 +44,7 @@
     </div>
     <div class="total">广告总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
-    <el-table :data="list" ref="adsTable" v-loading="listLoading" border fit highlight-current-row
+    <el-table empty-text="暂无数据～" :data="list" ref="adsTable" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;" @selection-change="handleSelectionChange">
       <el-table-column
               type="selection"

@@ -45,7 +45,7 @@
         </el-form>
     </div>
     <p>订单总数 <span class="red">{{total_count}}</span> 条 退款总金额 <span class="red">{{priceCount}}</span> 元</p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='退款订单编号'>
             <template slot-scope="scope">
                 {{scope.row.refundNo}}

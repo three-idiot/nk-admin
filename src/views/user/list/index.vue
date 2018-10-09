@@ -5,7 +5,7 @@
     <div></div>
     用户总数：&nbsp;&nbsp;<span style="color: #0066CC;font-size: 18px;">{{ counts }}</span>&nbsp;个
     <div style="margin: 20px 0;"></div>
-    <el-table :data="users" v-loading="listLoading" element-loading-text="加载中" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :data="users" v-loading="listLoading" element-loading-text="加载中" border fit highlight-current-row>
       <el-table-column align="center" label='序号' width="100">
         <template slot-scope="scope">
           {{scope.$index + 1}}

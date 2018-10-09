@@ -47,7 +47,7 @@
     <p>订单总数 <span class="red">{{total_count}}</span> 条 退款总金额 <span class="red">{{priceCount}}</span> 元
         <el-button v-permission="['travel-order-refund-check-batchAudit']" class="mul-btn" size="small" type="warning" @click="refundCheck">批量审核</el-button>
     </p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelectionChange">
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column align="center" label='退款订单编号'>

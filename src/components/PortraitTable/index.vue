@@ -1,6 +1,6 @@
 <template>
 <div class="portrait-table-container">
-    <el-table border :size="size" :show-header=false :data="data" style="width: 100%">
+    <el-table empty-text="暂无数据～" border :size="size" :show-header=false :data="data" style="width: 100%">
         <el-table-column label="标题" align="right" :width="keyWidth" class-name='key'>
             <template slot-scope="scope">
                 <span>{{scope.row.key}}:</span>

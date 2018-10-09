@@ -76,7 +76,7 @@
         </el-form>
     </div>
     <p>代理商总数共 <span class="red">{{total_count}}</span> 条 </p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='代理商编号'>
             <template slot-scope="scope">
                 {{scope.row.agentNo}}

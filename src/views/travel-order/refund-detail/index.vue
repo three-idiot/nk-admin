@@ -2,7 +2,7 @@
 <div class="app-container">
     <title-line txt="退款详情"></title-line>
     <portrait-table class="portrait-table" :key-width="100" :data="data"></portrait-table>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='商品编码'>
             <template slot-scope="scope">
                 {{scope.row.goodsNo}}
@@ -43,7 +43,7 @@
     </el-table>
     <hr class="hr">
     <p class="subtitle">出行用户信息</p>
-    <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='姓名'>
             <template slot-scope="scope">
                 {{scope.row.travelUserInfo.name}}

@@ -31,7 +31,7 @@
     </div>
 
     <!--表格-->
-    <el-table  :data="list" v-loading="listLoading" border fit highlight-current-row
+    <el-table empty-text="暂无数据～"  :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
 
       <el-table-column align="center"   label="序号" class="table-item">

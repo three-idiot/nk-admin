@@ -2,7 +2,7 @@
 <div class="app-container">
     <title-line txt="商品订单详情"></title-line>
     <portrait-table class="portrait-table" :key-width="80" :data="data"></portrait-table>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='商品编码'>
             <template slot-scope="scope">
                 {{scope.row.goodsNo}}
@@ -31,7 +31,7 @@
     </el-table>
     <hr class="hr">
     <p class="subtitle">子订单和用户信息</p>
-    <el-table :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="childList" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='子订单编号'>
             <template slot-scope="scope">
                 {{scope.row.childOrderNo}}

@@ -32,7 +32,7 @@
     </div>
     <div class="total">资讯总数：共<span>{{ list.length }}</span>条</div>
     <!--表格-->
-    <el-table :data="list" ref="newsTable" v-loading="listLoading" border fit highlight-current-row
+    <el-table empty-text="暂无数据～" :data="list" ref="newsTable" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;" :row-class-name="topClassName" @selection-change="handleSelectionChange">
       <!-- <el-table-column align="center" width="50"  label="" class="table-item">
         <template slot-scope="scope">

@@ -3,7 +3,7 @@
     <title-line txt="查看商品订单"></title-line>
     <portrait-table :key-width="80" :data="data"></portrait-table>
     <p>订单总数 <span class="red">{{total_count}}</span> 条 支付总额 <span class="red">{{priceCount}}</span> 元</p>
-    <el-table :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table empty-text="暂无数据～" :stripe="true" :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label='订单编号'>
             <template slot-scope="scope">
                 {{scope.row.orderNo}}

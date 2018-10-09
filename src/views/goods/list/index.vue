@@ -86,7 +86,7 @@
 
 
         <!--表格-->
-        <el-table :data="goodsList" v-loading="listLoading" border fit highlight-current-row @selection-change="handleSelectionChange"
+        <el-table empty-text="暂无数据～" :data="goodsList" v-loading="listLoading" border fit highlight-current-row @selection-change="handleSelectionChange"
                   style="width: 100%;min-height:1000px;">
 
             <el-table-column align="center" label="全选" type="selection" v-model="chooseTravelGoodsId"  class="table-item" width="55">
