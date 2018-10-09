@@ -32,6 +32,7 @@
                 type="datetime"
                 placeholder="选择日期"
                 value-format="yyyy-MM-dd HH:mm:ss"
+                style="margin-top: 10px;"
             >
             </el-date-picker>
             -
@@ -40,6 +41,7 @@
                 type="datetime"
                 placeholder="选择日期"
                 value-format="yyyy-MM-dd HH:mm:ss"
+                style="margin-top: 10px;"
             >
             </el-date-picker>
             <!--时间选择器-->
@@ -160,7 +162,7 @@
             <el-table-column class-name="status-col" label="商品状态" align="center">
                 <template slot-scope="scope">
                         {{ statusPerform[scope.row.status] }}
-                    
+
                 </template>
             </el-table-column>
 
