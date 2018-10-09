@@ -1,15 +1,16 @@
 <template>
     <div class="addVisa-form" v-loading="detailLoading">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm" v-if="!detailLoading">
-            <el-form-item label="商品编号" prop="goodsNo" style="width: 312px;">
+        <title-line txt="编辑商品"></title-line>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm" v-if="!detailLoading" style="margin-top: 30px;">
+            <el-form-item label="商品编号" prop="goodsNo" style="width: 400px;">
                 <el-input v-model="ruleForm.goodsNo" disabled></el-input>
             </el-form-item>
             <!--商品名称-->
-            <el-form-item label="商品名称" prop="name" style="width: 312px;">
+            <el-form-item label="商品名称" prop="name" style="width: 400px;">
                 <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
 
-            <el-form-item label="商品概要" prop="outline" style="width: 312px;">
+            <el-form-item label="商品概要" prop="outline" style="width: 400px;">
                 <el-input v-model="ruleForm.outline"></el-input>
             </el-form-item>
 
@@ -35,7 +36,7 @@
             </el-form-item>
 
 
-            <el-form-item label="出发地点" prop="leaveAddress" style="width: 312px;">
+            <el-form-item label="出发地点" prop="leaveAddress" style="width: 400px;">
                 <el-input v-model="ruleForm.leaveAddress"></el-input>
             </el-form-item>
 
@@ -311,6 +312,8 @@
     import editor from '@/components/editor'
     import App from "../../../App";
     import deepClone from '../tools/deepClone';
+    import TitleLine from "@/components/TitleLine/index.vue";
+
 
 
     export default {
@@ -469,7 +472,8 @@
         },
         components: {
             App,
-            editor
+            editor,
+            TitleLine
         },
         methods: {
             goBack() {
