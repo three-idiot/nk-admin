@@ -27,23 +27,25 @@
 
             <!--时间选择器-->
             <span class="demonstration">发布日期：</span>
-            <el-date-picker
-                v-model="goodsParams.publishStartTime"
-                type="datetime"
-                placeholder="选择日期"
-                value-format="yyyy-MM-dd HH:mm:ss"
-                style="margin-top: 10px;"
-            >
+            <el-date-picker  style="margin-top: 10px;" v-model="validdaterange" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
             </el-date-picker>
-            -
-            <el-date-picker
-                v-model="goodsParams.publishEndTime"
-                type="datetime"
-                placeholder="选择日期"
-                value-format="yyyy-MM-dd HH:mm:ss"
-                style="margin-top: 10px;"
-            >
-            </el-date-picker>
+            <!--<el-date-picker-->
+                <!--v-model="goodsParams.publishStartTime"-->
+                <!--type="datetime"-->
+                <!--placeholder="选择日期"-->
+                <!--value-format="yyyy-MM-dd HH:mm:ss"-->
+                <!--style="margin-top: 10px;"-->
+            <!--&gt;-->
+            <!--</el-date-picker>-->
+            <!-- - -->
+            <!--<el-date-picker-->
+                <!--v-model="goodsParams.publishEndTime"-->
+                <!--type="datetime"-->
+                <!--placeholder="选择日期"-->
+                <!--value-format="yyyy-MM-dd HH:mm:ss"-->
+                <!--style="margin-top: 10px;"-->
+            <!--&gt;-->
+            <!--</el-date-picker>-->
             <!--时间选择器-->
 
             <div class="goodPrice" style="margin-top: 10px;">
@@ -271,6 +273,7 @@
                     '-1': '<'
                 },
                 salePrice: null,
+                validdaterange: [],
                 goodsParams: {
                     type: null,
                     name: null,
@@ -288,7 +291,14 @@
                 goodsList: null
             };
         },
-        computed: {},
+        computed: {
+            listQuery() {
+                return Object.assign({}, this.goodsParams, {
+                    publishStartTime: this.validdaterange?  this.validdaterange[0] : null,
+                    publishEndTime: this.validdaterange?  this.validdaterange[1] : null,
+                });
+            }
+        },
         filters: {
             statusFilter(status) {
                 const statusMap = {
@@ -302,7 +312,7 @@
             }
         },
         created() {
-            this.fetchData(this.goodsParams);
+            this.fetchData(this.listQuery);
         },
         methods: {
             jumpAdd() {
@@ -384,10 +394,10 @@
             fetchData(params) {
                 this.listLoading = true;
                 getGoodsList(params).then(response => {
-                    if ( this.goodsParams.salePrice ) {
-                        this.goodsParams.salePrice = null;
-                    }
-                    console.log( this.goodsParams );
+                    // if ( this.goodsParams.salePrice ) {
+                    //     this.goodsParams.salePrice = null;
+                    // }
+                    // console.log( this.goodsParams );
                     // this.list = response.data.data;
                     console.log(response.data);
                     this.goodsList = response.data.data;
@@ -398,13 +408,13 @@
             },
             handleSizeChange(val) {
                 this.goodsParams.pageSize = val;
-                this.fetchData(this.goodsParams);
+                this.fetchData(this.listQuery);
             },
             handleCurrentChange(val) {
                 this.goodsParams.pageIndex = val;
                 console.log( '测试',val );
                 this.goodsList = [];
-                this.fetchData(this.goodsParams);
+                this.fetchData(this.listQuery);
             },
             handleFilter() {
                 console.log(this.goodsParams);
@@ -413,10 +423,10 @@
                         alert('价格规则和价格不能只输入一个！！！')
                     } else {
                         this.goodsParams.salePrice = this.salePrice * 100;
-                        this.fetchData(this.goodsParams);
+                        this.fetchData(this.listQuery);
                     }
                 } else {
-                    this.fetchData(this.goodsParams);
+                    this.fetchData(this.listQuery);
                 }
             },
             goDetail(id) {
