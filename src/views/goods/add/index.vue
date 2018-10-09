@@ -295,11 +295,11 @@
                 rules: {
                     name: [
                         {required: true, trigger: 'blur', message: '请输入商品名称'},
-                        {validator: length16, trigger: 'change'}
+                        {validator: length16, trigger: 'blur'}
                     ],
                     outline: [
                         {required: true, trigger: 'blur', message: '请输入商品概要'},
-                        {validator: length16, trigger: 'change'}
+                        {validator: length16, trigger: 'blur'}
                     ],
                     type: [
                         {required: true, trigger: 'change', message: '请选择商品分类'}
