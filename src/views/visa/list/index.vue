@@ -34,7 +34,7 @@
     <el-table empty-text="暂无数据～"  :data="list" v-loading="listLoading" border fit highlight-current-row
               style="width: 100%;min-height:1000px;">
 
-      <el-table-column align="center"   label="序号" class="table-item">
+      <el-table-column align="center"   label="序号" class="table-item" width="80">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
@@ -46,7 +46,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column  align="center"  label="有效期(天)" >
+      <el-table-column  align="center"  label="有效期(天)" width="80">
         <template slot-scope="scope">
           <span class="link-type">{{scope.row.unitDay? scope.row.unitDay : '长期'}}</span>
         </template>
@@ -58,13 +58,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column   align="center" label="发布时间">
+      <el-table-column   align="center" label="发布时间" width="180">
         <template slot-scope="scope">
           <span>{{new Date(scope.row.ctime.replace(/-/g,"/")).Format("yyyy-MM-dd HH:mm:ss")}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center"  label="分成比例">
+      <el-table-column align="center"  label="分成比例"  width="180">
         <template slot-scope="scope">
           <span class="link-type">
             <p>旅行社分成 :{{  scope.row.travelRatio/100 }}%</p>
