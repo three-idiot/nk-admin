@@ -15,13 +15,13 @@
                 <el-input v-model="form.goodsNo" placeholder="请输入商品编号"></el-input>
             </el-form-item>
             <el-form-item label="退款原因">
-                <el-select v-model="form.refundReason" placeholder="">
+                <el-select v-model="form.refundReason" placeholder="全部">
                     <el-option label="用户申请" value="1"></el-option>
                     <el-option label="组团失败" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="退款状态">
-                <el-select v-model="form.status" clearable placeholder="">
+                <el-select v-model="form.status" clearable placeholder="全部">
                     <el-option v-for="(value, key) in reFundDtatus" :key="key" :label="value.msg" :value="key"></el-option>
                 </el-select>
             </el-form-item>

@@ -2,13 +2,15 @@
 <div class="app-container">
     <title-line txt="新建角色"></title-line>
     <el-form ref="ruleForm" :model="form" :rules="rules" class="demo-ruleForm form" label-width="100px">
-        <el-form-item label="角色名称" prop="name">
-            <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="角色描述" prop="remark">
-            <el-input type="textarea" :rows="2" v-model="form.remark" maxlength="150">
-            </el-input>
-        </el-form-item>
+        <div class="input">
+            <el-form-item label="角色名称" prop="name">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="角色描述" prop="remark">
+                <el-input type="textarea" :rows="2" v-model="form.remark" maxlength="150">
+                </el-input>
+            </el-form-item>
+        </div>
         <el-form-item label="权限列表">
             <el-button size="small" type="primary" @click="selectAll(true)">全选</el-button>
             <el-button size="small" type="warning" @click="selectAll(false)">重置</el-button>
@@ -149,15 +151,22 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+
     .title {
         font-size: 30px;
         color: #606266;
     }
+
     .form {
         margin-top: 30px;
+
         .btn {
             margin-top: 30px;
         }
     }
+    .input{
+        max-width: 500px;
+    }
+
 }
 </style>

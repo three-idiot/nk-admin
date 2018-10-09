@@ -115,7 +115,7 @@ export default {
         listQuery() {
             delete this.form.checkPass;
             return Object.assign({}, this.form, {
-                pwd : md5(this.form.pwd)
+                pwd: md5(this.form.pwd)
             });
         }
     },
@@ -164,18 +164,24 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     padding-left: 50px;
+
     .title {
         font-size: 30px;
         color: #606266;
     }
+
     .form {
         margin-top: 30px;
         padding: 30px;
         padding-bottom: 5px;
         background: #F2F6FC;
+
         .btn {
             margin-top: 30px;
         }
+    }
+    form {
+        max-width: 650px;
     }
 }
 </style>
