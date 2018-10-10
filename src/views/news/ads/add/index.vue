@@ -35,13 +35,13 @@
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
       <!-- 广告位宽度 -->
-      <el-form-item v-if="!isEdit" label="广告位宽度" prop="width" style="width: 312px;">
+      <!-- <el-form-item v-if="!isEdit" label="广告位宽度" prop="width" style="width: 312px;">
         <el-input type="number" v-model.number="ruleForm.width"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <!-- 广告位高度 -->
-      <el-form-item v-if="!isEdit" label="广告位高度" prop="height" style="width: 312px;">
+      <!-- <el-form-item v-if="!isEdit" label="广告位高度" prop="height" style="width: 312px;">
         <el-input type="number" v-model.number="ruleForm.height"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <!-- 广告位位置 -->
       <el-form-item label="选择广告位置" prop="sort" style="width: 312px;">
         <el-select v-model="ruleForm.sort" placeholder="请选择" clearable>
@@ -97,8 +97,8 @@
         images: [],
         detail: null,
         url: '',
-        width: '',
-        height: '',
+        // width: '',
+        // height: '',
         sort: '',
         validTime: ''
       },
@@ -110,17 +110,17 @@
           { required: true, trigger: 'blur', message: '请输入资讯标题' }
         ],
         detail: [
-          { required: true, trigger: 'blur', message: '请添加资讯详情' }
+          { required: false, trigger: 'blur', message: '请添加资讯详情' }
         ],
         url: [
-          { required: true, trigger: 'blur', message: '请配置链接URL地址' }
+          { required: false, trigger: 'blur', message: '请配置链接URL地址' }
         ],
-        width: [
-          { required: true, trigger: 'blur', message: '请输入广告位宽度' }
-        ],
-        height: [
-          { required: true, trigger: 'blur', message: '请输入广告位高度' }
-        ],
+        // width: [
+        //   { required: true, trigger: 'blur', message: '请输入广告位宽度' }
+        // ],
+        // height: [
+        //   { required: true, trigger: 'blur', message: '请输入广告位高度' }
+        // ],
         sort: [
           { required: true, trigger: 'change', message: '请选择广告位置' }
         ],

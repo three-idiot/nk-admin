@@ -225,7 +225,7 @@ export default {
           _ids.push(item.id);
       });
       changeAdsStatus({
-        adId: _ids.length ? _ids.join(',') : this.clickId,
+        adIds: _ids.length ? _ids.join(',') : [this.clickId],
         status: this.dialogForm.agree,
         remark: this.dialogForm.remark
       }).then((res) => {
