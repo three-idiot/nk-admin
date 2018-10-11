@@ -7,7 +7,7 @@
         <el-input v-model="ruleForm.adNo" :disabled="isEdit"></el-input>
       </el-form-item>
       <!--资讯名称-->
-      <el-form-item label="广告标题" prop="title" style="width: 312px;">
+      <el-form-item label="广告标题" prop="title" style="width: 624px;">
         <el-input v-model="ruleForm.title" maxlength="90"></el-input>
         <span style="color: #606266;font-size: 12px;">不得超过90字</span>
       </el-form-item>

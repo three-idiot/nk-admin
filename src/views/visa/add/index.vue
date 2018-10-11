@@ -2,8 +2,9 @@
   <div class="addVisa-form">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <!--商品名称-->
-      <el-form-item label="商品名称" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+      <el-form-item label="商品名称" prop="title" style="width: 624px;">
+        <el-input v-model="ruleForm.title" maxlength="68"</el-input>
+        <span style="color: #606266;font-size: 12px;">不得超过68字</span>
       </el-form-item>
       <!--商品图片-->
 
@@ -19,6 +20,7 @@
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
+        <span style="color: #606266;font-size: 12px;">图片尺寸：750x418px</span>
       </el-form-item>
 
 
@@ -47,32 +49,32 @@
         </el-radio-group>
       </el-form-item>
       <!--签证费-->
-      <el-form-item label="签证费(元)" prop="visaPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.visaPrice"></el-input>
+      <el-form-item label="签证原价(元)" prop="visaPrice"  style="width: 312px;">
+        <el-input type="number" step="0.01" v-model="ruleForm.visaPrice"></el-input>
       </el-form-item>
       <!--签证优惠费-->
-      <el-form-item label="签证优惠费(元)" prop="lowVisaPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.lowVisaPrice"></el-input>
+      <el-form-item label="签证优惠价(元)" prop="lowVisaPrice"  style="width: 312px;">
+        <el-input type="number" step="0.01" v-model="ruleForm.lowVisaPrice"></el-input>
       </el-form-item>
       <!--服务费-->
-      <el-form-item label="服务费(元)" prop="helpPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.helpPrice"></el-input>
+      <el-form-item label="服务原价(元)" prop="helpPrice"  style="width: 312px;">
+        <el-input type="number" step="0.01" v-model="ruleForm.helpPrice"></el-input>
       </el-form-item>
       <!--服务优惠费-->
-      <el-form-item label="服务优惠费(元)" prop="lowHelpPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.lowHelpPrice"></el-input>
+      <el-form-item label="服务优惠价(元)" prop="lowHelpPrice"  style="width: 312px;">
+        <el-input type="number" step="0.01" v-model="ruleForm.lowHelpPrice"></el-input>
       </el-form-item>
       <!--停留时间-->
       <el-form-item label="停留时间(天)" prop="stayDay"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.stayDay"></el-input>
+        <el-input type="number" step="0.01" v-model="ruleForm.stayDay"></el-input>
       </el-form-item>
       <!--处理时间-->
       <el-form-item label="处理时间(天)" prop="disposeDay"  style="width: 312px;">
-        <el-input v-model="ruleForm.disposeDay"></el-input>
+        <el-input type="number" step="0.01" v-model="ruleForm.disposeDay"></el-input>
       </el-form-item>
       <!--续签费用-->
       <el-form-item label="续签费用(元)" prop="renewPrice"  style="width: 312px;">
-        <el-input v-model.number="ruleForm.renewPrice"></el-input>
+        <el-input type="number" step="0.01" v-model="ruleForm.renewPrice"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')" v-permission="['visa-add-publish']">提交</el-button>
@@ -90,11 +92,19 @@
   export default {
   data() {
     let checkNum = (rule, value, callback) =>{
-      if ( !/^[0-9]*$/.test(value) ) {
-        return callback(new Error('必须是数字'));
-      } else {
-        callback();
+      if (Number(value) < 0) {
+        return callback(new Error('必须大于零'));
       }
+      if (/^([0-9]*)|([0-9]*\.[0-9]{2})$/) {
+        callback()
+      } else {
+        return callback(new Error('格式不正确'));
+      }
+      // if ( !/^[0-9]*$/.test(value) ) {
+      //   return callback(new Error('必须是数字'));
+      // } else {
+      //   callback();
+      // }
     };
     return {
       imageUrl: '',

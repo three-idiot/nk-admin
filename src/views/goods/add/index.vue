@@ -3,11 +3,12 @@
         <title-line txt="新增商品"></title-line>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm" style="margin-top: 30px;">
             <!--商品名称-->
-            <el-form-item label="商品名称" prop="name" style="width: 400px;">
+            <el-form-item label="商品名称" prop="name" style="width: 800px;">
                 <el-input v-model="ruleForm.name"></el-input>
+                <span style="color: #606266;font-size: 12px;">不得超过68字</span>
             </el-form-item>
 
-            <el-form-item label="商品概要" prop="outline" style="width: 400px;">
+            <el-form-item label="商品概要" prop="outline" style="width: 800px;">
                 <el-input v-model="ruleForm.outline"></el-input>
             </el-form-item>
 
@@ -49,7 +50,7 @@
                 <el-upload list-type="picture" class="upload-demo" :action='$imgUploadApi' name='file' :limit="5"
                            :on-success="imgUploaded" :on-remove="imgRemove">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">图片最多只能添加5张！！！</div>
+                    <div slot="tip" class="el-upload__tip">图片尺寸：690X460px，最多只能添加5张！！！</div>
                 </el-upload>
             </el-form-item>
 
