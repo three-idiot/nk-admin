@@ -177,7 +177,7 @@ export default {
       selectedLists: [],
       dialogFormVisible: false,
       dialogForm: {
-        agree: 0,
+        agree: 1,
         remark: ''
       }
     };
@@ -211,7 +211,7 @@ export default {
       this.dialogFormVisible = true;
     },
     handleAgreeConfirm (id) {
-      console.log(this.dialogForm);
+      // console.log(this.dialogForm);
       this.dialogFormVisible = false;
       changeAdsStatus({
         adIds: [this.clickId],

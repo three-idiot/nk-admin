@@ -185,7 +185,7 @@ export default {
       selectedLists: [],
       dialogFormVisible: false,
       dialogForm: {
-        agree: 0,
+        agree: 1,
         remark: ''
       }
     };
@@ -225,7 +225,7 @@ export default {
           _ids.push(item.id);
       });
       changeAdsStatus({
-        adIds: _ids.length ? _ids.join(',') : [this.clickId],
+        adIds: _ids.length ? _ids : [this.clickId],
         status: this.dialogForm.agree,
         remark: this.dialogForm.remark
       }).then((res) => {
