@@ -8,7 +8,8 @@
       </el-form-item>
       <!--资讯名称-->
       <el-form-item label="广告标题" prop="title" style="width: 312px;">
-        <el-input v-model="ruleForm.title"></el-input>
+        <el-input v-model="ruleForm.title" maxlength="90"></el-input>
+        <span style="color: #606266;font-size: 12px;">不得超过90字</span>
       </el-form-item>
       <!--资讯图片-->
       <el-form-item label="广告图片" prop="images">
@@ -29,6 +30,7 @@
           :before-upload="beforeAvatarUpload">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
+        <span style="color: #606266;font-size: 12px;">图片尺寸：690X460px</span>
       </el-form-item>
       <!-- 链接url -->
       <el-form-item label="链接URL地址" prop="url" style="width: 312px;">
