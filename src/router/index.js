@@ -163,27 +163,32 @@ export const asyncRouterMap = [
             {
                 path: 'list',
                 component: () => import('@/views/visa/list'),
-                meta: { title: '签证列表', roles: ['visa-list'] }
+                meta: { title: '签证列表', roles: ['visa-list'] },
+                name: 'visa-list'
             },
             {
                 path: 'add',
                 component: () => import('@/views/visa/add'),
-                meta: { title: '新增签证', roles: ['visa-add'] }
+                meta: { title: '新增签证', roles: ['visa-add'] },
+                name: 'visa-add'
             },
             {
                 path: 'detail',
                 component: () => import('@/views/visa/detail'),
-                hidden: true
+                hidden: true,
+                name: 'visa-detail'
             },
             {
                 path: 'ratio',
                 component: () => import('@/views/visa/ratio-change'),
-                hidden: true
+                hidden: true,
+                name: 'visa-ratio'
             },
             {
                 path: 'undercarriage',
                 component: () => import('@/views/visa/undercarriage'),
-                hidden: true
+                hidden: true,
+                name: 'visa-undercarriage'
             },
         ]
     },

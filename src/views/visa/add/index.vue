@@ -3,7 +3,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <!--商品名称-->
       <el-form-item label="商品名称" prop="title" style="width: 624px;">
-        <el-input v-model="ruleForm.title" maxlength="68"</el-input>
+        <el-input v-model="ruleForm.title" maxlength="68"></el-input>
         <span style="color: #606266;font-size: 12px;">不得超过68字</span>
       </el-form-item>
       <!--商品图片-->

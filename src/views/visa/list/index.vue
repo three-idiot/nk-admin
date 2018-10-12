@@ -179,13 +179,28 @@
         this.fetchData( finalQuery );
       },
       goDetail(id) {
-        window.location.href = '#/visa/detail?id=' + id;
+        this.$router.push({
+          name: 'visa-detail',
+          query: {
+              id: id
+          }
+        });
       },
       goRatio(id) {
-        window.location.href = '#/visa/ratio?id=' + id;
+        this.$router.push({
+          name: 'visa-ratio',
+          query: {
+              id: id
+          }
+        });
       },
       goUndercarriage(id) {
-        window.location.href = '#/visa/undercarriage?id=' + id;
+        this.$router.push({
+          name: 'visa-undercarriage',
+          query: {
+              id: id
+          }
+        });
       },
       shelf(id) {
         goodsfoulup( {goodId: id} ).then( res => {
